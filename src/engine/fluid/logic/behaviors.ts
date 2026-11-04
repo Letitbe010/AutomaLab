@@ -31,6 +31,8 @@ export interface ValveLogicState {
   position: number;
   /** Time (ms) the timed pilot has been pressurized. */
   timerMs: number;
+  /** Both operators signal at once on a bistable or 5/3 valve ("señales permanentes"). */
+  conflict?: boolean;
 }
 
 const MANUAL_LIKE: Operator[] = ['button', 'pedal', 'lever', 'roller', 'idleRoller', 'solenoid'];
@@ -79,6 +81,7 @@ export function valveBehavior(spec: ValveSpec): Behavior<ValveLogicState> {
       const l = operatorActive(spec, 'left', state, ctx);
       const r = operatorActive(spec, 'right', state, ctx);
       let position = state.position;
+      const conflict = l && r && !isReturnOnly(spec.right);
       if (isReturnOnly(spec.right)) {
         // Monostable: left operator against a return spring.
         position = l ? 0 : spec.rest;
@@ -90,7 +93,8 @@ export function valveBehavior(spec: ValveSpec): Behavior<ValveLogicState> {
         if (l && !r) position = 0;
         else if (r && !l) position = n - 1;
       }
-      return position === state.position ? state : { ...state, position };
+      if (position === state.position && conflict === (state.conflict === true)) return state;
+      return { ...state, position, conflict };
     },
 
     integrate(state, ctx, dtMs) {

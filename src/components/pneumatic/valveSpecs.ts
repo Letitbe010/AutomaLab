@@ -124,7 +124,7 @@ const LIMIT_PARAMS: ParamDef[] = [
 ];
 
 /** Mechanically actuated valves are signal elements ("S"); the rest are control valves ("V"). */
-// TODO(galdetu): labelling of limit valves: 1S1/1S2 (SPEC §4, §11) or a0/a1 (SPEC §8.8)?
+// Once bound to a cylinder the editor renames them a0/a1, b0/b1… (decided 2026-11-04, Creus 7.2).
 const prefixFor = (op: Operator) => (op === 'roller' || op === 'idleRoller' ? '1S' : '1V');
 
 function valve32(normal: 'nc' | 'no', op: Operator): ValveSpec {

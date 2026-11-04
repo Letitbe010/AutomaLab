@@ -176,6 +176,17 @@ export function Canvas() {
     [project],
   );
 
+  // Lines ending on a pilot port are pilot lines (drawn dashed).
+  const pilotWires = useMemo(() => {
+    const isPilot = ([compId, portId]: PortRef) => {
+      const comp = project.components.find((c) => c.id === compId);
+      return getComponentDef(comp?.type ?? '')?.ports.find((p) => p.id === portId)?.pilot === true;
+    };
+    return new Set(
+      project.connections.filter((w) => isPilot(w.from) || isPilot(w.to)).map((w) => w.id),
+    );
+  }, [project]);
+
   // Limit-valve marks drawn at the cylinder end positions they detect.
   const limitMarks = useMemo(() => {
     const count = new Map<string, number>();
@@ -504,12 +515,13 @@ export function Canvas() {
             const pts = toPoints(poly);
             const state = sim?.portState(w.from[0], w.from[1]);
             const stateCls = state ? WIRE_STATE_CLASS[state] : '';
+            const pilotCls = pilotWires.has(w.id) ? styles.wirePilot : '';
             return (
               <g key={w.id} data-connection-id={w.id} data-state={state}>
                 <polyline points={pts} className={styles.wireHit} />
                 <polyline
                   points={pts}
-                  className={`${styles.wire} ${stateCls} ${selectedWires.has(w.id) ? styles.wireSelected : ''}`}
+                  className={`${styles.wire} ${stateCls} ${pilotCls} ${selectedWires.has(w.id) ? styles.wireSelected : ''}`}
                 />
               </g>
             );

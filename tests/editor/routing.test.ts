@@ -1,5 +1,5 @@
 import { nearestOnPolyline, routeWire, simplify } from '../../src/ui/editor/model/routing';
-import { suggestLabel } from '../../src/ui/editor/model/labels';
+import { isAutoLimitLabel, limitLabel, suggestLabel } from '../../src/ui/editor/model/labels';
 
 describe('routeWire', () => {
   it('keeps straight lines straight', () => {
@@ -76,5 +76,22 @@ describe('suggestLabel', () => {
 
   it('fills gaps', () => {
     expect(suggestLabel('1V', ['1V2'])).toBe('1V1');
+  });
+});
+
+describe('limit-valve labels (a0/a1)', () => {
+  it('derives a0/a1, b0/b1 from the cylinder label and end', () => {
+    expect(limitLabel('1A', '-')).toBe('a0');
+    expect(limitLabel('1A', '+')).toBe('a1');
+    expect(limitLabel('2A', '+')).toBe('b1');
+    expect(limitLabel('B', '-')).toBe('b0');
+    expect(limitLabel('cyl', '-')).toBeNull();
+  });
+
+  it('only replaces suggested or empty labels', () => {
+    expect(isAutoLimitLabel('1S3')).toBe(true);
+    expect(isAutoLimitLabel('a1')).toBe(true);
+    expect(isAutoLimitLabel('')).toBe(true);
+    expect(isAutoLimitLabel('Ate-sentsorea')).toBe(false);
   });
 });

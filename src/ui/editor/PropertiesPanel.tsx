@@ -5,6 +5,7 @@ import { getComponentDef } from '../../components/registry';
 import { componentHelp, componentName } from '../../components/text';
 import { t } from '../../i18n';
 import { deleteSelection, mirrorSelection, rotateSelection } from './actions';
+import { setParam } from './model/ops';
 import { useEditor } from './store';
 import styles from './Editor.module.css';
 
@@ -126,12 +127,7 @@ export function PropertiesPanel() {
                 value={comp.params[p.key] ?? p.default}
                 disabled={disabled}
                 cylinderLabels={cylinderLabels}
-                onCommit={(v) =>
-                  apply((d) => {
-                    const c = d.components.find((x) => x.id === comp.id);
-                    if (c) c.params[p.key] = v;
-                  })
-                }
+                onCommit={(v) => apply((d) => setParam(d, comp.id, p.key, v))}
               />
             </label>
           ))}

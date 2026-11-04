@@ -2,6 +2,19 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [liburuak] — 2026-11-04
+
+### Gehituta
+
+- `docs/liburuen-egiaztapena.md`: orain arte egindakoa eta 3. faserako planak Creus, Editex eta Paraninfo liburuekin alderatuta.
+- Simulazio-abisua: balbula biegonkor edo 5/3 batek bi aldeetako seinaleak aldi berean dituenean.
+
+### Aldatuta
+
+- Rodilloak zilindro bati lotzean, etiketa automatikoki a0/a1, b0/b1… (R4 eta R5 fitxategiak ere bai).
+- Pilotaje-lerroak marratuta; simulazioan ihesa urdin argiz eta meheago (marrarik gabe).
+- Ikurrak: palanka (zirkulua muturrean), pilotajea (laukia + triangelua), rodilloa (puntua erdian), rodillo abatigarria (beso artikulatua).
+
 ## [fase-2b] — 2026-11-04 (2. fasea osatuta)
 
 ### Gehituta

@@ -13,6 +13,7 @@ import {
   moveComponents,
   pasteItems,
   rotateComponents,
+  setParam,
   splitWire,
   wirePolyline,
 } from '../../src/ui/editor/model/ops';
@@ -163,5 +164,23 @@ describe('editor operations', () => {
       [110, 80],
     ]);
     expect(next.connections[1]).toMatchObject({ from: ['c4', '2'], to: ['c5', 'A'] });
+  });
+});
+
+describe('setParam on roller valves', () => {
+  it('renames a roller a0/a1 when it is bound, but keeps custom labels', () => {
+    const p = produce(createEmptyProject('t'), (d: Project) => {
+      addComponent(d, 'pn.cyl.double', 0, 0); // 1A
+      addComponent(d, 'pn.valve.3-2.roller-spring', 0, 100); // 1S1
+      addComponent(d, 'pn.valve.3-2.roller-spring', 0, 200); // 1S2
+    });
+    const next = produce(p, (d) => {
+      setParam(d, 'c2', 'cylinder', '1A');
+      setParam(d, 'c2', 'at', '-');
+      d.components[2]!.params.label = 'Atea';
+      setParam(d, 'c3', 'cylinder', '1A');
+    });
+    expect(next.components[1]!.params.label).toBe('a0');
+    expect(next.components[2]!.params.label).toBe('Atea');
   });
 });

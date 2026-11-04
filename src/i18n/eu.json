@@ -306,7 +306,8 @@
       "tag": "Simulazioa",
       "oscillation": "t = {t}: oszilazioa — balbulak ez dira egonkortzen (pilotaje-begizta bat?).",
       "supplyVented": "t = {t}: hornidura zuzenean atmosferara irekita dago ({ports}).",
-      "unsupported": "{name}: oraindik ez da simulatzen."
+      "unsupported": "{name}: oraindik ez da simulatzen.",
+      "bothSignals": "t = {t}: {component} balbulak bi aldeetako seinaleak ditu aldi berean (seinale iraunkorra); aurreko posizioan geratzen da."
     }
   },
   "help": {

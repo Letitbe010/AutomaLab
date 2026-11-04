@@ -77,6 +77,7 @@ function makeValve(spec: ValveSpec): ComponentDef<ValveState> {
     ports.push({
       id: spec.leftPilotPort,
       kind: 'fluid',
+      pilot: true,
       x: leftPilotX / 10,
       y: leftYs[leftPilotIdx]! / 10,
     });
@@ -85,6 +86,7 @@ function makeValve(spec: ValveSpec): ComponentDef<ValveState> {
     ports.push({
       id: spec.rightPilotPort,
       kind: 'fluid',
+      pilot: true,
       x: rightPilotX / 10,
       y: rightYs[rightPilotIdx]! / 10,
     });
@@ -143,12 +145,12 @@ function makeValve(spec: ValveSpec): ComponentDef<ValveState> {
             );
           })}
           {/* Pilot lines stretch from the fixed port to the moving operator. */}
-          {timed && <TimerPilotLine x0={leftPilotX} x1={leftEdge - 6} y={leftYs[leftPilotIdx]!} />}
+          {timed && <TimerPilotLine x0={leftPilotX} x1={leftEdge - 10} y={leftYs[leftPilotIdx]!} />}
           {leftPilotIdx >= 0 && !timed && (
             <line
               x1={leftPilotX}
               y1={leftYs[leftPilotIdx]}
-              x2={leftEdge - 6}
+              x2={leftEdge - 10}
               y2={leftYs[leftPilotIdx]}
               strokeDasharray="4 3"
             />
@@ -157,7 +159,7 @@ function makeValve(spec: ValveSpec): ComponentDef<ValveState> {
             <line
               x1={rightPilotX}
               y1={rightYs[rightPilotIdx]}
-              x2={rightEdge + 6}
+              x2={rightEdge + 10}
               y2={rightYs[rightPilotIdx]}
               strokeDasharray="4 3"
             />

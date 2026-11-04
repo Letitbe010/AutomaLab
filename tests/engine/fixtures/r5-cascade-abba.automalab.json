@@ -59,7 +59,7 @@
       "rot": 0,
       "mirror": false,
       "params": {
-        "label": "1S1",
+        "label": "a0",
         "cylinder": "1A",
         "at": "-"
       }
@@ -72,7 +72,7 @@
       "rot": 0,
       "mirror": false,
       "params": {
-        "label": "1S2",
+        "label": "a1",
         "cylinder": "1A",
         "at": "+"
       }
@@ -85,7 +85,7 @@
       "rot": 0,
       "mirror": false,
       "params": {
-        "label": "2S1",
+        "label": "b0",
         "cylinder": "2A",
         "at": "-"
       }
@@ -98,7 +98,7 @@
       "rot": 0,
       "mirror": false,
       "params": {
-        "label": "2S2",
+        "label": "b1",
         "cylinder": "2A",
         "at": "+"
       }

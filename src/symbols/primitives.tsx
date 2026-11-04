@@ -109,13 +109,13 @@ export type OperatorKind =
 export const OPERATOR_WIDTH: Record<OperatorKind, number> = {
   spring: 22,
   springAdj: 22,
-  timedPilot: 6,
+  timedPilot: 10,
   button: 17,
   pedal: 17,
   lever: 16,
   roller: 18,
   idleRoller: 18,
-  pilot: 6,
+  pilot: 10,
   solenoid: 14,
 };
 
@@ -156,8 +156,8 @@ export function OperatorSymbol({ kind }: { kind: OperatorKind }) {
       return (
         <>
           <line x1={0} y1={0} x2={-8} y2={0} />
-          <line x1={-8} y1={0} x2={-15} y2={-9} />
-          <circle cx={-8} cy={0} r={1.6} fill={STROKE} />
+          <line x1={-8} y1={0} x2={-14} y2={-8} />
+          <circle cx={-15.2} cy={-9.6} r={2} />
         </>
       );
     case 'roller':
@@ -165,19 +165,29 @@ export function OperatorSymbol({ kind }: { kind: OperatorKind }) {
         <>
           <line x1={0} y1={0} x2={-10} y2={0} />
           <circle cx={-14} cy={0} r={4} />
+          <circle cx={-14} cy={0} r={1} fill={STROKE} />
         </>
       );
     case 'idleRoller':
+      // One-way roller: articulated arm with a hinge (Creus, app. 8.2).
       return (
         <>
           <line x1={0} y1={0} x2={-6} y2={0} />
-          <polyline points="-6,0 -8,-4 -10,0" />
-          <circle cx={-14} cy={0} r={4} />
+          <circle cx={-6} cy={0} r={1.5} />
+          <line x1={-7} y1={1} x2={-12} y2={6} />
+          <circle cx={-15} cy={9} r={4} />
+          <circle cx={-15} cy={9} r={1} fill={STROKE} />
         </>
       );
     case 'pilot':
     case 'timedPilot':
-      return <polygon points="0,0 -6,-4 -6,4" fill="var(--panel)" />;
+      // Pneumatic pilot: small box with a hollow triangle pointing at the valve.
+      return (
+        <>
+          <rect x={-10} y={-5} width={10} height={10} fill="var(--panel)" />
+          <polygon points="-2,0 -8,-3.5 -8,3.5" fill="var(--panel)" />
+        </>
+      );
     case 'solenoid':
       return (
         <>

@@ -13,3 +13,23 @@ export function suggestLabel(prefix: string, existing: Iterable<string>): string
   }
   for (let n = 1; ; n++) if (!used.has(`${prefix}${n}`)) return `${prefix}${n}`;
 }
+
+/**
+ * Limit-valve label from the cylinder it detects and the end position
+ * (Creus, 2.3 and 7.2): 1A at − → a0, 1A at + → a1, 2A → b0/b1; a plain "B" → b0/b1.
+ */
+export function limitLabel(cylinderLabel: string, at: string): string | null {
+  const n = /^(\d+)A$/.exec(cylinderLabel);
+  const letter = n
+    ? String.fromCharCode(96 + Number(n[1]))
+    : /^[A-Z]$/.test(cylinderLabel)
+      ? cylinderLabel.toLowerCase()
+      : null;
+  if (!letter || letter < 'a' || letter > 'z') return null;
+  return `${letter}${at === '-' ? 0 : 1}`;
+}
+
+/** Labels the editor may overwrite: empty, suggested ones (1S1) or previous a0-style ones. */
+export function isAutoLimitLabel(label: string): boolean {
+  return label === '' || /^\d+S\d+$/.test(label) || /^[a-z][01]$/.test(label);
+}

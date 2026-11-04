@@ -348,9 +348,15 @@
   stroke-width: 2.2;
 }
 
+/* Exhaust: light blue and thinner (dashes are reserved for pilot lines). */
 .wireExhaust {
   stroke: var(--sim-exhaust);
-  stroke-dasharray: 5 3;
+  stroke-width: 1.2;
+}
+
+/* Pilot (control) lines are dashed (ISO 1219). */
+.wirePilot {
+  stroke-dasharray: 6 3;
 }
 
 .wireBlocked {

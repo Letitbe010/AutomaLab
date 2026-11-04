@@ -4,9 +4,16 @@
  */
 import { defaultParams } from '../../../core/componentDef';
 import { portPosition } from '../../../core/geometry';
-import type { ComponentInstance, Connection, Point, PortRef, Project } from '../../../core/types';
+import type {
+  ComponentInstance,
+  Connection,
+  ParamValue,
+  Point,
+  PortRef,
+  Project,
+} from '../../../core/types';
 import { getComponentDef } from '../../../components/registry';
-import { suggestLabel } from './labels';
+import { isAutoLimitLabel, limitLabel, suggestLabel } from './labels';
 import { nearestOnPolyline, routeWire, snap, snapPoint } from './routing';
 
 export const JUNCTION_TYPE = 'fluid.junction';
@@ -226,4 +233,20 @@ export function pasteItems(project: Project, clip: Clipboard, dx: number, dy: nu
     });
   }
   return created;
+}
+
+/**
+ * Sets a parameter. Binding a roller valve to a cylinder (or changing its end
+ * position) renames it a0/a1, b0/b1… unless the user typed a custom label.
+ */
+export function setParam(project: Project, compId: string, key: string, value: ParamValue): void {
+  const comp = project.components.find((c) => c.id === compId);
+  if (!comp) return;
+  comp.params[key] = value;
+  const def = getComponentDef(comp.type);
+  const isLimit = def?.params.some((p) => p.type === 'cylinderRef');
+  if (!isLimit || (key !== 'cylinder' && key !== 'at')) return;
+  const current = typeof comp.params.label === 'string' ? comp.params.label : '';
+  const auto = limitLabel(String(comp.params.cylinder ?? ''), String(comp.params.at ?? '+'));
+  if (auto && isAutoLimitLabel(current)) comp.params.label = auto;
 }

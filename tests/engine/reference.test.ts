@@ -106,3 +106,16 @@ describe('R3: AND and OR valves (truth tables)', () => {
     expect(sim.portState('o1', '2')).toBe('EXHAUST');
   });
 });
+
+describe('both signals on a bistable valve', () => {
+  it('is reported once while the conflict lasts', () => {
+    const sim = simulate(loadFixture('r2-double-bistable.automalab.json'));
+    sim.press('b2');
+    sim.press('b1');
+    sim.run(20);
+    sim.release('b1');
+    sim.press('b1');
+    const both = sim.warnings.filter((w) => w.code === 'bothSignals');
+    expect(both.map((w) => w.code === 'bothSignals' && w.componentId)).toEqual(['v1', 'v1']);
+  });
+});

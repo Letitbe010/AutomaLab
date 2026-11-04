@@ -63,7 +63,9 @@ export type BehaviorLookup = (type: string) => Behavior | undefined;
 export type SimWarning =
   | { code: 'oscillation'; timeMs: number }
   | { code: 'supplyVented'; timeMs: number; ports: string[] }
-  | { code: 'unsupported'; type: string; componentIds: string[] };
+  | { code: 'unsupported'; type: string; componentIds: string[] }
+  /** Both operators of a bistable or 5/3 valve are signalled at the same time. */
+  | { code: 'bothSignals'; timeMs: number; componentId: string };
 
 export interface SimEvent {
   timeMs: number;

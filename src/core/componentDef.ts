@@ -9,6 +9,8 @@ export interface PortDef {
   y: number;
   /** Exhaust port that vents to atmosphere when left unconnected (no "free port" warning). */
   vent?: boolean;
+  /** Pilot (control) port: lines attached to it are drawn dashed (ISO 1219, Creus app. 8.2). */
+  pilot?: boolean;
 }
 
 interface ParamDefBase {

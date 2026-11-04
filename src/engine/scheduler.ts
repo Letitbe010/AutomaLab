@@ -72,6 +72,7 @@ export class Simulation {
   private prop: Propagation = { feed: new Map(), vent: new Map() };
   private states = new Map<string, NodeState>();
   private oscillating = false;
+  private readonly conflicts = new Set<string>();
   private readonly limits: LimitBinding[];
 
   constructor(project: Project, options: SimulationOptions) {
@@ -183,6 +184,21 @@ export class Simulation {
     }
     this.oscillating = !stable;
     this.checkSupplyVented();
+    this.checkConflicts();
+  }
+
+  /** Reports each onset of simultaneous opposite signals on a valve (SPEC §7.3). */
+  private checkConflicts(): void {
+    for (const c of this.comps) {
+      const id = c.instance.id;
+      const conflict = (c.state as { conflict?: boolean } | null)?.conflict === true;
+      if (conflict && !this.conflicts.has(id)) {
+        this.conflicts.add(id);
+        this.warnings.push({ code: 'bothSignals', timeMs: this.timeMs, componentId: id });
+      } else if (!conflict) {
+        this.conflicts.delete(id);
+      }
+    }
   }
 
   private checkSupplyVented(): void {

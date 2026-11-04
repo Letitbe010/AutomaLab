@@ -27,6 +27,14 @@ function simWarningText(w: SimWarning, project: Project): string {
         t: formatSimTime(w.timeMs),
         ports: w.ports.map((k) => portName(project, k)).join(', '),
       });
+    case 'bothSignals': {
+      const c = project.components.find((k) => k.id === w.componentId);
+      const label =
+        typeof c?.params.label === 'string' && c.params.label !== ''
+          ? c.params.label
+          : w.componentId;
+      return t('sim.warning.bothSignals', { t: formatSimTime(w.timeMs), component: label });
+    }
     case 'unsupported': {
       const def = getComponentDef(w.type);
       return t('sim.warning.unsupported', { name: def ? componentName(def) : w.type });
