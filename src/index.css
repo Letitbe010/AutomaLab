@@ -1,0 +1,25 @@
+:root {
+  --color-bg: #f7f8fa;
+  --color-fg: #1d232b;
+  --color-muted: #5b6573;
+  --color-header-bg: #1f3a5f;
+  --color-header-fg: #ffffff;
+  --color-header-hover: rgb(255 255 255 / 0.1);
+  --color-accent: #7cc4ff;
+  --color-focus: #ffd166;
+
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  color: var(--color-fg);
+  background: var(--color-bg);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}

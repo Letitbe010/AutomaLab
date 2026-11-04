@@ -1,0 +1,62 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1rem;
+  background: var(--color-header-bg);
+  color: var(--color-header-fg);
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menuItem {
+  padding: 0.9rem 1rem;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.menuItem:hover {
+  background: var(--color-header-hover);
+}
+
+.menuItem:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -2px;
+}
+
+/* Active state uses an underline and bold text, not colour alone. */
+.menuItem[aria-current='page'] {
+  border-bottom-color: var(--color-accent);
+  font-weight: 700;
+}
+
+.main {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.empty {
+  color: var(--color-muted);
+}

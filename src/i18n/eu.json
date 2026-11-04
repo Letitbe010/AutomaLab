@@ -1,0 +1,17 @@
+{
+  "app": {
+    "name": "AutomaLab",
+    "tagline": "Automatismoak ikasi eta simulatu"
+  },
+  "menu": {
+    "label": "Menu nagusia",
+    "editor": "Editorea",
+    "templates": "Txantiloiak",
+    "exercises": "Ariketak",
+    "theory": "Teoria",
+    "progress": "Nire aurrerapena"
+  },
+  "section": {
+    "empty": "Atal hau oraindik hutsik dago. Hurrengo faseetan garatuko da."
+  }
+}
