@@ -2,7 +2,13 @@
 
 Automatismoak (pneumatika, elektropneumatika, hidraulika eta PLC) ikasi eta simulatzeko web-aplikazioa. Espezifikazioa: [SPEC.md](SPEC.md).
 
-## Nola abiarazi
+## Erabili
+
+**Webean:** <https://letitbe010.github.io/AutomaLab/> — ez da ezer instalatu behar. `main` adarrera egindako push bakoitzean automatikoki eguneratzen da (GitHub Actions).
+
+Zure proiektuak zure nabigatzailean gordetzen dira (IndexedDB); ez da ezer zerbitzarira igotzen. Helbide bakoitzak bere datuak ditu: localhost-etik webera pasatzeko, erabili «Proiektuak → Esportatu dena» eta «Inportatu dena».
+
+## Nola abiarazi ordenagailuan (garapena)
 
 **Klik bikoitza `AutomaLab.cmd` fitxategian.** Leiho beltz bat irekiko da (zerbitzaria), eta nabigatzailea bere kabuz <http://localhost:5173> helbidean. Utzi leiho beltza irekita aplikazioa erabiltzen duzun bitartean; ixtean, aplikazioa gelditzen da.
 
