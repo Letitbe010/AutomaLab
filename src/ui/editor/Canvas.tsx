@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type PointerEvent, type WheelEven
 import { getComponentDef } from '../../components/registry';
 import { GRID, portPosition, svgTransform, transformLocal } from '../../core/geometry';
 import type { ComponentInstance, Point, PortRef } from '../../core/types';
+import { findLimitBindings } from '../../engine/coupling/mechanical';
 import type { NodeState } from '../../engine/types';
 import { t } from '../../i18n';
 import { HelpCard } from '../help/HelpCard';
@@ -174,6 +175,33 @@ export function Canvas() {
     () => new Map(project.connections.map((w) => [w.id, wirePolyline(project, w)])),
     [project],
   );
+
+  // Limit-valve marks drawn at the cylinder end positions they detect.
+  const limitMarks = useMemo(() => {
+    const count = new Map<string, number>();
+    return findLimitBindings(project.components).flatMap((b) => {
+      const cyl = project.components.find((c) => c.id === b.cylinderId)!;
+      const valve = project.components.find((c) => c.id === b.valveId)!;
+      const at = getComponentDef(cyl.type)?.limitMarks?.[b.at];
+      if (!at) return [];
+      const key = `${b.cylinderId}${b.at}`;
+      const n = count.get(key) ?? 0;
+      count.set(key, n + 1);
+      const toWorld = ([x, y]: Point): Point => {
+        const [dx, dy] = transformLocal([x, y], cyl.rot, cyl.mirror);
+        return [cyl.x + dx, cyl.y + dy];
+      };
+      return [
+        {
+          valveId: b.valveId,
+          label: typeof valve.params.label === 'string' ? valve.params.label : valve.id,
+          base: toWorld([at[0], at[1]]),
+          tip: toWorld([at[0], at[1] - 18]),
+          text: toWorld([at[0], at[1] - 22 - n * 9]),
+        },
+      ];
+    });
+  }, [project.components]);
 
   const connectedPorts = useMemo(
     () => new Set(project.connections.flatMap((w) => [w.from.join('|'), w.to.join('|')])),
@@ -498,6 +526,28 @@ export function Canvas() {
               readout={gaugeReadout(c)}
             />
           ))}
+
+          {limitMarks.map((m) => {
+            const on = sim?.isMechanicallyActuated(m.valveId) === true;
+            return (
+              <g key={m.valveId} data-limit-mark={m.valveId} data-on={on}>
+                <line
+                  x1={m.base[0]}
+                  y1={m.base[1]}
+                  x2={m.tip[0]}
+                  y2={m.tip[1]}
+                  className={on ? styles.limitMarkOn : styles.limitMark}
+                />
+                <text
+                  x={m.text[0]}
+                  y={m.text[1]}
+                  className={`${styles.limitLabel} ${on ? styles.limitLabelOn : ''}`}
+                >
+                  {m.label}
+                </text>
+              </g>
+            );
+          })}
 
           {mode === 'edit' &&
             project.components.flatMap((c) => {

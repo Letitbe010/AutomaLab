@@ -231,6 +231,7 @@ export const cylinderCushioned: ComponentDef<CylinderState> = {
   helpKey: 'comp.cylCushion.help',
   labelPrefix: '1A',
   bounds: [0, -0.5, 18, 4.5],
+  limitMarks: { '-': [110, 12], '+': [156, 12] },
   labelAt: [0, -0.8],
   ports: [
     { id: 'A', kind: 'fluid', x: 1, y: 4 },
@@ -270,6 +271,7 @@ export const cylinderDoubleRod: ComponentDef<CylinderState> = {
   helpKey: 'comp.cylDoubleRod.help',
   labelPrefix: '1A',
   bounds: [-8, -0.5, 26, 4.5],
+  limitMarks: { '-': [116, 12], '+': [180, 12] },
   labelAt: [0, -0.8],
   ports: [
     { id: 'A', kind: 'fluid', x: 1, y: 4 },

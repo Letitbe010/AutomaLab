@@ -31,7 +31,12 @@
     "setBar": "Doitutako presioa",
     "switchBar": "Kommutazio-presioa",
     "delayS": "Atzerapena",
-    "strokeTimeS": "Ibilbide-denbora (1. maila)"
+    "strokeTimeS": "Ibilbide-denbora (1. maila)",
+    "cylinder": "Zilindroa",
+    "at": "Posizioa",
+    "atRetracted": "Sartuta (−)",
+    "atExtended": "Aterata (+)",
+    "unbound": "— lotu gabe —"
   },
   "group": {
     "supply": "Elikadura, prestaketa eta ihesa",
@@ -316,7 +321,9 @@
     "selfConnection": "{connection} lotura portu bera bere buruarekin lotzen du.",
     "duplicateConnection": "{connection} lotura bikoitza da ({other} loturaren berdina).",
     "freePort": "{component}: {port} portua ez dago konektatuta.",
-    "duplicateLabel": "{label} etiketa osagai bat baino gehiagotan dago."
+    "duplicateLabel": "{label} etiketa osagai bat baino gehiagotan dago.",
+    "limitUnbound": "{component}: rodilloa ez dago zilindro bati lotuta (Propietateak → Zilindroa).",
+    "limitUnknownCylinder": "{component}: ez dago «{cylinder}» etiketadun zilindrorik."
   },
   "symbols": {
     "title": "Ikurren galeria",

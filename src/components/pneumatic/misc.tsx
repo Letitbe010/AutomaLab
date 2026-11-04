@@ -60,6 +60,7 @@ export const cylinderDouble: ComponentDef<CylinderState> = {
   helpKey: 'comp.cylDouble.help',
   labelPrefix: '1A',
   bounds: [0, -0.5, 18, 4.5],
+  limitMarks: { '-': [110, 12], '+': [168, 12] },
   labelAt: [0, -0.8],
   ports: [
     { id: 'A', kind: 'fluid', x: 1, y: 4 },

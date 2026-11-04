@@ -87,3 +87,29 @@ test('help card appears when hovering a library item', async ({ page }) => {
     .hover();
   await expect(page.getByTestId('help-card')).toContainText('Lerroaren presioa erakusten du');
 });
+
+test('R5 cascade in the UI: one start runs A+ B+ B- A- and the rollers light up', async ({
+  page,
+}) => {
+  await importProject(page, 'r5-cascade-abba.automalab.json');
+  const canvas = page.getByTestId('canvas');
+  // Limit-valve marks are drawn on the cylinders.
+  await expect(canvas.locator('[data-limit-mark]')).toHaveCount(4);
+  await page.getByRole('button', { name: 'Simulatu' }).click();
+  // At rest both cylinders are retracted: a0 and b0 are pressed.
+  await expect(canvas.locator('[data-limit-mark="a0"]')).toHaveAttribute('data-on', 'true');
+  await expect(canvas.locator('[data-limit-mark="b0"]')).toHaveAttribute('data-on', 'true');
+
+  await page.getByRole('button', { name: 'Doitu' }).click();
+  await page.getByRole('combobox', { name: 'Abiadura' }).selectOption('5');
+  const start = (await canvas.locator('[data-component-id="st"] rect').first().boundingBox())!;
+  await page.mouse.move(start.x + 8, start.y + start.height / 2);
+  await page.mouse.down();
+  await page.waitForTimeout(100);
+  await page.mouse.up();
+
+  await page.getByRole('tab', { name: 'Espazio-fase diagrama' }).click();
+  const diagram = page.getByTestId('space-phase');
+  await expect(diagram).toContainText('1A-', { timeout: 5000 });
+  await expect(diagram).toHaveText(/1A\+\s*2A\+\s*2A-\s*1A-/);
+});

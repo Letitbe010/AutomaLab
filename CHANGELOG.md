@@ -2,6 +2,17 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [fase-2b] — 2026-11-04 (2. fasea osatuta)
+
+### Gehituta
+
+- Akoplamendu mekanikoa (SPEC §6.1, 6. urratsa): rodillo-balbulak zilindro baten posizioak eragiten ditu. Lotura etiketaren bidez, balbularen propietateetan: «Zilindroa» (1A…) eta «Posizioa» (sartuta − / aterata +).
+- Rodillo abatigarria: pultsu laburra amaierara iristean (azken % 5ean), norabide bakarrean.
+- Amaiera-markak zilindroen gainean, balbularen etiketarekin; simulazioan argitzen dira sakatuta daudenean.
+- Propietate-mota berriak: hautatzailea (enum) eta zilindro-erreferentzia.
+- Balidazio-abisuak: rodilloa lotu gabe / zilindro ezezaguna.
+- Erreferentzia-zirkuituak R4 (joan-etorri automatikoa) eta R5 (A+ B+ B- A- kaskada, 2 talde) eta haien testak; E2E: R5 UItik.
+
 ## [fase-2c] — 2026-11-04
 
 ### Gehituta

@@ -17,13 +17,39 @@ function ParamField({
   value,
   disabled,
   onCommit,
+  cylinderLabels,
 }: {
   def: ParamDef;
   value: ParamValue | undefined;
   disabled: boolean;
   onCommit: (v: ParamValue) => void;
+  /** Choices for cylinder references (labels of the project's cylinders). */
+  cylinderLabels: string[];
 }) {
   const [text, setText] = useState(String(value ?? ''));
+
+  if (def.type === 'enum' || def.type === 'cylinderRef') {
+    const current = typeof value === 'string' ? value : '';
+    const options =
+      def.type === 'enum'
+        ? def.options.map((o) => ({ value: o.value, label: t(o.labelKey) }))
+        : [
+            { value: '', label: t('param.unbound') },
+            // Keep a reference to a cylinder that no longer exists visible.
+            ...[...new Set([...cylinderLabels, ...(current ? [current] : [])])]
+              .sort()
+              .map((l) => ({ value: l, label: l })),
+          ];
+    return (
+      <select value={current} disabled={disabled} onChange={(e) => onCommit(e.target.value)}>
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    );
+  }
 
   if (def.type === 'boolean') {
     return (
@@ -77,6 +103,10 @@ export function PropertiesPanel() {
 
   const comps = selection.components;
   const wires = selection.connections;
+  const cylinderLabels = project.components
+    .filter((c) => getComponentDef(c.type)?.limitMarks)
+    .map((c) => c.params.label)
+    .filter((l): l is string => typeof l === 'string' && l !== '');
 
   let body;
   if (comps.length === 1 && wires.length === 0) {
@@ -93,8 +123,9 @@ export function PropertiesPanel() {
               <ParamField
                 key={`${comp.id}:${String(comp.params[p.key])}`}
                 def={p}
-                value={comp.params[p.key]}
+                value={comp.params[p.key] ?? p.default}
                 disabled={disabled}
+                cylinderLabels={cylinderLabels}
                 onCommit={(v) =>
                   apply((d) => {
                     const c = d.components.find((x) => x.id === comp.id);

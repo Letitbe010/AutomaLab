@@ -106,6 +106,23 @@ const OP_SLUG: Record<Operator, string> = {
   timedPilot: 'timed-pilot',
 };
 
+export const isMechanical = (op: Operator | undefined) => op === 'roller' || op === 'idleRoller';
+
+/** Roller valves: which cylinder (by label) and which end position actuates them. */
+const LIMIT_PARAMS: ParamDef[] = [
+  { key: 'cylinder', labelKey: 'param.cylinder', type: 'cylinderRef', default: '' },
+  {
+    key: 'at',
+    labelKey: 'param.at',
+    type: 'enum',
+    default: '+',
+    options: [
+      { value: '-', labelKey: 'param.atRetracted' },
+      { value: '+', labelKey: 'param.atExtended' },
+    ],
+  },
+];
+
 /** Mechanically actuated valves are signal elements ("S"); the rest are control valves ("V"). */
 // TODO(galdetu): labelling of limit valves: 1S1/1S2 (SPEC §4, §11) or a0/a1 (SPEC §8.8)?
 const prefixFor = (op: Operator) => (op === 'roller' || op === 'idleRoller' ? '1S' : '1V');
@@ -122,6 +139,7 @@ function valve32(normal: 'nc' | 'no', op: Operator): ValveSpec {
     left: [op],
     right: ['spring'],
     ...(op === 'pilot' ? { leftPilotPort: nc ? '12' : '10' } : {}),
+    ...(isMechanical(op) ? { extraParams: LIMIT_PARAMS } : {}),
     labelPrefix: prefixFor(op),
   };
 }
@@ -137,6 +155,7 @@ function valve52mono(op: Operator): ValveSpec {
     left: [op],
     right: ['spring'],
     ...(op === 'pilot' ? { leftPilotPort: '14' } : {}),
+    ...(isMechanical(op) ? { extraParams: LIMIT_PARAMS } : {}),
     labelPrefix: prefixFor(op),
   };
 }

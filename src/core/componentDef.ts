@@ -27,7 +27,14 @@ export type ParamDef =
     })
   | (ParamDefBase & { type: 'boolean'; default: boolean })
   | (ParamDefBase & { type: 'string'; default: string })
-  | (ParamDefBase & { type: 'string[]'; default: string[] });
+  | (ParamDefBase & { type: 'string[]'; default: string[] })
+  | (ParamDefBase & {
+      type: 'enum';
+      default: string;
+      options: { value: string; labelKey: string }[];
+    })
+  /** Label of a cylinder in the same project (mechanical coupling, SPEC §6.1 step 6). */
+  | (ParamDefBase & { type: 'cylinderRef'; default: string });
 
 export interface SymbolProps<S> {
   state: S;
@@ -61,6 +68,11 @@ export interface ComponentDef<S = unknown> {
   labelAt?: [number, number];
   /** Not shown in the library (e.g. wire junctions, created by the editor). */
   libraryHidden?: boolean;
+  /**
+   * Cylinders: where limit-valve marks are drawn (local pixels) for the
+   * retracted (−) and extended (+) end positions.
+   */
+  limitMarks?: { '-': [number, number]; '+': [number, number] };
   ports: PortDef[];
   params: ParamDef[];
   symbol: SymbolRenderer<S>;

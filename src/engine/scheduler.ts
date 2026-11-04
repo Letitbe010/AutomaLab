@@ -8,6 +8,7 @@
  */
 import { defaultParams, type DefLookup } from '../core/componentDef';
 import type { ComponentInstance, Params, Project } from '../core/types';
+import { findLimitBindings, limitActuated, type LimitBinding } from './coupling/mechanical';
 import { pneumaticBehavior } from './fluid/logic/behaviors';
 import {
   Nets,
@@ -48,9 +49,15 @@ interface SimComponent {
   params: Params;
   behavior: Behavior;
   state: unknown;
+  /** Manual / electrical actuation (user clicks, later solenoids). */
   input: ActuationInput;
+  /** Mechanical actuation (rollers pressed by a cylinder). */
+  mech: ActuationInput;
   ctx: LogicContext;
 }
+
+const positionOf = (c: SimComponent | undefined) =>
+  (c?.state as { position?: number } | undefined)?.position ?? 0;
 
 export class Simulation {
   timeMs = 0;
@@ -65,6 +72,7 @@ export class Simulation {
   private prop: Propagation = { feed: new Map(), vent: new Map() };
   private states = new Map<string, NodeState>();
   private oscillating = false;
+  private readonly limits: LimitBinding[];
 
   constructor(project: Project, options: SimulationOptions) {
     const getBehavior = options.getBehavior ?? pneumaticBehavior;
@@ -95,6 +103,7 @@ export class Simulation {
         behavior,
         state: behavior.init(params),
         input: {},
+        mech: {},
         ctx: undefined as unknown as LogicContext,
       };
       comp.ctx = this.makeContext(comp, supplyBar);
@@ -104,7 +113,21 @@ export class Simulation {
     for (const [type, componentIds] of unsupported) {
       this.warnings.push({ code: 'unsupported', type, componentIds });
     }
+    this.limits = findLimitBindings(project.components).filter(
+      (b) => this.byId.has(b.valveId) && this.byId.has(b.cylinderId),
+    );
+    // Rollers already pressed at the start (e.g. a0 with the cylinder retracted).
+    this.applyCoupling(new Map());
     this.solve();
+  }
+
+  /** Step 6: rollers follow the cylinder positions. `previous` holds positions before motion. */
+  private applyCoupling(previous: Map<string, number>): void {
+    for (const b of this.limits) {
+      const position = positionOf(this.byId.get(b.cylinderId));
+      const before = previous.get(b.cylinderId) ?? position;
+      this.byId.get(b.valveId)!.mech.left = limitActuated(b, position, before);
+    }
   }
 
   private makeContext(comp: SimComponent, supplyBar: number): LogicContext {
@@ -117,7 +140,10 @@ export class Simulation {
       vent: (p) => this.prop.vent.get(net(p)) ?? 0,
       connected: (p) => this.connected.has(portKey(id, p)),
       get input() {
-        return comp.input;
+        return {
+          left: comp.input.left === true || comp.mech.left === true,
+          right: comp.input.right === true || comp.mech.right === true,
+        };
       },
       supplyBar,
     };
@@ -180,6 +206,9 @@ export class Simulation {
    * and the fixed point is solved once afterwards.
    */
   step(): void {
+    const previous = new Map(
+      this.limits.map((b) => [b.cylinderId, positionOf(this.byId.get(b.cylinderId))]),
+    );
     for (const c of this.comps) {
       if (!c.behavior.integrate) continue;
       const r = c.behavior.integrate(c.state, c.ctx, this.dtMs);
@@ -189,8 +218,14 @@ export class Simulation {
       }
     }
     this.timeMs += this.dtMs;
-    // Re-solve so states reflect the new positions and timers at this instant.
+    this.applyCoupling(previous);
+    // Re-solve so states reflect the new positions, rollers and timers at this instant.
     this.solve();
+  }
+
+  /** Whether a roller valve is currently pressed by its cylinder. */
+  isMechanicallyActuated(componentId: string): boolean {
+    return this.byId.get(componentId)?.mech.left === true;
   }
 
   /** Runs for a duration (ms). */

@@ -12,7 +12,9 @@ export type IssueCode =
   | 'selfConnection'
   | 'duplicateConnection'
   | 'freePort'
-  | 'duplicateLabel';
+  | 'duplicateLabel'
+  | 'limitUnbound'
+  | 'limitUnknownCylinder';
 
 export interface Issue {
   severity: Severity;
@@ -33,6 +35,8 @@ const SEVERITY: Record<IssueCode, Severity> = {
   duplicateConnection: 'warning',
   freePort: 'warning',
   duplicateLabel: 'warning',
+  limitUnbound: 'warning',
+  limitUnknownCylinder: 'warning',
 };
 
 function issue(
@@ -139,6 +143,27 @@ export function validateProject(project: Project, getDef: DefLookup): Issue[] {
   }
   for (const [label, ids] of labels) {
     if (ids.length > 1) issues.push(issue('duplicateLabel', { label }, ids));
+  }
+
+  // Limit valves must name an existing cylinder (mechanical coupling by label).
+  const cylinderLabels = new Set(
+    project.components
+      .filter((c) => getDef(c.type)?.limitMarks)
+      .map((c) => c.params.label)
+      .filter((l): l is string => typeof l === 'string' && l !== ''),
+  );
+  for (const c of project.components) {
+    for (const p of getDef(c.type)?.params ?? []) {
+      if (p.type !== 'cylinderRef') continue;
+      const ref = typeof c.params[p.key] === 'string' ? (c.params[p.key] as string) : '';
+      if (ref === '') {
+        issues.push(issue('limitUnbound', { component: displayName(c) }, [c.id]));
+      } else if (!cylinderLabels.has(ref)) {
+        issues.push(
+          issue('limitUnknownCylinder', { component: displayName(c), cylinder: ref }, [c.id]),
+        );
+      }
+    }
   }
 
   return issues;
