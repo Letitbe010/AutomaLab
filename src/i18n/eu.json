@@ -169,10 +169,10 @@
       "pos": "{letter} posizioa",
       "posRest": "{letter} posizioa (atsedena)",
       "help": {
-        "32nc": "Normalean itxia: atsedenean 1 blokeatuta dago eta 2 ihesera (3) doa. Ezkerreko eragingailuak ({left}) 1 → 2 irekitzen du; {right} aldeak atsedenera itzultzen du. Portuak: 1 elikadura, 2 lana, 3 ihesa.",
-        "32no": "Normalean irekia: atsedenean 1 → 2 irekita dago. Ezkerreko eragingailuak ({left}) 1 blokeatzen du eta 2 ihesera (3) bidaltzen du. Portuak: 1 elikadura, 2 lana, 3 ihesa.",
         "52": "Bi posizio: 1 → 2 (4 → 5 ihesera) edo 1 → 4 (2 → 3 ihesera). Ezkerreko eragingailuak ({left}) 1 → 4 konektatzen du; eskuinekoak ({right}) 1 → 2. Monoegonkorrak malgukiaz itzultzen dira; biegonkorrek azken posizioa mantentzen dute. Portuak: 1 elikadura, 2 eta 4 lana, 3 eta 5 ihesa.",
-        "53": "Hiru posizio, malgukiz zentratua: atsedenean erdiko posizioa ({variant}). Ezkerreko eragingailuak ({left}) 1 → 4 konektatzen du; eskuinekoak 1 → 2. Portuak: 1 elikadura, 2 eta 4 lana, 3 eta 5 ihesa."
+        "53": "Hiru posizio, malgukiz zentratua: atsedenean erdiko posizioa ({variant}). Ezkerreko eragingailuak ({left}) 1 → 4 konektatzen du; eskuinekoak 1 → 2. Portuak: 1 elikadura, 2 eta 4 lana, 3 eta 5 ihesa.",
+        "32nc": "Normalean itxia: atsedenean 1 blokeatuta dago eta 2 ihesera (3) doa. Ezkerreko eragingailuak ({left}) 1 → 2 irekitzen du; {right} aldeak atsedenera itzultzen du. Portuak: 1 elikadura, 2 lana, 3 ihesa.",
+        "32no": "Normalean irekia: atsedenean 1 → 2 irekita dago. Ezkerreko eragingailuak ({left}) 1 blokeatzen du eta 2 ihesera (3) bidaltzen du. Portuak: 1 elikadura, 2 lana, 3 ihesa."
       }
     },
     "junction": {
@@ -332,5 +332,11 @@
     "ports": "Portuak",
     "rotations": "Biraketak eta ispilua",
     "back": "Itzuli aplikaziora"
+  },
+  "error": {
+    "title": "Zerbait gaizki joan da",
+    "text": "Aplikazioak errore bat izan du pantaila marraztean. Zure lana nabigatzailean gordeta dago (gordetze automatikoa).",
+    "reload": "Freskatu orria",
+    "hint": "Errorea errepikatzen bada, sakatu Ctrl+Shift+R. Garapenean: ziurtatu «npm run dev» martxan dagoela."
   }
 }
