@@ -10,6 +10,7 @@ import { STROKE, SymbolGroup } from '../../symbols/primitives';
 export const pneumaticSource: ComponentDef<null> = {
   type: 'pn.source',
   domain: 'pneumatic',
+  group: 'supply',
   nameKey: 'comp.source.name',
   helpKey: 'comp.source.help',
   labelPrefix: '0Z',

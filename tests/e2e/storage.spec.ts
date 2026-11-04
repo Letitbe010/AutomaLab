@@ -16,7 +16,7 @@ async function waitSaved(page: Page) {
 test('a drawn circuit survives closing and reopening the browser', async ({ page }) => {
   await page.goto('/');
   await addFromLibrary(page, 'Eragin bakuneko zilindroa');
-  await addFromLibrary(page, '3/2 balbula, pultsadorea eta malgukia');
+  await addFromLibrary(page, '3/2 balbula NI: pultsadorea / malgukia');
   const name = page.getByRole('textbox', { name: 'Proiektuaren izena' });
   await name.fill('Proba zirkuitua');
   await name.press('Enter');

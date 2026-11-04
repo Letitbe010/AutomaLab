@@ -2,6 +2,20 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [liburutegia-p1] — 2026-11-04 (2. fasearen aurretik, erabiltzaileak eskatuta)
+
+### Gehituta
+
+- SPEC §5.1eko P1 osagai pneumatiko guztiak liburutegian (33), ikur, portu, propietate eta laguntza-testuarekin. **Simulaziorik gabe oraindik** (2. fasea).
+  - Elikadura: aire-iturria, ihesa. Zilindroak: eragin bakunekoa eta bikoitzekoa.
+  - 3/2 balbulak (NI: pultsadorea, pedala, palanka, rodilloa, rodillo abatigarria, pilotajea, solenoidea; NA: pultsadorea, pilotajea).
+  - 5/2 balbulak (monoegonkorrak: pultsadorea, palanka, rodilloa, pilotajea, solenoidea; biegonkorrak: pilotajea, solenoidea).
+  - 5/3 balbulak (zentro itxia / ihesera / presioan × pilotajea / solenoidea).
+  - Antzezpen-balbula, emari-erregulagailu bakuna, OR, AND, manometroa.
+- Balbula-fabrika modularra: bide-taulak datu hutsak dira (`valveSpecs.ts`, Reactik gabe), motorrak 2a-n berrerabiltzeko.
+- Liburutegia azpi-taldeetan (tolesgarriak) eta izen/laguntza-testu dinamikoak.
+- Testak: 247 unitate-test (balbula bakoitzaren posizio guztiek portu guztiak erabiltzen dituztela barne).
+
 ## [fase-1c] — 2026-11-04 (1. fasea osatuta)
 
 ### Gehituta

@@ -26,18 +26,85 @@
     "pressureBar": "Presioa",
     "boreMm": "Enboloaren diametroa",
     "rodMm": "Zurtoinaren diametroa",
-    "strokeMm": "Ibilbidea"
+    "strokeMm": "Ibilbidea",
+    "speedFactor": "Abiadura-faktorea"
+  },
+  "group": {
+    "supply": "Elikadura eta ihesa",
+    "actuators": "Zilindroak",
+    "valves32": "3/2 balbulak",
+    "valves52": "5/2 balbulak",
+    "valves53": "5/3 balbulak",
+    "logic": "Balbula logikoak eta erregulazioa",
+    "measure": "Neurgailuak"
   },
   "comp": {
     "source": {
       "name": "Aire-iturria",
       "help": "Aire konprimitua ematen du doitutako presioan. 1 portua: irteera."
     },
-    "valve32ButtonSpring": {
-      "name": "3/2 balbula, pultsadorea eta malgukia",
-      "help": "Atsedenean itxita (NI). Pultsadorea sakatzean 1 → 2 irekitzen da; askatzean, malgukiak itzultzen du eta 2 → 3 ihesera doa.",
-      "rest": "Atsedenean",
-      "actuated": "Eragindakoa"
+    "exhaust": {
+      "name": "Ihesa (atmosferara)",
+      "help": "Airea zuzenean atmosferara askatzen du. 1 portua: sarrera."
+    },
+    "gauge": {
+      "name": "Manometroa",
+      "help": "Lerroaren presioa erakusten du. 1 portua: lerroari lotzeko."
+    },
+    "cylDouble": {
+      "name": "Eragin bikoitzeko zilindroa",
+      "help": "Airea A portutik sartzean zurtoina ateratzen da; B portutik sartzean, sartu egiten da. Bitartean, beste portuak ihesera egon behar du."
+    },
+    "check": {
+      "name": "Antzezpen-balbula",
+      "help": "Airea norabide bakarrean uzten du pasatzen: 1 → 2 libre, 2 → 1 blokeatuta."
+    },
+    "flowOneWay": {
+      "name": "Emari-erregulagailu bakuna",
+      "help": "1 → 2 norabidean emaria murrizten du (abiadura erregulatzeko); 2 → 1 libre pasatzen da, antzezpen-balbulatik."
+    },
+    "or": {
+      "name": "Balbula hautatzailea (OR)",
+      "help": "X edo Y sarreretako batean presioa badago, 2 irteeran presioa dago."
+    },
+    "and": {
+      "name": "Bi presioko balbula (AND)",
+      "help": "X eta Y sarreretan aldi berean presioa dagoenean bakarrik dago presioa 2 irteeran."
+    },
+    "op": {
+      "spring": "malgukia",
+      "button": "pultsadorea",
+      "pedal": "pedala",
+      "lever": "palanka",
+      "roller": "rodilloa",
+      "idleRoller": "rodillo abatigarria",
+      "pilot": "pilotaje pneumatikoa",
+      "solenoid": "solenoidea"
+    },
+    "valve": {
+      "name": "{ways} balbula {variant}: {left} / {right}",
+      "ways": {
+        "32": "3/2",
+        "52": "5/2",
+        "53": "5/3"
+      },
+      "nc": "NI",
+      "no": "NA",
+      "mono": "monoegonkorra",
+      "bi": "biegonkorra",
+      "centre": {
+        "closed": "zentro itxia",
+        "exhaust": "zentroa ihesera",
+        "pressure": "zentroa presioan"
+      },
+      "pos": "{letter} posizioa",
+      "posRest": "{letter} posizioa (atsedena)",
+      "help": {
+        "32nc": "Normalean itxia: atsedenean 1 blokeatuta dago eta 2 ihesera (3) doa. Ezkerreko eragingailuak ({left}) 1 → 2 irekitzen du; {right} aldeak atsedenera itzultzen du. Portuak: 1 elikadura, 2 lana, 3 ihesa.",
+        "32no": "Normalean irekia: atsedenean 1 → 2 irekita dago. Ezkerreko eragingailuak ({left}) 1 blokeatzen du eta 2 ihesera (3) bidaltzen du. Portuak: 1 elikadura, 2 lana, 3 ihesa.",
+        "52": "Bi posizio: 1 → 2 (4 → 5 ihesera) edo 1 → 4 (2 → 3 ihesera). Ezkerreko eragingailuak ({left}) 1 → 4 konektatzen du; eskuinekoak ({right}) 1 → 2. Monoegonkorrak malgukiaz itzultzen dira; biegonkorrek azken posizioa mantentzen dute. Portuak: 1 elikadura, 2 eta 4 lana, 3 eta 5 ihesa.",
+        "53": "Hiru posizio, malgukiz zentratua: atsedenean erdiko posizioa ({variant}). Ezkerreko eragingailuak ({left}) 1 → 4 konektatzen du; eskuinekoak 1 → 2. Portuak: 1 elikadura, 2 eta 4 lana, 3 eta 5 ihesa."
+      }
     },
     "junction": {
       "name": "T lotura"

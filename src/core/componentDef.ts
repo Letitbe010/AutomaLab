@@ -42,10 +42,14 @@ export type SymbolRenderer<S> = (props: SymbolProps<S>) => ReactNode;
 export interface ComponentDef<S = unknown> {
   type: string;
   domain: Domain;
+  /** Library sub-group within the domain (i18n key `group.<id>`). */
+  group: string;
   /** i18n key of the display name. */
   nameKey: string;
   /** i18n key of the short contextual help text (SPEC §7.4). */
   helpKey?: string;
+  /** Placeholders for nameKey/helpKey; each value is itself an i18n key (e.g. an operator name). */
+  textVars?: Record<string, string>;
   theoryRef?: string;
   /** Suggested label prefix (e.g. "1A", "1V", "0Z"); numbering is added by the editor. Empty = no label. */
   labelPrefix: string;
@@ -60,7 +64,7 @@ export interface ComponentDef<S = unknown> {
   symbol: SymbolRenderer<S>;
   initState(params: Params): S;
   /** Named example states for the symbol gallery (SPEC §9). */
-  previewStates?: { nameKey: string; state: S }[];
+  previewStates?: { nameKey: string; vars?: Record<string, string>; state: S }[];
 }
 
 export type DefLookup = (type: string) => ComponentDef<unknown> | undefined;

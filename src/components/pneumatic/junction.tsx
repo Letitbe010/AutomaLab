@@ -8,6 +8,7 @@ import { STROKE } from '../../symbols/primitives';
 export const fluidJunction: ComponentDef<null> = {
   type: 'fluid.junction',
   domain: 'pneumatic',
+  group: 'supply',
   nameKey: 'comp.junction.name',
   labelPrefix: '',
   bounds: [-0.5, -0.5, 1, 1],

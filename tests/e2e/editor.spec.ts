@@ -19,7 +19,7 @@ test('draw, connect, rotate, undo and redo in the editor', async ({ page }) => {
   await expect(canvas).toBeVisible();
 
   await addFromLibrary(page, 'Aire-iturria');
-  await addFromLibrary(page, '3/2 balbula, pultsadorea eta malgukia');
+  await addFromLibrary(page, '3/2 balbula NI: pultsadorea / malgukia');
   await expect(canvas.locator('[data-component-id]')).toHaveCount(2);
   // Labels are suggested automatically.
   await expect(canvas.getByText('0Z1')).toBeVisible();

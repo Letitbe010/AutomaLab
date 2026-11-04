@@ -3,6 +3,7 @@ import { defaultParams, type ComponentDef } from '../../core/componentDef';
 import { portPosition, svgTransform } from '../../core/geometry';
 import type { Rotation } from '../../core/types';
 import { COMPONENT_DEFS } from '../../components/registry';
+import { componentHelp, componentName } from '../../components/text';
 import { t } from '../../i18n';
 import styles from './SymbolGallery.module.css';
 
@@ -74,21 +75,21 @@ function PlacedSymbol({
 function GalleryCard({ def }: { def: ComponentDef<unknown> }) {
   const params = defaultParams(def);
   const states = def.previewStates ?? [{ nameKey: '', state: def.initState(params) }];
-  const name = t(def.nameKey);
+  const name = componentName(def);
   return (
     <article className={styles.card} data-testid={`symbol-${def.type}`}>
       <header className={styles.cardHead}>
         <h2>{name}</h2>
         <code>{def.type}</code>
       </header>
-      {def.helpKey && <p className={styles.help}>{t(def.helpKey)}</p>}
+      {def.helpKey && <p className={styles.help}>{componentHelp(def)}</p>}
       <div className={styles.row}>
-        {states.map((s) => (
-          <figure key={s.nameKey} className={styles.figure}>
+        {states.map((s, i) => (
+          <figure key={i} className={styles.figure}>
             <FitSvg label={name}>
               <PlacedSymbol def={def} state={s.state} />
             </FitSvg>
-            {s.nameKey && <figcaption>{t(s.nameKey)}</figcaption>}
+            {s.nameKey && <figcaption>{t(s.nameKey, s.vars)}</figcaption>}
           </figure>
         ))}
       </div>

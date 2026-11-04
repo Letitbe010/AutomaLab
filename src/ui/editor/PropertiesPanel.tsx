@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { ParamDef } from '../../core/componentDef';
 import type { ParamValue } from '../../core/types';
 import { getComponentDef } from '../../components/registry';
+import { componentHelp, componentName } from '../../components/text';
 import { t } from '../../i18n';
 import { deleteSelection, mirrorSelection, rotateSelection } from './actions';
 import { useEditor } from './store';
@@ -84,7 +85,7 @@ export function PropertiesPanel() {
     if (comp && def) {
       body = (
         <>
-          <div className={styles.propName}>{t(def.nameKey)}</div>
+          <div className={styles.propName}>{componentName(def)}</div>
           <code className={styles.propType}>{def.type}</code>
           {def.params.map((p) => (
             <label key={p.key} className={styles.field}>
@@ -107,7 +108,7 @@ export function PropertiesPanel() {
             {t('editor.props.rotation')}: {comp.rot}° · {t('editor.props.mirror')}:{' '}
             {comp.mirror ? t('editor.yes') : t('editor.no')}
           </div>
-          {def.helpKey && <p className={styles.helpText}>{t(def.helpKey)}</p>}
+          {def.helpKey && <p className={styles.helpText}>{componentHelp(def)}</p>}
         </>
       );
     }

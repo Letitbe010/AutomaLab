@@ -23,5 +23,10 @@ export default tseslint.config(
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
+  {
+    // Component definition modules export data objects, not React components.
+    files: ['src/components/**/*.tsx', 'src/symbols/**/*.tsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
   prettier,
 );

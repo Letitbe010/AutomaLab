@@ -21,6 +21,7 @@ const TRAVEL = 58;
 export const cylinderSingle: ComponentDef<CylinderState> = {
   type: 'pn.cyl.single',
   domain: 'pneumatic',
+  group: 'actuators',
   nameKey: 'comp.cylSingle.name',
   helpKey: 'comp.cylSingle.help',
   labelPrefix: '1A',

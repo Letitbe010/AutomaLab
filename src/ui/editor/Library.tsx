@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { ComponentDef } from '../../core/componentDef';
 import type { Domain } from '../../core/types';
 import { COMPONENT_DEFS } from '../../components/registry';
+import { componentHelp, componentName, GROUP_ORDER } from '../../components/text';
 import { t } from '../../i18n';
 import { addAtViewCenter } from './actions';
 import { DND_TYPE } from './Canvas';
@@ -27,12 +28,18 @@ function Thumb({ def }: { def: ComponentDef<unknown> }) {
   );
 }
 
+function groupRank(group: string): number {
+  const i = (GROUP_ORDER as readonly string[]).indexOf(group);
+  return i < 0 ? GROUP_ORDER.length : i;
+}
+
 export function Library() {
   const [query, setQuery] = useState('');
   const mode = useEditor((s) => s.mode);
   const q = query.trim().toLowerCase();
   const visible = COMPONENT_DEFS.filter(
-    (d) => !d.libraryHidden && (!q || t(d.nameKey).toLowerCase().includes(q) || d.type.includes(q)),
+    (d) =>
+      !d.libraryHidden && (!q || componentName(d).toLowerCase().includes(q) || d.type.includes(q)),
   );
 
   return (
@@ -49,31 +56,41 @@ export function Library() {
       {DOMAINS.map((domain) => {
         const items = visible.filter((d) => d.domain === domain);
         if (!items.length) return null;
+        const groups = [...new Set(items.map((d) => d.group))].sort(
+          (a, b) => groupRank(a) - groupRank(b),
+        );
         return (
           <section key={domain}>
             <div className={styles.groupTitle}>{t(`domain.${domain}`)}</div>
-            <ul className={styles.libList}>
-              {items.map((def) => (
-                <li key={def.type}>
-                  <button
-                    type="button"
-                    className={styles.libItem}
-                    draggable={mode === 'edit'}
-                    disabled={mode !== 'edit'}
-                    data-type={def.type}
-                    title={def.helpKey ? t(def.helpKey) : undefined}
-                    onDragStart={(e) => {
-                      e.dataTransfer.setData(DND_TYPE, def.type);
-                      e.dataTransfer.effectAllowed = 'copy';
-                    }}
-                    onClick={() => addAtViewCenter(def.type)}
-                  >
-                    <Thumb def={def} />
-                    <span>{t(def.nameKey)}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
+            {groups.map((group) => (
+              <details key={group} className={styles.libGroup} open>
+                <summary>{t(`group.${group}`)}</summary>
+                <ul className={styles.libList}>
+                  {items
+                    .filter((d) => d.group === group)
+                    .map((def) => (
+                      <li key={def.type}>
+                        <button
+                          type="button"
+                          className={styles.libItem}
+                          draggable={mode === 'edit'}
+                          disabled={mode !== 'edit'}
+                          data-type={def.type}
+                          title={componentHelp(def)}
+                          onDragStart={(e) => {
+                            e.dataTransfer.setData(DND_TYPE, def.type);
+                            e.dataTransfer.effectAllowed = 'copy';
+                          }}
+                          onClick={() => addAtViewCenter(def.type)}
+                        >
+                          <Thumb def={def} />
+                          <span>{componentName(def)}</span>
+                        </button>
+                      </li>
+                    ))}
+                </ul>
+              </details>
+            ))}
           </section>
         );
       })}
