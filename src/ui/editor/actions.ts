@@ -10,10 +10,31 @@ import {
   pasteItems,
   rotateComponents,
 } from './model/ops';
+import { validateProject } from '../../core/validation';
+import { useSim } from '../sim/simStore';
 import { useEditor } from './store';
 
 const s = () => useEditor.getState();
 const editable = () => s().mode === 'edit';
+
+/** Enters simulation mode; refused while the schematic has errors (SPEC §4 validation). */
+export function enterSim(): boolean {
+  const st = s();
+  const errors = validateProject(st.project, getComponentDef).filter((i) => i.severity === 'error');
+  if (errors.length) {
+    st.setNotice('editor.sim.hasErrors');
+    return false;
+  }
+  st.setMode('sim');
+  st.setNotice(null);
+  useSim.getState().start(st.project);
+  return true;
+}
+
+export function exitSim() {
+  useSim.getState().stop();
+  s().setMode('edit');
+}
 
 export function screenToWorld([sx, sy]: Point): Point {
   const { view } = s();

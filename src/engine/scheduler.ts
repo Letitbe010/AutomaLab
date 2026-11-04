@@ -174,9 +174,12 @@ export class Simulation {
     }
   }
 
-  /** Advances one time step. */
+  /**
+   * Advances one time step. The discrete state is already solved (by the
+   * constructor, the previous step or setInput), so only motion is integrated
+   * and the fixed point is solved once afterwards.
+   */
   step(): void {
-    this.solve();
     for (const c of this.comps) {
       if (!c.behavior.integrate) continue;
       const r = c.behavior.integrate(c.state, c.ctx, this.dtMs);
@@ -220,6 +223,20 @@ export class Simulation {
 
   release(componentId: string, side: 'left' | 'right' = 'left'): void {
     this.setInput(componentId, { [side]: false });
+  }
+
+  hasComponent(componentId: string): boolean {
+    return this.byId.has(componentId);
+  }
+
+  /** Current actuation of a component (copy). */
+  componentInput(componentId: string): ActuationInput {
+    return { ...(this.byId.get(componentId)?.input ?? {}) };
+  }
+
+  /** Simulated components with a position (cylinders and valves), in project order. */
+  componentIds(): string[] {
+    return this.comps.map((c) => c.instance.id);
   }
 
   portState(componentId: string, portId: string): NodeState {

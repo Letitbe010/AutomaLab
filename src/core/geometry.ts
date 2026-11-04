@@ -19,6 +19,27 @@ export function transformLocal([x, y]: Point, rot: Rotation, mirror: boolean): P
   }
 }
 
+/** Inverse of transformLocal: canvas offset (relative to the component origin) to local pixels. */
+export function inverseTransformLocal([x, y]: Point, rot: Rotation, mirror: boolean): Point {
+  let lx: number;
+  let ly: number;
+  switch (rot) {
+    case 0:
+      [lx, ly] = [x, y];
+      break;
+    case 90:
+      [lx, ly] = [y, -x];
+      break;
+    case 180:
+      [lx, ly] = [-x, -y];
+      break;
+    case 270:
+      [lx, ly] = [-y, x];
+      break;
+  }
+  return [mirror ? -lx : lx, ly];
+}
+
 /** Canvas position (pixels) of a port of a placed component. */
 export function portPosition(
   instance: Pick<ComponentInstance, 'x' | 'y' | 'rot' | 'mirror'>,

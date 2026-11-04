@@ -226,7 +226,9 @@
       "duplicate": "Bi portu horiek lotuta daude jada."
     },
     "wireHint": "Klik beste portu batean (edo hodi batean, T lotura bat sortzeko). Klik hutsunean: angelu-puntua. Esc: utzi.",
-    "simPending": "Simulazio modua: eskema blokeatuta. Simulazioa 2. fasean gehituko da.",
+    "sim": {
+      "hasErrors": "Ezin da simulatu: konpondu lehenik «Abisuak» paneleko erroreak."
+    },
     "yes": "bai",
     "no": "ez"
   },
@@ -278,6 +280,32 @@
       "invalidField": "Proiektuak eremu oker bat du: {path}.",
       "invalidProject": "Babeskopiako {n}. proiektua okerra da."
     }
+  },
+  "sim": {
+    "banner": "Simulazioa: eskema blokeatuta. Klik eta mantendu eragingailu manualetan (pultsadorea, palanka…).",
+    "play": "Abiarazi",
+    "pause": "Pausatu",
+    "step": "Urrats bat ({ms} ms)",
+    "reset": "Hasieratu",
+    "speed": "Abiadura",
+    "level": "Simulazio-maila",
+    "logic": "Logikoa",
+    "physics": "Fisikoa",
+    "physicsLater": "2. maila (fisikoa) 9. fasean",
+    "diagram": {
+      "title": "Espazio-fase diagrama",
+      "notRunning": "Abiarazi simulazioa diagrama ikusteko.",
+      "noCylinders": "Eskeman ez dago zilindrorik."
+    },
+    "warning": {
+      "tag": "Simulazioa",
+      "oscillation": "t = {t}: oszilazioa — balbulak ez dira egonkortzen (pilotaje-begizta bat?).",
+      "supplyVented": "t = {t}: hornidura zuzenean atmosferara irekita dago ({ports}).",
+      "unsupported": "{name}: oraindik ez da simulatzen."
+    }
+  },
+  "help": {
+    "ports": "Portuak"
   },
   "validation": {
     "duplicateId": "Identifikadore errepikatua: {id}.",

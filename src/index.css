@@ -34,6 +34,10 @@
 
   --sym-stroke: var(--ink);
   --port: var(--accent);
+  /* Simulation (SPEC §7.3): pressurized dark blue, exhaust light blue dashed. */
+  --sim-pressure: #1d5fb4;
+  --sim-exhaust: #7fb3e6;
+  --sim-blocked: var(--ink-dim);
 
   --radius: 14px;
   --mono: 'IBM Plex Mono', ui-monospace, monospace;

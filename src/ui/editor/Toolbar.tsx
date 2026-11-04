@@ -1,12 +1,19 @@
 import { t } from '../../i18n';
-import { deleteSelection, fitView, mirrorSelection, rotateSelection, zoomBy } from './actions';
 import { ProjectBar } from '../storage/ProjectBar';
+import { SimControls } from '../sim/SimControls';
+import {
+  deleteSelection,
+  enterSim,
+  exitSim,
+  fitView,
+  mirrorSelection,
+  rotateSelection,
+  zoomBy,
+} from './actions';
 import { useEditor } from './store';
 import styles from './Editor.module.css';
 
-export function Toolbar() {
-  const mode = useEditor((s) => s.mode);
-  const setMode = useEditor((s) => s.setMode);
+function EditTools() {
   const canUndo = useEditor((s) => s.past.length > 0);
   const canRedo = useEditor((s) => s.future.length > 0);
   const undo = useEditor((s) => s.undo);
@@ -15,6 +22,31 @@ export function Toolbar() {
   const hasSel = useEditor(
     (s) => s.selection.components.length + s.selection.connections.length > 0,
   );
+  const tool = (label: string, onClick: () => void, enabled: boolean, title: string) => (
+    <button
+      type="button"
+      className={styles.btn}
+      disabled={!enabled}
+      onClick={onClick}
+      title={title}
+    >
+      {label}
+    </button>
+  );
+  return (
+    <>
+      {tool(t('editor.tool.undo'), undo, canUndo, 'Ctrl+Z')}
+      {tool(t('editor.tool.redo'), redo, canRedo, 'Ctrl+Y')}
+      <span className={styles.sep} />
+      {tool(t('editor.tool.rotate'), rotateSelection, hasComps, 'R')}
+      {tool(t('editor.tool.mirror'), mirrorSelection, hasComps, 'M')}
+      {tool(t('editor.tool.delete'), deleteSelection, hasSel, 'Supr')}
+    </>
+  );
+}
+
+export function Toolbar() {
+  const mode = useEditor((s) => s.mode);
   const zoom = useEditor((s) => s.view.zoom);
   const edit = mode === 'edit';
 
@@ -23,60 +55,15 @@ export function Toolbar() {
       <ProjectBar />
       <span className={styles.sep} />
       <div className={styles.seg} role="group" aria-label={t('editor.mode.label')}>
-        <button type="button" aria-pressed={edit} onClick={() => setMode('edit')}>
+        <button type="button" aria-pressed={edit} onClick={() => !edit && exitSim()}>
           {t('editor.mode.edit')}
         </button>
-        <button type="button" aria-pressed={!edit} onClick={() => setMode('sim')}>
+        <button type="button" aria-pressed={!edit} onClick={() => edit && enterSim()}>
           {t('editor.mode.sim')}
         </button>
       </div>
       <span className={styles.sep} />
-      <button
-        type="button"
-        className={styles.btn}
-        disabled={!edit || !canUndo}
-        onClick={undo}
-        title="Ctrl+Z"
-      >
-        {t('editor.tool.undo')}
-      </button>
-      <button
-        type="button"
-        className={styles.btn}
-        disabled={!edit || !canRedo}
-        onClick={redo}
-        title="Ctrl+Y"
-      >
-        {t('editor.tool.redo')}
-      </button>
-      <span className={styles.sep} />
-      <button
-        type="button"
-        className={styles.btn}
-        disabled={!edit || !hasComps}
-        onClick={rotateSelection}
-        title="R"
-      >
-        {t('editor.tool.rotate')}
-      </button>
-      <button
-        type="button"
-        className={styles.btn}
-        disabled={!edit || !hasComps}
-        onClick={mirrorSelection}
-        title="M"
-      >
-        {t('editor.tool.mirror')}
-      </button>
-      <button
-        type="button"
-        className={styles.btn}
-        disabled={!edit || !hasSel}
-        onClick={deleteSelection}
-        title="Supr"
-      >
-        {t('editor.tool.delete')}
-      </button>
+      {edit ? <EditTools /> : <SimControls />}
       <span className={styles.spacer} />
       <button
         type="button"

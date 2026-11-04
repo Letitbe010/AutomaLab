@@ -21,9 +21,17 @@ export function useShortcuts() {
       const key = e.key.toLowerCase();
 
       if (key === 'escape') {
-        if (st.wireDraft) st.setWireDraft(null);
+        if (st.helpFor) st.setHelpFor(null);
+        else if (st.wireDraft) st.setWireDraft(null);
         else st.select({});
         st.setNotice(null);
+        return;
+      }
+      if (key === 'f1') {
+        // Help card for the selected component (SPEC §7.4).
+        e.preventDefault();
+        const id = st.selection.components[0] ?? null;
+        st.setHelpFor(st.helpFor === id ? null : id);
         return;
       }
       if (st.mode !== 'edit') return;

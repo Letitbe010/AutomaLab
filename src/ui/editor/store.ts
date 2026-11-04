@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { createEmptyProject } from '../../core/project';
 import type { Point, PortRef, Project } from '../../core/types';
 import { t } from '../../i18n';
+import { useSim } from '../sim/simStore';
 import type { Clipboard } from './model/ops';
 
 export const HISTORY_LIMIT = 100;
@@ -39,6 +40,9 @@ export interface EditorState {
   wireDraft: WireDraft | null;
   /** i18n key of a short status message (e.g. why a connection was refused). */
   notice: string | null;
+  /** Component whose help card is pinned open (F1). */
+  helpFor: string | null;
+  setHelpFor(id: string | null): void;
 
   /** Runs fn on a draft of the project. Records an undo step unless record is false. */
   apply<T>(fn: (draft: Project) => T, record?: boolean): T;
@@ -83,6 +87,11 @@ export const useEditor = create<EditorState>()((set, get) => ({
   pasteCount: 0,
   wireDraft: null,
   notice: null,
+  helpFor: null,
+
+  setHelpFor(id) {
+    set({ helpFor: id });
+  },
 
   apply(fn, record = true) {
     let result!: ReturnType<typeof fn>;
@@ -140,7 +149,17 @@ export const useEditor = create<EditorState>()((set, get) => ({
   },
 
   loadProject(project) {
-    set({ project, past: [], future: [], selection: EMPTY_SELECTION, wireDraft: null });
+    // A different project ends any running simulation.
+    useSim.getState().stop();
+    set({
+      project,
+      past: [],
+      future: [],
+      selection: EMPTY_SELECTION,
+      wireDraft: null,
+      mode: 'edit',
+      helpFor: null,
+    });
   },
 
   select(selection) {

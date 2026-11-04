@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { ComponentDef } from '../../core/componentDef';
 import type { Domain } from '../../core/types';
+import { HelpCard } from '../help/HelpCard';
+import { Thumb } from './Thumb';
 import { COMPONENT_DEFS } from '../../components/registry';
-import { componentHelp, componentName, GROUP_ORDER } from '../../components/text';
+import { componentName, GROUP_ORDER } from '../../components/text';
 import { t } from '../../i18n';
 import { addAtViewCenter } from './actions';
 import { DND_TYPE } from './Canvas';
@@ -10,23 +12,6 @@ import { useEditor } from './store';
 import styles from './Editor.module.css';
 
 const DOMAINS: Domain[] = ['pneumatic', 'hydraulic', 'electric', 'plc'];
-
-/** Small static preview of a symbol, fitted to its bounds. */
-function Thumb({ def }: { def: ComponentDef<unknown> }) {
-  const [bx, by, bw, bh] = def.bounds;
-  const pad = 0.6;
-  const Symbol = def.symbol;
-  const params = Object.fromEntries(def.params.map((p) => [p.key, p.default]));
-  return (
-    <svg
-      viewBox={`${(bx - pad) * 10} ${(by - pad) * 10} ${(bw + 2 * pad) * 10} ${(bh + 2 * pad) * 10}`}
-      className={styles.thumb}
-      aria-hidden="true"
-    >
-      <Symbol state={def.initState(params)} params={params} />
-    </svg>
-  );
-}
 
 function groupRank(group: string): number {
   const i = (GROUP_ORDER as readonly string[]).indexOf(group);
@@ -36,6 +21,18 @@ function groupRank(group: string): number {
 export function Library() {
   const [query, setQuery] = useState('');
   const mode = useEditor((s) => s.mode);
+  const [hover, setHover] = useState<{
+    def: ComponentDef<unknown>;
+    left: number;
+    top: number;
+    shown: boolean;
+  } | null>(null);
+
+  useEffect(() => {
+    if (!hover || hover.shown) return;
+    const id = setTimeout(() => setHover({ ...hover, shown: true }), 400);
+    return () => clearTimeout(id);
+  }, [hover]);
   const q = query.trim().toLowerCase();
   const visible = COMPONENT_DEFS.filter(
     (d) =>
@@ -76,14 +73,19 @@ export function Library() {
                           draggable={mode === 'edit'}
                           disabled={mode !== 'edit'}
                           data-type={def.type}
-                          title={componentHelp(def)}
+                          onMouseEnter={(e) => {
+                            const r = e.currentTarget.getBoundingClientRect();
+                            setHover({ def, left: r.right + 8, top: r.top, shown: false });
+                          }}
+                          onMouseLeave={() => setHover(null)}
                           onDragStart={(e) => {
+                            setHover(null);
                             e.dataTransfer.setData(DND_TYPE, def.type);
                             e.dataTransfer.effectAllowed = 'copy';
                           }}
                           onClick={() => addAtViewCenter(def.type)}
                         >
-                          <Thumb def={def} />
+                          <Thumb def={def} className={styles.thumb} />
                           <span>{componentName(def)}</span>
                         </button>
                       </li>
@@ -95,6 +97,17 @@ export function Library() {
         );
       })}
       {!visible.length && <p className={styles.muted}>{t('editor.noResults')}</p>}
+      {hover?.shown && (
+        <HelpCard
+          def={hover.def}
+          style={{
+            position: 'fixed',
+            left: hover.left,
+            top: Math.min(hover.top, window.innerHeight - 200),
+            pointerEvents: 'none',
+          }}
+        />
+      )}
     </aside>
   );
 }

@@ -61,9 +61,7 @@ test('simulation mode locks the schematic', async ({ page }) => {
   await page.goto('/');
   await addFromLibrary(page, 'Aire-iturria');
   await page.getByRole('button', { name: 'Simulatu' }).click();
-  await expect(
-    page.getByText('Simulazio modua: eskema blokeatuta.', { exact: false }),
-  ).toBeVisible();
+  await expect(page.getByText('Simulazioa: eskema blokeatuta.', { exact: false })).toBeVisible();
   await expect(page.locator('[data-port]')).toHaveCount(0);
   await expect(
     page

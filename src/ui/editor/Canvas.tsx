@@ -2,7 +2,11 @@ import { useEffect, useMemo, useRef, useState, type PointerEvent, type WheelEven
 import { getComponentDef } from '../../components/registry';
 import { GRID, portPosition, svgTransform, transformLocal } from '../../core/geometry';
 import type { ComponentInstance, Point, PortRef } from '../../core/types';
+import type { NodeState } from '../../engine/types';
 import { t } from '../../i18n';
+import { HelpCard } from '../help/HelpCard';
+import { clickSide, clickTarget } from '../sim/interaction';
+import { useSim } from '../sim/simStore';
 import { addAt, componentBox, screenToWorld, zoomBy } from './actions';
 import {
   connect,
@@ -24,7 +28,8 @@ type Gesture =
   | { kind: 'pan'; startClient: Point; startView: { x: number; y: number } }
   | { kind: 'drag'; startWorld: Point; applied: Point; ids: string[] }
   | { kind: 'marquee'; start: Point; current: Point; additive: boolean }
-  | { kind: 'bend'; wireId: string; index: number };
+  | { kind: 'bend'; wireId: string; index: number }
+  | { kind: 'press'; compId: string; side: 'left' | 'right' };
 
 const toPoints = (poly: Point[]) => poly.map((p) => p.join(',')).join(' ');
 
@@ -42,10 +47,18 @@ function ComponentView({
   comp,
   selected,
   mode,
+  simState,
+  clickable,
+  readout,
 }: {
   comp: ComponentInstance;
   selected: boolean;
   mode: 'edit' | 'sim';
+  /** State from the running simulation (valve position, piston position...). */
+  simState?: unknown;
+  clickable?: boolean;
+  /** Short text shown next to the symbol in simulation (gauge pressure). */
+  readout?: string | undefined;
 }) {
   const def = getComponentDef(comp.type);
   if (!def) return null;
@@ -54,8 +67,14 @@ function ComponentView({
   const label = typeof comp.params.label === 'string' ? comp.params.label : '';
   const [lx, ly] = def.labelAt ?? [bx, by];
   const [tx, ty] = transformLocal([lx * GRID, ly * GRID], comp.rot, comp.mirror);
+  const state = simState ?? def.initState(comp.params);
+  const position =
+    typeof (state as { position?: unknown } | null)?.position === 'number'
+      ? (state as { position: number }).position
+      : undefined;
+  const cls = mode === 'edit' ? styles.movable : clickable ? styles.clickable : undefined;
   return (
-    <g data-component-id={comp.id} className={mode === 'edit' ? styles.movable : undefined}>
+    <g data-component-id={comp.id} data-position={position} className={cls}>
       <g transform={svgTransform(comp)}>
         <rect
           x={bx * GRID}
@@ -64,16 +83,29 @@ function ComponentView({
           height={bh * GRID}
           className={selected ? styles.selectBox : styles.hitBox}
         />
-        <Symbol state={def.initState(comp.params)} params={comp.params} />
+        <Symbol state={state} params={comp.params} />
       </g>
       {label && (
         <text x={comp.x + tx} y={comp.y + ty - 3} className={styles.compLabel}>
           {label}
         </text>
       )}
+      {readout && (
+        <text x={comp.x + tx} y={comp.y + ty + 8} className={styles.readout}>
+          {readout}
+        </text>
+      )}
     </g>
   );
 }
+
+const WIRE_STATE_CLASS: Record<NodeState, string> = {
+  PRESSURE: styles.wirePressure!,
+  EXHAUST: styles.wireExhaust!,
+  BLOCKED: styles.wireBlocked!,
+};
+
+const HOVER_DELAY_MS = 600;
 
 export function Canvas() {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -85,6 +117,17 @@ export function Canvas() {
   const wireDraft = useEditor((s) => s.wireDraft);
   const [gesture, setGesture] = useState<Gesture | null>(null);
   const [spaceDown, setSpaceDown] = useState(false);
+  // Re-render on every simulation tick; the Simulation object itself is mutable.
+  useSim((s) => s.version);
+  const sim = mode === 'sim' ? useSim.getState().sim : null;
+  const [hover, setHover] = useState<{ compId: string; at: Point; shown: boolean } | null>(null);
+  const helpFor = useEditor((s) => s.helpFor);
+
+  useEffect(() => {
+    if (!hover || hover.shown) return;
+    const id = setTimeout(() => setHover({ ...hover, shown: true }), HOVER_DELAY_MS);
+    return () => clearTimeout(id);
+  }, [hover]);
 
   // Track canvas size for zoom-to-centre and fit.
   useEffect(() => {
@@ -171,15 +214,35 @@ export function Canvas() {
     const target = e.target;
     svgRef.current?.setPointerCapture(e.pointerId);
 
+    setHover(null);
+    const world = worldPoint(e);
+    const compId = closestData(target, 'data-component-id');
+
+    // Simulation: clicking a manual operator actuates it (held while pressed).
+    if (st.mode === 'sim' && e.button === 0 && !spaceDown && compId) {
+      const comp = st.project.components.find((c) => c.id === compId);
+      const targetOps = comp && clickTarget(comp.type);
+      if (comp && targetOps) {
+        const side = clickSide(comp, targetOps, world);
+        const simStore = useSim.getState();
+        if (targetOps.toggle) {
+          const closed = simStore.sim?.componentInput(compId)[side] === true;
+          simStore.setInput(compId, { [side]: !closed });
+        } else {
+          simStore.setInput(compId, { [side]: true });
+          setGesture({ kind: 'press', compId, side });
+        }
+        return;
+      }
+    }
+
     if (e.button === 1 || spaceDown || (st.mode === 'sim' && e.button === 0)) {
       setGesture({ kind: 'pan', startClient: [e.clientX, e.clientY], startView: { ...view } });
       return;
     }
     if (e.button !== 0) return;
-    const world = worldPoint(e);
     const portAttr = closestData(target, 'data-port');
     const wireId = closestData(target, 'data-connection-id');
-    const compId = closestData(target, 'data-component-id');
     const bend = closestData(target, 'data-bend');
 
     if (st.wireDraft) {
@@ -241,6 +304,15 @@ export function Canvas() {
     if (st.wireDraft) {
       st.setWireDraft({ ...st.wireDraft, cursor: snapPoint(worldPoint(e)) });
     }
+    if (!gesture && !st.wireDraft) {
+      // Contextual help after a short hover (SPEC §7.4).
+      const compId = closestData(e.target, 'data-component-id');
+      if (!compId) {
+        if (hover) setHover(null);
+      } else if (hover?.compId !== compId) {
+        setHover({ compId, at: localPoint(e), shown: false });
+      }
+    }
     if (!gesture) return;
     if (gesture.kind === 'pan') {
       st.setView({
@@ -267,6 +339,9 @@ export function Canvas() {
 
   function onPointerUp() {
     const st = useEditor.getState();
+    if (gesture?.kind === 'press') {
+      useSim.getState().setInput(gesture.compId, { [gesture.side]: false });
+    }
     if (gesture?.kind === 'drag' || gesture?.kind === 'bend') st.endGesture();
     if (gesture?.kind === 'marquee') {
       const x1 = Math.min(gesture.start[0], gesture.current[0]);
@@ -347,109 +422,154 @@ export function Canvas() {
           ? styles.locked
           : '';
 
+  const supplyBar = project.simulation.supplyPressureBar;
+  const gaugeReadout = (c: ComponentInstance) => {
+    if (!sim || c.type !== 'pn.gauge') return undefined;
+    const bar = sim.portState(c.id, '1') === 'PRESSURE' ? supplyBar : 0;
+    return `${bar.toLocaleString('eu')} bar`;
+  };
+
+  const hoverDef =
+    hover?.shown && !gesture
+      ? getComponentDef(project.components.find((c) => c.id === hover.compId)?.type ?? '')
+      : undefined;
+  const pinnedDef = helpFor
+    ? getComponentDef(project.components.find((c) => c.id === helpFor)?.type ?? '')
+    : undefined;
+
   return (
-    <svg
-      ref={svgRef}
-      className={`${styles.canvas} ${cursorClass}`}
-      data-testid="canvas"
-      data-mode={mode}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onDoubleClick={onDoubleClick}
-      onWheel={onWheel}
-      onDragOver={(e) => {
-        if (mode === 'edit') e.preventDefault();
-      }}
-      onDrop={onDrop}
-      onContextMenu={(e) => e.preventDefault()}
-      role="application"
-      aria-label={t('editor.canvas')}
-    >
-      <defs>
-        <pattern id="grid-minor" width={GRID} height={GRID} patternUnits="userSpaceOnUse">
-          <circle cx={0} cy={0} r={0.6} className={styles.gridDot} />
-        </pattern>
-        <pattern id="grid-major" width={GRID * 5} height={GRID * 5} patternUnits="userSpaceOnUse">
-          <rect width={GRID * 5} height={GRID * 5} fill="url(#grid-minor)" />
-          <path d={`M ${GRID * 5} 0 H 0 V ${GRID * 5}`} className={styles.gridLine} />
-        </pattern>
-      </defs>
-      <g transform={`translate(${view.x} ${view.y}) scale(${view.zoom})`}>
-        <rect x={wx} y={wy} width={ww} height={wh} fill="url(#grid-major)" />
+    <>
+      <svg
+        ref={svgRef}
+        onPointerLeave={() => setHover(null)}
+        className={`${styles.canvas} ${cursorClass}`}
+        data-testid="canvas"
+        data-mode={mode}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onDoubleClick={onDoubleClick}
+        onWheel={onWheel}
+        onDragOver={(e) => {
+          if (mode === 'edit') e.preventDefault();
+        }}
+        onDrop={onDrop}
+        onContextMenu={(e) => e.preventDefault()}
+        role="application"
+        aria-label={t('editor.canvas')}
+      >
+        <defs>
+          <pattern id="grid-minor" width={GRID} height={GRID} patternUnits="userSpaceOnUse">
+            <circle cx={0} cy={0} r={0.6} className={styles.gridDot} />
+          </pattern>
+          <pattern id="grid-major" width={GRID * 5} height={GRID * 5} patternUnits="userSpaceOnUse">
+            <rect width={GRID * 5} height={GRID * 5} fill="url(#grid-minor)" />
+            <path d={`M ${GRID * 5} 0 H 0 V ${GRID * 5}`} className={styles.gridLine} />
+          </pattern>
+        </defs>
+        <g transform={`translate(${view.x} ${view.y}) scale(${view.zoom})`}>
+          <rect x={wx} y={wy} width={ww} height={wh} fill="url(#grid-major)" />
 
-        {project.connections.map((w) => {
-          const poly = polylines.get(w.id);
-          if (!poly) return null;
-          const pts = toPoints(poly);
-          return (
-            <g key={w.id} data-connection-id={w.id}>
-              <polyline points={pts} className={styles.wireHit} />
-              <polyline
-                points={pts}
-                className={`${styles.wire} ${selectedWires.has(w.id) ? styles.wireSelected : ''}`}
-              />
-            </g>
-          );
-        })}
-
-        {project.components.map((c) => (
-          <ComponentView key={c.id} comp={c} selected={selectedComps.has(c.id)} mode={mode} />
-        ))}
-
-        {mode === 'edit' &&
-          project.components.flatMap((c) => {
-            const def = getComponentDef(c.type);
-            if (!def || def.libraryHidden) return [];
-            return def.ports.map((p) => {
-              const [x, y] = portPosition(c, p);
-              const key = `${c.id}|${p.id}`;
-              return (
-                <circle
-                  key={key}
-                  data-port={key}
-                  cx={x}
-                  cy={y}
-                  r={3}
-                  className={`${styles.port} ${connectedPorts.has(key) ? styles.portConnected : ''}`}
+          {project.connections.map((w) => {
+            const poly = polylines.get(w.id);
+            if (!poly) return null;
+            const pts = toPoints(poly);
+            const state = sim?.portState(w.from[0], w.from[1]);
+            const stateCls = state ? WIRE_STATE_CLASS[state] : '';
+            return (
+              <g key={w.id} data-connection-id={w.id} data-state={state}>
+                <polyline points={pts} className={styles.wireHit} />
+                <polyline
+                  points={pts}
+                  className={`${styles.wire} ${stateCls} ${selectedWires.has(w.id) ? styles.wireSelected : ''}`}
                 />
-              );
-            });
+              </g>
+            );
           })}
 
-        {mode === 'edit' &&
-          selection.connections.length === 1 &&
-          (() => {
-            const id = selection.connections[0]!;
-            const poly = polylines.get(id);
-            if (!poly) return null;
-            return poly
-              .slice(1, -1)
-              .map(([x, y], i) => (
-                <rect
-                  key={`${id}-${i}`}
-                  data-bend={`${id}|${i}`}
-                  x={x - 3.5}
-                  y={y - 3.5}
-                  width={7}
-                  height={7}
-                  className={styles.bendHandle}
-                />
-              ));
-          })()}
+          {project.components.map((c) => (
+            <ComponentView
+              key={c.id}
+              comp={c}
+              selected={selectedComps.has(c.id)}
+              mode={mode}
+              simState={sim?.hasComponent(c.id) ? sim.componentState(c.id) : undefined}
+              clickable={sim !== null && clickTarget(c.type) !== undefined}
+              readout={gaugeReadout(c)}
+            />
+          ))}
 
-        {draftPoly && <polyline points={toPoints(draftPoly)} className={styles.wireDraft} />}
+          {mode === 'edit' &&
+            project.components.flatMap((c) => {
+              const def = getComponentDef(c.type);
+              if (!def || def.libraryHidden) return [];
+              return def.ports.map((p) => {
+                const [x, y] = portPosition(c, p);
+                const key = `${c.id}|${p.id}`;
+                return (
+                  <circle
+                    key={key}
+                    data-port={key}
+                    cx={x}
+                    cy={y}
+                    r={3}
+                    className={`${styles.port} ${connectedPorts.has(key) ? styles.portConnected : ''}`}
+                  />
+                );
+              });
+            })}
 
-        {gesture?.kind === 'marquee' && (
-          <rect
-            x={Math.min(gesture.start[0], gesture.current[0])}
-            y={Math.min(gesture.start[1], gesture.current[1])}
-            width={Math.abs(gesture.current[0] - gesture.start[0])}
-            height={Math.abs(gesture.current[1] - gesture.start[1])}
-            className={styles.marquee}
-          />
-        )}
-      </g>
-    </svg>
+          {mode === 'edit' &&
+            selection.connections.length === 1 &&
+            (() => {
+              const id = selection.connections[0]!;
+              const poly = polylines.get(id);
+              if (!poly) return null;
+              return poly
+                .slice(1, -1)
+                .map(([x, y], i) => (
+                  <rect
+                    key={`${id}-${i}`}
+                    data-bend={`${id}|${i}`}
+                    x={x - 3.5}
+                    y={y - 3.5}
+                    width={7}
+                    height={7}
+                    className={styles.bendHandle}
+                  />
+                ));
+            })()}
+
+          {draftPoly && <polyline points={toPoints(draftPoly)} className={styles.wireDraft} />}
+
+          {gesture?.kind === 'marquee' && (
+            <rect
+              x={Math.min(gesture.start[0], gesture.current[0])}
+              y={Math.min(gesture.start[1], gesture.current[1])}
+              width={Math.abs(gesture.current[0] - gesture.start[0])}
+              height={Math.abs(gesture.current[1] - gesture.start[1])}
+              className={styles.marquee}
+            />
+          )}
+        </g>
+      </svg>
+      {hoverDef && hover && !pinnedDef && (
+        <HelpCard
+          def={hoverDef}
+          style={{
+            left: Math.min(hover.at[0] + 16, viewport.width - 300),
+            top: Math.min(hover.at[1] + 16, viewport.height - 160),
+            pointerEvents: 'none',
+          }}
+        />
+      )}
+      {pinnedDef && (
+        <HelpCard
+          def={pinnedDef}
+          style={{ right: 12, top: 12 }}
+          onClose={() => useEditor.getState().setHelpFor(null)}
+        />
+      )}
+    </>
   );
 }

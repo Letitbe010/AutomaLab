@@ -2,6 +2,24 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [fase-2c] — 2026-11-04
+
+### Gehituta
+
+- Simulazioa editorean: «Simulatu» moduak `Simulation` bat sortzen du (erroreak badaude, ez da sartzen).
+- Kontrolak: ▶ / ⏸, ⏭ (10 ms), ⏹ (hasieratu), abiadura ×0,1…×10, maila (logikoa; fisikoa desgaituta), `t = …` kontagailua. `requestAnimationFrame` begizta.
+- Hodien koloreak egoeraren arabera: presioa urdin iluna, ihesa urdin argia marratuta, blokeatua grisa.
+- Balbulen eta zilindroen animazioa; manometroek presioa erakusten dute.
+- Eragingailu manual klikagarriak (pultsadorea, pedala, palanka, rodilloak, solenoideak eskuz): klik-mantendu. 5/3 eta solenoide bikoitzekoetan, klikaren aldeak erabakitzen du. Itxiera-giltza: klikak irekitzen/ixten du.
+- Espazio-fase diagrama (desplazamendua–urratsa), amaiera-gertaeretatik zuzenean.
+- Simulazio-abisuak «Abisuak» panelean (oszilazioa, hornidura ihesera, simulatzen ez dena).
+- Laguntza testuinguruan (SPEC §7.4): liburutegian eta oihalean hover eginda, eta F1 hautatutako osagaiarekin.
+
+### Aldatuta
+
+- Motorrak urrats bakoitzean puntu finkoa behin bakarrik ebazten du (azkarrago).
+- Beste proiektu bat irekitzean simulazioa gelditu eta editatze-modura itzultzen da.
+
 ## [fase-2a] — 2026-11-04
 
 ### Gehituta
