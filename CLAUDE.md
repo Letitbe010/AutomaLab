@@ -10,7 +10,8 @@ Proiektuaren espezifikazio osoa `SPEC.md` fitxategian dago. **Irakurri osorik ed
 
 ## Uneko egoera
 
-- Uneko fasea: 0 (amaituta, erabiltzailearen egiaztapenaren zain)
+- 0. fasea: baieztatuta (2026-11-04).
+- Uneko fasea: 1, azpi-faseetan (erabiltzaileak onartua 2026-11-04): **1a** datu-eredua + 3 proba-osagai + ikur-galeria (amaituta, egiaztapenaren zain) → **1b** SVG editorea → **1c** IndexedDB, esportazioa eta babeskopia.
 - Simulazio-motorra (`src/engine/`) TypeScript hutsa da, UIrik gabe, eta testekin garatzen da (Vitest).
 - Kodea ingelesez; interfazea euskara batuan (`src/i18n/eu.json`); dokumentazioa euskaraz.
 - Ez asmatu datu teknikorik: zalantzan, `// TODO(galdetu):` eta galdetu.
@@ -32,6 +33,10 @@ Oharra (Windows): Node.js eta Git winget bidez instalatu ziren 2026-11-04an. Pow
 - `src/i18n/` — `eu.json` (iturri nagusia), `es.json` (hutsik oraingoz), `index.ts` (`t('menu.editor')`; falta den gakoa → euskara → gakoa bera).
 - `src/ui/App.tsx` — goiko menu nagusia (5 atal). Atalen zerrenda: `src/ui/sections.ts`.
 - `tests/` — Vitest testak domeinuka (`i18n/`, `ui/`, `engine/`); `tests/e2e/` Playwright-entzat.
+- `src/core/` — `types.ts` (Project, ComponentInstance, Connection...), `componentDef.ts` (§3.2 kontratua), `geometry.ts` (GRID = 10 px, biraketa/ispilua, portuen posizioa), `serialization.ts` (`parseProject`, migrazioak `MIGRATIONS`-en), `validation.ts` (`validateProject` → `Issue[]`, mezuak `validation.<code>` i18n gakoetan).
+- `src/components/` — osagai bakoitza fitxategi bat; `registry.ts`-n erregistratu. `src/symbols/primitives.tsx` — ikur-pieza komunak (kaxa, gezia, blokeoa, malgukia, eragingailuak).
+- `#/symbols` — ikur-galeria (garapen-orria, §9). Portuen markak `portPosition()`-ekin marrazten dira, geometria ikusiz egiaztatzeko.
+- `tests/core/fixtures/` — proba-zirkuituak (`.automalab.json`); irakurri `readFixture()`-rekin (jsdom-en `import.meta.url` ez da `file:`).
 - §3.1eko gainerako karpetak `.gitkeep`-ekin sortuta daude, hutsik.
 
 ## Erabakien erregistroa
@@ -42,4 +47,8 @@ Oharra (Windows): Node.js eta Git winget bidez instalatu ziren 2026-11-04an. Pow
 - **2026-11-04 — Nabigazioa routerrik gabe** 0. fasean: `useState` hutsa atal aktiborako. Router bat (edo URL-hash) beharrezkoa denean gehituko da (adib. `/symbols` galeria, §9).
 - **2026-11-04 — i18n propioa** (liburutegirik gabe): JSON habiaratua + `t()` funtzio txikia. Interpolazioa edo pluralak behar direnean berrikusi.
 - **2026-11-04 — TS konfigurazio zorrotza:** `strict` + `noUncheckedIndexedAccess` + `exactOptionalPropertyTypes`. Motorrean akatsak goiz harrapatzeko.
+- **2026-11-04 — Logoa:** «A» letra eskema-lerro ortogonalekin (portuak eta T-loturen puntuak), erabiltzaileak aukeratua.
+- **2026-11-04 — Datu-eredua (1a):** `Project` = fitxategia bera (SPEC §4); ez dago `Circuit` mota bereizirik oraingoz. Portuen posizioak sareta-unitateetan (osagai lokala), instantzien `x/y` pixeletan. Transformazioa: lehenik ispilua (Y ardatza), gero biraketa erlojuaren noranzkoan. Balidazioak `DefLookup` funtzioa jasotzen du, `core/`-k `components/` ez inportatzeko. Larritasuna: errorea = ID bikoitza, mota ezezaguna, osagai/portu falta, domeinu nahasiak, auto-lotura; abisua = portu librea, lotura bikoitza, etiketa errepikatua.
+- **2026-11-04 — T loturak:** 1b-n lotune-osagai gisa (`*.junction`) ebatziko dira; datu-ereduak ez du ezer berezirik behar.
+- **2026-11-04 — Balidazio-ordezkoa:** serializazioa eskuzko type-guard-ekin (zod gabe), mendekotasunik ez gehitzeko.
 - Zustand, Immer, uPlot, KaTeX, markdown-it, idb-keyval eta vite-plugin-pwa ez dira oraindik instalatu: behar diren fasean gehituko dira.

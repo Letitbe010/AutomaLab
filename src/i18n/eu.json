@@ -14,5 +14,55 @@
   "section": {
     "emptyTitle": "Edukirik ez oraindik",
     "empty": "Atal hau oraindik hutsik dago. Hurrengo faseetan garatuko da."
+  },
+  "domain": {
+    "pneumatic": "Pneumatika",
+    "hydraulic": "Hidraulika",
+    "electric": "Elektrikoa",
+    "plc": "PLC"
+  },
+  "param": {
+    "label": "Etiketa",
+    "pressureBar": "Presioa",
+    "boreMm": "Enboloaren diametroa",
+    "rodMm": "Zurtoinaren diametroa",
+    "strokeMm": "Ibilbidea"
+  },
+  "comp": {
+    "source": {
+      "name": "Aire-iturria",
+      "help": "Aire konprimitua ematen du doitutako presioan. 1 portua: irteera."
+    },
+    "valve32ButtonSpring": {
+      "name": "3/2 balbula, pultsadorea eta malgukia",
+      "help": "Atsedenean itxita (NI). Pultsadorea sakatzean 1 → 2 irekitzen da; askatzean, malgukiak itzultzen du eta 2 → 3 ihesera doa.",
+      "rest": "Atsedenean",
+      "actuated": "Eragindakoa"
+    },
+    "cylSingle": {
+      "name": "Eragin bakuneko zilindroa",
+      "help": "Airea A portutik sartzean zurtoina ateratzen da; airea ihesera doanean, malgukiak itzultzen du.",
+      "retracted": "Sartuta",
+      "half": "Erdian",
+      "extended": "Aterata"
+    }
+  },
+  "validation": {
+    "duplicateId": "Identifikadore errepikatua: {id}.",
+    "unknownType": "{component}: osagai-mota ezezaguna ({type}).",
+    "missingComponent": "{connection} loturak ez dagoen osagai bat aipatzen du ({component}).",
+    "missingPort": "{component}: ez dago {port} porturik.",
+    "kindMismatch": "{connection} loturak domeinu desberdinetako portuak lotzen ditu.",
+    "selfConnection": "{connection} lotura portu bera bere buruarekin lotzen du.",
+    "duplicateConnection": "{connection} lotura bikoitza da ({other} loturaren berdina).",
+    "freePort": "{component}: {port} portua ez dago konektatuta.",
+    "duplicateLabel": "{label} etiketa osagai bat baino gehiagotan dago."
+  },
+  "symbols": {
+    "title": "Ikurren galeria",
+    "intro": "Garapen-orria: ikur guztiak egoera bakoitzean, portuekin. Ikusizko berrikuspenerako (SPEC §9).",
+    "ports": "Portuak",
+    "rotations": "Biraketak eta ispilua",
+    "back": "Itzuli aplikaziora"
   }
 }

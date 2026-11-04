@@ -1,28 +1,45 @@
 import { useState } from 'react';
 import { t } from '../i18n';
 import { SECTIONS, type SectionId } from './sections';
+import { SymbolGallery } from './symbols/SymbolGallery';
+import { useHashRoute } from './useHashRoute';
 import styles from './App.module.css';
 
-/** Placeholder logo: a double-acting cylinder outline. */
+/** Logo: an "A" drawn as orthogonal schematic lines, with ports and T-junction dots. */
 function Logo() {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       stroke="var(--accent)"
-      strokeWidth="1.7"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeWidth="1.9"
+      strokeLinecap="square"
+      strokeLinejoin="miter"
       aria-hidden="true"
     >
-      <rect x="2" y="8" width="14" height="8" rx="1" />
-      <path d="M9 8v8M9 12h13" />
-      <path d="M5 16v3M13 16v3" />
+      <path d="M5 20V6h14v14" />
+      <path d="M5 13h14" />
+      <path d="M12 6V2.5" />
+      <g fill="var(--accent)" stroke="none">
+        <circle cx="5" cy="13" r="1.7" />
+        <circle cx="19" cy="13" r="1.7" />
+        <circle cx="12" cy="6" r="1.7" />
+      </g>
+      <g fill="var(--panel)" strokeWidth="1.5">
+        <circle cx="5" cy="20.5" r="1.7" />
+        <circle cx="19" cy="20.5" r="1.7" />
+        <circle cx="12" cy="2.5" r="1.5" />
+      </g>
     </svg>
   );
 }
 
 export function App() {
+  const route = useHashRoute();
+  return route === '/symbols' ? <SymbolGallery /> : <MainLayout />;
+}
+
+function MainLayout() {
   const [active, setActive] = useState<SectionId>('editor');
 
   return (

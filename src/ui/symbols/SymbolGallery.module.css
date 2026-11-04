@@ -1,0 +1,147 @@
+.page {
+  padding: 28px 28px 60px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.titleRow h1 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.titleRow a {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+}
+
+.rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line), transparent);
+}
+
+.intro {
+  margin: 8px 0 20px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-dim);
+}
+
+.grid {
+  display: grid;
+  gap: 18px;
+}
+
+.card {
+  padding: 16px 18px 18px;
+  background: linear-gradient(180deg, var(--panel), var(--panel-2));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow:
+    0 1px 2px rgb(22 32 46 / 0.04),
+    0 6px 18px rgb(22 32 46 / 0.05);
+}
+
+.cardHead {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cardHead h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.cardHead code,
+.ports code {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-2);
+  background: var(--panel-2);
+  border: 1px solid var(--line-soft);
+  border-radius: 5px;
+  padding: 1px 6px;
+}
+
+.help {
+  margin: 6px 0 12px;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+.subTitle {
+  margin: 14px 0 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: flex-end;
+}
+
+.figure,
+.figureSmall {
+  margin: 0;
+  padding: 8px;
+  background: var(--panel);
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.figure svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.figureSmall svg {
+  display: block;
+  max-width: 140px;
+  max-height: 140px;
+  width: auto;
+  height: auto;
+}
+
+.figure figcaption,
+.figureSmall figcaption {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-dim);
+}
+
+.portLabel {
+  font-family: var(--mono);
+  font-size: 8px;
+  fill: var(--accent);
+  stroke: none;
+}
+
+.ports {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-top: 12px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-dim);
+}

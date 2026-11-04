@@ -1,0 +1,68 @@
+import type { ReactNode } from 'react';
+import type { Domain, ParamValue, Params, PortKind } from './types';
+
+/** Port definition. Position is relative to the component origin, in grid units. */
+export interface PortDef {
+  id: string;
+  kind: PortKind;
+  x: number;
+  y: number;
+}
+
+interface ParamDefBase {
+  key: string;
+  /** i18n key for the property label. */
+  labelKey: string;
+}
+
+export type ParamDef =
+  | (ParamDefBase & {
+      type: 'number';
+      default: number;
+      unit?: string;
+      min?: number;
+      max?: number;
+    })
+  | (ParamDefBase & { type: 'boolean'; default: boolean })
+  | (ParamDefBase & { type: 'string'; default: string })
+  | (ParamDefBase & { type: 'string[]'; default: string[] });
+
+export interface SymbolProps<S> {
+  state: S;
+  params: Params;
+}
+
+/** Renders the component symbol in local coordinates (pixels, origin at 0,0). */
+export type SymbolRenderer<S> = (props: SymbolProps<S>) => ReactNode;
+
+/**
+ * Component plugin contract (SPEC §3.2). Behaviour hooks (logic, physics,
+ * electric, interactive) are added in later phases.
+ */
+export interface ComponentDef<S = unknown> {
+  type: string;
+  domain: Domain;
+  /** i18n key of the display name. */
+  nameKey: string;
+  /** i18n key of the short contextual help text (SPEC §7.4). */
+  helpKey?: string;
+  theoryRef?: string;
+  /** Suggested label prefix (e.g. "1A", "1V", "0Z"); numbering is added by the editor. */
+  labelPrefix: string;
+  ports: PortDef[];
+  params: ParamDef[];
+  symbol: SymbolRenderer<S>;
+  initState(params: Params): S;
+  /** Named example states for the symbol gallery (SPEC §9). */
+  previewStates?: { nameKey: string; state: S }[];
+}
+
+export type DefLookup = (type: string) => ComponentDef<unknown> | undefined;
+
+export function defaultParams(def: Pick<ComponentDef, 'params'>): Params {
+  const out: Params = {};
+  for (const p of def.params) {
+    out[p.key] = (Array.isArray(p.default) ? [...p.default] : p.default) as ParamValue;
+  }
+  return out;
+}

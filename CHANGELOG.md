@@ -2,6 +2,22 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [fase-1a] — 2026-11-04
+
+### Gehituta
+
+- Datu-eredua (`src/core/`): motak, osagai-definizioaren kontratua (§3.2), geometria (sareta, biraketa, ispilua), proiektu hutsa.
+- Serializazioa `schemaVersion`-ekin: kargatzea, balio lehenetsiak, bertsio berriagoen eta eremu okerren erroreak, migrazioetarako egitura.
+- Balidazioa: ID bikoitzak, mota ezezagunak, osagai/portu faltak, domeinu nahasiak, auto-loturak, lotura bikoitzak, portu libreak eta etiketa errepikatuak.
+- Hiru proba-osagai beren SVG ikurrekin: aire-iturria, 3/2 balbula (pultsadorea + malgukia) eta eragin bakuneko zilindroa.
+- Ikurren galeria `#/symbols` helbidean (egoerak, biraketak, ispilua eta portuak).
+- `t()` funtzioak `{aldagaiak}` onartzen ditu.
+- Testak: 38 unitate-test, 2 E2E.
+
+### Aldatuta
+
+- Logo berria: «A» letra eskema-lerro ortogonalekin.
+
 ## [fase-0] — 2026-11-04
 
 ### Gehituta

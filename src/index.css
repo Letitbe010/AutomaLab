@@ -32,6 +32,9 @@
   --c-green: #16a96f;
   --c-red: #e23b58;
 
+  --sym-stroke: var(--ink);
+  --port: var(--accent);
+
   --radius: 14px;
   --mono: 'IBM Plex Mono', ui-monospace, monospace;
   --sans: 'Archivo', system-ui, sans-serif;

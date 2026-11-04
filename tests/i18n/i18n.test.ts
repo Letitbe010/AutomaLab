@@ -7,7 +7,13 @@ describe('i18n', () => {
   });
 
   it('falls back to Basque when the Spanish catalogue lacks a key', () => {
-    expect(t('menu.theory', 'es')).toBe('Teoria');
+    expect(t('menu.theory', {}, 'es')).toBe('Teoria');
+  });
+
+  it('replaces {placeholders} with the given variables', () => {
+    expect(t('validation.freePort', { component: '1V1', port: '3' })).toBe(
+      '1V1: 3 portua ez dago konektatuta.',
+    );
   });
 
   it('returns the key itself when no translation exists', () => {
