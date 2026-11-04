@@ -1,0 +1,2 @@
+# AutomaLab
+Automatismoak lantzeko aplikazioa.
