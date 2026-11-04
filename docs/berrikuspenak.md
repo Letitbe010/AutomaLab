@@ -12,6 +12,7 @@ Egoera: ☐ pendiente · ☑ eginda
 | [fase-1b.md](egiaztapena/fase-1b.md) — SVG editorea                | 2026-11-04 | ☐      |
 | [fase-1c.md](egiaztapena/fase-1c.md) — gordetzea eta babeskopia    | 2026-11-04 | ☐      |
 | [fase-2a.md](egiaztapena/fase-2a.md) — simulazio-motorra (logikoa) | 2026-11-04 | ☐      |
+| [fase-2c.md](egiaztapena/fase-2c.md) — simulazioa pantailan        | 2026-11-04 | ☐      |
 
 `fase-0` gida baieztatuta (2026-11-04).
 
