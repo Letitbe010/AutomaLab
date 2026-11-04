@@ -13,4 +13,5 @@ Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitz
 - i18n oinarria: `src/i18n/eu.json`, `src/i18n/es.json` (hutsik) eta `t()` funtzioa, euskarara itzultzeko ordezkoarekin.
 - Goiko menu nagusia bost atalekin (Editorea, Txantiloiak, Ariketak, Teoria, Nire aurrerapena), edukirik gabe.
 - Testak: 6 unitate-test (i18n eta menua) eta E2E test 1 (menua eta nabigazioa).
+- Ikus-estiloa erabiltzailearen erreferentziatik (ERP LSB): paleta, Archivo eta IBM Plex Mono letra-tipoak (paketean, offline), goiko barra lausotua, txartelak eta sareta-hondoa.
 - `CLAUDE.md` eguneratua (komandoak eta erabakiak) eta egiaztatze-gida `docs/egiaztapena/fase-0.md`.

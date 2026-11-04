@@ -21,18 +21,18 @@ Egiaztatzea aplikazioa abiarazten dela, euskarazko menu nagusia erakusten duela 
 
 ## Probak
 
-| #   | Egin                                                        | Espero da                                                                                                                               | Emaitza           |
-| --- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
-| 1   | Ireki <http://localhost:5173>                               | Goiko banda urdin ilun bat ikusten da, «AutomaLab» izenarekin ezkerrean.                                                                | ☐ Ondo / ☐ Gaizki |
-| 2   | Begiratu goiko menua                                        | Bost atal, ordena honetan: Editorea, Txantiloiak, Ariketak, Teoria, Nire aurrerapena.                                                   | ☐ Ondo / ☐ Gaizki |
-| 3   | Begiratu orriaren edukia hasieran                           | «Editorea» izenburua eta testu hau: «Atal hau oraindik hutsik dago. Hurrengo faseetan garatuko da.» «Editorea» azpimarratuta eta lodiz. | ☐ Ondo / ☐ Gaizki |
-| 4   | Klik egin «Teoria»-n                                        | Izenburua «Teoria» bihurtzen da; azpimarra «Teoria»-ra pasatzen da.                                                                     | ☐ Ondo / ☐ Gaizki |
-| 5   | Egin klik gainerako atal guztietan, banan-banan             | Atal bakoitzak bere izenburua erakusten du; ez da errorerik agertzen.                                                                   | ☐ Ondo / ☐ Gaizki |
-| 6   | Sakatu `Tab` hainbat aldiz, eta gero `Enter` atal batean    | Fokua menuko botoietatik pasatzen da (marko horia ikusten da) eta `Enter`-ek atala aldatzen du.                                         | ☐ Ondo / ☐ Gaizki |
-| 7   | Gelditu `npm run dev` (`Ctrl + C`) eta exekutatu `npm test` | Amaieran: `Test Files 2 passed`, `Tests 6 passed`.                                                                                      | ☐ Ondo / ☐ Gaizki |
-| 8   | Exekutatu `npm run test:e2e`                                | `1 passed`.                                                                                                                             | ☐ Ondo / ☐ Gaizki |
-| 9   | Exekutatu `npm run build`                                   | `✓ built in …` agertzen da, errorerik gabe; `dist` karpeta sortzen da.                                                                  | ☐ Ondo / ☐ Gaizki |
-| 10  | Estutu nabigatzailearen leihoa (mugikor-zabalera inguruan)  | Menuko botoiak lerro batean baino gehiagotan kokatzen dira; ez da testurik moztuta geratzen.                                            | ☐ Ondo / ☐ Gaizki |
+| #   | Egin                                                        | Espero da                                                                                                                                 | Emaitza           |
+| --- | ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| 1   | Ireki <http://localhost:5173>                               | Hondo gris-urdin argia sareta finarekin; goiko barra zuri erdi-gardena, logo turkesa eta «AutomaLab» ezkerrean (ERP LSB-ren itxura bera). | ☐ Ondo / ☐ Gaizki |
+| 2   | Begiratu goiko menua                                        | Bost atal, ordena honetan: Editorea, Txantiloiak, Ariketak, Teoria, Nire aurrerapena.                                                     | ☐ Ondo / ☐ Gaizki |
+| 3   | Begiratu orriaren edukia hasieran                           | «EDITOREA» izenburua (maiuskulaz, marra batekin) eta txartel zuri bat: «Edukirik ez oraindik». «Editorea» botoia turkesaz eta ertzarekin. | ☐ Ondo / ☐ Gaizki |
+| 4   | Klik egin «Teoria»-n                                        | Izenburua «TEORIA» bihurtzen da; nabarmentze turkesa «Teoria» botoira pasatzen da.                                                        | ☐ Ondo / ☐ Gaizki |
+| 5   | Egin klik gainerako atal guztietan, banan-banan             | Atal bakoitzak bere izenburua erakusten du; ez da errorerik agertzen.                                                                     | ☐ Ondo / ☐ Gaizki |
+| 6   | Sakatu `Tab` hainbat aldiz, eta gero `Enter` atal batean    | Fokua menuko botoietatik pasatzen da (marko turkesa ikusten da) eta `Enter`-ek atala aldatzen du.                                         | ☐ Ondo / ☐ Gaizki |
+| 7   | Gelditu `npm run dev` (`Ctrl + C`) eta exekutatu `npm test` | Amaieran: `Test Files 2 passed`, `Tests 6 passed`.                                                                                        | ☐ Ondo / ☐ Gaizki |
+| 8   | Exekutatu `npm run test:e2e`                                | `1 passed`.                                                                                                                               | ☐ Ondo / ☐ Gaizki |
+| 9   | Exekutatu `npm run build`                                   | `✓ built in …` agertzen da, errorerik gabe; `dist` karpeta sortzen da.                                                                    | ☐ Ondo / ☐ Gaizki |
+| 10  | Estutu nabigatzailearen leihoa (mugikor-zabalera inguruan)  | Menuko botoiak lerro batean baino gehiagotan kokatzen dira; ez da testurik moztuta geratzen.                                              | ☐ Ondo / ☐ Gaizki |
 
 ## Proba-fitxategiak
 

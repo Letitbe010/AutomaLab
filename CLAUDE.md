@@ -36,6 +36,7 @@ Oharra (Windows): Node.js eta Git winget bidez instalatu ziren 2026-11-04an. Pow
 
 ## Erabakien erregistroa
 
+- **2026-11-04 — Ikus-estiloa: erabiltzailearen erreferentzia** (ERP LSB `index.html`). Paleta (`--bg`, `--panel`, `--ink*`, `--accent` #0c95b0...), Archivo + IBM Plex Mono letra-tipoak, txartelak, atal-izenburuak (maiuskulak + marra) eta sareta-hondoa. Tokenak `src/index.css`-n; egoera-koloreak izen neutroekin (`--c-blue`, `--c-red`...), simulazio-egoeretara gero lotzeko. Letra-tipoak `@fontsource` bidez paketean (ez Google Fonts CDN), offline funtzionatzeko (§2 PWA). Menu nagusia **goian** mantendu da (SPEC §7.1), ez erreferentziako alboko barran, editorearen liburutegi-panelarekin ez talka egiteko.
 - **2026-11-04 — Estiloak: CSS Modules** (ez Tailwind). Arrazoia: mendekotasun gutxiago; editorearen zati handiena SVG da eta bere estiloak propietate/aldagai bidez kudeatuko dira; CSS aldagaiak (`src/index.css`) kolore-tokenetarako, simulazioaren koloreak (§7.3) gero bertan zentralizatzeko.
 - **2026-11-04 — Bertsioak:** React 19 (SPEC: "18+"), Vite 8, TypeScript 6, Vitest 5, Playwright 1.64, ESLint 10 (flat config). Node.js 26 LTS.
 - **2026-11-04 — Nabigazioa routerrik gabe** 0. fasean: `useState` hutsa atal aktiborako. Router bat (edo URL-hash) beharrezkoa denean gehituko da (adib. `/symbols` galeria, §9).

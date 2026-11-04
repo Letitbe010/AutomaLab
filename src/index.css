@@ -1,17 +1,41 @@
-:root {
-  --color-bg: #f7f8fa;
-  --color-fg: #1d232b;
-  --color-muted: #5b6573;
-  --color-header-bg: #1f3a5f;
-  --color-header-fg: #ffffff;
-  --color-header-hover: rgb(255 255 255 / 0.1);
-  --color-accent: #7cc4ff;
-  --color-focus: #ffd166;
+/* Fonts are bundled (no CDN) so the app keeps working offline. */
+@import '@fontsource/archivo/400.css';
+@import '@fontsource/archivo/600.css';
+@import '@fontsource/archivo/700.css';
+@import '@fontsource/archivo/800.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/600.css';
+@import '@fontsource/ibm-plex-mono/700.css';
 
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.5;
-  color: var(--color-fg);
-  background: var(--color-bg);
+/*
+ * Design tokens, taken from the user's reference style (ERP LSB).
+ * Status colours are renamed to neutral semantic roles so later phases can map
+ * them to simulation states (pressure, exhaust, current, warning, error...).
+ */
+:root {
+  --bg: #eef2f7;
+  --bg-2: #e6ecf3;
+  --panel: #ffffff;
+  --panel-2: #f4f7fb;
+  --line: #d3dce8;
+  --line-soft: #e4eaf2;
+  --ink: #16202e;
+  --ink-2: #51637a;
+  --ink-dim: #8497ad;
+  --accent: #0c95b0;
+  --accent-2: #0b7d94;
+
+  --c-neutral: #8497ad;
+  --c-blue: #2f86d6;
+  --c-purple: #8b5cf6;
+  --c-amber: #d8920a;
+  --c-green: #16a96f;
+  --c-red: #e23b58;
+
+  --radius: 14px;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --sans: 'Archivo', system-ui, sans-serif;
+  --topbar-h: 67px;
 }
 
 *,
@@ -20,6 +44,71 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Soft glow plus a faint grid, echoing the schematic canvas. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(1100px 700px at 78% -10%, rgb(40 214 230 / 0.1), transparent 60%),
+    radial-gradient(900px 600px at 5% 110%, rgb(86 182 255 / 0.07), transparent 60%), var(--bg);
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(circle at 50% 35%, #000 55%, transparent 100%);
+  opacity: 0.6;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c2cedd;
+  border-radius: 8px;
+  border: 2px solid var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
