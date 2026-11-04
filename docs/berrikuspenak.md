@@ -6,16 +6,17 @@ Egoera: ☐ pendiente · ☑ eginda
 
 ## Eskuzko egiaztatze-gidak
 
-| Gida                                                                                      | Data       | Egoera |
-| ----------------------------------------------------------------------------------------- | ---------- | ------ |
-| [fase-1a.md](egiaztapena/fase-1a.md) — datu-eredua eta ikurrak                            | 2026-11-04 | ☐      |
-| [fase-1b.md](egiaztapena/fase-1b.md) — SVG editorea                                       | 2026-11-04 | ☐      |
-| [fase-1c.md](egiaztapena/fase-1c.md) — gordetzea eta babeskopia                           | 2026-11-04 | ☐      |
-| [fase-2a.md](egiaztapena/fase-2a.md) — simulazio-motorra (logikoa)                        | 2026-11-04 | ☐      |
-| [fase-2c.md](egiaztapena/fase-2c.md) — simulazioa pantailan                               | 2026-11-04 | ☐      |
-| [fase-2b.md](egiaztapena/fase-2b.md) — rodilloak, R4, R5 (**zuk R5 marraztu**)            | 2026-11-04 | ☐      |
-| [fase-3a.md](egiaztapena/fase-3a.md) — teoria-atala (**5 fitxak irakurri eta zuzendu**)   | 2026-11-04 | ☐      |
-| [fase-3b.md](egiaztapena/fase-3b.md) — txantiloiak (**5 azalpenak irakurri eta zuzendu**) | 2026-11-04 | ☐      |
+| Gida                                                                                                  | Data       | Egoera |
+| ----------------------------------------------------------------------------------------------------- | ---------- | ------ |
+| [fase-1a.md](egiaztapena/fase-1a.md) — datu-eredua eta ikurrak                                        | 2026-11-04 | ☐      |
+| [fase-1b.md](egiaztapena/fase-1b.md) — SVG editorea                                                   | 2026-11-04 | ☐      |
+| [fase-1c.md](egiaztapena/fase-1c.md) — gordetzea eta babeskopia                                       | 2026-11-04 | ☐      |
+| [fase-2a.md](egiaztapena/fase-2a.md) — simulazio-motorra (logikoa)                                    | 2026-11-04 | ☐      |
+| [fase-2c.md](egiaztapena/fase-2c.md) — simulazioa pantailan                                           | 2026-11-04 | ☐      |
+| [fase-2b.md](egiaztapena/fase-2b.md) — rodilloak, R4, R5 (**zuk R5 marraztu**)                        | 2026-11-04 | ☐      |
+| [fase-3a.md](egiaztapena/fase-3a.md) — teoria-atala (**5 fitxak irakurri eta zuzendu**)               | 2026-11-04 | ☐      |
+| [fase-3b.md](egiaztapena/fase-3b.md) — txantiloiak (**5 azalpenak irakurri eta zuzendu**)             | 2026-11-04 | ☐      |
+| [fase-3c.md](egiaztapena/fase-3c.md) — galdetegiak eta aurrerapena (**25 galderak egin eta zuzendu**) | 2026-11-04 | ☐      |
 
 `fase-0` gida baieztatuta (2026-11-04).
 

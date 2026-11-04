@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { noteTheoryRead } from '../../storage/progress';
 import { getSheet } from '../../learning/theory/sheets';
 import { t } from '../../i18n';
 import { useLearning } from '../learning/store';
@@ -10,6 +12,9 @@ export function TheoryDrawer() {
   const open = useLearning((s) => s.openDrawer);
   const close = useLearning((s) => s.closeDrawer);
   const sheet = id ? getSheet(id) : undefined;
+  useEffect(() => {
+    if (sheet) void noteTheoryRead(sheet.id);
+  }, [sheet]);
   if (!sheet) return null;
   return (
     <aside className={styles.drawer} aria-label={t('theory.panel')} data-testid="theory-drawer">

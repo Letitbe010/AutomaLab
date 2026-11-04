@@ -8,6 +8,7 @@ import { DEFAULT_META, type ProjectRecord, type StorageMeta } from './types';
 
 const PROJECT_PREFIX = 'project:';
 const META_KEY = 'meta';
+const PROGRESS_KEY = 'progress';
 
 let store: ReturnType<typeof createStore> | null = null;
 const db = () => (store ??= createStore('automalab', 'kv'));
@@ -61,6 +62,16 @@ export async function putProjects(records: ProjectRecord[], now = new Date()): P
 
 export async function deleteProject(id: string, now = new Date()): Promise<void> {
   await del(PROJECT_PREFIX + id, db());
+  await touch(now);
+}
+
+/** Learning progress (SPEC §8.7), stored as one record. */
+export async function getProgress(): Promise<unknown> {
+  return get(PROGRESS_KEY, db());
+}
+
+export async function saveProgress(progress: unknown, now = new Date()): Promise<void> {
+  await set(PROGRESS_KEY, progress, db());
   await touch(now);
 }
 

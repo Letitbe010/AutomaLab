@@ -382,6 +382,57 @@
     "labelHint": "Egin klik etiketa batean osagaia oihalean nabarmentzeko.",
     "missingComponent": "Osagai hori ez dago zirkuituan (ezabatu egin duzu?). «Berrezarri txantiloia»-k berreskuratzen du.",
     "panelToggle": "Azalpena",
-    "panelToggleHint": "Txantiloiaren azalpena erakutsi / ezkutatu"
+    "panelToggleHint": "Txantiloiaren azalpena erakutsi / ezkutatu",
+    "tab": {
+      "description": "Azalpena",
+      "quiz": "Galdetegia"
+    },
+    "best": "Onena: {score} %"
+  },
+  "quiz": {
+    "none": "Txantiloi honek ez du galdetegirik oraindik.",
+    "intro": "{n} galdera. Ikasketa-modua: galdera bakoitzaren ondoren zuzenketa eta azalpena ikusiko dituzu. Emaitza «Nire aurrerapena»-n gordetzen da.",
+    "shuffle": "Nahastu galderak eta aukerak",
+    "start": "Hasi galdetegia",
+    "theory": "Teoria",
+    "scoreOf": "{correct} / {total} zuzen",
+    "saved": "Emaitza «Nire aurrerapena»-n gorde da.",
+    "review": "Berrikusteko",
+    "again": "Berriro egin",
+    "noMovement": "mugimendurik ez",
+    "questionOf": "{n}. galdera / {total}",
+    "type": {
+      "single": "Aukera bakarra",
+      "truefalse": "Egia / gezurra",
+      "numeric": "Zenbakizkoa",
+      "predict": "Iragarri"
+    },
+    "predictHint": "Erantzun ondoren, simulazioak erakusten du zer gertatzen den benetan.",
+    "true": "Egia",
+    "false": "Gezurra",
+    "answer": "Erantzuna",
+    "correct": "Zuzena.",
+    "incorrect": "Ez da zuzena.",
+    "expected": "Erantzun zuzena",
+    "simulated": "Simulazioaren emaitza",
+    "check": "Egiaztatu",
+    "next": "Hurrengoa",
+    "finish": "Amaitu"
+  },
+  "progress": {
+    "domains": "Domeinuak",
+    "quizzesDone": "{done} / {total} galdetegi eginda",
+    "domainHint": "Domeinu bakoitzeko txantiloien puntuazio onenen batez bestekoa (egin gabeko galdetegiek 0 balio dute).",
+    "template": "Txantiloia",
+    "opened": "Irekita",
+    "best": "Onena",
+    "last": "Azkena",
+    "attempts": "Saiakerak",
+    "byType": "Galdera-motak",
+    "noAnswers": "Oraindik ez duzu galdetegirik egin.",
+    "read": "irakurrita",
+    "unread": "irakurri gabe",
+    "storage": "Aurrerapena nabigatzaile honetan gordetzen da eta «Esportatu dena» babeskopian sartzen da.",
+    "export": "Esportatu aurrerapena (JSON)"
   }
 }

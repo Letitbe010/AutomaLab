@@ -22,7 +22,11 @@ export type BackupParseError =
   | { code: 'newerVersion'; version: number }
   | { code: 'invalidProject'; index: number; path?: string };
 
-export function buildBackup(projects: ProjectRecord[], now = new Date()): BackupFile {
+export function buildBackup(
+  projects: ProjectRecord[],
+  now = new Date(),
+  progress: Record<string, unknown> = {},
+): BackupFile {
   return {
     format: BACKUP_FORMAT,
     version: BACKUP_VERSION,
@@ -30,7 +34,7 @@ export function buildBackup(projects: ProjectRecord[], now = new Date()): Backup
     projects,
     personalTemplates: [],
     customQuestions: [],
-    progress: {},
+    progress,
   };
 }
 

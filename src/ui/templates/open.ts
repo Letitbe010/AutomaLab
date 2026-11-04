@@ -10,6 +10,7 @@ export async function openTemplateInEditor(id: string): Promise<boolean> {
   const learning = useLearning.getState();
   learning.closeDrawer();
   learning.setTemplatePanel(true);
+  learning.setTemplateTab('description');
   useNav.getState().go('editor');
   // The canvas measures itself once mounted; fit after that.
   requestAnimationFrame(() => requestAnimationFrame(fitView));

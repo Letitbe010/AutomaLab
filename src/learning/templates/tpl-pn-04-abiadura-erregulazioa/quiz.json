@@ -1,0 +1,78 @@
+{
+  "templateId": "tpl-pn-04",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "single",
+      "prompt_md": "Zilindroa **ateratzean**, zein erregulagailuk mugatzen du abiadura?",
+      "options": [
+        "1V3, B ganberako ihesa itotzen duelako",
+        "1V2, A ganberara sartzen den airea itotzen duelako",
+        "Biek berdin",
+        "Bat ere ez"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Meter-out muntaian, sartzen den airea atzera-ezineko balbulatik libre igarotzen da; irteten dena itotzen da. Ateratzean B ganbera husten da, 1V3-tik.",
+      "theoryRef": "pn-balbulak"
+    },
+    {
+      "id": "q2",
+      "type": "predict",
+      "prompt_md": "**1V1** sakatu eta sakatuta mantentzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["press", "1V1"]],
+      "options": [
+        "1A ateratzen da (motelduta) eta aurrean geratzen da",
+        "Ezer ez: erregulagailuek airea blokeatzen dute"
+      ],
+      "optionEvents": [["1A+"], []],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "Itoguneak emaria murrizten du, ez du blokeatzen: zilindroa mugitzen da, baina motelago.",
+      "theoryRef": "pn-balbulak"
+    },
+    {
+      "id": "q3",
+      "type": "truefalse",
+      "prompt_md": "Meter-out muntaian, zilindrora **sartzen** den airea itotzen da.",
+      "answer": {
+        "value": false
+      },
+      "explanation_md": "Ez: meter-out-ean **irteten** den airea (ihesa) itotzen da. Sarrerako airea itotzeari meter-in esaten zaio.",
+      "theoryRef": "pn-balbulak"
+    },
+    {
+      "id": "q4",
+      "type": "numeric",
+      "prompt_md": "1A zilindroa: Ø 32 mm, zurtoina Ø 12 mm, ibilbidea 100 mm, 6 bar. Zenbat aire behar du ziklo oso batek (atera + itzuli), litro normaletan (Nl)?",
+      "answer": {
+        "value": 1.04,
+        "unit": "Nl",
+        "tolerancePct": 3
+      },
+      "explanation_md": "Bolumena: $V = \\frac{\\pi}{4}(2D^2 - d^2)\\, s \\approx 0{,}150\\ \\text{l}$. Konpresio-erlazioaz biderkatuta: $0{,}150 \\cdot 6{,}92 \\approx 1{,}04\\ \\text{Nl}$.",
+      "theoryRef": "pn-zilindro-indarra"
+    },
+    {
+      "id": "q5",
+      "type": "single",
+      "prompt_md": "Zergatik da ohikoa meter-out eragin bikoitzeko zilindroetan?",
+      "options": [
+        "Bi ganberak presiopean geratzen direlako eta mugimendua egonkorragoa delako",
+        "Indar handiagoa ematen duelako",
+        "Aire gutxiago kontsumitzen duelako"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Ihes-aldean kontrapresio bat sortzen da, eta horrek karga aldakorrekin ere mugimendua leun mantentzen du. Kontsumoa eta indar teorikoa ez dira aldatzen.",
+      "theoryRef": "pn-balbulak"
+    }
+  ]
+}

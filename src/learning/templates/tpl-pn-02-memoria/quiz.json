@@ -1,0 +1,80 @@
+{
+  "templateId": "tpl-pn-02",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "Zilindroa atzean dago. **1S1** sakatu eta berehala askatzen da (bulkada laburra). Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["pulse", "1S1"]],
+      "options": [
+        "1A ateratzen da eta aurrean geratzen da",
+        "1A atera eta itzuli egiten da pultsadorea askatzean",
+        "Ezer ez: bulkada laburregia da"
+      ],
+      "optionEvents": [["1A+"], ["1A+", "1A-"], []],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "1V1 biegonkorra da: 14 pilotajeko seinale labur batek posizioa aldatzen du, eta balbulak posizio horri eusten dio seinalea desagertu arren (memoria).",
+      "theoryRef": "pn-funtzio-logikoak"
+    },
+    {
+      "id": "q2",
+      "type": "predict",
+      "prompt_md": "Hasierako egoeran (1A atzean), **1S2** sakatzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["pulse", "1S2"]],
+      "options": [
+        "Ezer ez: 1V1 dagoeneko itzultzeko posizioan dago",
+        "1A ateratzen da",
+        "1A atera eta itzultzen da"
+      ],
+      "optionEvents": [[], ["1A+"], ["1A+", "1A-"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "1S2-k 12 pilotajea aktibatzen du, hau da, itzultzeko posizioa. Balbula dagoeneko posizio horretan dago, beraz ez da ezer aldatzen.",
+      "theoryRef": "pn-balbulak"
+    },
+    {
+      "id": "q3",
+      "type": "truefalse",
+      "prompt_md": "**1V1** balbulak bere posizioa gordetzen du pilotaje-seinalea desagertzen denean.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai: biegonkorra da (bi pilotaje, malgukirik ez). Horregatik esaten zaio memoria-balbula.",
+      "theoryRef": "pn-funtzio-logikoak"
+    },
+    {
+      "id": "q4",
+      "type": "numeric",
+      "prompt_md": "1A zilindroa: Ø 32 mm, 6 bar, errendimendua $\\eta = 0{,}9$. Zein da **aurrerako** indarra, newtonetan?",
+      "answer": {
+        "value": 434,
+        "unit": "N",
+        "tolerancePct": 2
+      },
+      "explanation_md": "$F = p \\cdot \\frac{\\pi D^2}{4} \\cdot \\eta = 0{,}6\\ \\text{N/mm}^2 \\cdot 804{,}2\\ \\text{mm}^2 \\cdot 0{,}9 \\approx 434\\ \\text{N}$ (6 bar = 0,6 N/mm²).",
+      "theoryRef": "pn-zilindro-indarra"
+    },
+    {
+      "id": "q5",
+      "type": "single",
+      "prompt_md": "**1S1**-en irteera 1V1-en zein portutara dago konektatuta?",
+      "options": ["14", "12", "1", "4"],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "14 pilotajeak 1 → 4 bidea aktibatzen du (zilindroa atera). 12 pilotajeak 1 → 2 bidea (itzuli).",
+      "theoryRef": "pn-balbulak"
+    }
+  ]
+}

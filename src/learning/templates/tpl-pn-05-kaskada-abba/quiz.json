@@ -1,0 +1,89 @@
+{
+  "templateId": "tpl-pn-05",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "Bi zilindroak atzean daude. **0S1** (hasiera) behin sakatzen da. Zein mugimendu-sekuentzia gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["pulse", "0S1"]],
+      "options": ["1A+ 2A+ 2A− 1A−", "1A+ 2A+ 1A− 2A−", "1A+ 2A+, eta gelditu", "Ezer ez"],
+      "optionEvents": [
+        ["1A+", "2A+", "2A-", "1A-"],
+        ["1A+", "2A+", "1A-", "2A-"],
+        ["1A+", "2A+"],
+        []
+      ],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "I. taldeak A+ eta B+ egiten ditu; b1-ek II. taldea aktibatzen du, eta II. taldeak B− eta A− egiten ditu. Ziklo osoa hasiera-seinale bakar batekin.",
+      "theoryRef": "pn-kaskada"
+    },
+    {
+      "id": "q2",
+      "type": "predict",
+      "prompt_md": "Zikloa martxan dagoela (A+ egin ondoren), **0S1** berriro sakatzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [
+        ["pulse", "0S1"],
+        ["wait", 1500],
+        ["pulse", "0S1"]
+      ],
+      "options": ["Ziklo bakarra: bigarren sakatzeak ez du ezer egiten", "Bi ziklo jarraian"],
+      "optionEvents": [
+        ["1A+", "2A+", "2A-", "1A-"],
+        ["1A+", "2A+", "2A-", "1A-", "1A+", "2A+", "2A-", "1A-"]
+      ],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "0S1 II. lerrotik elikatzen da. I. taldea aktibo dagoen bitartean II. lerroa ihesera dago, eta hasierako pultsadoreak ez du seinalerik ematen.",
+      "theoryRef": "pn-kaskada"
+    },
+    {
+      "id": "q3",
+      "type": "single",
+      "prompt_md": "Zein osagaik eragiten du I → II talde-aldaketa?",
+      "options": [
+        "b1, 0V1-ren 12 pilotajea aktibatuz",
+        "a1, 2V1-en 14 pilotajea aktibatuz",
+        "0S1",
+        "b0"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "B aurrera iristean b1 sakatzen da, eta haren seinaleak memoria (0V1) II. taldera aldatzen du.",
+      "theoryRef": "pn-kaskada"
+    },
+    {
+      "id": "q4",
+      "type": "numeric",
+      "prompt_md": "Kaskada batek 2 talde ditu. Zenbat memoria-balbula (5/2 biegonkor) behar ditu?",
+      "answer": {
+        "value": 1,
+        "unit": "",
+        "tolerancePct": 0
+      },
+      "explanation_md": "Memoria-balbulen kopurua = talde-kopurua − 1. 2 talde → memoria bakarra (0V1).",
+      "theoryRef": "pn-kaskada"
+    },
+    {
+      "id": "q5",
+      "type": "truefalse",
+      "prompt_md": "Kaskadarik gabe, rodilloak zuzenean iturrira konektatuta, A+ B+ B− A− sekuentzia blokeatu egingo litzateke seinale-gainjartzeagatik.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai: B− egin behar denean b1 sakatuta dago oraindik eta 2V1-en 14 pilotajea aktibatzen du; 12 pilotajeak ezin du posizioa aldatu. Kaskadak b1-en seinalea kentzen du II. taldera pasatzean.",
+      "theoryRef": "pn-kaskada"
+    }
+  ]
+}

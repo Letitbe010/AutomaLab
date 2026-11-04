@@ -1,0 +1,75 @@
+{
+  "templateId": "tpl-pn-03",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "**1S1** bakarrik sakatzen da eta sakatuta mantentzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["press", "1S1"]],
+      "options": ["Ezer ez", "1A ateratzen da", "1A atera eta itzultzen da"],
+      "optionEvents": [[], ["1A+"], ["1A+", "1A-"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "Bi presioko balbulak (1V2) seinalea ematen du X eta Y sarreretan presioa dagoenean bakarrik. Sarrera bakarrarekin irteera blokeatuta dago.",
+      "theoryRef": "pn-funtzio-logikoak"
+    },
+    {
+      "id": "q2",
+      "type": "predict",
+      "prompt_md": "Bi pultsadoreak sakatuta daude eta 1A aurrean dago. Zer gertatzen da **1S2** askatzean?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [
+        ["press", "1S1"],
+        ["press", "1S2"],
+        ["wait", 1500],
+        ["release", "1S2"]
+      ],
+      "options": ["1A itzultzen da", "1A aurrean geratzen da"],
+      "optionEvents": [["1A+", "1A-"], ["1A+"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "AND seinalea desagertzen da, 1V1-en 14 pilotajeak presioa galtzen du eta malgukiak balbula atsedenera eramaten du: zilindroa itzultzen da.",
+      "theoryRef": "pn-funtzio-logikoak"
+    },
+    {
+      "id": "q3",
+      "type": "single",
+      "prompt_md": "Zein funtzio logiko betetzen du **1V2** balbulak?",
+      "options": ["AND (eta)", "OR (edo)", "NOT (ez)", "Memoria"],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Bi presioko balbula AND funtzioa da: irteera = X eta Y. Bi 3/2 balbula seriean jarrita ere lortzen da.",
+      "theoryRef": "pn-funtzio-logikoak"
+    },
+    {
+      "id": "q4",
+      "type": "truefalse",
+      "prompt_md": "1V2-ren ordez balbula hautatzaile bat (OR) jarriz gero, pultsadore bakar batekin aterako litzateke zilindroa.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai: OR balbulak irteera ematen du X edo Y sarreretako batean presioa dagoenean. Horrek bi eskuko aginteko segurtasuna ezabatuko luke.",
+      "theoryRef": "pn-funtzio-logikoak"
+    },
+    {
+      "id": "q5",
+      "type": "truefalse",
+      "prompt_md": "Zirkuitu honek egiaztatzen du bi pultsadoreak ia aldi berean sakatu direla (aldiberekotasuna).",
+      "answer": {
+        "value": false
+      },
+      "explanation_md": "Ez: bata sakatuta utzi eta gero bestea sakatuz gero ere ateratzen da. Industriako bi eskuko moduluek aldiberekotasun-denbora ere egiaztatzen dute.",
+      "theoryRef": "pn-funtzio-logikoak"
+    }
+  ]
+}

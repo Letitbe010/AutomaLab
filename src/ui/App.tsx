@@ -13,6 +13,9 @@ import styles from './App.module.css';
 const TheoryPage = lazy(() =>
   import('./theory/TheoryPage').then((m) => ({ default: m.TheoryPage })),
 );
+const ProgressPage = lazy(() =>
+  import('./progress/ProgressPage').then((m) => ({ default: m.ProgressPage })),
+);
 const TemplatesPage = lazy(() =>
   import('./templates/TemplatesPage').then((m) => ({ default: m.TemplatesPage })),
 );
@@ -98,6 +101,16 @@ function MainLayout() {
           <h1 className={styles.srOnly}>{t('menu.theory')}</h1>
           <Suspense fallback={<p className={styles.loading}>{t('storage.status.loading')}</p>}>
             <TheoryPage />
+          </Suspense>
+        </main>
+      ) : active === 'progress' ? (
+        <main className={styles.main}>
+          <div className={styles.sectionTitle}>
+            <h1>{t('menu.progress')}</h1>
+            <span className={styles.rule} />
+          </div>
+          <Suspense fallback={<p className={styles.loading}>{t('storage.status.loading')}</p>}>
+            <ProgressPage />
           </Suspense>
         </main>
       ) : active === 'templates' ? (

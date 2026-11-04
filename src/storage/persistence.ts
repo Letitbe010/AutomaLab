@@ -26,6 +26,14 @@ import {
   type ImportPreview,
 } from './backup';
 import * as db from './db';
+import {
+  flushProgress,
+  loadProgress,
+  mergeImportedProgress,
+  noteTemplateOpened,
+  resetProgressStore,
+  useProgress,
+} from './progress';
 import { downloadText, safeFileName } from './download';
 import { DEFAULT_META, type StorageMeta } from './types';
 
@@ -120,6 +128,7 @@ export async function bootstrap(): Promise<void> {
 
 async function start(): Promise<void> {
   const persisted = await db.requestPersistentStorage();
+  await loadProgress();
   useStorage.setState({ persisted });
   const meta = await db.getMeta();
   const records = await db.listProjects();
@@ -155,6 +164,7 @@ export function shutdown(): void {
   unsubscribe = null;
   savedProject = null;
   useStorage.setState({ ready: false, projectId: null, status: 'loading' });
+  resetProgressStore();
 }
 
 export async function openProject(id: string): Promise<void> {
@@ -200,6 +210,7 @@ export async function openTemplate(id: string): Promise<boolean> {
   const project = templateCopy(tpl);
   await db.saveProject(projectId, project);
   show(projectId, project);
+  await noteTemplateOpened(id);
   await refresh();
   return true;
 }
@@ -237,7 +248,12 @@ export async function importProjectFile(
 export async function exportAll(): Promise<void> {
   await flush();
   const now = new Date();
-  const backup = buildBackup(await db.listProjects(), now);
+  await flushProgress();
+  const backup = buildBackup(
+    await db.listProjects(),
+    now,
+    useProgress.getState().progress as unknown as Record<string, unknown>,
+  );
   downloadText(backupFileName(now), JSON.stringify(backup, null, 2));
   await db.updateMeta({ lastBackupAt: now.toISOString() });
   await refresh();
@@ -260,6 +276,7 @@ export async function prepareImportAll(
 
 export async function applyImportAll(backup: BackupFile): Promise<void> {
   await db.putProjects(backup.projects);
+  await mergeImportedProgress(backup.progress);
   // The imported data already exists in a backup file: no reminder for it.
   await db.updateMeta({ lastBackupAt: new Date().toISOString() });
   const { projectId } = useStorage.getState();

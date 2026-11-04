@@ -1,0 +1,91 @@
+{
+  "templateId": "tpl-pn-01",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "single",
+      "prompt_md": "Zein da **1S1** balbularen egoera atsedenean?",
+      "options": [
+        "Itxia (NI): 1 blokeatuta, 2 → 3 ihesera",
+        "Irekia (NA): 1 → 2",
+        "Hiru portuak blokeatuta",
+        "1 → 3, zuzenean ihesera"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "3/2 NI balbula bat da: atsedenean 1 portua blokeatuta dago eta lan-portua (2) ihesera (3) konektatuta, zilindroa husteko.",
+      "theoryRef": "pn-balbulak"
+    },
+    {
+      "id": "q2",
+      "type": "predict",
+      "prompt_md": "Zilindroa atzean dago. **1S1** sakatu eta sakatuta mantentzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [
+        ["press", "1S1"],
+        ["wait", 1500]
+      ],
+      "options": [
+        "1A ateratzen da eta aurrean geratzen da",
+        "1A atera eta berehala itzultzen da",
+        "Ezer ez"
+      ],
+      "optionEvents": [["1A+"], ["1A+", "1A-"], []],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "Pultsadorea sakatuta dagoen bitartean 1 → 2 bidea irekita dago: zilindroa ateratzen da eta aurrean geratzen da, presioak eusten diolako.",
+      "theoryRef": "pn-balbulak"
+    },
+    {
+      "id": "q3",
+      "type": "predict",
+      "prompt_md": "1A aurrean dago, **1S1** sakatuta dagoelako. Zer gertatzen da 1S1 askatzean?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [
+        ["press", "1S1"],
+        ["wait", 1500],
+        ["release", "1S1"]
+      ],
+      "options": [
+        "1A malgukiaren bidez itzultzen da",
+        "1A aurrean geratzen da (balbulak gogoratzen du)"
+      ],
+      "optionEvents": [["1A+", "1A-"], ["1A+"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "3/2 balbula monoegonkorra da: askatzean malgukiak atsedenera itzultzen du, ganbera 3 portutik husten da eta zilindroaren malgukiak pistoia atzera eramaten du. Agintea zuzenak ez du memoriarik.",
+      "theoryRef": "pn-balbulak"
+    },
+    {
+      "id": "q4",
+      "type": "numeric",
+      "prompt_md": "Hornidura-presioa 6 bar (manometrikoa) da. Zenbat aldiz dago airea konprimituta atmosferarekiko? Erabili $r = (p + 1{,}013) / 1{,}013$.",
+      "answer": {
+        "value": 6.92,
+        "unit": "",
+        "tolerancePct": 2
+      },
+      "explanation_md": "$r = (6 + 1{,}013) / 1{,}013 \\approx 6{,}92$. Presio manometrikoari presio atmosferikoa gehitu behar zaio presio absolutua lortzeko.",
+      "theoryRef": "pn-zilindro-indarra"
+    },
+    {
+      "id": "q5",
+      "type": "truefalse",
+      "prompt_md": "Agintea zuzena zilindro handietarako ere egokia da.",
+      "answer": {
+        "value": false
+      },
+      "explanation_md": "Ez: pultsadoreak zilindroaren aire guztia pasatu behar du. Zilindro handietan edo urrutiko aginteetan zeharkako agintea erabiltzen da (pultsadoreak balbula nagusi bat pilotatzen du).",
+      "theoryRef": "pn-balbulak"
+    }
+  ]
+}

@@ -2,7 +2,8 @@ import { IDBFactory } from 'fake-indexeddb';
 import { addComponent } from '../../src/ui/editor/model/ops';
 import { useEditor } from '../../src/ui/editor/store';
 import * as db from '../../src/storage/db';
-import { buildBackup } from '../../src/storage/backup';
+import { buildBackup, parseBackup } from '../../src/storage/backup';
+import { flushProgress, noteQuizResult, useProgress } from '../../src/storage/progress';
 import {
   applyImportAll,
   bootstrap,
@@ -91,5 +92,37 @@ describe('persistence', () => {
     await applyImportAll(prepared.backup);
     expect(useEditor.getState().project.components.map((c) => c.type)).toEqual(['pn.cyl.single']);
     expect(useStorage.getState().meta.lastBackupAt).toBeDefined();
+  });
+
+  it('saves quiz progress, exports it in the backup and merges it on import', async () => {
+    await bootstrap();
+    await noteQuizResult('tpl-pn-01', {
+      score: 0.8,
+      correct: 4,
+      total: 5,
+      wrong: ['q2'],
+      byType: { single: [4, 5] },
+    });
+    await flushProgress();
+    const stored = await db.getProgress();
+    expect(
+      (stored as { templates: Record<string, { bestScore: number }> }).templates['tpl-pn-01']!
+        .bestScore,
+    ).toBe(0.8);
+    const backup = buildBackup(
+      await db.listProjects(),
+      new Date(),
+      useProgress.getState().progress as never,
+    );
+    const text = JSON.stringify(backup);
+    shutdown();
+
+    freshProfile();
+    await bootstrap();
+    expect(useProgress.getState().progress.templates).toEqual({});
+    const parsed = parseBackup(text);
+    if (!parsed.ok) throw new Error('backup should parse');
+    await applyImportAll(parsed.backup);
+    expect(useProgress.getState().progress.templates['tpl-pn-01']!.bestScore).toBe(0.8);
   });
 });

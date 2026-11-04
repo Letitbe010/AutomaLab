@@ -2,6 +2,18 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [fase-3c] / [mvp-1] — 2026-11-04
+
+### Gehituta
+
+- Galdetegi-motorra (`src/learning/quiz/`): `single`, `truefalse`, `numeric` (koma hamartarra, tolerantzia %-tan) eta `predict` motak; zuzenketa, puntuazioa eta motaren araberako emaitzak.
+- `predict` galderak: estimuluak (sakatu/askatu/bulkada/itxaron) etiketaren bidez; erantzun ondoren simulazioaren emaitza erakusten da. Testek egiaztatzen dute motorrak erantzun zuzen bera ematen duela.
+- 25 galdera (5 txantiloi × 5), zirriborro gisa; zenbakizko erantzunak kalkulagailuekin egiaztatuta.
+- Galdetegia txantiloiaren panelean («Azalpena» / «Galdetegia» fitxak), ikasketa-moduan, galderak eta aukerak nahasteko aukerarekin.
+- «Nire aurrerapena»: domeinuen laburpena, txantiloien taula, galdera-moten asmatze-tasa, irakurritako teoria-fitxak, JSON esportazioa.
+- Aurrerapena IndexedDB-n (`progress` gakoa); «Esportatu dena»-n sartzen da, eta «Inportatu dena»-k bateratu egiten du (ez du emaitzarik galtzen).
+- Katalogoan puntuazio onena txartel bakoitzean.
+
 ## [fase-3b] — 2026-11-04
 
 ### Gehituta

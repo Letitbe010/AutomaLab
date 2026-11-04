@@ -3,6 +3,7 @@ import type { Domain } from '../../core/types';
 import { allTags, filterTemplates, TEMPLATES } from '../../learning/templates';
 import { getSheet } from '../../learning/theory/sheets';
 import { t } from '../../i18n';
+import { useProgress } from '../../storage/progress';
 import { useLearning } from '../learning/store';
 import { useNav } from '../navigation';
 import { DraftBadge } from '../theory/TheorySheetView';
@@ -20,6 +21,7 @@ export function TemplatesPage() {
   const [level, setLevel] = useState(0);
   const [tag, setTag] = useState('');
   const list = filterTemplates(TEMPLATES, { domain, level, tag });
+  const progress = useProgress((s) => s.progress);
 
   function showTheory(id: string) {
     useLearning.getState().showTheory(id);
@@ -81,6 +83,13 @@ export function TemplatesPage() {
                 <span>·</span>
                 <span>{t(`templates.levels.${tpl.level}`)}</span>
                 <DraftBadge status={tpl.status} />
+                {progress.templates[tpl.id]?.bestScore !== undefined && (
+                  <span className={styles.score} title={t('progress.best')}>
+                    {t('templates.best', {
+                      score: Math.round(progress.templates[tpl.id]!.bestScore! * 100),
+                    })}
+                  </span>
+                )}
               </div>
               <h2 className={styles.title}>{tpl.title}</h2>
               <p className={styles.summary}>{tpl.summary}</p>

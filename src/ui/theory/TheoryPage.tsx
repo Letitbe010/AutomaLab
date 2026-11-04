@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Domain } from '../../core/types';
 import { getSheet, searchSheets, THEORY_SHEETS } from '../../learning/theory/sheets';
 import { t } from '../../i18n';
+import { noteTheoryRead } from '../../storage/progress';
 import { useLearning } from '../learning/store';
 import { DraftBadge, TheorySheetView } from './TheorySheetView';
 import styles from './Theory.module.css';
@@ -16,6 +17,9 @@ export function TheoryPage() {
   const showTheory = useLearning((s) => s.showTheory);
   const results = searchSheets(query, domain);
   const sheet = getSheet(theoryId);
+  useEffect(() => {
+    if (sheet) void noteTheoryRead(sheet.id);
+  }, [sheet]);
 
   return (
     <div className={styles.page}>
