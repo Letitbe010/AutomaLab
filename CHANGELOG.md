@@ -2,6 +2,14 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [liburutegia-p2] — 2026-11-04
+
+### Gehituta
+
+- SPEC §5.1eko P2/P3 osagai pneumatikoak (ikurrak, simulaziorik gabe): iragazkia, presio-erregulagailua, zerbitzu-unitatea, isilgailua, itxiera-giltza (2/2), moteltzailedun zilindroa, zurtoin bikoitzekoa, motor pneumatikoa, huts-sorgailua, bentosa, ihes azkarreko balbula, bi noranzkoko itogunea, presio-sekuentzia balbula, tenporizadore pneumatikoak (NI/NA), 5/3 balbulak palankarekin (3 zentro).
+- Eragingailu berriak: malguki doigarria, pilotaje tenporizatua (itogunea + depositua).
+- Liburutegian «Hutsa» taldea. Guztira 51 osagai.
+
 ## [liburutegia-p1] — 2026-11-04 (2. fasearen aurretik, erabiltzaileak eskatuta)
 
 ### Gehituta

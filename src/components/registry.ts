@@ -1,5 +1,6 @@
 import type { ComponentDef, DefLookup } from '../core/componentDef';
 import { cylinderSingle } from './pneumatic/cylinderSingle';
+import { EXTRA_DEFS } from './pneumatic/extra';
 import { fluidJunction } from './pneumatic/junction';
 import {
   andValve,
@@ -33,6 +34,7 @@ export const COMPONENT_DEFS: readonly ComponentDef<unknown>[] = [
   erase(orValve),
   erase(andValve),
   erase(gauge),
+  ...EXTRA_DEFS.map((d) => d as unknown as ComponentDef<unknown>),
   erase(fluidJunction),
 ];
 

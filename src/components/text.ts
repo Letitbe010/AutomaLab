@@ -19,6 +19,7 @@ export function componentHelp(def: Pick<ComponentDef, 'helpKey' | 'textVars'>): 
 export const GROUP_ORDER = [
   'supply',
   'actuators',
+  'vacuum',
   'valves32',
   'valves52',
   'valves53',

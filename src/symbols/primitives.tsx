@@ -94,11 +94,22 @@ export function ValveBox({ x, y, size = 40 }: { x: number; y: number; size?: num
 }
 
 export type OperatorKind =
-  'spring' | 'button' | 'pedal' | 'lever' | 'roller' | 'idleRoller' | 'pilot' | 'solenoid';
+  | 'spring'
+  | 'button'
+  | 'pedal'
+  | 'lever'
+  | 'roller'
+  | 'idleRoller'
+  | 'pilot'
+  | 'solenoid'
+  | 'springAdj'
+  | 'timedPilot';
 
 /** Horizontal extent (px) of each operator symbol, measured outward from the box edge. */
 export const OPERATOR_WIDTH: Record<OperatorKind, number> = {
   spring: 22,
+  springAdj: 22,
+  timedPilot: 6,
   button: 17,
   pedal: 17,
   lever: 16,
@@ -118,6 +129,13 @@ export function OperatorSymbol({ kind }: { kind: OperatorKind }) {
   switch (kind) {
     case 'spring':
       return <Spring x1={0} x2={-22} y={0} amplitude={5} coils={3} />;
+    case 'springAdj':
+      return (
+        <>
+          <Spring x1={0} x2={-22} y={0} amplitude={5} coils={3} />
+          <FlowArrow x1={-20} y1={8} x2={-3} y2={-9} head={4} />
+        </>
+      );
     case 'button':
       return (
         <>
@@ -158,6 +176,7 @@ export function OperatorSymbol({ kind }: { kind: OperatorKind }) {
         </>
       );
     case 'pilot':
+    case 'timedPilot':
       return <polygon points="0,0 -6,-4 -6,4" fill="var(--panel)" />;
     case 'solenoid':
       return (
@@ -168,6 +187,36 @@ export function OperatorSymbol({ kind }: { kind: OperatorKind }) {
         </>
       );
   }
+}
+
+/** Adjustable throttle (two arcs and an arrow), centred at (x, y), horizontal flow. */
+export function Throttle({ x, y, w = 14 }: { x: number; y: number; w?: number }) {
+  const h = w / 2;
+  return (
+    <>
+      <path d={`M ${x - h} ${y - 4} Q ${x} ${y + 1} ${x + h} ${y - 4}`} />
+      <path d={`M ${x - h} ${y + 4} Q ${x} ${y - 1} ${x + h} ${y + 4}`} />
+    </>
+  );
+}
+
+/**
+ * Fixed part of a pneumatic time-delay pilot, between the pilot port (x0) and
+ * the box strip: a one-way throttle and an air reservoir.
+ */
+export function TimerPilotLine({ x0, x1, y }: { x0: number; x1: number; y: number }) {
+  const tx = x0 + 14;
+  const rx = x0 + 32;
+  return (
+    <>
+      <line x1={x0} y1={y} x2={tx - 7} y2={y} />
+      <Throttle x={tx} y={y} />
+      <FlowArrow x1={tx - 6} y1={y + 7} x2={tx + 6} y2={y - 8} head={3.5} />
+      <line x1={tx + 7} y1={y} x2={x1} y2={y} strokeDasharray="4 3" />
+      <line x1={rx} y1={y} x2={rx} y2={y + 6} />
+      <rect x={rx - 6} y={y + 6} width={12} height={8} rx={3} />
+    </>
+  );
 }
 
 /** Push-button operator attached to the left edge at (x, y). */

@@ -27,11 +27,15 @@
     "boreMm": "Enboloaren diametroa",
     "rodMm": "Zurtoinaren diametroa",
     "strokeMm": "Ibilbidea",
-    "speedFactor": "Abiadura-faktorea"
+    "speedFactor": "Abiadura-faktorea",
+    "setBar": "Doitutako presioa",
+    "switchBar": "Kommutazio-presioa",
+    "delayS": "Atzerapena"
   },
   "group": {
-    "supply": "Elikadura eta ihesa",
-    "actuators": "Zilindroak",
+    "supply": "Elikadura, prestaketa eta ihesa",
+    "actuators": "Eragingailuak",
+    "vacuum": "Hutsa",
     "valves32": "3/2 balbulak",
     "valves52": "5/2 balbulak",
     "valves53": "5/3 balbulak",
@@ -71,6 +75,63 @@
       "name": "Bi presioko balbula (AND)",
       "help": "X eta Y sarreretan aldi berean presioa dagoenean bakarrik dago presioa 2 irteeran."
     },
+    "filter": {
+      "name": "Iragazkia",
+      "help": "Aireko partikulak eta ura atxikitzen ditu. 1 sarrera, 2 irteera."
+    },
+    "regulator": {
+      "name": "Presio-erregulagailua",
+      "help": "Irteerako presioa (2) doitutako balioan mantentzen du, sarrerakoa (1) handiagoa bada ere."
+    },
+    "serviceUnit": {
+      "name": "Zerbitzu-unitatea (iragazkia + erregulagailua + manometroa)",
+      "help": "Airea prestatzen du: iragazi, presioa erregulatu eta erakutsi. 1 sarrera, 2 irteera."
+    },
+    "silencer": {
+      "name": "Isilgailua",
+      "help": "Ihes-portu batean jartzen da, airea atmosferara askatzean zarata murrizteko."
+    },
+    "shutoff": {
+      "name": "Itxiera-giltza (2/2, eskuzkoa)",
+      "help": "Eskuz irekitzen edo ixten du lerroa (1 ↔ 2)."
+    },
+    "cylCushion": {
+      "name": "Eragin bikoitzeko zilindroa, moteltzaile doigarriekin",
+      "help": "Eragin bikoitzekoa (A atera, B sartu), ibilbide-amaieretan abiadura leuntzen duten moteltzaile doigarriekin."
+    },
+    "cylDoubleRod": {
+      "name": "Zurtoin bikoitzeko zilindroa",
+      "help": "Zurtoina bi aldeetatik ateratzen da; bi ganberek azalera bera dute. A presioan: eskuinera; B presioan: ezkerrera."
+    },
+    "motor": {
+      "name": "Motor pneumatikoa (bi noranzkoak)",
+      "help": "Airea A portutik sartzean noranzko batean biratzen du; B portutik sartzean, kontrakoan."
+    },
+    "ejector": {
+      "name": "Huts-sorgailua (ejektorea)",
+      "help": "1 portutik aire konprimitua pasatzean, 2 portuan hutsa sortzen du; airea 3 portutik ateratzen da."
+    },
+    "cup": {
+      "name": "Bentosa",
+      "help": "Hutsaren bidez piezak heltzen ditu. 1 portua: huts-sorgailura."
+    },
+    "quickExhaust": {
+      "name": "Ihes azkarreko balbula",
+      "help": "1 → 2 airea zilindrora pasatzen da; 1 portuko presioa jaistean, 2 zuzenean ihesera doa, zilindroa azkarrago mugi dadin."
+    },
+    "throttle": {
+      "name": "Itogune doigarria (bi noranzkoak)",
+      "help": "Emaria bi noranzkoetan murrizten du (1 ↔ 2)."
+    },
+    "sequence": {
+      "name": "Presio-sekuentzia balbula",
+      "help": "12 pilotaje-portuko presioak doitutako balioa gainditzean, 1 → 2 irekitzen du. Portuak: 1 elikadura, 2 irteera, 3 ihesa, 12 kontrol-presioa."
+    },
+    "timer": {
+      "nc": "Tenporizadore pneumatikoa (NI)",
+      "no": "Tenporizadore pneumatikoa (NA)",
+      "help": "12 portuko seinalea iristean, itogunea eta depositua betetzen dira eta, atzerapena igarotakoan, balbulak kommutatzen du. Portuak: 1 elikadura, 2 irteera, 3 ihesa, 12 kontrol-seinalea."
+    },
     "op": {
       "spring": "malgukia",
       "button": "pultsadorea",
@@ -79,7 +140,9 @@
       "roller": "rodilloa",
       "idleRoller": "rodillo abatigarria",
       "pilot": "pilotaje pneumatikoa",
-      "solenoid": "solenoidea"
+      "solenoid": "solenoidea",
+      "springAdj": "malguki doigarria",
+      "timedPilot": "pilotaje tenporizatua"
     },
     "valve": {
       "name": "{ways} balbula {variant}: {left} / {right}",

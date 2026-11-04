@@ -5,9 +5,17 @@ import {
   OPERATOR_WIDTH,
   OperatorSymbol,
   SymbolGroup,
+  TimerPilotLine,
   ValveBox,
 } from '../../symbols/primitives';
-import { BOX, operatorYs, portGrid, VALVE_SPECS, type ValveSpec } from './valveSpecs';
+import {
+  BOX,
+  isPilotOperator,
+  operatorYs,
+  portGrid,
+  VALVE_SPECS,
+  type ValveSpec,
+} from './valveSpecs';
 
 export interface ValveState {
   /** Index of the box sitting on the ports (0 = leftmost). */
@@ -47,11 +55,13 @@ function makeValve(spec: ValveSpec): ComponentDef<ValveState> {
   const n = spec.positions.length;
   const leftYs = operatorYs(spec.left.length);
   const rightYs = operatorYs(spec.right.length);
-  // Pilot ports are fixed two grid units outside the box strip at rest.
-  const leftPilotX = -spec.rest * BOX - 20;
-  const rightPilotX = (n - spec.rest) * BOX + 20;
-  const leftPilotIdx = spec.left.indexOf('pilot');
-  const rightPilotIdx = spec.right.indexOf('pilot');
+  // Pilot ports are fixed outside the box strip at rest (two grid units by default).
+  const offset = spec.pilotOffset ?? 20;
+  const leftPilotX = -spec.rest * BOX - offset;
+  const rightPilotX = (n - spec.rest) * BOX + offset;
+  const leftPilotIdx = spec.left.findIndex(isPilotOperator);
+  const rightPilotIdx = spec.right.findIndex(isPilotOperator);
+  const timed = spec.left[leftPilotIdx] === 'timedPilot';
 
   const ports: PortDef[] = spec.ports.map((s) => {
     const [x, y] = portGrid(s);
@@ -74,8 +84,8 @@ function makeValve(spec: ValveSpec): ComponentDef<ValveState> {
     });
   }
 
-  const leftExtent = spec.left.includes('pilot') ? 22 : sideWidth(spec.left) + 2;
-  const rightExtent = spec.right.includes('pilot') ? 22 : sideWidth(spec.right) + 2;
+  const leftExtent = leftPilotIdx >= 0 ? offset + 2 : sideWidth(spec.left) + 2;
+  const rightExtent = rightPilotIdx >= 0 ? offset + 2 : sideWidth(spec.right) + 2;
   const x0 = -spec.rest * BOX - leftExtent;
   const x1 = (n - spec.rest) * BOX + rightExtent;
   const letters = POSITION_LETTERS[n] ?? [];
@@ -91,15 +101,20 @@ function makeValve(spec: ValveSpec): ComponentDef<ValveState> {
   return {
     type: spec.type,
     domain: 'pneumatic',
-    group: `valves${spec.ways.replace('/', '').slice(0, 2)}`,
-    nameKey: 'comp.valve.name',
-    helpKey: `comp.valve.help.${spec.ways.replace('/', '')}${spec.ways === '3/2' ? spec.variantKey.slice(-2) : ''}`,
+    group: spec.group ?? `valves${spec.ways.replace('/', '')}`,
+    nameKey: spec.nameKey ?? 'comp.valve.name',
+    helpKey:
+      spec.helpKey ??
+      `comp.valve.help.${spec.ways.replace('/', '')}${spec.ways === '3/2' ? spec.variantKey.slice(-2) : ''}`,
     textVars,
     labelPrefix: spec.labelPrefix,
-    bounds: [Math.floor(x0 / 10), -1, Math.ceil((x1 - x0) / 10) + 1, 6],
+    bounds: [Math.floor(x0 / 10), -1, Math.ceil((x1 - x0) / 10) + 1, timed ? 7 : 6],
     labelAt: [Math.floor(x0 / 10), -0.5],
     ports,
-    params: [{ key: 'label', labelKey: 'param.label', type: 'string', default: '' }],
+    params: [
+      { key: 'label', labelKey: 'param.label', type: 'string', default: '' },
+      ...(spec.extraParams ?? []),
+    ],
     initState: () => ({ position: spec.rest }),
     previewStates: spec.positions.map((_, i) => ({
       nameKey: i === spec.rest ? 'comp.valve.posRest' : 'comp.valve.pos',
@@ -122,7 +137,8 @@ function makeValve(spec: ValveSpec): ComponentDef<ValveState> {
             );
           })}
           {/* Pilot lines stretch from the fixed port to the moving operator. */}
-          {leftPilotIdx >= 0 && (
+          {timed && <TimerPilotLine x0={leftPilotX} x1={leftEdge - 6} y={leftYs[leftPilotIdx]!} />}
+          {leftPilotIdx >= 0 && !timed && (
             <line
               x1={leftPilotX}
               y1={leftYs[leftPilotIdx]}

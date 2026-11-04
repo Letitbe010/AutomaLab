@@ -3,6 +3,7 @@
  * operators. The symbol factory draws them; the logic solver (phase 2a) will
  * read the same internal path tables (SPEC §6.2).
  */
+import type { ParamDef } from '../../core/componentDef';
 
 export const BOX = 40;
 
@@ -19,7 +20,18 @@ export interface PortSlot {
 export type BoxPath = { kind: 'flow'; from: string; to: string } | { kind: 'block'; port: string };
 
 export type Operator =
-  'spring' | 'button' | 'pedal' | 'lever' | 'roller' | 'idleRoller' | 'pilot' | 'solenoid';
+  | 'spring'
+  | 'button'
+  | 'pedal'
+  | 'lever'
+  | 'roller'
+  | 'idleRoller'
+  | 'pilot'
+  | 'solenoid'
+  /** Adjustable spring (sets a switching pressure). */
+  | 'springAdj'
+  /** Pilot through a throttle and an air reservoir (pneumatic time delay). */
+  | 'timedPilot';
 
 export interface ValveSpec {
   type: string;
@@ -37,8 +49,18 @@ export interface ValveSpec {
   /** Pilot port names (ISO 5599: the port pair the pilot connects, e.g. 14 = 1 -> 4). */
   leftPilotPort?: string;
   rightPilotPort?: string;
+  /** Distance (px) from the box strip at rest to a pilot port; default 20. */
+  pilotOffset?: number;
   labelPrefix: string;
+  /** Overrides for valves that are not plain directional valves (sequence valve, timers). */
+  group?: string;
+  nameKey?: string;
+  helpKey?: string;
+  extraParams?: ParamDef[];
 }
+
+/** Operators that are pressure signals and therefore have a pilot port. */
+export const isPilotOperator = (op: Operator) => op === 'pilot' || op === 'timedPilot';
 
 const flow = (from: string, to: string): BoxPath => ({ kind: 'flow', from, to });
 const block = (port: string): BoxPath => ({ kind: 'block', port });
@@ -80,6 +102,8 @@ const OP_SLUG: Record<Operator, string> = {
   idleRoller: 'idleroller',
   pilot: 'pilot',
   solenoid: 'sol',
+  springAdj: 'spring-adj',
+  timedPilot: 'timed-pilot',
 };
 
 /** Mechanically actuated valves are signal elements ("S"); the rest are control valves ("V"). */
@@ -132,7 +156,7 @@ function valve52bi(op: 'pilot' | 'solenoid', type: string): ValveSpec {
   };
 }
 
-function valve53(centre: keyof typeof CENTRES, op: 'pilot' | 'solenoid'): ValveSpec {
+function valve53(centre: keyof typeof CENTRES, op: 'pilot' | 'solenoid' | 'lever'): ValveSpec {
   return {
     type: `pn.valve.5-3${centre}.${OP_SLUG[op]}`,
     ways: '5/3',
@@ -166,7 +190,55 @@ export const VALVE_SPECS: ValveSpec[] = [
   ...MONO_52.map(valve52mono),
   valve52bi('pilot', 'pn.valve.5-2.pilot'),
   valve52bi('solenoid', 'pn.valve.5-2.sol'),
-  ...(['c', 'e', 'p'] as const).flatMap((c) => [valve53(c, 'pilot'), valve53(c, 'solenoid')]),
+  ...(['c', 'e', 'p'] as const).flatMap((c) => [
+    valve53(c, 'pilot'),
+    valve53(c, 'solenoid'),
+    valve53(c, 'lever'),
+  ]),
+  // Pressure sequence valve: switches (1 -> 2) when the pilot 12 reaches the set pressure.
+  // TODO(galdetu): default switching pressure and whether class kits use this 3/2 form.
+  {
+    ...valve32('nc', 'pilot'),
+    type: 'pn.valve.sequence',
+    right: ['springAdj'],
+    group: 'logic',
+    nameKey: 'comp.sequence.name',
+    helpKey: 'comp.sequence.help',
+    extraParams: [
+      {
+        key: 'switchBar',
+        labelKey: 'param.switchBar',
+        type: 'number',
+        default: 3,
+        unit: 'bar',
+        min: 0.5,
+        max: 10,
+      },
+    ],
+  },
+  // Pneumatic timers: a 3/2 valve piloted through a throttle and a small reservoir.
+  // TODO(galdetu): default delay and timer drawing.
+  ...(['nc', 'no'] as const).map((normal): ValveSpec => ({
+    ...valve32(normal, 'pilot'),
+    type: `pn.timer.${normal}`,
+    left: ['timedPilot'],
+    leftPilotPort: '12',
+    pilotOffset: 50,
+    group: 'logic',
+    nameKey: `comp.timer.${normal}`,
+    helpKey: 'comp.timer.help',
+    extraParams: [
+      {
+        key: 'delayS',
+        labelKey: 'param.delayS',
+        type: 'number',
+        default: 2,
+        unit: 's',
+        min: 0.1,
+        max: 30,
+      },
+    ],
+  })),
 ];
 
 /** Port position in grid units: top ports one unit above the box, bottom ones one below. */
