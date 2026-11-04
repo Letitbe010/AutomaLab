@@ -2,6 +2,7 @@ import { produce } from 'immer';
 import { create } from 'zustand';
 import { createEmptyProject } from '../../core/project';
 import type { Point, PortRef, Project } from '../../core/types';
+import { t } from '../../i18n';
 import type { Clipboard } from './model/ops';
 
 export const HISTORY_LIMIT = 100;
@@ -71,7 +72,7 @@ function pruneSelection(sel: Selection, project: Project): Selection {
 let gestureStart: Project | null = null;
 
 export const useEditor = create<EditorState>()((set, get) => ({
-  project: createEmptyProject('Proiektu berria'),
+  project: createEmptyProject(t('storage.defaultName')),
   past: [],
   future: [],
   selection: EMPTY_SELECTION,

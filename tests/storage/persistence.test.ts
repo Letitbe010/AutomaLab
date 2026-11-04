@@ -47,6 +47,16 @@ describe('persistence', () => {
     expect(useEditor.getState().project.components.map((c) => c.type)).toEqual(['pn.cyl.single']);
   });
 
+  it('returns to "saved" when undo restores the saved state', async () => {
+    await bootstrap();
+    useEditor.getState().apply((p) => addComponent(p, 'pn.source', 0, 0));
+    await flush();
+    useEditor.getState().apply((p) => addComponent(p, 'pn.source', 50, 0));
+    expect(useStorage.getState().status).toBe('dirty');
+    useEditor.getState().undo();
+    expect(useStorage.getState().status).toBe('saved');
+  });
+
   it('switches between projects without losing changes', async () => {
     await bootstrap();
     const first = useStorage.getState().projectId!;

@@ -83,7 +83,11 @@ export async function flush(): Promise<void> {
   if (saving) await saving;
   const { projectId } = useStorage.getState();
   const { project } = useEditor.getState();
-  if (!projectId || project === savedProject) return;
+  if (!projectId) return;
+  if (project === savedProject) {
+    if (useStorage.getState().status === 'dirty') useStorage.setState({ status: 'saved' });
+    return;
+  }
   useStorage.setState({ status: 'saving' });
   saving = (async () => {
     try {
@@ -130,9 +134,9 @@ async function start(): Promise<void> {
   await refresh();
 
   unsubscribe = useEditor.subscribe((s, prev) => {
-    if (s.project !== prev.project && s.project !== savedProject) {
-      useStorage.setState({ status: 'dirty' });
-    }
+    if (s.project === prev.project) return;
+    // Undo can return to exactly the saved snapshot: nothing left to save then.
+    useStorage.setState({ status: s.project === savedProject ? 'saved' : 'dirty' });
   });
   timer = setInterval(() => void flush(), AUTOSAVE_MS);
   window.addEventListener('pagehide', () => void flush());
