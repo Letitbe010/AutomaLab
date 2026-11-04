@@ -6,3 +6,6 @@ test-results/
 *.log
 .vite/
 .claude/settings.local.json
+
+# Reference books (copyrighted, local only)
+Liburuak/
