@@ -31,8 +31,8 @@ Egoera: ☐ pendiente · ☑ eginda
 | 10  | Emari-erregulagailuaren abiadura-faktore lehenetsia (orain 0,5)                                                                                                                                                    | `src/components/pneumatic/misc.tsx`                   | ☐      |
 | 11  | Pilotaje-portuen izenak: 3/2 NI → 12, 3/2 NA → 10, 5/x → 14 (ezkerra) / 12 (eskuina)                                                                                                                               | `src/components/pneumatic/valveSpecs.ts`              | ☐      |
 | 12  | P2/P3 ikurrak: iragazkia, erregulagailua, zerbitzu-unitatea, isilgailua, itxiera-giltza, moteltzaileak, motorra, ejektorea, bentosa, ihes azkarrekoa, itogunea, sekuentzia-balbula, tenporizadoreak                | `src/components/pneumatic/extra.tsx`, `valveSpecs.ts` | ☐      |
-| 14  | 1. mailako arauak: ihes-portu libreak (3, 5) atmosferara doaz; zilindroaren ibilbide-denbora lehenetsia 1 s (SPEC §6.2); bi seinale biegonkorrean → aurreko posizioa; erregulagailuak ez du presio-balioa aldatzen | `src/engine/fluid/logic/behaviors.ts`                 | ☐      |
 | 13  | Lehenetsiak: sekuentzia-balbularen kommutazio-presioa (3 bar), tenporizadorearen atzerapena (2 s), erregulagailua (6 bar)                                                                                          | `valveSpecs.ts`, `extra.tsx`                          | ☐      |
+| 14  | 1. mailako arauak: ihes-portu libreak (3, 5) atmosferara doaz; zilindroaren ibilbide-denbora lehenetsia 1 s (SPEC §6.2); bi seinale biegonkorrean → aurreko posizioa; erregulagailuak ez du presio-balioa aldatzen | `src/engine/fluid/logic/behaviors.ts`                 | ☐      |
 
 ## SPEC §14ko informazioa (oraindik jaso gabe)
 
