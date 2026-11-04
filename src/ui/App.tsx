@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { t } from '../i18n';
 import { SECTIONS, type SectionId } from './sections';
+import { Editor } from './editor/Editor';
 import { SymbolGallery } from './symbols/SymbolGallery';
 import { useHashRoute } from './useHashRoute';
 import styles from './App.module.css';
@@ -71,28 +72,41 @@ function MainLayout() {
           </ul>
         </nav>
       </header>
-      <main className={styles.main}>
-        <div className={styles.sectionTitle}>
-          <h1>{t(`menu.${active}`)}</h1>
-          <span className={styles.rule} />
-        </div>
-        <div className={styles.card}>
-          <div className={styles.empty}>
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              aria-hidden="true"
-            >
-              <rect x="3" y="4" width="18" height="16" rx="2" />
-              <path d="M3 9h18" />
-            </svg>
-            <div className={styles.emptyTitle}>{t('section.emptyTitle')}</div>
-            <p className={styles.emptyText}>{t('section.empty')}</p>
-          </div>
-        </div>
-      </main>
+      {active === 'editor' ? (
+        <main>
+          <h1 className={styles.srOnly}>{t('menu.editor')}</h1>
+          <Editor />
+        </main>
+      ) : (
+        <SectionPlaceholder active={active} />
+      )}
     </div>
+  );
+}
+
+function SectionPlaceholder({ active }: { active: SectionId }) {
+  return (
+    <main className={styles.main}>
+      <div className={styles.sectionTitle}>
+        <h1>{t(`menu.${active}`)}</h1>
+        <span className={styles.rule} />
+      </div>
+      <div className={styles.card}>
+        <div className={styles.empty}>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            aria-hidden="true"
+          >
+            <rect x="3" y="4" width="18" height="16" rx="2" />
+            <path d="M3 9h18" />
+          </svg>
+          <div className={styles.emptyTitle}>{t('section.emptyTitle')}</div>
+          <p className={styles.emptyText}>{t('section.empty')}</p>
+        </div>
+      </div>
+    </main>
   );
 }

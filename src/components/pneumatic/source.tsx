@@ -13,6 +13,8 @@ export const pneumaticSource: ComponentDef<null> = {
   nameKey: 'comp.source.name',
   helpKey: 'comp.source.help',
   labelPrefix: '0Z',
+  bounds: [-1.5, -3, 3, 4.5],
+  labelAt: [1.8, 0.4],
   ports: [{ id: '1', kind: 'fluid', x: 0, y: -3 }],
   params: [
     { key: 'label', labelKey: 'param.label', type: 'string', default: '' },

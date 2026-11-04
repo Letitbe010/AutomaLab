@@ -1,5 +1,6 @@
 import type { ComponentDef, DefLookup } from '../core/componentDef';
 import { cylinderSingle } from './pneumatic/cylinderSingle';
+import { fluidJunction } from './pneumatic/junction';
 import { pneumaticSource } from './pneumatic/source';
 import { valve32ButtonSpring } from './pneumatic/valve32ButtonSpring';
 
@@ -16,6 +17,7 @@ export const COMPONENT_DEFS: readonly ComponentDef<unknown>[] = [
   erase(pneumaticSource),
   erase(valve32ButtonSpring),
   erase(cylinderSingle),
+  erase(fluidJunction),
 ];
 
 const byType = new Map(COMPONENT_DEFS.map((d) => [d.type, d]));

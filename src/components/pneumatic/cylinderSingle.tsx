@@ -24,6 +24,8 @@ export const cylinderSingle: ComponentDef<CylinderState> = {
   nameKey: 'comp.cylSingle.name',
   helpKey: 'comp.cylSingle.help',
   labelPrefix: '1A',
+  bounds: [0, -0.5, 18, 4.5],
+  labelAt: [0, -0.8],
   ports: [{ id: 'A', kind: 'fluid', x: 1, y: 4 }],
   params: [
     { key: 'label', labelKey: 'param.label', type: 'string', default: '' },

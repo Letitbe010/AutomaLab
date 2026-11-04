@@ -39,6 +39,9 @@
       "rest": "Atsedenean",
       "actuated": "Eragindakoa"
     },
+    "junction": {
+      "name": "T lotura"
+    },
     "cylSingle": {
       "name": "Eragin bakuneko zilindroa",
       "help": "Airea A portutik sartzean zurtoina ateratzen da; airea ihesera doanean, malgukiak itzultzen du.",
@@ -46,6 +49,55 @@
       "half": "Erdian",
       "extended": "Aterata"
     }
+  },
+  "editor": {
+    "canvas": "Eskema-oihala",
+    "toolbar": "Editorearen tresnak",
+    "library": "Liburutegia",
+    "search": "Bilatu osagaia…",
+    "noResults": "Ez dago emaitzarik.",
+    "mode": {
+      "label": "Modua",
+      "edit": "Editatu",
+      "sim": "Simulatu"
+    },
+    "tool": {
+      "undo": "Desegin",
+      "redo": "Berregin",
+      "rotate": "Biratu",
+      "mirror": "Ispilatu",
+      "delete": "Ezabatu",
+      "zoomIn": "Handiagotu",
+      "zoomOut": "Txikiagotu",
+      "fit": "Doitu"
+    },
+    "props": {
+      "title": "Propietateak",
+      "none": "Hautatu osagai edo lotura bat.",
+      "multi": "{components} osagai eta {connections} lotura hautatuta",
+      "rotation": "Biraketa",
+      "mirror": "Ispilua",
+      "connection": "Lotura (hodia)",
+      "wireHelp": "Klik bikoitza hodian: puntu bat gehitu. Arrastatu puntu karratuak bidea aldatzeko; klik bikoitza puntuan: kendu."
+    },
+    "issues": {
+      "title": "Abisuak",
+      "errors": "{n} errore",
+      "warnings": "{n} abisu",
+      "none": "Ez dago arazorik.",
+      "error": "Errorea",
+      "warning": "Abisua"
+    },
+    "connect": {
+      "missing": "Ezin da lotu: portua ez da aurkitu.",
+      "samePort": "Aukeratu beste portu bat.",
+      "kindMismatch": "Ezin dira domeinu desberdinetako portuak lotu.",
+      "duplicate": "Bi portu horiek lotuta daude jada."
+    },
+    "wireHint": "Klik beste portu batean (edo hodi batean, T lotura bat sortzeko). Klik hutsunean: angelu-puntua. Esc: utzi.",
+    "simPending": "Simulazio modua: eskema blokeatuta. Simulazioa 2. fasean gehituko da.",
+    "yes": "bai",
+    "no": "ez"
   },
   "validation": {
     "duplicateId": "Identifikadore errepikatua: {id}.",

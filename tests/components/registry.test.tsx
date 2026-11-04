@@ -32,7 +32,7 @@ describe('component registry', () => {
     });
 
     it('has a label parameter and valid numeric defaults', () => {
-      expect(def.params.some((p) => p.key === 'label')).toBe(true);
+      if (def.labelPrefix !== '') expect(def.params.some((p) => p.key === 'label')).toBe(true);
       for (const p of def.params) {
         if (p.type !== 'number') continue;
         if (p.min !== undefined) expect(p.default).toBeGreaterThanOrEqual(p.min);

@@ -47,8 +47,14 @@ export interface ComponentDef<S = unknown> {
   /** i18n key of the short contextual help text (SPEC §7.4). */
   helpKey?: string;
   theoryRef?: string;
-  /** Suggested label prefix (e.g. "1A", "1V", "0Z"); numbering is added by the editor. */
+  /** Suggested label prefix (e.g. "1A", "1V", "0Z"); numbering is added by the editor. Empty = no label. */
   labelPrefix: string;
+  /** Hit/selection box in grid units: [x, y, width, height], local coordinates. */
+  bounds: [number, number, number, number];
+  /** Where the label text is anchored, in grid units (local). Defaults to the bounds' top-left. */
+  labelAt?: [number, number];
+  /** Not shown in the library (e.g. wire junctions, created by the editor). */
+  libraryHidden?: boolean;
   ports: PortDef[];
   params: ParamDef[];
   symbol: SymbolRenderer<S>;

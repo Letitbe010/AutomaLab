@@ -27,6 +27,8 @@ export const valve32ButtonSpring: ComponentDef<ValveState> = {
   nameKey: 'comp.valve32ButtonSpring.name',
   helpKey: 'comp.valve32ButtonSpring.help',
   labelPrefix: '1V',
+  bounds: [-6, -1, 13, 6],
+  labelAt: [-6, -0.5],
   ports: [
     { id: '1', kind: 'fluid', x: 1, y: 5 },
     { id: '2', kind: 'fluid', x: 1, y: -1 },

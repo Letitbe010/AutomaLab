@@ -2,6 +2,23 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [fase-1b] — 2026-11-04
+
+### Gehituta
+
+- SVG editorea «Editorea» atalean: liburutegia (bilaketa, domeinuka, klik edo arrastatu), oihala (sareta, zoom, pan), propietateak eta abisuen panela.
+- Osagaiak: jarri, mugitu (saretara), biratu (R), ispilatu (M), ezabatu (Supr), kopiatu/itsatsi (Ctrl+C/V), hautapen anitza (Shift, laukizuzena), Ctrl+A.
+- Hodiak: portutik portura, bide ortogonal automatikoa, angelu-puntu editagarriak, T loturak (hodi baten erdian amaituz).
+- Desegin/berregin (Ctrl+Z / Ctrl+Y), 100 urrats; arrastatze bat = urrats bat.
+- Etiketen iradokizun automatikoa (1A, 2A; 1V1, 1V2; 0Z1).
+- Editatze- eta simulazio-modua bereizita (simulazioan eskema blokeatuta).
+- `docs/berrikuspenak.md`: berrikuspen pendienteen zerrenda.
+- Testak: 65 unitate-test, 4 E2E.
+
+### Konponduta
+
+- Hodi berrien angelu-puntuak ez ziren ondo saretara egokitzen (`map(snapPoint)`-ek indizea urrats gisa pasatzen zuen).
+
 ## [fase-1a] — 2026-11-04
 
 ### Gehituta
