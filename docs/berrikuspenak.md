@@ -42,7 +42,7 @@ Egoera: ☐ pendiente · ☑ eginda
 - ☐ Terminologia / glosarioa
 - ☐ Klaseko ariketa pneumatiko eta elektropneumatikoak (10–15)
 - ☐ Balio tipikoak (presioak, zilindro-neurriak, ponparen emaria)
-- ☐ PLC nomenklatura (`I0.0` vs `%I0.0`) eta lantegiko PLCa
+- ☑ PLC: **Siemens S7-1200** (2026-11-04) → `I0.0` / `Q0.0` helbideratzea, TIA Portal estiloa
 - ☐ GRAFCET konbentzioak
 - ☐ Txantiloi lehenetsiak eta galdera tipikoak
 - ☐ Teoriako formulak eta koefizienteak (η, karga-faktorea…)

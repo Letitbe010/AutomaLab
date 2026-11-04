@@ -9,19 +9,41 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script>
-      // If the app has not rendered after a few seconds (a module failed to
-      // load), show a hint instead of a blank page. Static text: React may not run.
-      setTimeout(function () {
-        var root = document.getElementById('root');
-        if (root && !root.hasChildNodes()) {
-          root.innerHTML =
-            '<div style="font-family:system-ui,sans-serif;max-width:520px;margin:15vh auto;padding:24px;border:1px solid #d3dce8;border-radius:16px;background:#fff">' +
-            '<h1 style="font-size:18px;margin:0 0 8px">AutomaLab ez da kargatu</h1>' +
-            '<p style="color:#51637a;font-size:14px">Nabigatzaileak bertsio zahar bat gorde du ziurrenik. Sakatu <b>Ctrl+Shift+R</b> orria berriro kargatzeko. Ez bada konpontzen, ziurtatu <code>npm run dev</code> martxan dagoela.</p>' +
-            '<button onclick="location.reload()" style="padding:10px 16px;border:0;border-radius:10px;background:#0c95b0;color:#fff;font-weight:700;cursor:pointer">Freskatu orria</button>' +
-            '</div>';
+      // Hint instead of a blank page when the app cannot start. Static text:
+      // React may not run. Opening index.html directly (file://) never works
+      // in development: the app must be served by `npm run dev`.
+      (function () {
+        var card =
+          'font-family:system-ui,sans-serif;max-width:560px;margin:15vh auto;padding:24px;border:1px solid #d3dce8;border-radius:16px;background:#fff;color:#16202e';
+        var p = 'color:#51637a;font-size:14px;line-height:1.5';
+        function show(html) {
+          var root = document.getElementById('root');
+          if (root && !root.hasChildNodes())
+            root.innerHTML = '<div style="' + card + '">' + html + '</div>';
         }
-      }, 5000);
+        if (location.protocol === 'file:') {
+          show(
+            '<h1 style="font-size:18px;margin:0 0 8px">Fitxategia zuzenean ireki duzu</h1>' +
+              '<p style="' +
+              p +
+              '">AutomaLab ezin da <code>index.html</code> fitxategitik ireki. Erabili horren ordez:</p>' +
+              '<ol style="' +
+              p +
+              '"><li>Proiektuaren karpetan, klik bikoitza <b>AutomaLab.cmd</b> fitxategian. Nabigatzailea bere kabuz irekiko da.</li>' +
+              '<li>Edo, zerbitzaria martxan badago, ireki <a href="http://localhost:5173">http://localhost:5173</a>.</li></ol>',
+          );
+          return;
+        }
+        setTimeout(function () {
+          show(
+            '<h1 style="font-size:18px;margin:0 0 8px">AutomaLab ez da kargatu</h1>' +
+              '<p style="' +
+              p +
+              '">Nabigatzaileak bertsio zahar bat gorde du ziurrenik. Sakatu <b>Ctrl+Shift+R</b> orria berriro kargatzeko. Ez bada konpontzen, itxi eta ireki berriro <b>AutomaLab.cmd</b>.</p>' +
+              '<button onclick="location.reload()" style="padding:10px 16px;border:0;border-radius:10px;background:#0c95b0;color:#fff;font-weight:700;cursor:pointer">Freskatu orria</button>',
+          );
+        }, 5000);
+      })();
     </script>
   </body>
 </html>
