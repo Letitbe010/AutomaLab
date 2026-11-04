@@ -99,6 +99,55 @@
     "yes": "bai",
     "no": "ez"
   },
+  "storage": {
+    "defaultName": "Proiektu berria",
+    "projectName": "Proiektuaren izena",
+    "projects": "Proiektuak",
+    "myProjects": "Nire proiektuak",
+    "new": "Proiektu berria",
+    "open": "Irekita",
+    "openAction": "Ireki",
+    "delete": "Ezabatu",
+    "close": "Itxi",
+    "cancel": "Utzi",
+    "never": "inoiz ez",
+    "confirmDelete": "«{name}» proiektua behin betiko ezabatu?",
+    "exportProject": "Esportatu proiektu hau (.automalab.json)",
+    "importProject": "Inportatu proiektu bat",
+    "backup": "Babeskopia",
+    "backupNote": "Nabigatzaileak datuak ezaba ditzake (cachea garbitzean, lekurik ez dagoenean). Gorde fitxategi bat noizean behin.",
+    "lastBackup": "Azken babeskopia",
+    "persisted": "biltegiratze iraunkorra: bai",
+    "notPersisted": "biltegiratze iraunkorra: ez (nabigatzaileak ukatu du)",
+    "exportAll": "Esportatu dena",
+    "warnDays": "Abisua, babeskopiarik gabe (egunak):",
+    "reminder": "Ez duzu babeskopiarik egin {days} egunetan.",
+    "exportNow": "Esportatu orain",
+    "importAll": {
+      "button": "Inportatu dena",
+      "previewTitle": "Babeskopia inportatu",
+      "summary": "{added} proiektu berri, {overwrite} gainidatziko dira.",
+      "overwrite": "Gainidatziko dira",
+      "added": "Berriak",
+      "dates": "hemengoa: {local}; babeskopiakoa: {backup}",
+      "confirm": "Inportatu"
+    },
+    "status": {
+      "loading": "Kargatzen…",
+      "saved": "Gordeta",
+      "dirty": "Aldaketak…",
+      "saving": "Gordetzen…",
+      "error": "Ezin da gorde"
+    },
+    "error": {
+      "invalidJson": "Fitxategia ez da JSON zuzena.",
+      "notAProject": "Fitxategia ez da AutomaLab proiektu bat.",
+      "notABackup": "Fitxategia ez da AutomaLab babeskopia bat.",
+      "newerVersion": "Fitxategia aplikazioaren bertsio berriago batekin egina dago.",
+      "invalidField": "Proiektuak eremu oker bat du: {path}.",
+      "invalidProject": "Babeskopiako {n}. proiektua okerra da."
+    }
+  },
   "validation": {
     "duplicateId": "Identifikadore errepikatua: {id}.",
     "unknownType": "{component}: osagai-mota ezezaguna ({type}).",

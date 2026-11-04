@@ -1,5 +1,6 @@
 import { t } from '../../i18n';
 import { deleteSelection, fitView, mirrorSelection, rotateSelection, zoomBy } from './actions';
+import { ProjectBar } from '../storage/ProjectBar';
 import { useEditor } from './store';
 import styles from './Editor.module.css';
 
@@ -19,6 +20,8 @@ export function Toolbar() {
 
   return (
     <div className={styles.toolbar} role="toolbar" aria-label={t('editor.toolbar')}>
+      <ProjectBar />
+      <span className={styles.sep} />
       <div className={styles.seg} role="group" aria-label={t('editor.mode.label')}>
         <button type="button" aria-pressed={edit} onClick={() => setMode('edit')}>
           {t('editor.mode.edit')}

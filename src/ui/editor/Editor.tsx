@@ -1,4 +1,5 @@
 import { t } from '../../i18n';
+import { useStorage } from '../../storage/persistence';
 import { Canvas } from './Canvas';
 import { IssuesPanel } from './IssuesPanel';
 import { Library } from './Library';
@@ -9,6 +10,13 @@ import { useShortcuts } from './useShortcuts';
 import styles from './Editor.module.css';
 
 export function Editor() {
+  // Wait for the stored project, so early edits are not replaced when it loads.
+  const loading = useStorage((s) => s.status === 'loading');
+  if (loading) return <p className={styles.loading}>{t('storage.status.loading')}</p>;
+  return <EditorView />;
+}
+
+function EditorView() {
   useShortcuts();
   const mode = useEditor((s) => s.mode);
   const notice = useEditor((s) => s.notice);

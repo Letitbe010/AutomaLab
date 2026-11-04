@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "name": "Eragin bakuneko zilindroa + 3/2 pultsadorea",
+  "simulation": { "level": "logic", "dtMs": 1, "supplyPressureBar": 6 },
+  "components": [
+    {
+      "id": "s1",
+      "type": "pn.source",
+      "x": 100,
+      "y": 300,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "0Z1", "pressureBar": 6 }
+    },
+    {
+      "id": "v1",
+      "type": "pn.valve.3-2.button-spring",
+      "x": 90,
+      "y": 160,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "1V1" }
+    },
+    {
+      "id": "c1",
+      "type": "pn.cyl.single",
+      "x": 90,
+      "y": 60,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "1A", "boreMm": 32, "rodMm": 12, "strokeMm": 100 }
+    }
+  ],
+  "connections": [
+    { "id": "w1", "kind": "fluid", "from": ["s1", "1"], "to": ["v1", "1"], "points": [] },
+    { "id": "w2", "kind": "fluid", "from": ["v1", "2"], "to": ["c1", "A"], "points": [] }
+  ],
+  "tags": {},
+  "plc": { "io": [], "ladder": [], "grafcet": null }
+}

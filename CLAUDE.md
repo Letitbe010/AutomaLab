@@ -11,7 +11,8 @@ Proiektuaren espezifikazio osoa `SPEC.md` fitxategian dago. **Irakurri osorik ed
 ## Uneko egoera
 
 - 0. fasea: baieztatuta (2026-11-04).
-- Uneko fasea: 1, azpi-faseetan (erabiltzaileak onartua 2026-11-04): **1a** datu-eredua + 3 proba-osagai + ikur-galeria (amaituta) → **1b** SVG editorea (amaituta) → **1c** IndexedDB, esportazioa eta babeskopia.
+- 1. fasea: amaituta (1a datu-eredua + ikurrak, 1b SVG editorea, 1c gordetzea eta babeskopia), etiketa `fase-1`. Erabiltzailearen egiaztapena pendiente.
+- Hurrengoa: **2. fasea** (pneumatika, 1. maila: scheduler, FluidSolver logikoa, P1 osagai pneumatikoak, simulazio-kontrolak, espazio-fase diagrama, laguntza testuinguruan). Planifikatu azpi-fasetan eta proposatu plana erabiltzaileari hasi aurretik.
 - **Berrikuspenak:** erabiltzaileak 1a eta 1b-ko egiaztapenak geroago egitea erabaki zuen (2026-11-04). Zerrenda: `docs/berrikuspenak.md`. Eguneratu fase bakoitzean eta gogorarazi MVP 1 mugan.
 - Simulazio-motorra (`src/engine/`) TypeScript hutsa da, UIrik gabe, eta testekin garatzen da (Vitest).
 - Kodea ingelesez; interfazea euskara batuan (`src/i18n/eu.json`); dokumentazioa euskaraz.
@@ -37,6 +38,7 @@ Oharra (Windows): Node.js eta Git winget bidez instalatu ziren 2026-11-04an. Pow
 - `src/core/` — `types.ts` (Project, ComponentInstance, Connection...), `componentDef.ts` (§3.2 kontratua), `geometry.ts` (GRID = 10 px, biraketa/ispilua, portuen posizioa), `serialization.ts` (`parseProject`, migrazioak `MIGRATIONS`-en), `validation.ts` (`validateProject` → `Issue[]`, mezuak `validation.<code>` i18n gakoetan).
 - `src/components/` — osagai bakoitza fitxategi bat; `registry.ts`-n erregistratu. `src/symbols/primitives.tsx` — ikur-pieza komunak (kaxa, gezia, blokeoa, malgukia, eragingailuak).
 - `src/ui/editor/` — editorea. `store.ts` (Zustand: proiektua, historia, hautapena, ikuspegia, modua), `actions.ts` (komandoak), `model/` (logika hutsa eta testatua: `ops.ts`, `routing.ts`, `labels.ts`), `Canvas.tsx` (interakzioak: keinuen egoera-makina), panelak.
+- `src/storage/` — `db.ts` (IndexedDB: `project:<id>`, `meta`), `backup.ts` (babeskopia-formatua, aurrebista, abisua; funtzio hutsak), `persistence.ts` (abiaraztea, autosave, proiektu-kudeaketa, esportazio/inportazioa; `useStorage` egoera). UI: `src/ui/storage/`.
 - `#/symbols` — ikur-galeria (garapen-orria, §9). Portuen markak `portPosition()`-ekin marrazten dira, geometria ikusiz egiaztatzeko.
 - `tests/core/fixtures/` — proba-zirkuituak (`.automalab.json`); irakurri `readFixture()`-rekin (jsdom-en `import.meta.url` ez da `file:`).
 - §3.1eko gainerako karpetak `.gitkeep`-ekin sortuta daude, hutsik.
@@ -57,5 +59,7 @@ Oharra (Windows): Node.js eta Git winget bidez instalatu ziren 2026-11-04an. Pow
 - **2026-11-04 — Hodien bideratzea:** gordetako puntuak + izkina automatikoak (`routeWire`): lehen tartea bertikala (portuak goian/behean), gero txandakatuz. Puntu bat editatzean bidea «materializatu» egiten da (izkina guztiak puntu bihurtu).
 - **2026-11-04 — T loturak:** `fluid.junction` osagaia (portu bakarra `j`, lotura anitz onartzen ditu), liburutegitik ezkutatua. Lotunerik gabe geratzen diren junction-ak automatikoki ezabatzen dira.
 - **2026-11-04 — Pan:** zuriunea + arrastatu edo erdiko botoia (SPEC §7.2); simulazio-moduan ezkerreko botoiak ere pan egiten du. Hutsunean arrastatzeak hautapen-laukizuzena egiten du.
+- **2026-11-04 — Biltegiratzea (1c):** `idb-keyval` (DB `automalab`, store `kv`). Proiektu bakoitzak IDa du (`p-…`); fitxategi bakarreko inportazioak beti proiektu berria sortzen du; «Inportatu dena»-k IDaren arabera gainidazten du, aurrebista erakutsi ondoren. Babeskopia-formatua (`automalab-backup`, v1) dagoeneko barne hartzen ditu `personalTemplates`, `customQuestions` eta `progress` (hutsik), formatua ez aldatzeko geroago. Abisua: `lastChangeAt > lastBackupAt` eta `backupWarnDays` egun igarota (babeskopiarik ez bada, lehen aldaketatik kontatuta). Inportatu ondoren `lastBackupAt` = orain.
+- **2026-11-04 — Dataren formatua:** UIan AAAA-HH-EE hh:mm eskuz, nabigatzaileek ez baitute `eu` locale-a beti ezagutzen.
 - **Windows oharra:** Vite-ren HMR-ak noizean behin aldaketa bat galtzen du (orri zuria, `X is not defined`). Konponbidea: dev zerbitzaria berrabiarazi. E2E aurretik, ziurtatu ez dagoela zerbitzari zaharrik 5173 atakan (`reuseExistingServer`).
 - Zustand eta Immer 1b-n instalatuta. uPlot, KaTeX, markdown-it, idb-keyval eta vite-plugin-pwa ez dira oraindik instalatu: behar diren fasean gehituko dira.

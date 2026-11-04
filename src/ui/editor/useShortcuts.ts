@@ -15,6 +15,7 @@ export function useShortcuts() {
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       if (target?.closest('input, textarea, select, [contenteditable="true"]')) return;
+      if (document.querySelector('dialog[open]')) return;
       const st = useEditor.getState();
       const ctrl = e.ctrlKey || e.metaKey;
       const key = e.key.toLowerCase();

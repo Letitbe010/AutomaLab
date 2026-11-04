@@ -2,6 +2,20 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [fase-1c] — 2026-11-04 (1. fasea osatuta)
+
+### Gehituta
+
+- Proiektuak IndexedDB-n (`idb-keyval`), gordetze automatikoarekin 5 s-ro eta orria ixtean/ezkutatzean; egoera-adierazlea (Gordeta / Aldaketak… / Gordetzen…).
+- Proiektu anitz: berria, ireki, ezabatu (berrespenarekin), izena aldatu.
+- Proiektu bakarraren esportazioa/inportazioa (`.automalab.json`; inportatzean beti proiektu berri gisa).
+- Babeskopia osoa: «Esportatu dena» (`automalab-babeskopia-AAAA-HH-EE.json`) eta «Inportatu dena» aurrebistarekin (berriak / gainidatziko direnak, datekin).
+- Babeskopia-abisua: aldaketak daudenean eta N egunetan babeskopiarik ez (lehenetsia 7, konfiguragarria).
+- `navigator.storage.persist()` abiaraztean.
+- Editoreak gordetako proiektua kargatu arte itxaroten du (karga aurreko aldaketak ez galtzeko).
+- Proba-fitxategia: `docs/egiaztapena/fitxategiak/r1-zilindro-bakuna.automalab.json`.
+- Testak: 79 unitate-test (fake-indexeddb), 7 E2E (berriro kargatzea eta profil arteko babeskopia barne).
+
 ## [fase-1b] — 2026-11-04
 
 ### Gehituta

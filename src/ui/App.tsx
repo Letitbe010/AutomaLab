@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { t } from '../i18n';
+import { bootstrap } from '../storage/persistence';
+import { BackupReminder } from './storage/BackupReminder';
 import { SECTIONS, type SectionId } from './sections';
 import { Editor } from './editor/Editor';
 import { SymbolGallery } from './symbols/SymbolGallery';
@@ -42,6 +44,9 @@ export function App() {
 
 function MainLayout() {
   const [active, setActive] = useState<SectionId>('editor');
+  useEffect(() => {
+    void bootstrap();
+  }, []);
 
   return (
     <div className={styles.app}>
@@ -72,8 +77,9 @@ function MainLayout() {
           </ul>
         </nav>
       </header>
+      <BackupReminder />
       {active === 'editor' ? (
-        <main>
+        <main className={styles.editorMain}>
           <h1 className={styles.srOnly}>{t('menu.editor')}</h1>
           <Editor />
         </main>
