@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { t } from '../i18n';
 import { bootstrap } from '../storage/persistence';
 import { BackupReminder } from './storage/BackupReminder';
@@ -7,6 +7,11 @@ import { Editor } from './editor/Editor';
 import { SymbolGallery } from './symbols/SymbolGallery';
 import { useHashRoute } from './useHashRoute';
 import styles from './App.module.css';
+
+// Theory (Markdown + KaTeX) is loaded only when the section is opened.
+const TheoryPage = lazy(() =>
+  import('./theory/TheoryPage').then((m) => ({ default: m.TheoryPage })),
+);
 
 /** Logo: an "A" drawn as orthogonal schematic lines, with ports and T-junction dots. */
 function Logo() {
@@ -82,6 +87,13 @@ function MainLayout() {
         <main className={styles.editorMain}>
           <h1 className={styles.srOnly}>{t('menu.editor')}</h1>
           <Editor />
+        </main>
+      ) : active === 'theory' ? (
+        <main className={styles.editorMain}>
+          <h1 className={styles.srOnly}>{t('menu.theory')}</h1>
+          <Suspense fallback={<p className={styles.loading}>{t('storage.status.loading')}</p>}>
+            <TheoryPage />
+          </Suspense>
         </main>
       ) : (
         <SectionPlaceholder active={active} />

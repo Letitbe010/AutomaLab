@@ -69,3 +69,15 @@
   border: 1px solid var(--line-soft);
   border-radius: 4px;
 }
+
+.theory {
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}

@@ -5,3 +5,6 @@ test-results
 node_modules
 package-lock.json
 SPEC.md
+
+# Learning content: keep authors' formatting (front matter and formulas)
+src/learning/**/*.md

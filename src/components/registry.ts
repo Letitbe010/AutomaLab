@@ -38,6 +38,22 @@ export const COMPONENT_DEFS: readonly ComponentDef<unknown>[] = [
   erase(fluidJunction),
 ];
 
+/** Theory sheet for each component (SPEC §7.4 "Teoria gehiago"). */
+function theoryFor(type: string): string | undefined {
+  if (type.startsWith('pn.cyl.')) return 'pn-zilindro-indarra';
+  if (type === 'pn.valve.and' || type === 'pn.valve.or') return 'pn-funtzio-logikoak';
+  if (/^pn\.(valve\.(3-2|5-2|5-3)|timer\.|valve\.sequence)/.test(type)) return 'pn-balbulak';
+  if (['pn.source', 'pn.gauge', 'pn.valve.pressure-reg', 'pn.service-unit'].includes(type)) {
+    return 'pn-presioa';
+  }
+  return undefined;
+}
+
+for (const def of COMPONENT_DEFS) {
+  const ref = def.theoryRef ?? theoryFor(def.type);
+  if (ref) def.theoryRef = ref;
+}
+
 const byType = new Map(COMPONENT_DEFS.map((d) => [d.type, d]));
 
 export const getComponentDef: DefLookup = (type) => byType.get(type);

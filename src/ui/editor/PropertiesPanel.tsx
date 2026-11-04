@@ -6,6 +6,7 @@ import { componentHelp, componentName } from '../../components/text';
 import { t } from '../../i18n';
 import { deleteSelection, mirrorSelection, rotateSelection } from './actions';
 import { setParam } from './model/ops';
+import { useLearning } from '../learning/store';
 import { useEditor } from './store';
 import styles from './Editor.module.css';
 
@@ -136,6 +137,15 @@ export function PropertiesPanel() {
             {comp.mirror ? t('editor.yes') : t('editor.no')}
           </div>
           {def.helpKey && <p className={styles.helpText}>{componentHelp(def)}</p>}
+          {def.theoryRef && (
+            <button
+              type="button"
+              className={styles.theoryLink}
+              onClick={() => useLearning.getState().openDrawer(def.theoryRef!)}
+            >
+              {t('theory.more')} →
+            </button>
+          )}
         </>
       );
     }

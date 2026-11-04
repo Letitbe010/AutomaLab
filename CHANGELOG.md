@@ -2,6 +2,17 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [fase-3a] — 2026-11-04
+
+### Gehituta
+
+- «Teoria» atala: fitxen zerrenda, bilaketa (izenburua, etiketak, testua), domeinu-iragazkia, fitxaren bista (Markdown + KaTeX, sarerik gabe), ikurrak txertatuta, lotutako edukia, iturriak eta «Zirriborroa — berrikusteko» etiketa.
+- 5 teoria-fitxa pneumatiko (zirriborroak, Creus aipatuta): presioa, zilindroaren indarra eta kontsumoa, balbula banatzaileak, funtzio logikoak, espazio-fase diagrama eta kaskada.
+- Kalkulu-funtzioak (`src/learning/calculators/`): indarra, konpresio-erlazioa, aire-kontsumoa; testekin, eta fitxetako zenbakiak haiekin egiaztatuta.
+- Editorean «Teoria gehiago →» (propietateak eta F1 txartela): fitxa alboko panelean.
+- Edukiaren testak (SPEC §11): formulak errorerik gabe, estekak eta ikurrak existitzen dira.
+- Teoria lazy-loading bidez kargatzen da (editorearen paketea ez da handitzen).
+
 ## [liburuak] — 2026-11-04
 
 ### Gehituta

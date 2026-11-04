@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { t } from '../../i18n';
 import { useStorage } from '../../storage/persistence';
 import { useSimLoop } from '../sim/useSimLoop';
@@ -7,11 +7,16 @@ import { IssuesPanel } from './IssuesPanel';
 import { Library } from './Library';
 import { PropertiesPanel } from './PropertiesPanel';
 import { Toolbar } from './Toolbar';
+import { useLearning } from '../learning/store';
 import { useEditor } from './store';
 import { useShortcuts } from './useShortcuts';
 import styles from './Editor.module.css';
 
 const NOTICE_MS = 5000;
+
+const TheoryDrawer = lazy(() =>
+  import('../theory/TheoryDrawer').then((m) => ({ default: m.TheoryDrawer })),
+);
 
 export function Editor() {
   // Wait for the stored project, so early edits are not replaced when it loads.
@@ -26,6 +31,7 @@ function EditorView() {
   const mode = useEditor((s) => s.mode);
   const notice = useEditor((s) => s.notice);
   const drafting = useEditor((s) => s.wireDraft !== null);
+  const drawerOpen = useLearning((s) => s.drawerTheoryId !== null);
 
   useEffect(() => {
     if (!notice) return;
@@ -48,6 +54,11 @@ function EditorView() {
           )}
         </div>
         <PropertiesPanel />
+        {drawerOpen && (
+          <Suspense fallback={null}>
+            <TheoryDrawer />
+          </Suspense>
+        )}
       </div>
       <IssuesPanel />
     </div>

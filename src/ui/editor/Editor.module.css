@@ -141,6 +141,7 @@
 
 /* Body: library | stage | properties */
 .body {
+  position: relative;
   display: grid;
   grid-template-columns: 250px minmax(0, 1fr) 250px;
   min-height: 0;
@@ -553,6 +554,18 @@
   background: var(--panel-2);
   border: 1px solid var(--line-soft);
   border-radius: 9px;
+}
+
+.theoryLink {
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .propActions {

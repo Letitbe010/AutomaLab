@@ -13,10 +13,12 @@ export function HelpCard({
   def,
   style,
   onClose,
+  onTheory,
 }: {
   def: ComponentDef<unknown>;
   style?: CSSProperties;
   onClose?: () => void;
+  onTheory?: (theoryId: string) => void;
 }) {
   const ports = def.ports.map((p) => p.id);
   return (
@@ -36,6 +38,11 @@ export function HelpCard({
         )}
       </div>
       {componentHelp(def) && <p className={styles.text}>{componentHelp(def)}</p>}
+      {def.theoryRef && onTheory && (
+        <button type="button" className={styles.theory} onClick={() => onTheory(def.theoryRef!)}>
+          {t('theory.more')} →
+        </button>
+      )}
       {ports.length > 0 && (
         <div className={styles.ports}>
           {t('help.ports')}:{' '}

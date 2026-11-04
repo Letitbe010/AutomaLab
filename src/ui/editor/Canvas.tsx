@@ -6,6 +6,7 @@ import { findLimitBindings } from '../../engine/coupling/mechanical';
 import type { NodeState } from '../../engine/types';
 import { t } from '../../i18n';
 import { HelpCard } from '../help/HelpCard';
+import { useLearning } from '../learning/store';
 import { clickSide, clickTarget } from '../sim/interaction';
 import { useSim } from '../sim/simStore';
 import { addAt, componentBox, screenToWorld, zoomBy } from './actions';
@@ -630,6 +631,7 @@ export function Canvas() {
           def={pinnedDef}
           style={{ right: 12, top: 12 }}
           onClose={() => useEditor.getState().setHelpFor(null)}
+          onTheory={(id) => useLearning.getState().openDrawer(id)}
         />
       )}
     </>

@@ -338,5 +338,25 @@
     "text": "Aplikazioak errore bat izan du pantaila marraztean. Zure lana nabigatzailean gordeta dago (gordetze automatikoa).",
     "reload": "Freskatu orria",
     "hint": "Errorea errepikatzen bada, sakatu Ctrl+Shift+R. Garapenean: ziurtatu «npm run dev» martxan dagoela."
+  },
+  "theory": {
+    "list": "Teoria-fitxak",
+    "search": "Bilatu teorian…",
+    "domain": "Domeinua",
+    "all": "Guztiak",
+    "draft": "Zirriborroa — berrikusteko",
+    "related": "Lotutako edukia",
+    "calculators": "Kalkulagailuak",
+    "soon": "laster",
+    "noRelated": "Ez dago lotutako edukirik.",
+    "sources": "Iturriak",
+    "noResults": "Ez dago emaitzarik.",
+    "notFound": "Aukeratu fitxa bat.",
+    "more": "Teoria gehiago",
+    "panel": "Teoria-fitxa",
+    "calc": {
+      "cylForce": "Zilindroaren indarra",
+      "airConsumption": "Aire-kontsumoa"
+    }
   }
 }
