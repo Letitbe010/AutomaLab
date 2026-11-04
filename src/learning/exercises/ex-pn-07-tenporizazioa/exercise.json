@@ -1,0 +1,47 @@
+{
+  "id": "ex-pn-07",
+  "title": "Tenporizazioa: 2 s aurrean",
+  "domain": "pneumatic",
+  "level": 2,
+  "tags": ["tenporizadorea", "rodilloak"],
+  "theoryRefs": ["pn-balbulak"],
+  "status": "draft",
+  "hints_md": [
+    "Joan-etorri automatikoaren zirkuitutik abiatu.",
+    "Tenporizadore pneumatikoak bere pilotajeko seinalea atzeratzen du (delayS parametroa)."
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "pn.source",
+    "pn.valve.3-2.button-spring",
+    "pn.cyl.double",
+    "pn.valve.5-2.pilot",
+    "pn.valve.3-2.roller-spring",
+    "pn.timer.nc",
+    "pn.timer.no"
+  ],
+  "checks": [
+    {
+      "title": "1S1-en bulkada batekin, 1A atera eta itzultzen da",
+      "type": "sequence",
+      "stimuli": [["pulse", "1S1"]],
+      "expect": ["1A+", "1A-"],
+      "withinMs": 8000
+    },
+    {
+      "title": "1A aurrean ≈ 2 s geratzen da (1A+ → 1A−: 2,8–3,5 s)",
+      "type": "duration",
+      "stimuli": [["pulse", "1S1"]],
+      "from": "1A+",
+      "to": "1A-",
+      "minMs": 2800,
+      "maxMs": 3500,
+      "withinMs": 8000
+    },
+    {
+      "title": "Tenporizadore pneumatiko bat erabiltzen da",
+      "type": "uses",
+      "componentTypes": ["pn.timer.nc", "pn.timer.no"]
+    }
+  ]
+}

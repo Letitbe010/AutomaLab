@@ -433,6 +433,59 @@
     "read": "irakurrita",
     "unread": "irakurri gabe",
     "storage": "Aurrerapena nabigatzaile honetan gordetzen da eta «Esportatu dena» babeskopian sartzen da.",
-    "export": "Esportatu aurrerapena (JSON)"
+    "export": "Esportatu aurrerapena (JSON)",
+    "exercises": "Ariketak",
+    "noExercises": "Oraindik ez duzu ariketarik egin."
+  },
+  "exercises": {
+    "intro": "Bi ariketa-mota: diseinu-ariketetan enuntziatu batetik zuk marrazten duzu sistema, eta aplikazioak simulatuz egiaztatzen du (edozein zirkuitu zuzenek gainditzen du); kalkulu-ariketetan zenbakizko emaitzak egiaztatzen dira, tolerantzia batekin.",
+    "kind": "Mota",
+    "kinds": {
+      "design": "Diseinua",
+      "calc": "Kalkulua"
+    },
+    "passedCount": "{n} / {total} gaindituta",
+    "passed": "Gaindituta",
+    "attempts": "{n} saiakera",
+    "start": "Hasi (proiektu berria)",
+    "checkCurrent": "Egiaztatu uneko proiektua",
+    "checkCurrentHint": "Editorean irekita dagoen proiektua («{name}») ariketa honen kontra egiaztatu",
+    "solve": "Ebatzi",
+    "back": "Ariketak",
+    "panel": "Ariketa",
+    "kicker": "Ariketa",
+    "panelToggle": "Ariketa",
+    "tab": {
+      "statement": "Enuntziatua",
+      "check": "Egiaztatu"
+    },
+    "allowed": "Osagai baimenduak",
+    "hints": "Pistak",
+    "showHint": "Erakutsi pista bat ({n}/{total})",
+    "checkIntro": "Marraztu zirkuitua editorean, etiketak enuntziatuan esaten den bezala jarrita, eta sakatu «Egiaztatu». Aplikazioak simulatu egiten du eta baldintza bakoitza aztertzen du.",
+    "check": "Egiaztatu",
+    "allPassed": "Baldintza guztiak betetzen dira. Ariketa gaindituta!",
+    "someFailed": "{n} / {total} baldintza ez dira betetzen.",
+    "allowedCheck": "Osagai baimenduak bakarrik",
+    "seeSolution": "Ikusi soluzio-adibide bat (proiektu berria)",
+    "solutionLater": "Soluzio-adibidea gainditu ondoren edo {n} saiakeraren ondoren agertzen da.",
+    "solution": "Ebazpena",
+    "solutionSuffix": "soluzio-adibidea",
+    "detach": "Askatu proiektua ariketatik",
+    "none": "ezer ez",
+    "source": "Iturria",
+    "reason": {
+      "invalid": "Eskemak {count} errore ditu (ikusi «Abisuak»): zuzendu simulatu aurretik.",
+      "missingLabel": "Ez dago «{label}» etiketadun osagairik. Jarri etiketa osagaiaren propietateetan.",
+      "notAllowed": "Baimendu gabeko osagaiak: {types}.",
+      "events": "Espero zen: {expected}. Gertatu dena: {got}.",
+      "forbidden": "{event} gertatu da (t = {t} s), eta ez litzateke gertatu behar.",
+      "missingEvent": "{event} ez da gertatu.",
+      "tooFast": "{s} s iraun du; gutxienez {min} s behar dira.",
+      "tooSlow": "{s} s iraun du; gehienez {max} s onartzen dira.",
+      "missingType": "Osagai hau falta da: {types}.",
+      "unstable": "Zirkuitua ez da egonkortzen (oszilazioa): begiratu pilotaje-begiztak."
+    },
+    "someWrong": "{n} / {total} erantzun ez dira zuzenak."
   }
 }

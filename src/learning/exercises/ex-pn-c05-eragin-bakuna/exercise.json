@@ -1,0 +1,33 @@
+{
+  "id": "ex-pn-c05",
+  "title": "Eragin bakuneko zilindroa: indar erabilgarria",
+  "domain": "pneumatic",
+  "level": 1,
+  "tags": ["indarra", "eragin bakuna", "kalkulua"],
+  "theoryRefs": ["pn-zilindro-indarra"],
+  "status": "draft",
+  "source": "A. Creus, Neumática e Hidráulica, Marcombo, 2007 — 2.3.2.1 (indarra) eta 2.3.2.3 (kontsumoa); datuak propioak",
+  "hints_md": ["Malgukiak aurrerako mugimenduaren aurka egiten du: haren indarra kendu behar da."],
+  "kind": "calc",
+  "parts": [
+    {
+      "id": "a",
+      "prompt_md": "Indar teorikoa, η gabe (N)",
+      "answer": {
+        "value": 294.5,
+        "unit": "N",
+        "tolerancePct": 2
+      }
+    },
+    {
+      "id": "b",
+      "prompt_md": "Indar erabilgarria, ibilbidearen amaieran (N)",
+      "answer": {
+        "value": 240.1,
+        "unit": "N",
+        "tolerancePct": 2
+      }
+    }
+  ],
+  "solution_md": "a) $F_t = 0{,}6 \\cdot \\frac{\\pi \\cdot 25^2}{4} = 0{,}6 \\cdot 490{,}9 \\approx 294{,}5\\ \\text{N}$\n\nb) $F = F_t \\cdot \\eta - F_m = 294{,}5 \\cdot 0{,}9 - 25 \\approx 240{,}1\\ \\text{N}$"
+}

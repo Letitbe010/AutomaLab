@@ -178,5 +178,6 @@ function readProject(o: Record<string, unknown>): Project {
       grafcet: plc.grafcet ?? null,
     },
     ...(o.templateId === undefined ? {} : { templateId: str(o.templateId, 'templateId') }),
+    ...(o.exerciseId === undefined ? {} : { exerciseId: str(o.exerciseId, 'exerciseId') }),
   };
 }

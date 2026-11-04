@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "name": "Soluzioa: ateratzea moteldu",
+  "simulation": {
+    "level": "logic",
+    "dtMs": 1,
+    "supplyPressureBar": 6
+  },
+  "components": [
+    {
+      "id": "c1",
+      "type": "pn.cyl.double",
+      "x": 200,
+      "y": 40,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1A"
+      }
+    },
+    {
+      "id": "f2",
+      "type": "pn.valve.flow-oneway",
+      "x": 290,
+      "y": 100,
+      "rot": 90,
+      "mirror": false,
+      "params": {
+        "label": "1V2",
+        "speedFactor": 0.5
+      }
+    },
+    {
+      "id": "v1",
+      "type": "pn.valve.5-2.button-spring",
+      "x": 230,
+      "y": 250,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1V1"
+      }
+    },
+    {
+      "id": "z1",
+      "type": "pn.source",
+      "x": 250,
+      "y": 400,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "0Z1"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "id": "w2",
+      "kind": "fluid",
+      "from": ["c1", "B"],
+      "to": ["f2", "1"],
+      "points": []
+    },
+    {
+      "id": "w4",
+      "kind": "fluid",
+      "from": ["f2", "2"],
+      "to": ["v1", "2"],
+      "points": []
+    },
+    {
+      "id": "w5",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["v1", "1"],
+      "points": []
+    },
+    {
+      "id": "w9",
+      "kind": "fluid",
+      "from": ["c1", "A"],
+      "to": ["v1", "4"],
+      "points": []
+    }
+  ],
+  "tags": {},
+  "plc": {
+    "io": [],
+    "ladder": [],
+    "grafcet": null
+  }
+}

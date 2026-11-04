@@ -51,6 +51,7 @@ export function Toolbar() {
   const zoom = useEditor((s) => s.view.zoom);
   const edit = mode === 'edit';
   const hasTemplate = useEditor((s) => s.project.templateId !== undefined);
+  const hasExercise = useEditor((s) => s.project.exerciseId !== undefined);
   const templateOpen = useLearning((s) => s.templatePanelOpen);
   const setTemplatePanel = useLearning((s) => s.setTemplatePanel);
 
@@ -69,7 +70,7 @@ export function Toolbar() {
       <span className={styles.sep} />
       {edit ? <EditTools /> : <SimControls />}
       <span className={styles.spacer} />
-      {hasTemplate && (
+      {(hasTemplate || hasExercise) && (
         <button
           type="button"
           className={styles.btn}
@@ -77,7 +78,7 @@ export function Toolbar() {
           onClick={() => setTemplatePanel(!templateOpen)}
           title={t('templates.panelToggleHint')}
         >
-          {t('templates.panelToggle')}
+          {hasExercise ? t('exercises.panelToggle') : t('templates.panelToggle')}
         </button>
       )}
       <button

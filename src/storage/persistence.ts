@@ -12,6 +12,7 @@ import {
 } from '../core/serialization';
 import type { Project } from '../core/types';
 import { t } from '../i18n';
+import { getExercise } from '../learning/exercises';
 import { getTemplate, templateCopy } from '../learning/templates';
 import { exitSim } from '../ui/editor/actions';
 import { useEditor } from '../ui/editor/store';
@@ -213,6 +214,34 @@ export async function openTemplate(id: string): Promise<boolean> {
   await noteTemplateOpened(id);
   await refresh();
   return true;
+}
+
+/** Starts a design exercise in a new project (empty: the user draws the system). */
+export async function startExercise(id: string, fromSolution = false): Promise<boolean> {
+  const ex = getExercise(id);
+  if (!ex || ex.kind !== 'design') return false;
+  await flush();
+  const projectId = db.newProjectId();
+  const base =
+    fromSolution && ex.solution ? structuredClone(ex.solution) : createEmptyProject(ex.title);
+  const project: Project = {
+    ...base,
+    name: fromSolution ? `${ex.title} — ${t('exercises.solutionSuffix')}` : ex.title,
+    exerciseId: id,
+  };
+  delete project.templateId;
+  await db.saveProject(projectId, project);
+  show(projectId, project);
+  await refresh();
+  return true;
+}
+
+/** Links the current project to a design exercise, to check a circuit already drawn. */
+export function attachExercise(id: string | null): void {
+  useEditor.getState().apply((d) => {
+    if (id) d.exerciseId = id;
+    else delete d.exerciseId;
+  });
 }
 
 /** Puts the template circuit back into the current project (one undo step). */

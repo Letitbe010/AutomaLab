@@ -1,0 +1,36 @@
+{
+  "id": "ex-pn-c02",
+  "title": "Zilindroaren diametroa aukeratu",
+  "domain": "pneumatic",
+  "level": 2,
+  "tags": ["indarra", "dimentsionamendua", "kalkulua"],
+  "theoryRefs": ["pn-zilindro-indarra"],
+  "status": "draft",
+  "source": "A. Creus, Neumática e Hidráulica, Marcombo, 2007 — 2.3.2.1 (indarra) eta 2.3.2.3 (kontsumoa); datuak propioak",
+  "hints_md": [
+    "Askatu D indarraren formulatik: $F = p \\cdot \\frac{\\pi D^2}{4} \\cdot \\eta$.",
+    "Aukeratu kalkulatutakoa baino handiagoa den hurrengo diametroa."
+  ],
+  "kind": "calc",
+  "parts": [
+    {
+      "id": "a",
+      "prompt_md": "Gutxieneko diametroa (mm)",
+      "answer": {
+        "value": 43.4,
+        "unit": "mm",
+        "tolerancePct": 2
+      }
+    },
+    {
+      "id": "b",
+      "prompt_md": "Aukeratutako diametro normalizatua (mm)",
+      "answer": {
+        "value": 50,
+        "unit": "mm",
+        "tolerancePct": 0
+      }
+    }
+  ],
+  "solution_md": "a) $D = \\sqrt{\\frac{4F}{\\pi \\cdot p \\cdot \\eta}} = \\sqrt{\\frac{4 \\cdot 800}{\\pi \\cdot 0{,}6 \\cdot 0{,}9}} \\approx 43{,}4\\ \\text{mm}$\n\nb) Zerrendan, 43,4 mm baino handiagoa den lehena: **50 mm** (40 mm txikiegia da)."
+}

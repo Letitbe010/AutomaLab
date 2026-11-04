@@ -2,6 +2,17 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [fase-E] — 2026-11-04 (ariketak, 11. fasetik aurreratuta)
+
+### Gehituta
+
+- Ariketa-formatua eta egiaztatzaile automatikoa (`src/learning/exercises/`): zirkuitua burugabe simulatu, estimuluak aplikatu eta gertaerak alderatu. Egiaztapen-motak: `sequence`, `never`, `duration` (`start` / `end` / gertaera) eta `uses`, gehi osagai baimenduak eta eskema-erroreak. Arrazoiak euskaraz.
+- 8 diseinu-ariketa pneumatiko (soluzio-adibidearekin) eta 6 kalkulu-ariketa, zirriborro gisa.
+- «Ariketak» atala: zerrenda, iragazkiak, egoera; diseinu-ariketak proiektu berri batean, enuntziatu-panelarekin (Enuntziatua / Egiaztatu, pista mailakatuak, osagai baimenduak); «Egiaztatu uneko proiektua» edozein zirkuiturentzat; soluzio-adibidea gainditu ondoren edo 3 saiakeraren ondoren.
+- Kalkulu-ariketen bista: atal bakoitzaren zuzenketa eta ebazpena urratsez urrats.
+- Aurrerapena: gainditutako ariketak eta saiakerak («Nire aurrerapena» eta babeskopia).
+- Testak: soluzio zuzenak gainditu eta okerrak huts egin behar dute; kalkuluak kalkulagailuekin egiaztatuta; E2E.
+
 ## [fase-3c] / [mvp-1] — 2026-11-04
 
 ### Gehituta

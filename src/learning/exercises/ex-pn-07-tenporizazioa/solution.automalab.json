@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "name": "Soluzioa: tenporizazioa",
+  "simulation": {
+    "level": "logic",
+    "dtMs": 1,
+    "supplyPressureBar": 6
+  },
+  "components": [
+    {
+      "id": "c1",
+      "type": "pn.cyl.double",
+      "x": 200,
+      "y": 40,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1A"
+      }
+    },
+    {
+      "id": "v1",
+      "type": "pn.valve.5-2.pilot",
+      "x": 230,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1V1"
+      }
+    },
+    {
+      "id": "s1",
+      "type": "pn.valve.3-2.button-spring",
+      "x": 100,
+      "y": 290,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1S1"
+      }
+    },
+    {
+      "id": "t1",
+      "type": "pn.timer.nc",
+      "x": 380,
+      "y": 290,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1V2",
+        "delayS": 2
+      }
+    },
+    {
+      "id": "a1",
+      "type": "pn.valve.3-2.roller-spring",
+      "x": 380,
+      "y": 420,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "a1",
+        "cylinder": "1A",
+        "at": "+"
+      }
+    },
+    {
+      "id": "z1",
+      "type": "pn.source",
+      "x": 250,
+      "y": 560,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "0Z1"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "id": "w1",
+      "kind": "fluid",
+      "from": ["c1", "A"],
+      "to": ["v1", "4"],
+      "points": []
+    },
+    {
+      "id": "w2",
+      "kind": "fluid",
+      "from": ["c1", "B"],
+      "to": ["v1", "2"],
+      "points": []
+    },
+    {
+      "id": "w3",
+      "kind": "fluid",
+      "from": ["s1", "2"],
+      "to": ["v1", "14"],
+      "points": []
+    },
+    {
+      "id": "w4",
+      "kind": "fluid",
+      "from": ["t1", "2"],
+      "to": ["v1", "12"],
+      "points": []
+    },
+    {
+      "id": "w5",
+      "kind": "fluid",
+      "from": ["a1", "2"],
+      "to": ["t1", "12"],
+      "points": []
+    },
+    {
+      "id": "w6",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["v1", "1"],
+      "points": []
+    },
+    {
+      "id": "w7",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["s1", "1"],
+      "points": []
+    },
+    {
+      "id": "w8",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["t1", "1"],
+      "points": []
+    },
+    {
+      "id": "w9",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["a1", "1"],
+      "points": []
+    }
+  ],
+  "tags": {},
+  "plc": {
+    "io": [],
+    "ladder": [],
+    "grafcet": null
+  }
+}

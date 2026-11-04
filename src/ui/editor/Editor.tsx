@@ -17,6 +17,9 @@ const NOTICE_MS = 5000;
 const TheoryDrawer = lazy(() =>
   import('../theory/TheoryDrawer').then((m) => ({ default: m.TheoryDrawer })),
 );
+const ExercisePanel = lazy(() =>
+  import('../exercises/ExercisePanel').then((m) => ({ default: m.ExercisePanel })),
+);
 const TemplatePanel = lazy(() =>
   import('../templates/TemplatePanel').then((m) => ({ default: m.TemplatePanel })),
 );
@@ -37,6 +40,7 @@ function EditorView() {
   const drawerOpen = useLearning((s) => s.drawerTheoryId !== null);
   const templateOpen = useLearning((s) => s.templatePanelOpen);
   const hasTemplate = useEditor((s) => s.project.templateId !== undefined);
+  const hasExercise = useEditor((s) => s.project.exerciseId !== undefined);
 
   useEffect(() => {
     if (!notice) return;
@@ -59,7 +63,12 @@ function EditorView() {
           )}
         </div>
         <PropertiesPanel />
-        {templateOpen && hasTemplate && (
+        {templateOpen && hasExercise && (
+          <Suspense fallback={null}>
+            <ExercisePanel />
+          </Suspense>
+        )}
+        {templateOpen && hasTemplate && !hasExercise && (
           <Suspense fallback={null}>
             <TemplatePanel />
           </Suspense>

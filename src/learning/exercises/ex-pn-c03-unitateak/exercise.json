@@ -1,0 +1,44 @@
+{
+  "id": "ex-pn-c03",
+  "title": "Presio-unitateak eta presio absolutua",
+  "domain": "pneumatic",
+  "level": 1,
+  "tags": ["presioa", "unitateak", "kalkulua"],
+  "theoryRefs": ["pn-presioa"],
+  "status": "draft",
+  "hints_md": [
+    "1 bar = 100 kPa = 0,1 MPa = 0,1 N/mm².",
+    "Presio absolutua = manometrikoa + atmosferikoa (1,013 bar)."
+  ],
+  "kind": "calc",
+  "parts": [
+    {
+      "id": "a",
+      "prompt_md": "kPa",
+      "answer": {
+        "value": 600,
+        "unit": "kPa",
+        "tolerancePct": 0.5
+      }
+    },
+    {
+      "id": "b",
+      "prompt_md": "N/mm²",
+      "answer": {
+        "value": 0.6,
+        "unit": "N/mm²",
+        "tolerancePct": 0.5
+      }
+    },
+    {
+      "id": "c",
+      "prompt_md": "Presio absolutua (bar)",
+      "answer": {
+        "value": 7.01,
+        "unit": "bar",
+        "tolerancePct": 0.5
+      }
+    }
+  ],
+  "solution_md": "a) $6\\ \\text{bar} \\cdot 100 = 600\\ \\text{kPa}$\n\nb) $6\\ \\text{bar} \\cdot 0{,}1 = 0{,}6\\ \\text{N/mm}^2$ (= 0,6 MPa)\n\nc) $p_{abs} = 6 + 1{,}013 = 7{,}013\\ \\text{bar}$"
+}

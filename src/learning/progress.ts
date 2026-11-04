@@ -17,6 +17,13 @@ export interface Progress {
   theoryRead: Record<string, string>;
   /** Per question type: answers given and correct ones. */
   questionTypes: Record<string, { correct: number; total: number }>;
+  /** Exercise id -> attempts and first time passed. */
+  exercises: Record<string, ExerciseProgress>;
+}
+
+export interface ExerciseProgress {
+  attempts: number;
+  passedAt?: string;
 }
 
 export const emptyProgress = (): Progress => ({
@@ -24,7 +31,27 @@ export const emptyProgress = (): Progress => ({
   templates: {},
   theoryRead: {},
   questionTypes: {},
+  exercises: {},
 });
+
+/** One check of a design exercise or of a calculation exercise. */
+export function recordExerciseAttempt(
+  p: Progress,
+  id: string,
+  passed: boolean,
+  now = new Date(),
+): Progress {
+  const prev = p.exercises[id] ?? { attempts: 0 };
+  const next: ExerciseProgress = {
+    attempts: prev.attempts + 1,
+    ...(prev.passedAt
+      ? { passedAt: prev.passedAt }
+      : passed
+        ? { passedAt: now.toISOString() }
+        : {}),
+  };
+  return { ...p, exercises: { ...p.exercises, [id]: next } };
+}
 
 const tpl = (p: Progress, id: string): TemplateProgress => p.templates[id] ?? { attempts: 0 };
 
@@ -123,7 +150,16 @@ export function mergeProgress(a: Progress, b: Progress): Progress {
     // Counts cannot be told apart after a round trip, so keep the larger history.
     questionTypes[type] = !x || y.total > x.total ? y : x;
   }
-  return { version: 1, templates, theoryRead, questionTypes };
+  const exercises = { ...a.exercises };
+  for (const [id, y] of Object.entries(b.exercises)) {
+    const x = exercises[id];
+    const passedAt = earlier(x?.passedAt, y.passedAt);
+    exercises[id] = {
+      attempts: Math.max(x?.attempts ?? 0, y.attempts),
+      ...(passedAt ? { passedAt } : {}),
+    };
+  }
+  return { version: 1, templates, theoryRead, questionTypes, exercises };
 }
 
 /** Reads progress from unknown data (backup file); invalid parts are dropped. */
@@ -154,6 +190,11 @@ export function progressFromObject(raw: unknown): Progress {
     const correct = num(t.correct);
     const total = num(t.total);
     if (correct !== undefined && total !== undefined) p.questionTypes[type] = { correct, total };
+  }
+  for (const [id, v] of Object.entries(obj(o.exercises))) {
+    const e = obj(v);
+    const passedAt = str(e.passedAt);
+    p.exercises[id] = { attempts: num(e.attempts) ?? 0, ...(passedAt ? { passedAt } : {}) };
   }
   return p;
 }

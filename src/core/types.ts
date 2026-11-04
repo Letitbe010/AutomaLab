@@ -70,4 +70,6 @@ export interface Project {
   plc: PlcData;
   /** Set when the project was opened from a circuit template (SPEC §8.5). */
   templateId?: string;
+  /** Set when the project is being checked against a design exercise (SPEC §8.1). */
+  exerciseId?: string;
 }

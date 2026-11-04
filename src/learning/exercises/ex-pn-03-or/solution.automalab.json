@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "name": "Soluzioa: bi lekutik agintea (OR)",
+  "simulation": {
+    "level": "logic",
+    "dtMs": 1,
+    "supplyPressureBar": 6
+  },
+  "components": [
+    {
+      "id": "c1",
+      "type": "pn.cyl.double",
+      "x": 200,
+      "y": 40,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1A"
+      }
+    },
+    {
+      "id": "v1",
+      "type": "pn.valve.5-2.pilot-spring",
+      "x": 230,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1V1"
+      }
+    },
+    {
+      "id": "v2",
+      "type": "pn.valve.or",
+      "x": 130,
+      "y": 260,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1V2"
+      }
+    },
+    {
+      "id": "s1",
+      "type": "pn.valve.3-2.button-spring",
+      "x": 40,
+      "y": 330,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1S1"
+      }
+    },
+    {
+      "id": "s2",
+      "type": "pn.valve.3-2.button-spring",
+      "x": 330,
+      "y": 330,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1S2"
+      }
+    },
+    {
+      "id": "z1",
+      "type": "pn.source",
+      "x": 250,
+      "y": 470,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "0Z1"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "id": "w1",
+      "kind": "fluid",
+      "from": ["c1", "A"],
+      "to": ["v1", "4"],
+      "points": []
+    },
+    {
+      "id": "w2",
+      "kind": "fluid",
+      "from": ["c1", "B"],
+      "to": ["v1", "2"],
+      "points": []
+    },
+    {
+      "id": "w3",
+      "kind": "fluid",
+      "from": ["v2", "2"],
+      "to": ["v1", "14"],
+      "points": []
+    },
+    {
+      "id": "w4",
+      "kind": "fluid",
+      "from": ["s1", "2"],
+      "to": ["v2", "X"],
+      "points": []
+    },
+    {
+      "id": "w5",
+      "kind": "fluid",
+      "from": ["s2", "2"],
+      "to": ["v2", "Y"],
+      "points": []
+    },
+    {
+      "id": "w6",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["v1", "1"],
+      "points": []
+    },
+    {
+      "id": "w7",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["s1", "1"],
+      "points": []
+    },
+    {
+      "id": "w8",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["s2", "1"],
+      "points": []
+    }
+  ],
+  "tags": {},
+  "plc": {
+    "io": [],
+    "ladder": [],
+    "grafcet": null
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "ex-pn-c01",
+  "title": "Eragin bikoitzeko zilindroaren indarrak",
+  "domain": "pneumatic",
+  "level": 1,
+  "tags": ["indarra", "kalkulua"],
+  "theoryRefs": ["pn-zilindro-indarra"],
+  "status": "draft",
+  "source": "A. Creus, Neumática e Hidráulica, Marcombo, 2007 — 2.3.2.1 (indarra) eta 2.3.2.3 (kontsumoa); datuak propioak",
+  "hints_md": ["Gogoratu: 1 bar = 0,1 N/mm².", "Atzera, zurtoinaren azalera kendu behar da."],
+  "kind": "calc",
+  "parts": [
+    {
+      "id": "a",
+      "prompt_md": "Aurrerako indarra (N)",
+      "answer": {
+        "value": 1060.3,
+        "unit": "N",
+        "tolerancePct": 2
+      }
+    },
+    {
+      "id": "b",
+      "prompt_md": "Atzerako indarra (N)",
+      "answer": {
+        "value": 890.6,
+        "unit": "N",
+        "tolerancePct": 2
+      }
+    }
+  ],
+  "solution_md": "$A = \\frac{\\pi \\cdot 50^2}{4} = 1963{,}5\\ \\text{mm}^2$, $p = 0{,}6\\ \\text{N/mm}^2$.\n\na) $F = p \\cdot A \\cdot \\eta = 0{,}6 \\cdot 1963{,}5 \\cdot 0{,}9 \\approx 1060{,}3\\ \\text{N}$\n\nb) $A' = A - \\frac{\\pi \\cdot 20^2}{4} = 1649{,}3\\ \\text{mm}^2$, $F = 0{,}6 \\cdot 1649{,}3 \\cdot 0{,}9 \\approx 890{,}6\\ \\text{N}$"
+}

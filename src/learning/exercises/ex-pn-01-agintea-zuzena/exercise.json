@@ -1,0 +1,39 @@
+{
+  "id": "ex-pn-01",
+  "title": "Agintea zuzena: eragin bakuneko zilindroa",
+  "domain": "pneumatic",
+  "level": 1,
+  "tags": ["agintea zuzena", "eragin bakuna"],
+  "theoryRefs": ["pn-balbulak"],
+  "status": "draft",
+  "hints_md": [
+    "Zilindroak sarrera bakarra du: pultsadorearen balbulak zuzenean elikatu behar du.",
+    "Pultsadorea askatzean, zilindroko airea nondik irten daiteke?"
+  ],
+  "kind": "design",
+  "allowedComponents": ["pn.source", "pn.valve.3-2.button-spring", "pn.cyl.single"],
+  "checks": [
+    {
+      "title": "1S1 sakatuta mantenduz, 1A ateratzen da",
+      "type": "sequence",
+      "stimuli": [["press", "1S1"]],
+      "expect": ["1A+"]
+    },
+    {
+      "title": "1S1 askatzean, 1A itzultzen da",
+      "type": "sequence",
+      "stimuli": [
+        ["press", "1S1"],
+        ["wait", 1500],
+        ["release", "1S1"]
+      ],
+      "expect": ["1A+", "1A-"]
+    },
+    {
+      "title": "Ezer sakatu gabe, 1A ez da mugitzen",
+      "type": "never",
+      "stimuli": [["wait", 100]],
+      "events": ["1A+"]
+    }
+  ]
+}

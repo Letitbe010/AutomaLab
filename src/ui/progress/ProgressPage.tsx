@@ -1,3 +1,4 @@
+import { EXERCISES } from '../../learning/exercises';
 import { domainSummary } from '../../learning/progress';
 import { TEMPLATES } from '../../learning/templates';
 import { THEORY_SHEETS } from '../../learning/theory/sheets';
@@ -93,6 +94,40 @@ export function ProgressPage() {
             })}
           </tbody>
         </table>
+      </section>
+
+      <section className={styles.card} data-testid="progress-exercises">
+        <h2 className={styles.h2}>
+          {t('progress.exercises')} ·{' '}
+          {EXERCISES.filter((e) => progress.exercises[e.id]?.passedAt).length}/{EXERCISES.length}
+        </h2>
+        {Object.keys(progress.exercises).length === 0 ? (
+          <p className={styles.muted}>{t('progress.noExercises')}</p>
+        ) : (
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>{t('progress.exercises')}</th>
+                <th>{t('exercises.kind')}</th>
+                <th>{t('exercises.passed')}</th>
+                <th>{t('progress.attempts')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {EXERCISES.filter((e) => progress.exercises[e.id]).map((e) => {
+                const p = progress.exercises[e.id]!;
+                return (
+                  <tr key={e.id} data-exercise-id={e.id}>
+                    <td>{e.title}</td>
+                    <td>{t(`exercises.kinds.${e.kind}`)}</td>
+                    <td data-passed={!!p.passedAt}>{p.passedAt ? formatDate(p.passedAt) : '—'}</td>
+                    <td>{p.attempts}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </section>
 
       <div className={styles.row}>

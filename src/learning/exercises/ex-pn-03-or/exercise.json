@@ -1,0 +1,50 @@
+{
+  "id": "ex-pn-03",
+  "title": "Bi lekutatik agintea (OR)",
+  "domain": "pneumatic",
+  "level": 1,
+  "tags": ["OR", "funtzio logikoak", "hautatzailea"],
+  "theoryRefs": ["pn-funtzio-logikoak"],
+  "status": "draft",
+  "hints_md": [
+    "Bi seinalek balbula nagusiaren pilotaje bera aktibatu behar dute.",
+    "Zergatik ez da nahikoa bi pultsadoreen irteerak T batekin lotzea?"
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "pn.source",
+    "pn.valve.3-2.button-spring",
+    "pn.cyl.double",
+    "pn.valve.5-2.pilot-spring",
+    "pn.valve.or"
+  ],
+  "checks": [
+    {
+      "title": "1S1 sakatuta, 1A ateratzen da",
+      "type": "sequence",
+      "stimuli": [["press", "1S1"]],
+      "expect": ["1A+"]
+    },
+    {
+      "title": "1S2 sakatuta, 1A ateratzen da",
+      "type": "sequence",
+      "stimuli": [["press", "1S2"]],
+      "expect": ["1A+"]
+    },
+    {
+      "title": "Pultsadorea askatzean, 1A itzultzen da",
+      "type": "sequence",
+      "stimuli": [
+        ["press", "1S2"],
+        ["wait", 1500],
+        ["release", "1S2"]
+      ],
+      "expect": ["1A+", "1A-"]
+    },
+    {
+      "title": "Hautatzailea (OR) erabiltzen da",
+      "type": "uses",
+      "componentTypes": ["pn.valve.or"]
+    }
+  ]
+}

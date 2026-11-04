@@ -1,0 +1,49 @@
+{
+  "id": "ex-pn-08",
+  "title": "A+ B+ A− B− sekuentzia",
+  "domain": "pneumatic",
+  "level": 2,
+  "tags": ["sekuentzia", "rodilloak", "espazio-fase"],
+  "theoryRefs": ["pn-kaskada"],
+  "status": "draft",
+  "hints_md": [
+    "Marraztu lehenik espazio-fase diagrama eta idatzi mugimendu bakoitza zein amaiera-balbulak agintzen duen.",
+    "Sekuentzia honek ba al du seinale-gainjartzerik? Egiaztatu urratsez urrats.",
+    "Hasiera-pultsadorea eta b0 seriean jar daitezke (AND)."
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "pn.source",
+    "pn.valve.3-2.button-spring",
+    "pn.cyl.double",
+    "pn.valve.5-2.pilot",
+    "pn.valve.3-2.roller-spring",
+    "pn.valve.and"
+  ],
+  "checks": [
+    {
+      "title": "0S1-en bulkada batekin: 1A+ 2A+ 1A− 2A−",
+      "type": "sequence",
+      "stimuli": [["pulse", "0S1"]],
+      "expect": ["1A+", "2A+", "1A-", "2A-"],
+      "withinMs": 8000
+    },
+    {
+      "title": "Zikloa errepikatzen da 0S1 berriro sakatzean",
+      "type": "sequence",
+      "stimuli": [
+        ["pulse", "0S1"],
+        ["wait", 6000],
+        ["pulse", "0S1"]
+      ],
+      "expect": ["1A+", "2A+", "1A-", "2A-", "1A+", "2A+", "1A-", "2A-"],
+      "withinMs": 8000
+    },
+    {
+      "title": "Ezer sakatu gabe, ez da mugitzen",
+      "type": "never",
+      "stimuli": [["wait", 100]],
+      "events": ["1A+", "2A+"]
+    }
+  ]
+}

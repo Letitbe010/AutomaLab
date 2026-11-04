@@ -9,6 +9,7 @@ interface LearningState {
   /** Template description panel beside the editor. */
   templatePanelOpen: boolean;
   templateTab: 'description' | 'quiz';
+  exerciseTab: 'statement' | 'check';
   /** Component briefly highlighted on the canvas (clicked in a description). */
   highlightId: string | null;
   showTheory(id: string): void;
@@ -16,6 +17,7 @@ interface LearningState {
   closeDrawer(): void;
   setTemplatePanel(open: boolean): void;
   setTemplateTab(tab: 'description' | 'quiz'): void;
+  setExerciseTab(tab: 'statement' | 'check'): void;
   highlight(id: string | null): void;
 }
 
@@ -27,12 +29,14 @@ export const useLearning = create<LearningState>()((set) => ({
   drawerTheoryId: null,
   templatePanelOpen: false,
   templateTab: 'description',
+  exerciseTab: 'statement',
   highlightId: null,
   showTheory: (id) => set({ theoryId: id }),
   openDrawer: (id) => set({ drawerTheoryId: id }),
   closeDrawer: () => set({ drawerTheoryId: null }),
   setTemplatePanel: (open) => set({ templatePanelOpen: open }),
   setTemplateTab: (tab) => set({ templateTab: tab }),
+  setExerciseTab: (tab) => set({ exerciseTab: tab }),
   highlight(id) {
     if (highlightTimer) clearTimeout(highlightTimer);
     set({ highlightId: id });

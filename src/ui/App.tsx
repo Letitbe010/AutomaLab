@@ -16,6 +16,9 @@ const TheoryPage = lazy(() =>
 const ProgressPage = lazy(() =>
   import('./progress/ProgressPage').then((m) => ({ default: m.ProgressPage })),
 );
+const ExercisesPage = lazy(() =>
+  import('./exercises/ExercisesPage').then((m) => ({ default: m.ExercisesPage })),
+);
 const TemplatesPage = lazy(() =>
   import('./templates/TemplatesPage').then((m) => ({ default: m.TemplatesPage })),
 );
@@ -111,6 +114,16 @@ function MainLayout() {
           </div>
           <Suspense fallback={<p className={styles.loading}>{t('storage.status.loading')}</p>}>
             <ProgressPage />
+          </Suspense>
+        </main>
+      ) : active === 'exercises' ? (
+        <main className={styles.main}>
+          <div className={styles.sectionTitle}>
+            <h1>{t('menu.exercises')}</h1>
+            <span className={styles.rule} />
+          </div>
+          <Suspense fallback={<p className={styles.loading}>{t('storage.status.loading')}</p>}>
+            <ExercisesPage />
           </Suspense>
         </main>
       ) : active === 'templates' ? (

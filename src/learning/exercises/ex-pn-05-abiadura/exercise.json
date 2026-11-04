@@ -1,0 +1,53 @@
+{
+  "id": "ex-pn-05",
+  "title": "Ateratzea moteldu, itzulera azkar",
+  "domain": "pneumatic",
+  "level": 2,
+  "tags": ["abiadura", "emari-erregulagailua", "meter-out"],
+  "theoryRefs": ["pn-balbulak"],
+  "status": "draft",
+  "hints_md": [
+    "Emari-erregulagailuak noranzko batean itotzen du eta bestean libre uzten du.",
+    "Ateratzean zein ganbera husten da?"
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "pn.source",
+    "pn.cyl.double",
+    "pn.valve.5-2.button-spring",
+    "pn.valve.flow-oneway"
+  ],
+  "checks": [
+    {
+      "title": "1V1 sakatuta, 1A ateratzen da",
+      "type": "sequence",
+      "stimuli": [["press", "1V1"]],
+      "expect": ["1A+"]
+    },
+    {
+      "title": "Ateratzeak 1,5 s gutxienez irauten du",
+      "type": "duration",
+      "stimuli": [["press", "1V1"]],
+      "from": "start",
+      "to": "1A+",
+      "minMs": 1500
+    },
+    {
+      "title": "Itzulerak 1,2 s gehienez irauten du",
+      "type": "duration",
+      "stimuli": [
+        ["press", "1V1"],
+        ["wait", 4000],
+        ["release", "1V1"]
+      ],
+      "from": "end",
+      "to": "1A-",
+      "maxMs": 1200
+    },
+    {
+      "title": "Emari-erregulagailu bat erabiltzen da",
+      "type": "uses",
+      "componentTypes": ["pn.valve.flow-oneway"]
+    }
+  ]
+}

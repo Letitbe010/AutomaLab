@@ -1,0 +1,44 @@
+{
+  "id": "ex-pn-02",
+  "title": "Zeharkako agintea memoriarekin",
+  "domain": "pneumatic",
+  "level": 1,
+  "tags": ["zeharkako agintea", "memoria", "5/2"],
+  "theoryRefs": ["pn-balbulak", "pn-funtzio-logikoak"],
+  "status": "draft",
+  "hints_md": [
+    "Pultsadoreek balbula nagusi baten pilotajeak aktibatzen dituzte.",
+    "Zein balbulak «gogoratzen» du bere posizioa seinalea desagertzean?"
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "pn.source",
+    "pn.valve.3-2.button-spring",
+    "pn.cyl.double",
+    "pn.valve.5-2.pilot"
+  ],
+  "checks": [
+    {
+      "title": "1S1-en bulkada labur batekin, 1A ateratzen da eta aurrean geratzen da",
+      "type": "sequence",
+      "stimuli": [["pulse", "1S1"]],
+      "expect": ["1A+"]
+    },
+    {
+      "title": "1S2-ren bulkada batekin, 1A itzultzen da",
+      "type": "sequence",
+      "stimuli": [
+        ["pulse", "1S1"],
+        ["wait", 1500],
+        ["pulse", "1S2"]
+      ],
+      "expect": ["1A+", "1A-"]
+    },
+    {
+      "title": "Hasieran 1S2 sakatuz gero, ez da ezer gertatzen",
+      "type": "never",
+      "stimuli": [["pulse", "1S2"]],
+      "events": ["1A+"]
+    }
+  ]
+}

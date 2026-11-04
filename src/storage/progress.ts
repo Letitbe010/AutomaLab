@@ -5,6 +5,7 @@ import {
   markTheoryRead,
   mergeProgress,
   progressFromObject,
+  recordExerciseAttempt,
   recordQuizResult,
   recordTemplateOpened,
   type Progress,
@@ -37,6 +38,8 @@ function update(fn: (p: Progress) => Progress): Promise<void> {
 export const noteTemplateOpened = (id: string) => update((p) => recordTemplateOpened(p, id));
 export const noteQuizResult = (id: string, r: QuizResult) =>
   update((p) => recordQuizResult(p, id, r));
+export const noteExerciseAttempt = (id: string, passed: boolean) =>
+  update((p) => recordExerciseAttempt(p, id, passed));
 export const noteTheoryRead = (id: string) => update((p) => markTheoryRead(p, id));
 
 /** "Import all": keeps everything already recorded and adds the backup's results. */

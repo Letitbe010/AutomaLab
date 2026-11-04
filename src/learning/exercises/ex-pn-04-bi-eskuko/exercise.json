@@ -1,0 +1,55 @@
+{
+  "id": "ex-pn-04",
+  "title": "Bi eskuko agintea (AND)",
+  "domain": "pneumatic",
+  "level": 1,
+  "tags": ["AND", "segurtasuna", "funtzio logikoak"],
+  "theoryRefs": ["pn-funtzio-logikoak"],
+  "status": "draft",
+  "hints_md": [
+    "Bi baldintza batera bete behar dira: zein funtzio logiko da?",
+    "AND funtzioa bi presioko balbula batekin edo bi 3/2 seriean lor daiteke."
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "pn.source",
+    "pn.valve.3-2.button-spring",
+    "pn.cyl.double",
+    "pn.valve.5-2.pilot-spring",
+    "pn.valve.and"
+  ],
+  "checks": [
+    {
+      "title": "1S1 bakarrik sakatuta, 1A ez da ateratzen",
+      "type": "never",
+      "stimuli": [["press", "1S1"]],
+      "events": ["1A+"]
+    },
+    {
+      "title": "1S2 bakarrik sakatuta, 1A ez da ateratzen",
+      "type": "never",
+      "stimuli": [["press", "1S2"]],
+      "events": ["1A+"]
+    },
+    {
+      "title": "Biak sakatuta, 1A ateratzen da",
+      "type": "sequence",
+      "stimuli": [
+        ["press", "1S1"],
+        ["press", "1S2"]
+      ],
+      "expect": ["1A+"]
+    },
+    {
+      "title": "Bat askatzean, 1A itzultzen da",
+      "type": "sequence",
+      "stimuli": [
+        ["press", "1S1"],
+        ["press", "1S2"],
+        ["wait", 1500],
+        ["release", "1S1"]
+      ],
+      "expect": ["1A+", "1A-"]
+    }
+  ]
+}

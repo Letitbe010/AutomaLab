@@ -152,7 +152,8 @@ export function focusComponent(id: string): boolean {
 /** Canvas width hidden by the template description panel (it overlays the right side). */
 function rightInset(): number {
   const { project, viewport } = s();
-  const open = useLearning.getState().templatePanelOpen && project.templateId !== undefined;
+  const linked = project.templateId !== undefined || project.exerciseId !== undefined;
+  const open = useLearning.getState().templatePanelOpen && linked;
   return open ? Math.min(400, viewport.width / 2) : 0;
 }
 

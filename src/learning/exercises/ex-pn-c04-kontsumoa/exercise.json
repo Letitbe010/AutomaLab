@@ -1,0 +1,45 @@
+{
+  "id": "ex-pn-c04",
+  "title": "Aire-kontsumoa minutuko",
+  "domain": "pneumatic",
+  "level": 2,
+  "tags": ["kontsumoa", "kalkulua"],
+  "theoryRefs": ["pn-zilindro-indarra"],
+  "status": "draft",
+  "source": "A. Creus, Neumática e Hidráulica, Marcombo, 2007 — 2.3.2.1 (indarra) eta 2.3.2.3 (kontsumoa); datuak propioak",
+  "hints_md": [
+    "Ziklo batean bi ganberak betetzen dira: osoa (aurrera) eta eraztun-formakoa (atzera).",
+    "Bolumen konprimitua aire libre bihurtzeko, biderkatu (p + 1,013)/1,013 erlazioaz."
+  ],
+  "kind": "calc",
+  "parts": [
+    {
+      "id": "a",
+      "prompt_md": "Konpresio-erlazioa",
+      "answer": {
+        "value": 6.92,
+        "unit": "",
+        "tolerancePct": 1
+      }
+    },
+    {
+      "id": "b",
+      "prompt_md": "Aire librea ziklo bakoitzeko (Nl)",
+      "answer": {
+        "value": 3.2,
+        "unit": "Nl",
+        "tolerancePct": 2
+      }
+    },
+    {
+      "id": "c",
+      "prompt_md": "Kontsumoa (Nl/min)",
+      "answer": {
+        "value": 38.4,
+        "unit": "Nl/min",
+        "tolerancePct": 2
+      }
+    }
+  ],
+  "solution_md": "a) $r = \\frac{6 + 1{,}013}{1{,}013} \\approx 6{,}92$\n\nb) $V = \\frac{\\pi}{4}(2 \\cdot 40^2 - 16^2) \\cdot 200 \\approx 0{,}462\\ \\text{l}$; $V \\cdot r \\approx 3{,}20\\ \\text{Nl}$\n\nc) $3{,}20 \\cdot 12 \\approx 38{,}4\\ \\text{Nl/min}$"
+}

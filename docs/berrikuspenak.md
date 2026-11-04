@@ -17,6 +17,7 @@ Egoera: ☐ pendiente · ☑ eginda
 | [fase-3a.md](egiaztapena/fase-3a.md) — teoria-atala (**5 fitxak irakurri eta zuzendu**)               | 2026-11-04 | ☐      |
 | [fase-3b.md](egiaztapena/fase-3b.md) — txantiloiak (**5 azalpenak irakurri eta zuzendu**)             | 2026-11-04 | ☐      |
 | [fase-3c.md](egiaztapena/fase-3c.md) — galdetegiak eta aurrerapena (**25 galderak egin eta zuzendu**) | 2026-11-04 | ☐      |
+| [fase-E.md](egiaztapena/fase-E.md) — ariketak (**ariketak egin eta enuntziatuak zuzendu**)            | 2026-11-04 | ☐      |
 
 `fase-0` gida baieztatuta (2026-11-04).
 
@@ -40,6 +41,7 @@ Egoera: ☐ pendiente · ☑ eginda
 | 14  | 1. mailako arauak: ihes-portu libreak (3, 5) atmosferara doaz; zilindroaren ibilbide-denbora lehenetsia 1 s (SPEC §6.2); bi seinale biegonkorrean → aurreko posizioa; erregulagailuak ez du presio-balioa aldatzen | `src/engine/fluid/logic/behaviors.ts`                 | ☐                                              |
 | 15  | Rodillo abatigarriaren eremua (orain ibilbidearen azken % 5a) eta rodilloak etiketaz lotzea (Zilindroa: 1A, Posizioa: −/+)                                                                                         | `src/engine/coupling/mechanical.ts`                   | ☐                                              |
 | 16  | Txantiloien diseinua: 4. txantiloiaren abiadura-faktoreak (1V2 = 0,7, 1V3 = 0,4) eta 1V1 pultsadorezko 5/2 monoegonkorra; 3. txantiloiak ez du aldiberekotasun-denbora egiaztatzen (didaktikoa)                    | `src/learning/templates/`                             | ☐                                              |
+| 17  | Ariketen egiaztapen-denborak: ex-pn-05 (ateratzea ≥ 1,5 s, itzulera ≤ 1,2 s), ex-pn-07 (1A+ → 1A− 2,8–3,5 s); maila logikoan ibilbidea 1 s. Meter-in/out ezin da bereizi maila logikoan                            | `src/learning/exercises/`                             | ☐                                              |
 
 ## SPEC §14ko informazioa (oraindik jaso gabe)
 

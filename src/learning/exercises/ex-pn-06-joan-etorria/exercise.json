@@ -1,0 +1,45 @@
+{
+  "id": "ex-pn-06",
+  "title": "Joan-etorri automatikoa",
+  "domain": "pneumatic",
+  "level": 2,
+  "tags": ["rodilloak", "amaiera-balbula", "ziklo bakarra"],
+  "theoryRefs": ["pn-balbulak", "pn-kaskada"],
+  "status": "draft",
+  "hints_md": [
+    "Zilindroa aurrera iristen dela zerk «dakien» pentsatu: amaiera-balbula bat (rodilloa).",
+    "Rodilloa zilindroari lotzeko, propietateetan aukeratu zilindroa (1A) eta posizioa (+)."
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "pn.source",
+    "pn.valve.3-2.button-spring",
+    "pn.cyl.double",
+    "pn.valve.5-2.pilot",
+    "pn.valve.3-2.roller-spring"
+  ],
+  "checks": [
+    {
+      "title": "0S1-en bulkada batekin, 1A atera eta bakarrik itzultzen da",
+      "type": "sequence",
+      "stimuli": [["pulse", "0S1"]],
+      "expect": ["1A+", "1A-"]
+    },
+    {
+      "title": "0S1 berriro sakatuta, zikloa errepikatzen da",
+      "type": "sequence",
+      "stimuli": [
+        ["pulse", "0S1"],
+        ["wait", 3000],
+        ["pulse", "0S1"]
+      ],
+      "expect": ["1A+", "1A-", "1A+", "1A-"]
+    },
+    {
+      "title": "Ezer sakatu gabe, ez da mugitzen",
+      "type": "never",
+      "stimuli": [["wait", 100]],
+      "events": ["1A+"]
+    }
+  ]
+}

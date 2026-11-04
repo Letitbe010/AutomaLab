@@ -1,0 +1,24 @@
+{
+  "id": "ex-pn-c06",
+  "title": "Behar den presioa kalkulatu",
+  "domain": "pneumatic",
+  "level": 2,
+  "tags": ["presioa", "indarra", "kalkulua"],
+  "theoryRefs": ["pn-zilindro-indarra", "pn-presioa"],
+  "status": "draft",
+  "source": "A. Creus, Neumática e Hidráulica, Marcombo, 2007 — 2.3.2.1 (indarra) eta 2.3.2.3 (kontsumoa); datuak propioak",
+  "hints_md": ["Askatu p indarraren formulatik. N/mm²-tik bar-era: biderkatu 10ez."],
+  "kind": "calc",
+  "parts": [
+    {
+      "id": "a",
+      "prompt_md": "Behar den presioa (bar)",
+      "answer": {
+        "value": 4.14,
+        "unit": "bar",
+        "tolerancePct": 2
+      }
+    }
+  ],
+  "solution_md": "$p = \\frac{F}{A \\cdot \\eta} = \\frac{300}{804{,}2 \\cdot 0{,}9} \\approx 0{,}414\\ \\text{N/mm}^2 \\approx 4{,}14\\ \\text{bar}$\n\nErregulagailua balio horretatik gora doitu behar da (adibidez 4,5 bar), galerak eta kargaren aldaketak kontuan hartzeko."
+}
