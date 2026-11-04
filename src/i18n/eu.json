@@ -30,7 +30,8 @@
     "speedFactor": "Abiadura-faktorea",
     "setBar": "Doitutako presioa",
     "switchBar": "Kommutazio-presioa",
-    "delayS": "Atzerapena"
+    "delayS": "Atzerapena",
+    "strokeTimeS": "Ibilbide-denbora (1. maila)"
   },
   "group": {
     "supply": "Elikadura, prestaketa eta ihesa",

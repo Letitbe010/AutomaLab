@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "name": "R2 — Eragin bikoitzeko zilindroa + 5/2 biegonkorra (pilotajea)",
+  "simulation": { "level": "logic", "dtMs": 1, "supplyPressureBar": 6 },
+  "components": [
+    {
+      "id": "c1",
+      "type": "pn.cyl.double",
+      "x": 200,
+      "y": 40,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "1A" }
+    },
+    {
+      "id": "v1",
+      "type": "pn.valve.5-2.pilot",
+      "x": 210,
+      "y": 160,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "1V1" }
+    },
+    {
+      "id": "b1",
+      "type": "pn.valve.3-2.button-spring",
+      "x": 100,
+      "y": 260,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "1S1" }
+    },
+    {
+      "id": "b2",
+      "type": "pn.valve.3-2.button-spring",
+      "x": 330,
+      "y": 260,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "1S2" }
+    },
+    {
+      "id": "s1",
+      "type": "pn.source",
+      "x": 230,
+      "y": 400,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "0Z1" }
+    }
+  ],
+  "connections": [
+    { "id": "w1", "kind": "fluid", "from": ["s1", "1"], "to": ["v1", "1"], "points": [] },
+    { "id": "w2", "kind": "fluid", "from": ["s1", "1"], "to": ["b1", "1"], "points": [] },
+    { "id": "w3", "kind": "fluid", "from": ["s1", "1"], "to": ["b2", "1"], "points": [] },
+    { "id": "w4", "kind": "fluid", "from": ["b1", "2"], "to": ["v1", "14"], "points": [] },
+    { "id": "w5", "kind": "fluid", "from": ["b2", "2"], "to": ["v1", "12"], "points": [] },
+    { "id": "w6", "kind": "fluid", "from": ["v1", "4"], "to": ["c1", "A"], "points": [] },
+    { "id": "w7", "kind": "fluid", "from": ["v1", "2"], "to": ["c1", "B"], "points": [] }
+  ],
+  "tags": {},
+  "plc": { "io": [], "ladder": [], "grafcet": null }
+}

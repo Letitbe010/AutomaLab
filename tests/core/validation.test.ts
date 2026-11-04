@@ -13,11 +13,19 @@ function loadFixture(): Project {
 const codes = (issues: Issue[]) => issues.map((i) => `${i.severity}:${i.code}`).sort();
 
 describe('validateProject', () => {
-  it('reports only the free exhaust port 3 of the valve in the fixture', () => {
-    const issues = validateProject(loadFixture(), getComponentDef);
-    expect(codes(issues)).toEqual(['warning:freePort']);
-    expect(issues[0]?.vars).toEqual({ component: '1V1', port: '3' });
-    expect(issues[0]?.componentIds).toEqual(['v1']);
+  it('accepts the fixture: the free exhaust port 3 vents and is not a warning', () => {
+    expect(validateProject(loadFixture(), getComponentDef)).toEqual([]);
+  });
+
+  it('reports free working ports', () => {
+    const p = loadFixture();
+    p.connections = p.connections.filter((w) => w.id !== 'w2');
+    const issues = validateProject(p, getComponentDef);
+    expect(codes(issues)).toEqual(['warning:freePort', 'warning:freePort']);
+    expect(issues.map((i) => i.vars)).toEqual([
+      { component: '1V1', port: '2' },
+      { component: '1A', port: 'A' },
+    ]);
   });
 
   it('flags unknown component types as errors', () => {

@@ -203,6 +203,15 @@ function cylinderParams() {
       unit: 'mm',
       min: 1,
     },
+    {
+      key: 'strokeTimeS',
+      labelKey: 'param.strokeTimeS',
+      type: 'number',
+      default: 1,
+      unit: 's',
+      min: 0.05,
+      max: 60,
+    },
   ] as ComponentDef['params'];
 }
 
@@ -328,7 +337,7 @@ export const vacuumEjector: ComponentDef<null> = {
   labelAt: [0, -2.4],
   ports: [
     { id: '1', kind: 'fluid', x: 0, y: 0 },
-    { id: '3', kind: 'fluid', x: 4, y: 0 },
+    { id: '3', kind: 'fluid', x: 4, y: 0, vent: true },
     { id: '2', kind: 'fluid', x: 2, y: -2 },
   ],
   params: [label],

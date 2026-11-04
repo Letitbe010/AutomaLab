@@ -65,7 +65,13 @@ function makeValve(spec: ValveSpec): ComponentDef<ValveState> {
 
   const ports: PortDef[] = spec.ports.map((s) => {
     const [x, y] = portGrid(s);
-    return { id: s.id, kind: 'fluid', x, y };
+    return {
+      id: s.id,
+      kind: 'fluid',
+      x,
+      y,
+      ...(s.id === '3' || s.id === '5' ? { vent: true } : {}),
+    };
   });
   if (spec.leftPilotPort && leftPilotIdx >= 0) {
     ports.push({

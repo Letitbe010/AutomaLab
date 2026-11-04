@@ -40,6 +40,15 @@ export const cylinderSingle: ComponentDef<CylinderState> = {
       unit: 'mm',
       min: 1,
     },
+    {
+      key: 'strokeTimeS',
+      labelKey: 'param.strokeTimeS',
+      type: 'number',
+      default: 1,
+      unit: 's',
+      min: 0.05,
+      max: 60,
+    },
   ],
   initState: () => ({ position: 0 }),
   previewStates: [

@@ -125,7 +125,7 @@ export function validateProject(project: Project, getDef: DefLookup): Issue[] {
     const def = getDef(c.type);
     if (!def) continue;
     for (const p of def.ports) {
-      if (!connectedPorts.has(`${c.id}\u0000${p.id}`)) {
+      if (!p.vent && !connectedPorts.has(`${c.id}\u0000${p.id}`)) {
         issues.push(issue('freePort', { component: displayName(c), port: p.id }, [c.id]));
       }
     }

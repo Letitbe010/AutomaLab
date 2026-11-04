@@ -7,6 +7,8 @@ export interface PortDef {
   kind: PortKind;
   x: number;
   y: number;
+  /** Exhaust port that vents to atmosphere when left unconnected (no "free port" warning). */
+  vent?: boolean;
 }
 
 interface ParamDefBase {

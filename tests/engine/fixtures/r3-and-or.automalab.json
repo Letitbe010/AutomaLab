@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "name": "R3 — AND eta OR balbulak",
+  "simulation": { "level": "logic", "dtMs": 1, "supplyPressureBar": 6 },
+  "components": [
+    {
+      "id": "g1",
+      "type": "pn.gauge",
+      "x": 120,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "AND" }
+    },
+    {
+      "id": "g2",
+      "type": "pn.gauge",
+      "x": 320,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "OR" }
+    },
+    {
+      "id": "a1",
+      "type": "pn.valve.and",
+      "x": 100,
+      "y": 100,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "1V1" }
+    },
+    {
+      "id": "o1",
+      "type": "pn.valve.or",
+      "x": 300,
+      "y": 100,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "1V2" }
+    },
+    {
+      "id": "bx",
+      "type": "pn.valve.3-2.button-spring",
+      "x": 100,
+      "y": 200,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "1S1" }
+    },
+    {
+      "id": "by",
+      "type": "pn.valve.3-2.button-spring",
+      "x": 300,
+      "y": 200,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "1S2" }
+    },
+    {
+      "id": "s1",
+      "type": "pn.source",
+      "x": 200,
+      "y": 340,
+      "rot": 0,
+      "mirror": false,
+      "params": { "label": "0Z1" }
+    }
+  ],
+  "connections": [
+    { "id": "w1", "kind": "fluid", "from": ["s1", "1"], "to": ["bx", "1"], "points": [] },
+    { "id": "w2", "kind": "fluid", "from": ["s1", "1"], "to": ["by", "1"], "points": [] },
+    { "id": "w3", "kind": "fluid", "from": ["bx", "2"], "to": ["a1", "X"], "points": [] },
+    { "id": "w4", "kind": "fluid", "from": ["bx", "2"], "to": ["o1", "X"], "points": [] },
+    { "id": "w5", "kind": "fluid", "from": ["by", "2"], "to": ["a1", "Y"], "points": [] },
+    { "id": "w6", "kind": "fluid", "from": ["by", "2"], "to": ["o1", "Y"], "points": [] },
+    { "id": "w7", "kind": "fluid", "from": ["a1", "2"], "to": ["g1", "1"], "points": [] },
+    { "id": "w8", "kind": "fluid", "from": ["o1", "2"], "to": ["g2", "1"], "points": [] }
+  ],
+  "tags": {},
+  "plc": { "io": [], "ladder": [], "grafcet": null }
+}

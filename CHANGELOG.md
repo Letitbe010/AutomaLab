@@ -2,6 +2,22 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [fase-2a] — 2026-11-04
+
+### Gehituta
+
+- Simulazio-motorra, 1. maila (`src/engine/`, TypeScript hutsa, UIrik gabe):
+  - Sareak (union-find), presio- eta ihes-hedapena norabidearekin eta emari-faktorearekin (widest-path), PRESSURE / EXHAUST / BLOCKED.
+  - Puntu finkoa (balbula-posizioak eta nodo-egoerak), 50 iterazioko muga eta «oszilazioa» abisua; «hornidura ihesera» abisua.
+  - Denbora-urrats finkoko scheduler-a (`Simulation`: `step`, `run`, `runUntil`, `press/release`, gertaerak `1A+`/`1A-`), determinista.
+  - Portaerak: balbula guztiak (mono/biegonkorrak, 5/3 zentratuak, pilotajeak, tenporizadoreak, sekuentzia-balbula), zilindroak, AND/OR, antzezpena, emari-erregulagailuak, ihes azkarrekoa, motorra, prestaketa-unitateak.
+- Erreferentzia-zirkuituak R1, R2, R3 (`tests/engine/fixtures/`) eta haien testak; motorraren estaldura % 94.
+- Zilindroetan «Ibilbide-denbora (1. maila)» parametroa (lehenetsia 1 s).
+
+### Aldatuta
+
+- Balbulen ihes-portu libreak (3, 5) atmosferara doaz eta ez dute «portu librea» abisurik ematen.
+
 ## [liburutegia-p2] — 2026-11-04
 
 ### Gehituta
