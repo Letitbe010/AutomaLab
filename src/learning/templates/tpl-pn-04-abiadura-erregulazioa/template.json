@@ -1,0 +1,11 @@
+{
+  "id": "tpl-pn-04",
+  "title": "Abiaduraren erregulazioa ihesean (meter-out)",
+  "summary": "Noranzko bakarreko bi emari-erregulagailuk ihes-airea murrizten dute: bi abiadura independente.",
+  "domain": "pneumatic",
+  "level": 2,
+  "tags": ["abiadura", "emari-erregulagailua", "meter-out", "eragin bikoitza"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["pn-balbulak", "pn-zilindro-indarra"],
+  "status": "draft"
+}

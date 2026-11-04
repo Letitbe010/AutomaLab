@@ -5,7 +5,7 @@ domain: pneumatic
 tags: [zilindroa, indarra, kontsumoa, errendimendua, enboloa, zurtoina]
 related:
   theory: [pn-presioa, pn-balbulak]
-  templates: []
+  templates: [tpl-pn-01, tpl-pn-04]
   exercises: []
   calculators: [calc-cyl-force, calc-air-consumption]
 sources:

@@ -1,0 +1,11 @@
+{
+  "id": "tpl-pn-02",
+  "title": "Zeharkako agintea memoriarekin (5/2 biegonkorra)",
+  "summary": "Bi pultsadorek 5/2 biegonkor bat pilotatzen dute: bulkada laburra nahikoa da, balbulak gogoratzen du.",
+  "domain": "pneumatic",
+  "level": 1,
+  "tags": ["zeharkako agintea", "memoria", "5/2", "eragin bikoitza"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["pn-balbulak", "pn-funtzio-logikoak"],
+  "status": "draft"
+}

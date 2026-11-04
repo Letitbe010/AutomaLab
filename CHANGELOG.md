@@ -2,6 +2,22 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [fase-3b] — 2026-11-04
+
+### Gehituta
+
+- «Txantiloiak» atala: katalogoa zirkuituaren SVG miniaturarekin, domeinu, maila eta etiketa iragazkiekin, eta teoria-fitxetarako estekekin.
+- 5 txantiloi pneumatiko (zirriborroak): agintea zuzena, zeharkako agintea memoriarekin, bi eskuko agintea (AND), abiaduraren erregulazioa ihesean (meter-out), A+ B+ B− A− kaskada.
+- «Ireki»: txantiloiaren kopia proiektu berri gisa (jatorrizkoa ez da aldatzen); proiektuak `templateId` gordetzen du.
+- Azalpen-panela editorearen ondoan: etiketa klikagarriak (klik → osagaia oihalean nabarmendu eta hautatu), «Berrezarri txantiloia» (urrats bakarra, desegin daiteke) eta «Azalpena» botoia tresna-barran.
+- Teoria-fitxek lotutako txantiloiak erakusten dituzte, eta handik ireki daitezke.
+- Simulazioan, **Shift + klik**-ek eragingailu manual bat sakatuta uzten du (bi eskuko agintea probatzeko); klik arrunt batek askatzen du.
+- Edukiaren testak: txantiloi bakoitza baliozkoa da (errore eta abisurik gabe), abisurik gabe simulatzen da, eta bere portaera egiaztatzen da; azalpeneko etiketa guztiak zirkuituan daude eta alderantziz.
+
+### Aldatuta
+
+- «Doitu»-k azalpen-panela kontuan hartzen du (zirkuitua ez da haren azpian geratzen).
+
 ## [fase-3a] — 2026-11-04
 
 ### Gehituta

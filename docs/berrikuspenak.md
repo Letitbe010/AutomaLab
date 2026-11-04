@@ -6,15 +6,16 @@ Egoera: ☐ pendiente · ☑ eginda
 
 ## Eskuzko egiaztatze-gidak
 
-| Gida                                                                                    | Data       | Egoera |
-| --------------------------------------------------------------------------------------- | ---------- | ------ |
-| [fase-1a.md](egiaztapena/fase-1a.md) — datu-eredua eta ikurrak                          | 2026-11-04 | ☐      |
-| [fase-1b.md](egiaztapena/fase-1b.md) — SVG editorea                                     | 2026-11-04 | ☐      |
-| [fase-1c.md](egiaztapena/fase-1c.md) — gordetzea eta babeskopia                         | 2026-11-04 | ☐      |
-| [fase-2a.md](egiaztapena/fase-2a.md) — simulazio-motorra (logikoa)                      | 2026-11-04 | ☐      |
-| [fase-2c.md](egiaztapena/fase-2c.md) — simulazioa pantailan                             | 2026-11-04 | ☐      |
-| [fase-2b.md](egiaztapena/fase-2b.md) — rodilloak, R4, R5 (**zuk R5 marraztu**)          | 2026-11-04 | ☐      |
-| [fase-3a.md](egiaztapena/fase-3a.md) — teoria-atala (**5 fitxak irakurri eta zuzendu**) | 2026-11-04 | ☐      |
+| Gida                                                                                      | Data       | Egoera |
+| ----------------------------------------------------------------------------------------- | ---------- | ------ |
+| [fase-1a.md](egiaztapena/fase-1a.md) — datu-eredua eta ikurrak                            | 2026-11-04 | ☐      |
+| [fase-1b.md](egiaztapena/fase-1b.md) — SVG editorea                                       | 2026-11-04 | ☐      |
+| [fase-1c.md](egiaztapena/fase-1c.md) — gordetzea eta babeskopia                           | 2026-11-04 | ☐      |
+| [fase-2a.md](egiaztapena/fase-2a.md) — simulazio-motorra (logikoa)                        | 2026-11-04 | ☐      |
+| [fase-2c.md](egiaztapena/fase-2c.md) — simulazioa pantailan                               | 2026-11-04 | ☐      |
+| [fase-2b.md](egiaztapena/fase-2b.md) — rodilloak, R4, R5 (**zuk R5 marraztu**)            | 2026-11-04 | ☐      |
+| [fase-3a.md](egiaztapena/fase-3a.md) — teoria-atala (**5 fitxak irakurri eta zuzendu**)   | 2026-11-04 | ☐      |
+| [fase-3b.md](egiaztapena/fase-3b.md) — txantiloiak (**5 azalpenak irakurri eta zuzendu**) | 2026-11-04 | ☐      |
 
 `fase-0` gida baieztatuta (2026-11-04).
 
@@ -37,6 +38,7 @@ Egoera: ☐ pendiente · ☑ eginda
 | 13  | Lehenetsiak: sekuentzia-balbularen kommutazio-presioa (3 bar), tenporizadorearen atzerapena (2 s), erregulagailua (6 bar)                                                                                          | `valveSpecs.ts`, `extra.tsx`                          | ☐                                              |
 | 14  | 1. mailako arauak: ihes-portu libreak (3, 5) atmosferara doaz; zilindroaren ibilbide-denbora lehenetsia 1 s (SPEC §6.2); bi seinale biegonkorrean → aurreko posizioa; erregulagailuak ez du presio-balioa aldatzen | `src/engine/fluid/logic/behaviors.ts`                 | ☐                                              |
 | 15  | Rodillo abatigarriaren eremua (orain ibilbidearen azken % 5a) eta rodilloak etiketaz lotzea (Zilindroa: 1A, Posizioa: −/+)                                                                                         | `src/engine/coupling/mechanical.ts`                   | ☐                                              |
+| 16  | Txantiloien diseinua: 4. txantiloiaren abiadura-faktoreak (1V2 = 0,7, 1V3 = 0,4) eta 1V1 pultsadorezko 5/2 monoegonkorra; 3. txantiloiak ez du aldiberekotasun-denbora egiaztatzen (didaktikoa)                    | `src/learning/templates/`                             | ☐                                              |
 
 ## SPEC §14ko informazioa (oraindik jaso gabe)
 

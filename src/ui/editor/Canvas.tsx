@@ -124,6 +124,11 @@ export function Canvas() {
   const sim = mode === 'sim' ? useSim.getState().sim : null;
   const [hover, setHover] = useState<{ compId: string; at: Point; shown: boolean } | null>(null);
   const helpFor = useEditor((s) => s.helpFor);
+  const highlightId = useLearning((s) => s.highlightId);
+  const highlighted = highlightId
+    ? project.components.find((c) => c.id === highlightId)
+    : undefined;
+  const highlightBox = highlighted ? componentBox(highlighted) : null;
 
   useEffect(() => {
     if (!hover || hover.shown) return;
@@ -265,7 +270,9 @@ export function Canvas() {
       if (comp && targetOps) {
         const side = clickSide(comp, targetOps, world);
         const simStore = useSim.getState();
-        if (targetOps.toggle) {
+        // Shift+click latches a manual operator (e.g. both buttons of a two-hand control);
+        // a plain click releases it again.
+        if (targetOps.toggle || e.shiftKey) {
           const closed = simStore.sim?.componentInput(compId)[side] === true;
           simStore.setInput(compId, { [side]: !closed });
         } else {
@@ -539,6 +546,18 @@ export function Canvas() {
               readout={gaugeReadout(c)}
             />
           ))}
+
+          {highlightBox && (
+            <rect
+              data-highlight={highlightId}
+              x={highlightBox.x1 - 8}
+              y={highlightBox.y1 - 8}
+              width={highlightBox.x2 - highlightBox.x1 + 16}
+              height={highlightBox.y2 - highlightBox.y1 + 16}
+              rx={8}
+              className={styles.highlight}
+            />
+          )}
 
           {limitMarks.map((m) => {
             const on = sim?.isMechanicallyActuated(m.valveId) === true;

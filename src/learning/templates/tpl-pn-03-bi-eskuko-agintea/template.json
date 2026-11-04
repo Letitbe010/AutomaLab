@@ -1,0 +1,11 @@
+{
+  "id": "tpl-pn-03",
+  "title": "Bi eskuko agintea (AND funtzioa)",
+  "summary": "Zilindroa bi pultsadoreak batera sakatuta bakarrik ateratzen da: bi presioko balbula (AND).",
+  "domain": "pneumatic",
+  "level": 1,
+  "tags": ["AND", "segurtasuna", "funtzio logikoak", "eragin bikoitza"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["pn-funtzio-logikoak", "pn-balbulak"],
+  "status": "draft"
+}

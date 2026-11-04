@@ -1,0 +1,11 @@
+{
+  "id": "tpl-pn-01",
+  "title": "Agintea zuzena: eragin bakuneko zilindroa",
+  "summary": "3/2 pultsadore batek zuzenean elikatzen du zilindroa: sakatu bitartean ateratzen da.",
+  "domain": "pneumatic",
+  "level": 1,
+  "tags": ["agintea zuzena", "eragin bakuna", "3/2"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["pn-balbulak", "pn-zilindro-indarra"],
+  "status": "draft"
+}

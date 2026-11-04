@@ -1,0 +1,11 @@
+{
+  "id": "tpl-pn-05",
+  "title": "A+ B+ B− A− sekuentzia, kaskada-metodoa",
+  "summary": "Bi zilindroren sekuentzia, seinale-gainjartzea kaskada batekin (2 talde) konponduta.",
+  "domain": "pneumatic",
+  "level": 2,
+  "tags": ["sekuentzia", "kaskada", "seinale-gainjartzea", "rodilloak"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["pn-kaskada", "pn-funtzio-logikoak"],
+  "status": "draft"
+}

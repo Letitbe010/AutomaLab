@@ -68,4 +68,6 @@ export interface Project {
   connections: Connection[];
   tags: Record<string, TagDef>;
   plc: PlcData;
+  /** Set when the project was opened from a circuit template (SPEC §8.5). */
+  templateId?: string;
 }

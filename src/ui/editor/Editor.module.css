@@ -327,6 +327,28 @@
   stroke-dasharray: 4 3;
 }
 
+/* Component highlighted from a template description. */
+.highlight {
+  fill: rgb(12 149 176 / 0.1);
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  pointer-events: none;
+  animation: highlight-pulse 0.8s ease-in-out 3;
+}
+
+@keyframes highlight-pulse {
+  50% {
+    stroke-width: 5;
+    fill: rgb(12 149 176 / 0.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .highlight {
+    animation: none;
+  }
+}
+
 .compLabel {
   font-family: var(--mono);
   font-size: 9px;

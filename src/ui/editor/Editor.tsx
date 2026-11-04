@@ -17,6 +17,9 @@ const NOTICE_MS = 5000;
 const TheoryDrawer = lazy(() =>
   import('../theory/TheoryDrawer').then((m) => ({ default: m.TheoryDrawer })),
 );
+const TemplatePanel = lazy(() =>
+  import('../templates/TemplatePanel').then((m) => ({ default: m.TemplatePanel })),
+);
 
 export function Editor() {
   // Wait for the stored project, so early edits are not replaced when it loads.
@@ -32,6 +35,8 @@ function EditorView() {
   const notice = useEditor((s) => s.notice);
   const drafting = useEditor((s) => s.wireDraft !== null);
   const drawerOpen = useLearning((s) => s.drawerTheoryId !== null);
+  const templateOpen = useLearning((s) => s.templatePanelOpen);
+  const hasTemplate = useEditor((s) => s.project.templateId !== undefined);
 
   useEffect(() => {
     if (!notice) return;
@@ -54,6 +59,11 @@ function EditorView() {
           )}
         </div>
         <PropertiesPanel />
+        {templateOpen && hasTemplate && (
+          <Suspense fallback={null}>
+            <TemplatePanel />
+          </Suspense>
+        )}
         {drawerOpen && (
           <Suspense fallback={null}>
             <TheoryDrawer />

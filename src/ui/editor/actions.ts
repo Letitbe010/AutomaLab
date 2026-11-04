@@ -11,6 +11,7 @@ import {
   rotateComponents,
 } from './model/ops';
 import { validateProject } from '../../core/validation';
+import { useLearning } from '../learning/store';
 import { useSim } from '../sim/simStore';
 import { useEditor } from './store';
 
@@ -125,8 +126,40 @@ export function componentBox(c: {
   return { x1: Math.min(...xs), y1: Math.min(...ys), x2: Math.max(...xs), y2: Math.max(...ys) };
 }
 
-export function fitView() {
+/** Selects a component (in edit mode) and pans to it when it is out of view. */
+export function focusComponent(id: string): boolean {
+  const st = s();
+  const comp = st.project.components.find((c) => c.id === id);
+  if (!comp) return false;
+  if (editable()) st.select({ components: [id] });
+  const b = componentBox(comp);
+  const { view } = st;
+  const viewport = { width: st.viewport.width - rightInset(), height: st.viewport.height };
+  const sx1 = b.x1 * view.zoom + view.x;
+  const sy1 = b.y1 * view.zoom + view.y;
+  const sx2 = b.x2 * view.zoom + view.x;
+  const sy2 = b.y2 * view.zoom + view.y;
+  if (sx1 < 0 || sy1 < 0 || sx2 > viewport.width || sy2 > viewport.height) {
+    st.setView({
+      zoom: view.zoom,
+      x: viewport.width / 2 - ((b.x1 + b.x2) / 2) * view.zoom,
+      y: viewport.height / 2 - ((b.y1 + b.y2) / 2) * view.zoom,
+    });
+  }
+  return true;
+}
+
+/** Canvas width hidden by the template description panel (it overlays the right side). */
+function rightInset(): number {
   const { project, viewport } = s();
+  const open = useLearning.getState().templatePanelOpen && project.templateId !== undefined;
+  return open ? Math.min(400, viewport.width / 2) : 0;
+}
+
+export function fitView() {
+  const { project } = s();
+  const viewport = { ...s().viewport };
+  viewport.width -= rightInset();
   if (!project.components.length) {
     s().setView({ x: 80, y: 80, zoom: 1.5 });
     return;

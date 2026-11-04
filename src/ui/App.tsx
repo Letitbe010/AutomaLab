@@ -1,7 +1,8 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { t } from '../i18n';
 import { bootstrap } from '../storage/persistence';
 import { BackupReminder } from './storage/BackupReminder';
+import { useNav } from './navigation';
 import { SECTIONS, type SectionId } from './sections';
 import { Editor } from './editor/Editor';
 import { SymbolGallery } from './symbols/SymbolGallery';
@@ -11,6 +12,9 @@ import styles from './App.module.css';
 // Theory (Markdown + KaTeX) is loaded only when the section is opened.
 const TheoryPage = lazy(() =>
   import('./theory/TheoryPage').then((m) => ({ default: m.TheoryPage })),
+);
+const TemplatesPage = lazy(() =>
+  import('./templates/TemplatesPage').then((m) => ({ default: m.TemplatesPage })),
 );
 
 /** Logo: an "A" drawn as orthogonal schematic lines, with ports and T-junction dots. */
@@ -48,7 +52,8 @@ export function App() {
 }
 
 function MainLayout() {
-  const [active, setActive] = useState<SectionId>('editor');
+  const active = useNav((s) => s.section);
+  const setActive = useNav((s) => s.go);
   useEffect(() => {
     void bootstrap();
   }, []);
@@ -93,6 +98,16 @@ function MainLayout() {
           <h1 className={styles.srOnly}>{t('menu.theory')}</h1>
           <Suspense fallback={<p className={styles.loading}>{t('storage.status.loading')}</p>}>
             <TheoryPage />
+          </Suspense>
+        </main>
+      ) : active === 'templates' ? (
+        <main className={styles.main}>
+          <div className={styles.sectionTitle}>
+            <h1>{t('menu.templates')}</h1>
+            <span className={styles.rule} />
+          </div>
+          <Suspense fallback={<p className={styles.loading}>{t('storage.status.loading')}</p>}>
+            <TemplatesPage />
           </Suspense>
         </main>
       ) : (

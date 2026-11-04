@@ -10,6 +10,7 @@ import {
   rotateSelection,
   zoomBy,
 } from './actions';
+import { useLearning } from '../learning/store';
 import { useEditor } from './store';
 import styles from './Editor.module.css';
 
@@ -49,6 +50,9 @@ export function Toolbar() {
   const mode = useEditor((s) => s.mode);
   const zoom = useEditor((s) => s.view.zoom);
   const edit = mode === 'edit';
+  const hasTemplate = useEditor((s) => s.project.templateId !== undefined);
+  const templateOpen = useLearning((s) => s.templatePanelOpen);
+  const setTemplatePanel = useLearning((s) => s.setTemplatePanel);
 
   return (
     <div className={styles.toolbar} role="toolbar" aria-label={t('editor.toolbar')}>
@@ -65,6 +69,17 @@ export function Toolbar() {
       <span className={styles.sep} />
       {edit ? <EditTools /> : <SimControls />}
       <span className={styles.spacer} />
+      {hasTemplate && (
+        <button
+          type="button"
+          className={styles.btn}
+          aria-pressed={templateOpen}
+          onClick={() => setTemplatePanel(!templateOpen)}
+          title={t('templates.panelToggleHint')}
+        >
+          {t('templates.panelToggle')}
+        </button>
+      )}
       <button
         type="button"
         className={styles.btn}

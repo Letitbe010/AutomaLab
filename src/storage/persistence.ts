@@ -12,6 +12,8 @@ import {
 } from '../core/serialization';
 import type { Project } from '../core/types';
 import { t } from '../i18n';
+import { getTemplate, templateCopy } from '../learning/templates';
+import { exitSim } from '../ui/editor/actions';
 import { useEditor } from '../ui/editor/store';
 import {
   backupFileName,
@@ -187,6 +189,35 @@ export async function exportCurrentProject(): Promise<void> {
   await flush();
   const { project } = useEditor.getState();
   downloadText(safeFileName(project.name) + FILE_EXTENSION, serializeProject(project));
+}
+
+/** Opens a circuit template as a new project: a copy, the template never changes. */
+export async function openTemplate(id: string): Promise<boolean> {
+  const tpl = getTemplate(id);
+  if (!tpl) return false;
+  await flush();
+  const projectId = db.newProjectId();
+  const project = templateCopy(tpl);
+  await db.saveProject(projectId, project);
+  show(projectId, project);
+  await refresh();
+  return true;
+}
+
+/** Puts the template circuit back into the current project (one undo step). */
+export function resetToTemplate(): boolean {
+  const editor = useEditor.getState();
+  const tpl = editor.project.templateId ? getTemplate(editor.project.templateId) : undefined;
+  if (!tpl) return false;
+  if (editor.mode === 'sim') exitSim();
+  const copy = templateCopy(tpl);
+  useEditor.getState().apply((d) => {
+    d.components = copy.components;
+    d.connections = copy.connections;
+    d.tags = copy.tags;
+    d.simulation = copy.simulation;
+  });
+  return true;
 }
 
 /** Imports a single project file as a new project (never overwrites). */

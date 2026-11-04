@@ -1,0 +1,274 @@
+{
+  "schemaVersion": 1,
+  "name": "A+ B+ B− A− kaskada-metodoarekin (2 talde)",
+  "simulation": {
+    "level": "logic",
+    "dtMs": 1,
+    "supplyPressureBar": 6
+  },
+  "components": [
+    {
+      "id": "cA",
+      "type": "pn.cyl.double",
+      "x": 100,
+      "y": 40,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1A"
+      }
+    },
+    {
+      "id": "cB",
+      "type": "pn.cyl.double",
+      "x": 380,
+      "y": 40,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "2A"
+      }
+    },
+    {
+      "id": "vA",
+      "type": "pn.valve.5-2.pilot",
+      "x": 110,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1V1"
+      }
+    },
+    {
+      "id": "vB",
+      "type": "pn.valve.5-2.pilot",
+      "x": 390,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "2V1"
+      }
+    },
+    {
+      "id": "a0",
+      "type": "pn.valve.3-2.roller-spring",
+      "x": 60,
+      "y": 330,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "a0",
+        "cylinder": "1A",
+        "at": "-"
+      }
+    },
+    {
+      "id": "a1",
+      "type": "pn.valve.3-2.roller-spring",
+      "x": 200,
+      "y": 330,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "a1",
+        "cylinder": "1A",
+        "at": "+"
+      }
+    },
+    {
+      "id": "b0",
+      "type": "pn.valve.3-2.roller-spring",
+      "x": 340,
+      "y": 330,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "b0",
+        "cylinder": "2A",
+        "at": "-"
+      }
+    },
+    {
+      "id": "b1",
+      "type": "pn.valve.3-2.roller-spring",
+      "x": 480,
+      "y": 330,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "b1",
+        "cylinder": "2A",
+        "at": "+"
+      }
+    },
+    {
+      "id": "st",
+      "type": "pn.valve.3-2.button-spring",
+      "x": 60,
+      "y": 470,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "0S1"
+      }
+    },
+    {
+      "id": "mem",
+      "type": "pn.valve.5-2.pilot",
+      "x": 620,
+      "y": 470,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "0V1"
+      }
+    },
+    {
+      "id": "s1",
+      "type": "pn.source",
+      "x": 640,
+      "y": 620,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "0Z1"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "id": "w1",
+      "kind": "fluid",
+      "from": ["s1", "1"],
+      "to": ["mem", "1"],
+      "points": []
+    },
+    {
+      "id": "w2",
+      "kind": "fluid",
+      "from": ["s1", "1"],
+      "to": ["vA", "1"],
+      "points": []
+    },
+    {
+      "id": "w3",
+      "kind": "fluid",
+      "from": ["s1", "1"],
+      "to": ["vB", "1"],
+      "points": []
+    },
+    {
+      "id": "w4",
+      "kind": "fluid",
+      "from": ["mem", "4"],
+      "to": ["vA", "14"],
+      "points": []
+    },
+    {
+      "id": "w5",
+      "kind": "fluid",
+      "from": ["mem", "4"],
+      "to": ["a1", "1"],
+      "points": []
+    },
+    {
+      "id": "w6",
+      "kind": "fluid",
+      "from": ["a1", "2"],
+      "to": ["vB", "14"],
+      "points": []
+    },
+    {
+      "id": "w7",
+      "kind": "fluid",
+      "from": ["mem", "4"],
+      "to": ["b1", "1"],
+      "points": []
+    },
+    {
+      "id": "w8",
+      "kind": "fluid",
+      "from": ["b1", "2"],
+      "to": ["mem", "12"],
+      "points": []
+    },
+    {
+      "id": "w9",
+      "kind": "fluid",
+      "from": ["mem", "2"],
+      "to": ["vB", "12"],
+      "points": []
+    },
+    {
+      "id": "w10",
+      "kind": "fluid",
+      "from": ["mem", "2"],
+      "to": ["b0", "1"],
+      "points": []
+    },
+    {
+      "id": "w11",
+      "kind": "fluid",
+      "from": ["b0", "2"],
+      "to": ["vA", "12"],
+      "points": []
+    },
+    {
+      "id": "w12",
+      "kind": "fluid",
+      "from": ["mem", "2"],
+      "to": ["st", "1"],
+      "points": []
+    },
+    {
+      "id": "w13",
+      "kind": "fluid",
+      "from": ["st", "2"],
+      "to": ["a0", "1"],
+      "points": []
+    },
+    {
+      "id": "w14",
+      "kind": "fluid",
+      "from": ["a0", "2"],
+      "to": ["mem", "14"],
+      "points": []
+    },
+    {
+      "id": "w15",
+      "kind": "fluid",
+      "from": ["vA", "4"],
+      "to": ["cA", "A"],
+      "points": []
+    },
+    {
+      "id": "w16",
+      "kind": "fluid",
+      "from": ["vA", "2"],
+      "to": ["cA", "B"],
+      "points": []
+    },
+    {
+      "id": "w17",
+      "kind": "fluid",
+      "from": ["vB", "4"],
+      "to": ["cB", "A"],
+      "points": []
+    },
+    {
+      "id": "w18",
+      "kind": "fluid",
+      "from": ["vB", "2"],
+      "to": ["cB", "B"],
+      "points": []
+    }
+  ],
+  "tags": {},
+  "plc": {
+    "io": [],
+    "ladder": [],
+    "grafcet": null
+  }
+}

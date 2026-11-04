@@ -1,13 +1,9 @@
-import 'katex/dist/katex.min.css';
-import { useLayoutEffect, useMemo, useRef, useState, type MouseEvent } from 'react';
-import { createPortal } from 'react-dom';
-import { getComponentDef } from '../../components/registry';
-import { componentName } from '../../components/text';
 import { getCalculator } from '../../learning/calculators';
-import { renderMarkdown } from '../../learning/markdown';
+import { templatesForTheory } from '../../learning/templates';
 import { getSheet, type TheorySheet } from '../../learning/theory/sheets';
 import { t } from '../../i18n';
-import { Thumb } from '../editor/Thumb';
+import { openTemplateInEditor } from '../templates/open';
+import { MarkdownBody } from './MarkdownBody';
 import styles from './Theory.module.css';
 
 export function DraftBadge({ status }: { status: TheorySheet['status'] }) {
@@ -26,27 +22,9 @@ export function TheorySheetView({
   /** Side-panel layout (no related column). */
   compact?: boolean;
 }) {
-  const html = useMemo(() => renderMarkdown(sheet.body), [sheet.body]);
-  const bodyRef = useRef<HTMLDivElement>(null);
-  const [slots, setSlots] = useState<{ el: Element; type: string }[]>([]);
-
-  // Library symbols are mounted into the placeholders left by the Markdown renderer.
-  useLayoutEffect(() => {
-    const els = bodyRef.current?.querySelectorAll('.md-symbol') ?? [];
-    setSlots([...els].map((el) => ({ el, type: el.getAttribute('data-symbol') ?? '' })));
-  }, [html]);
-
-  function onClick(e: MouseEvent<HTMLDivElement>) {
-    const a = (e.target as Element).closest('a');
-    const href = a?.getAttribute('href');
-    if (!href) return;
-    e.preventDefault();
-    if (href.startsWith('theory:')) onNavigate(href.slice('theory:'.length));
-    else window.open(href, '_blank', 'noopener');
-  }
-
   const related = sheet.related.theory.map(getSheet).filter((s): s is TheorySheet => !!s);
   const calculators = sheet.related.calculators.map(getCalculator).filter((c) => !!c);
+  const templates = templatesForTheory(sheet.id);
 
   return (
     <article
@@ -65,11 +43,9 @@ export function TheorySheetView({
         </div>
       </header>
       <div className={styles.layout}>
-        <div
-          ref={bodyRef}
-          className={styles.body}
-          onClick={onClick}
-          dangerouslySetInnerHTML={{ __html: html }}
+        <MarkdownBody
+          text={sheet.body}
+          onLink={(scheme, target) => scheme === 'theory' && onNavigate(target)}
         />
         <aside className={styles.related} aria-label={t('theory.related')}>
           <div className={styles.relTitle}>{t('theory.related')}</div>
@@ -84,6 +60,25 @@ export function TheorySheetView({
               ))}
             </ul>
           )}
+          {templates.length > 0 && (
+            <>
+              <div className={styles.relSub}>{t('theory.templates')}</div>
+              <ul data-testid="theory-templates">
+                {templates.map((tpl) => (
+                  <li key={tpl.id}>
+                    <button
+                      type="button"
+                      className={styles.link}
+                      title={t('templates.openHint')}
+                      onClick={() => void openTemplateInEditor(tpl.id)}
+                    >
+                      {tpl.title}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
           {calculators.length > 0 && (
             <>
               <div className={styles.relSub}>{t('theory.calculators')}</div>
@@ -96,7 +91,7 @@ export function TheorySheetView({
               </ul>
             </>
           )}
-          {sheet.related.templates.length === 0 && related.length === 0 && (
+          {templates.length === 0 && related.length === 0 && (
             <p className={styles.muted}>{t('theory.noRelated')}</p>
           )}
           <div className={styles.relSub}>{t('theory.sources')}</div>
@@ -107,21 +102,6 @@ export function TheorySheetView({
           </ul>
         </aside>
       </div>
-      {slots.map(({ el, type }, i) => {
-        const def = getComponentDef(type);
-        return createPortal(
-          def ? (
-            <span className={styles.symbol} title={componentName(def)}>
-              <Thumb def={def} className={styles.symbolSvg} />
-              <span className={styles.symbolName}>{componentName(def)}</span>
-            </span>
-          ) : (
-            <code>{type}</code>
-          ),
-          el,
-          `${type}-${i}`,
-        );
-      })}
     </article>
   );
 }

@@ -287,7 +287,7 @@
     }
   },
   "sim": {
-    "banner": "Simulazioa: eskema blokeatuta. Klik eta mantendu eragingailu manualetan (pultsadorea, palanka…).",
+    "banner": "Simulazioa: eskema blokeatuta. Klik eta mantendu eragingailu manualetan (pultsadorea, palanka…); Shift + klik: sakatuta utzi.",
     "play": "Abiarazi",
     "pause": "Pausatu",
     "step": "Urrats bat ({ms} ms)",
@@ -357,6 +357,31 @@
     "calc": {
       "cylForce": "Zilindroaren indarra",
       "airConsumption": "Aire-kontsumoa"
-    }
+    },
+    "templates": "Txantiloiak"
+  },
+  "templates": {
+    "intro": "Zirkuitu osoak eta funtzionalak, aztertzeko eta simulatzeko. «Ireki»-k kopia bat sortzen du zure proiektuetan: jatorrizko txantiloia ez da inoiz aldatzen.",
+    "filters": "Iragazkiak",
+    "domain": "Domeinua",
+    "level": "Maila",
+    "tag": "Etiketa",
+    "levels": {
+      "1": "Oinarrizkoa",
+      "2": "Ertaina",
+      "3": "Aurreratua"
+    },
+    "none": "Ez dago iragazkiekin bat datorren txantiloirik.",
+    "theory": "Teoria",
+    "open": "Ireki",
+    "openHint": "Kopia bat sortu eta editorean ireki",
+    "kicker": "Txantiloia",
+    "panel": "Txantiloiaren azalpena",
+    "reset": "Berrezarri txantiloia",
+    "resetConfirm": "Zirkuitua txantiloiaren jatorrizko egoerara itzuliko da. Zure aldaketak desegin ditzakezu (Ctrl+Z). Jarraitu?",
+    "labelHint": "Egin klik etiketa batean osagaia oihalean nabarmentzeko.",
+    "missingComponent": "Osagai hori ez dago zirkuituan (ezabatu egin duzu?). «Berrezarri txantiloia»-k berreskuratzen du.",
+    "panelToggle": "Azalpena",
+    "panelToggleHint": "Txantiloiaren azalpena erakutsi / ezkutatu"
   }
 }

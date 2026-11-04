@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "name": "Agintea zuzena: eragin bakuneko zilindroa",
+  "simulation": {
+    "level": "logic",
+    "dtMs": 1,
+    "supplyPressureBar": 6
+  },
+  "components": [
+    {
+      "id": "c1",
+      "type": "pn.cyl.single",
+      "x": 100,
+      "y": 40,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1A"
+      }
+    },
+    {
+      "id": "s1",
+      "type": "pn.valve.3-2.button-spring",
+      "x": 100,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1S1"
+      }
+    },
+    {
+      "id": "z1",
+      "type": "pn.source",
+      "x": 110,
+      "y": 320,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "0Z1"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "id": "w1",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["s1", "1"],
+      "points": []
+    },
+    {
+      "id": "w2",
+      "kind": "fluid",
+      "from": ["s1", "2"],
+      "to": ["c1", "A"],
+      "points": []
+    }
+  ],
+  "tags": {},
+  "plc": {
+    "io": [],
+    "ladder": [],
+    "grafcet": null
+  }
+}

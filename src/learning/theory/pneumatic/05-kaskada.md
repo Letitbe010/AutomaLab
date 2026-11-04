@@ -5,7 +5,7 @@ domain: pneumatic
 tags: [sekuentzia, espazio-fase, gainjartzea, kaskada, taldeak, memoria, a0, a1]
 related:
   theory: [pn-funtzio-logikoak, pn-balbulak]
-  templates: []
+  templates: [tpl-pn-05]
   exercises: []
   calculators: []
 sources:

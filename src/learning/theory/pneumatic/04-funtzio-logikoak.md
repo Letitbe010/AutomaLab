@@ -5,7 +5,7 @@ domain: pneumatic
 tags: [logika, AND, OR, NOT, memoria, bi presioko balbula, hautatzailea, bi eskuko agintea]
 related:
   theory: [pn-balbulak, pn-kaskada]
-  templates: []
+  templates: [tpl-pn-02, tpl-pn-03, tpl-pn-05]
   exercises: []
   calculators: []
 sources:

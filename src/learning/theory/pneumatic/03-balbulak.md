@@ -5,7 +5,7 @@ domain: pneumatic
 tags: [balbula, banatzailea, bideak, posizioak, portuak, eragingailuak, 3/2, 5/2, 5/3]
 related:
   theory: [pn-funtzio-logikoak, pn-zilindro-indarra]
-  templates: []
+  templates: [tpl-pn-01, tpl-pn-02, tpl-pn-03, tpl-pn-04]
   exercises: []
   calculators: []
 sources:

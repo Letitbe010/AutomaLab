@@ -177,5 +177,6 @@ function readProject(o: Record<string, unknown>): Project {
       ladder: arr(plc.ladder ?? [], 'plc.ladder'),
       grafcet: plc.grafcet ?? null,
     },
+    ...(o.templateId === undefined ? {} : { templateId: str(o.templateId, 'templateId') }),
   };
 }
