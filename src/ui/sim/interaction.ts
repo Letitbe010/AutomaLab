@@ -1,5 +1,6 @@
 /** Pure helpers for interacting with a running simulation (SPEC §7.3). */
 import { BOX, VALVE_SPECS, type Operator } from '../../components/pneumatic/valveSpecs';
+import { ELECTRIC_ROLES } from '../../components/electric/roles';
 import { inverseTransformLocal } from '../../core/geometry';
 import type { ComponentInstance, Point } from '../../core/types';
 import type { SimEvent } from '../../engine/types';
@@ -26,6 +27,13 @@ const VALVE_TARGETS = new Map(
 
 export function clickTarget(type: string): ClickTarget | undefined {
   if (type === 'pn.valve.shutoff') return { left: true, right: false, toggle: true };
+  const role = ELECTRIC_ROLES[type];
+  if (role?.kind === 'contact') {
+    // Buttons are held, switches keep their state; sensors can be forced by hand (manual override).
+    if (role.actuator === 'toggle') return { left: true, right: false, toggle: true };
+    if (role.actuator === 'manual' || role.actuator === 'sensor')
+      return { left: true, right: false };
+  }
   const t = VALVE_TARGETS.get(type);
   return t && (t.left || t.right) ? t : undefined;
 }

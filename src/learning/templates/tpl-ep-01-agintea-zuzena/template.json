@@ -1,0 +1,11 @@
+{
+  "id": "tpl-ep-01",
+  "title": "Agintea zuzena elektrobalbularekin",
+  "summary": "S1 pultsadoreak Y1 bobina zuzenean elikatzen du: sakatu bitartean, zilindroa ateratzen da.",
+  "domain": "electric",
+  "level": 1,
+  "tags": ["agintea zuzena", "elektrobalbula", "monoegonkorra"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["ep-oinarriak"],
+  "status": "draft"
+}

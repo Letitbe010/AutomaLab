@@ -1,0 +1,88 @@
+{
+  "templateId": "tpl-ep-03",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "**S1** (martxa) bulkada labur batekin sakatzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["pulse", "S1"]],
+      "options": [
+        "1A ateratzen da eta aurrean geratzen da, S1 askatu arren",
+        "1A atera eta itzultzen da",
+        "Ezer ez"
+      ],
+      "optionEvents": [["1A+"], ["1A+", "1A-"], []],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "K1 aktibatzean, bere kontaktuak (S1-en paraleloan) bobina elikatzen jarraitzen du: autoatxikimendua.",
+      "theoryRef": "ep-autoatxikimendua"
+    },
+    {
+      "id": "q2",
+      "type": "predict",
+      "prompt_md": "Makina martxan dago (1A aurrean). **S0** (geldialdia) sakatzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [
+        ["pulse", "S1"],
+        ["wait", 1500],
+        ["pulse", "S0"]
+      ],
+      "options": ["1A itzultzen da", "1A aurrean geratzen da"],
+      "optionEvents": [["1A+", "1A-"], ["1A+"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "S0 NI da eta seriean dago: sakatzean K1-en elikadura eteten da, autoatxikimendua galtzen da eta Y1 itzaltzen da.",
+      "theoryRef": "ep-autoatxikimendua"
+    },
+    {
+      "id": "q3",
+      "type": "predict",
+      "prompt_md": "**S0** eta **S1** batera sakatzen dira. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [
+        ["press", "S0"],
+        ["press", "S1"]
+      ],
+      "options": ["Ezer ez: geldialdiak lehentasuna du", "1A ateratzen da: martxak lehentasuna du"],
+      "optionEvents": [[], ["1A+"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "S0 seriean dago multzo osoarekin: irekita dagoen bitartean, K1-ek ezin du tentsiorik jaso.",
+      "theoryRef": "ep-autoatxikimendua"
+    },
+    {
+      "id": "q4",
+      "type": "single",
+      "prompt_md": "Nola deitzen zaio S1-en paraleloan dagoen **K1** kontaktuari?",
+      "options": ["Autoatxikimendua (realimentación)", "Interblokeoa", "Tenporizazioa"],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Errelearen kontaktu NA bat martxa-pultsadorearen paraleloan: errelea bere buruari eusten dio.",
+      "theoryRef": "ep-autoatxikimendua"
+    },
+    {
+      "id": "q5",
+      "type": "truefalse",
+      "prompt_md": "Makina martxan dagoela elikadura eteten bada, elikadura itzultzean zilindroa bere kabuz aterako da.",
+      "answer": {
+        "value": false
+      },
+      "explanation_md": "Ez: elikadurarik gabe K1 desaktibatzen da eta autoatxikimendua galtzen da. Martxa berriro sakatu behar da (segurtasuna).",
+      "theoryRef": "ep-autoatxikimendua"
+    }
+  ]
+}

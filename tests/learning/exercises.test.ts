@@ -51,6 +51,22 @@ const WRONG: Record<string, () => Project> = {
   },
   // A+ B+ B- A- cascade instead of A+ B+ A- B-.
   'ex-pn-08': () => clone(getTemplate('tpl-pn-05')!.circuit),
+  // Normally closed button: Y1 is energised without pressing.
+  'ex-ep-01': () => {
+    const p = clone(design('ex-ep-01').solution);
+    byLabel(p, 'S1').type = 'el.button.nc';
+    return p;
+  },
+  // Relay without self-holding and without stop button.
+  'ex-ep-02': () => clone(getTemplate('tpl-ep-02')!.circuit),
+  // No return: the 1B2 sensor does not reach Y2.
+  'ex-ep-03': () => {
+    const p = clone(design('ex-ep-03').solution);
+    p.connections = p.connections.filter((w) => !(w.to[0] === 'y2' && w.to[1] === 'A1'));
+    return p;
+  },
+  // Single cylinder circuit.
+  'ex-ep-04': () => clone(getTemplate('tpl-ep-04')!.circuit),
 };
 
 const designs = EXERCISES.filter(

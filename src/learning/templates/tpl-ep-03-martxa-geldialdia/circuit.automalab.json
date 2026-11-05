@@ -1,0 +1,300 @@
+{
+  "schemaVersion": 1,
+  "name": "Martxa eta geldialdia autoatxikimenduarekin",
+  "simulation": {
+    "level": "logic",
+    "dtMs": 1,
+    "supplyPressureBar": 6
+  },
+  "components": [
+    {
+      "id": "c1",
+      "type": "pn.cyl.double",
+      "x": 60,
+      "y": 40,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1A"
+      }
+    },
+    {
+      "id": "v1",
+      "type": "pn.valve.5-2.sol-spring",
+      "x": 100,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1V1",
+        "coilLeft": "Y1"
+      }
+    },
+    {
+      "id": "z1",
+      "type": "pn.source",
+      "x": 120,
+      "y": 300,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "0Z1"
+      }
+    },
+    {
+      "id": "ap",
+      "type": "el.plus",
+      "x": 400,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "am",
+      "type": "el.minus",
+      "x": 400,
+      "y": 240,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "s0",
+      "type": "el.button.nc",
+      "x": 400,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "S0"
+      }
+    },
+    {
+      "id": "s1",
+      "type": "el.button.no",
+      "x": 400,
+      "y": 90,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "S1"
+      }
+    },
+    {
+      "id": "k1",
+      "type": "el.relay.coil",
+      "x": 400,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "K1"
+      }
+    },
+    {
+      "id": "k1a",
+      "type": "el.relay.no",
+      "x": 470,
+      "y": 90,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "relay": "K1"
+      }
+    },
+    {
+      "id": "bp",
+      "type": "el.plus",
+      "x": 550,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "bm",
+      "type": "el.minus",
+      "x": 550,
+      "y": 240,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "k1b",
+      "type": "el.relay.no",
+      "x": 550,
+      "y": 90,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "relay": "K1"
+      }
+    },
+    {
+      "id": "y1",
+      "type": "el.solenoid",
+      "x": 550,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "Y1"
+      }
+    },
+    {
+      "id": "cp",
+      "type": "el.plus",
+      "x": 630,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "cm",
+      "type": "el.minus",
+      "x": 630,
+      "y": 240,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "k1c",
+      "type": "el.relay.no",
+      "x": 630,
+      "y": 90,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "relay": "K1"
+      }
+    },
+    {
+      "id": "h1",
+      "type": "el.lamp",
+      "x": 630,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "H1"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "id": "w1",
+      "kind": "fluid",
+      "from": ["c1", "A"],
+      "to": ["v1", "4"],
+      "points": []
+    },
+    {
+      "id": "w2",
+      "kind": "fluid",
+      "from": ["c1", "B"],
+      "to": ["v1", "2"],
+      "points": []
+    },
+    {
+      "id": "w3",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["v1", "1"],
+      "points": []
+    },
+    {
+      "id": "w4",
+      "kind": "electric",
+      "from": ["ap", "p"],
+      "to": ["s0", "11"],
+      "points": []
+    },
+    {
+      "id": "w5",
+      "kind": "electric",
+      "from": ["s0", "12"],
+      "to": ["s1", "13"],
+      "points": []
+    },
+    {
+      "id": "w6",
+      "kind": "electric",
+      "from": ["s1", "14"],
+      "to": ["k1", "A1"],
+      "points": []
+    },
+    {
+      "id": "w7",
+      "kind": "electric",
+      "from": ["k1", "A2"],
+      "to": ["am", "p"],
+      "points": []
+    },
+    {
+      "id": "w8",
+      "kind": "electric",
+      "from": ["s0", "12"],
+      "to": ["k1a", "13"],
+      "points": []
+    },
+    {
+      "id": "w9",
+      "kind": "electric",
+      "from": ["k1a", "14"],
+      "to": ["k1", "A1"],
+      "points": []
+    },
+    {
+      "id": "w10",
+      "kind": "electric",
+      "from": ["bp", "p"],
+      "to": ["k1b", "13"],
+      "points": []
+    },
+    {
+      "id": "w11",
+      "kind": "electric",
+      "from": ["k1b", "14"],
+      "to": ["y1", "A1"],
+      "points": []
+    },
+    {
+      "id": "w12",
+      "kind": "electric",
+      "from": ["y1", "A2"],
+      "to": ["bm", "p"],
+      "points": []
+    },
+    {
+      "id": "w13",
+      "kind": "electric",
+      "from": ["cp", "p"],
+      "to": ["k1c", "13"],
+      "points": []
+    },
+    {
+      "id": "w14",
+      "kind": "electric",
+      "from": ["k1c", "14"],
+      "to": ["h1", "X1"],
+      "points": []
+    },
+    {
+      "id": "w15",
+      "kind": "electric",
+      "from": ["h1", "X2"],
+      "to": ["cm", "p"],
+      "points": []
+    }
+  ],
+  "tags": {},
+  "plc": {
+    "io": [],
+    "ladder": [],
+    "grafcet": null
+  }
+}

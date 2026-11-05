@@ -1,0 +1,87 @@
+{
+  "templateId": "tpl-ep-05",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "**S1**-ekin zikloa abiarazten da, eta A+ amaitu ondoren **S0** sakatzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [
+        ["pulse", "S1"],
+        ["wait", 1500],
+        ["pulse", "S0"]
+      ],
+      "options": [
+        "Zikloa amaitzen da (A+ B+ A− B−) eta gelditzen da",
+        "Berehala gelditzen da",
+        "Zikloak jarraitzen du"
+      ],
+      "optionEvents": [
+        ["1A+", "2A+", "1A-", "2A-"],
+        ["1A+"],
+        ["1A+", "2A+", "1A-", "2A-", "1A+", "2A+", "1A-", "2A-"]
+      ],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "S0-k K1 desaktibatzen du: A+ berriro egiteko baldintza (K1) desagertzen da, baina zikloaren gainerako urratsak sentsoreek agintzen dituzte.",
+      "theoryRef": "ep-autoatxikimendua"
+    },
+    {
+      "id": "q2",
+      "type": "single",
+      "prompt_md": "Zer baldintzarekin egiten da **A+** berriro?",
+      "options": ["K1 aktibo eta 2B1 itxita (B atzean)", "1B2 itxita", "S0 sakatuta"],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "3. bidea: K1 kontaktua eta 2B1 seriean (AND) Y1 aurretik.",
+      "theoryRef": "ep-sentsoreak"
+    },
+    {
+      "id": "q3",
+      "type": "truefalse",
+      "prompt_md": "A+ B+ A− B− sekuentziak ez du seinale-gainjartzerik; horregatik, sentsoreek zuzenean agin ditzakete bobinak.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai: mugimendu bakoitza agintzean, kontrako bobinaren sentsorea askatuta dago jada. A+ B+ B− A− sekuentzian, aldiz, gainjartzea dago.",
+      "theoryRef": "pn-kaskada"
+    },
+    {
+      "id": "q4",
+      "type": "single",
+      "prompt_md": "Zer egiten du **K1** erreleak zirkuitu honetan?",
+      "options": [
+        "Zikloaren memoria: martxan dagoen bitartean A+ baimentzen du",
+        "B zilindroa mugitzen du",
+        "Sentsoreak elikatzen ditu"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "K1 autoatxikita dago (S1 martxa, S0 geldialdia) eta bere kontaktua A+ bidean dago.",
+      "theoryRef": "ep-autoatxikimendua"
+    },
+    {
+      "id": "q5",
+      "type": "predict",
+      "prompt_md": "Ezer sakatu gabe, zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["wait", 100]],
+      "options": ["Ezer ez", "1A ateratzen da"],
+      "optionEvents": [[], ["1A+"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "K1 ez dago aktibo, beraz Y1-ek ez du tentsiorik. Y4 aktibo dago (1B1 itxita), baina B dagoeneko atzean dago.",
+      "theoryRef": "ep-autoatxikimendua"
+    }
+  ]
+}

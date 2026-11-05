@@ -1,0 +1,494 @@
+{
+  "schemaVersion": 1,
+  "name": "R7 — A+ B+ A− B− erreleekin eta reed sentsoreekin",
+  "simulation": {
+    "level": "logic",
+    "dtMs": 1,
+    "supplyPressureBar": 6
+  },
+  "components": [
+    {
+      "id": "cA",
+      "type": "pn.cyl.double",
+      "x": 40,
+      "y": 40,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1A"
+      }
+    },
+    {
+      "id": "cB",
+      "type": "pn.cyl.double",
+      "x": 220,
+      "y": 40,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "2A"
+      }
+    },
+    {
+      "id": "vA",
+      "type": "pn.valve.5-2.sol",
+      "x": 70,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1V1",
+        "coilLeft": "Y1",
+        "coilRight": "Y2"
+      }
+    },
+    {
+      "id": "vB",
+      "type": "pn.valve.5-2.sol",
+      "x": 250,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "2V1",
+        "coilLeft": "Y3",
+        "coilRight": "Y4"
+      }
+    },
+    {
+      "id": "z1",
+      "type": "pn.source",
+      "x": 180,
+      "y": 300,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "0Z1"
+      }
+    },
+    {
+      "id": "ap",
+      "type": "el.plus",
+      "x": 540,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "am",
+      "type": "el.minus",
+      "x": 540,
+      "y": 240,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "s0",
+      "type": "el.button.nc",
+      "x": 540,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "S0"
+      }
+    },
+    {
+      "id": "s1",
+      "type": "el.button.no",
+      "x": 540,
+      "y": 90,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "S1"
+      }
+    },
+    {
+      "id": "k1",
+      "type": "el.relay.coil",
+      "x": 540,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "K1"
+      }
+    },
+    {
+      "id": "k1a",
+      "type": "el.relay.no",
+      "x": 600,
+      "y": 90,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "relay": "K1"
+      }
+    },
+    {
+      "id": "bp",
+      "type": "el.plus",
+      "x": 680,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "bm",
+      "type": "el.minus",
+      "x": 680,
+      "y": 240,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "k1b",
+      "type": "el.relay.no",
+      "x": 680,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "relay": "K1"
+      }
+    },
+    {
+      "id": "b21",
+      "type": "el.reed",
+      "x": 680,
+      "y": 90,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "2B1",
+        "cylinder": "2A",
+        "at": "-"
+      }
+    },
+    {
+      "id": "y1",
+      "type": "el.solenoid",
+      "x": 680,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "Y1"
+      }
+    },
+    {
+      "id": "cp",
+      "type": "el.plus",
+      "x": 760,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "cm",
+      "type": "el.minus",
+      "x": 760,
+      "y": 240,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "b12",
+      "type": "el.reed",
+      "x": 760,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1B2",
+        "cylinder": "1A",
+        "at": "+"
+      }
+    },
+    {
+      "id": "y3",
+      "type": "el.solenoid",
+      "x": 760,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "Y3"
+      }
+    },
+    {
+      "id": "dp",
+      "type": "el.plus",
+      "x": 840,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "dm",
+      "type": "el.minus",
+      "x": 840,
+      "y": 240,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "b22",
+      "type": "el.reed",
+      "x": 840,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "2B2",
+        "cylinder": "2A",
+        "at": "+"
+      }
+    },
+    {
+      "id": "y2",
+      "type": "el.solenoid",
+      "x": 840,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "Y2"
+      }
+    },
+    {
+      "id": "ep",
+      "type": "el.plus",
+      "x": 920,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "em",
+      "type": "el.minus",
+      "x": 920,
+      "y": 240,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "b11",
+      "type": "el.reed",
+      "x": 920,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1B1",
+        "cylinder": "1A",
+        "at": "-"
+      }
+    },
+    {
+      "id": "y4",
+      "type": "el.solenoid",
+      "x": 920,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "Y4"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "id": "w1",
+      "kind": "fluid",
+      "from": ["cA", "A"],
+      "to": ["vA", "4"],
+      "points": []
+    },
+    {
+      "id": "w2",
+      "kind": "fluid",
+      "from": ["cA", "B"],
+      "to": ["vA", "2"],
+      "points": []
+    },
+    {
+      "id": "w3",
+      "kind": "fluid",
+      "from": ["cB", "A"],
+      "to": ["vB", "4"],
+      "points": []
+    },
+    {
+      "id": "w4",
+      "kind": "fluid",
+      "from": ["cB", "B"],
+      "to": ["vB", "2"],
+      "points": []
+    },
+    {
+      "id": "w5",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["vA", "1"],
+      "points": []
+    },
+    {
+      "id": "w6",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["vB", "1"],
+      "points": []
+    },
+    {
+      "id": "w7",
+      "kind": "electric",
+      "from": ["ap", "p"],
+      "to": ["s0", "11"],
+      "points": []
+    },
+    {
+      "id": "w8",
+      "kind": "electric",
+      "from": ["s0", "12"],
+      "to": ["s1", "13"],
+      "points": []
+    },
+    {
+      "id": "w9",
+      "kind": "electric",
+      "from": ["s1", "14"],
+      "to": ["k1", "A1"],
+      "points": []
+    },
+    {
+      "id": "w10",
+      "kind": "electric",
+      "from": ["k1", "A2"],
+      "to": ["am", "p"],
+      "points": []
+    },
+    {
+      "id": "w11",
+      "kind": "electric",
+      "from": ["s0", "12"],
+      "to": ["k1a", "13"],
+      "points": []
+    },
+    {
+      "id": "w12",
+      "kind": "electric",
+      "from": ["k1a", "14"],
+      "to": ["k1", "A1"],
+      "points": []
+    },
+    {
+      "id": "w13",
+      "kind": "electric",
+      "from": ["bp", "p"],
+      "to": ["k1b", "13"],
+      "points": []
+    },
+    {
+      "id": "w14",
+      "kind": "electric",
+      "from": ["k1b", "14"],
+      "to": ["b21", "13"],
+      "points": []
+    },
+    {
+      "id": "w15",
+      "kind": "electric",
+      "from": ["b21", "14"],
+      "to": ["y1", "A1"],
+      "points": []
+    },
+    {
+      "id": "w16",
+      "kind": "electric",
+      "from": ["y1", "A2"],
+      "to": ["bm", "p"],
+      "points": []
+    },
+    {
+      "id": "w17",
+      "kind": "electric",
+      "from": ["cp", "p"],
+      "to": ["b12", "13"],
+      "points": []
+    },
+    {
+      "id": "w18",
+      "kind": "electric",
+      "from": ["b12", "14"],
+      "to": ["y3", "A1"],
+      "points": []
+    },
+    {
+      "id": "w19",
+      "kind": "electric",
+      "from": ["y3", "A2"],
+      "to": ["cm", "p"],
+      "points": []
+    },
+    {
+      "id": "w20",
+      "kind": "electric",
+      "from": ["dp", "p"],
+      "to": ["b22", "13"],
+      "points": []
+    },
+    {
+      "id": "w21",
+      "kind": "electric",
+      "from": ["b22", "14"],
+      "to": ["y2", "A1"],
+      "points": []
+    },
+    {
+      "id": "w22",
+      "kind": "electric",
+      "from": ["y2", "A2"],
+      "to": ["dm", "p"],
+      "points": []
+    },
+    {
+      "id": "w23",
+      "kind": "electric",
+      "from": ["ep", "p"],
+      "to": ["b11", "13"],
+      "points": []
+    },
+    {
+      "id": "w24",
+      "kind": "electric",
+      "from": ["b11", "14"],
+      "to": ["y4", "A1"],
+      "points": []
+    },
+    {
+      "id": "w25",
+      "kind": "electric",
+      "from": ["y4", "A2"],
+      "to": ["em", "p"],
+      "points": []
+    }
+  ],
+  "tags": {},
+  "plc": {
+    "io": [],
+    "ladder": [],
+    "grafcet": null
+  }
+}

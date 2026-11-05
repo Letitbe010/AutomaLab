@@ -1,0 +1,59 @@
+{
+  "id": "ex-ep-04",
+  "title": "A+ B+ A− B− ziklo jarraitua, martxa eta geldialdiarekin",
+  "domain": "electric",
+  "level": 2,
+  "tags": ["sekuentzia", "sentsoreak", "autoatxikimendua"],
+  "theoryRefs": ["ep-sentsoreak", "ep-autoatxikimendua"],
+  "status": "draft",
+  "hints_md": [
+    "Lehenik, martxa/geldialdia K1 errelearekin (autoatxikimendua).",
+    "Gero, mugimendu bakoitzarentzat: zein sentsorek agintzen du? A+ ← K1 eta 2B1; B+ ← 1B2; A− ← 2B2; B− ← 1B1.",
+    "Bi elektrobalbula biegonkor: Y1/Y2 (1A) eta Y3/Y4 (2A)."
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "el.plus",
+    "el.minus",
+    "el.button.no",
+    "el.button.nc",
+    "el.reed",
+    "el.limit.no",
+    "el.limit.nc",
+    "el.relay.coil",
+    "el.relay.no",
+    "el.relay.nc",
+    "el.solenoid",
+    "el.lamp",
+    "pn.valve.5-2.sol",
+    "pn.cyl.double",
+    "pn.source"
+  ],
+  "checks": [
+    {
+      "title": "S1-ekin, zikloa errepikatzen da: 1A+ 2A+ 1A− 2A− 1A+…",
+      "type": "sequence",
+      "stimuli": [["pulse", "S1"]],
+      "expect": ["1A+", "2A+", "1A-", "2A-", "1A+"],
+      "match": "prefix",
+      "withinMs": 6000
+    },
+    {
+      "title": "S0-k zikloa amaitu ondoren gelditzen du",
+      "type": "sequence",
+      "stimuli": [
+        ["pulse", "S1"],
+        ["wait", 1500],
+        ["pulse", "S0"]
+      ],
+      "expect": ["1A+", "2A+", "1A-", "2A-"],
+      "withinMs": 10000
+    },
+    {
+      "title": "Ezer sakatu gabe, ez da mugitzen",
+      "type": "never",
+      "stimuli": [["wait", 100]],
+      "events": ["1A+", "2A+"]
+    }
+  ]
+}

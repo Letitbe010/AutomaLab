@@ -1,0 +1,82 @@
+{
+  "templateId": "tpl-ep-02",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "single",
+      "prompt_md": "Zergatik jar daiteke errele bat (**K1**) pultsadorearen eta elektrobalbularen artean?",
+      "options": [
+        "Seinale batek hainbat kontaktu eragiteko eta logika egiteko (NA/NI, seriean, paraleloan)",
+        "Zilindroa azkarrago mugitzeko",
+        "Aire-kontsumoa murrizteko"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Erreleak seinalea biderkatzen du (kontaktu asko) eta logika egiteko aukera ematen du: autoatxikimendua, interblokeoak, sekuentziak.",
+      "theoryRef": "ep-oinarriak"
+    },
+    {
+      "id": "q2",
+      "type": "predict",
+      "prompt_md": "**S1** sakatu eta sakatuta mantentzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["press", "S1"]],
+      "options": [
+        "K1 aktibatzen da, Y1-ek tentsioa jasotzen du eta 1A ateratzen da",
+        "Ezer ez: K1 bobinak ez du Y1 elikatzen"
+      ],
+      "optionEvents": [["1A+"], []],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "K1 bobina aktibatzean, K1 kontaktu NA ixten da (2. bidea) eta Y1 elikatzen du.",
+      "theoryRef": "ep-oinarriak"
+    },
+    {
+      "id": "q3",
+      "type": "truefalse",
+      "prompt_md": "**K1** bobina aktibatzean, K1 izena duten kontaktu NA guztiak ixten dira.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai: errele baten kontaktu guztiak bobinarekin batera aldatzen dira, edozein korronte-bidetan egonda ere.",
+      "theoryRef": "ep-oinarriak"
+    },
+    {
+      "id": "q4",
+      "type": "single",
+      "prompt_md": "Errele baten kontaktu **NI** baten bornen zenbakiak:",
+      "options": ["21-22", "13-14", "A1-A2"],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Bigarren zifra 1-2 = NI; 3-4 = NA. Lehen zifrak kontaktuaren ordena adierazten du.",
+      "theoryRef": "ep-oinarriak"
+    },
+    {
+      "id": "q5",
+      "type": "predict",
+      "prompt_md": "1A aurrean dago, S1 sakatuta. Zer gertatzen da **S1** askatzean?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [
+        ["press", "S1"],
+        ["wait", 1500],
+        ["release", "S1"]
+      ],
+      "options": ["1A itzultzen da", "1A aurrean geratzen da: K1-ek gogoratzen du"],
+      "optionEvents": [["1A+", "1A-"], ["1A+"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "K1-ek ez du autoatxikimendurik: S1 askatzean K1 desaktibatzen da, Y1 itzaltzen da eta malgukiak balbula itzultzen du.",
+      "theoryRef": "ep-autoatxikimendua"
+    }
+  ]
+}

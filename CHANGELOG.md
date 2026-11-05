@@ -2,6 +2,18 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [fase-4] — 2026-11-05 (elektropneumatika)
+
+### Gehituta
+
+- Kontrol elektrikoaren motorra (24 V DC): kontaktu itxiak eroale, kargak +24 V eta 0 V artean, erreleen puntu finkoa (oszilazio-abisua), zirkuitulabur-abisua; bobinen aldaketak seinale gisa (K1=1, Y1=0…).
+- Osagai elektrikoak (IEC 60617, marrazki propioak): +24 V / 0 V borneak, pultsadoreak NA/NI, etengailua, larrialdi-geldialdia, errelearen bobina eta kontaktuak (etiketaz lotuak), amaiera-etengailuak eta reed sentsoreak (zilindroari lotuak), elektrobalbularen bobina, argia, buzzerra, T lotune elektrikoa.
+- Elektrobalbulek bobinen izenak dituzte (Y1, Y2), ikurrean ere erakutsita.
+- Simulazioa pantailan: +24 V-ko kableak gorriz, bobinak eta argiak aktibo daudenean laranjaz, kontaktuak egoeraren arabera; pultsadoreak klik bidez, etengailuak eta larrialdi-geldialdia egoera gordez.
+- Sentsore elektrikoen etiketa automatikoa (1B1 / 1B2).
+- R6 eta R7 erreferentzia-zirkuituak, testekin.
+- Edukia (zirriborroak): 5 txantiloi elektropneumatiko galdetegiekin, 3 teoria-fitxa, 4 diseinu-ariketa.
+
 ## [fase-E] — 2026-11-04 (ariketak, 11. fasetik aurreratuta)
 
 ### Gehituta

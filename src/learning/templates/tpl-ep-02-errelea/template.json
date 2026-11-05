@@ -1,0 +1,11 @@
+{
+  "id": "tpl-ep-02",
+  "title": "Zeharkako agintea errele batekin",
+  "summary": "S1-ek K1 errelea aktibatzen du, eta errelearen kontaktuak Y1 bobina elikatzen du.",
+  "domain": "electric",
+  "level": 1,
+  "tags": ["errelea", "zeharkako agintea", "elektrobalbula"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["ep-oinarriak"],
+  "status": "draft"
+}

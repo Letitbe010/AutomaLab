@@ -1,0 +1,11 @@
+{
+  "id": "tpl-ep-04",
+  "title": "Joan-etorria sentsore magnetikoekin",
+  "summary": "S1-en bulkada batekin, zilindroa atera eta bere kabuz itzultzen da: 1B2 sentsoreak agintzen du itzulera.",
+  "domain": "electric",
+  "level": 2,
+  "tags": ["sentsoreak", "reed", "biegonkorra"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["ep-sentsoreak"],
+  "status": "draft"
+}

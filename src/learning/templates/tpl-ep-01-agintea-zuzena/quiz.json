@@ -1,0 +1,79 @@
+{
+  "templateId": "tpl-ep-01",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "single",
+      "prompt_md": "**S1** sakatzean, zer gertatzen da **Y1** bobinarekin?",
+      "options": [
+        "Tentsioa jasotzen du eta 1V1 balbula kommutatzen da",
+        "Ezer ez: bobinak 0 V-ra konektatuta egon behar du bi aldeetatik",
+        "Zirkuitulabur bat sortzen da"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "S1 itxita, Y1-ek +24 V ditu A1 bornean eta 0 V A2 bornean: tentsioa jasotzen du eta elektrobalbula kommutatzen da.",
+      "theoryRef": "ep-oinarriak"
+    },
+    {
+      "id": "q2",
+      "type": "predict",
+      "prompt_md": "Zilindroa atzean dago. **S1** sakatu eta sakatuta mantentzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["press", "S1"]],
+      "options": ["1A ateratzen da eta aurrean geratzen da", "Ezer ez"],
+      "optionEvents": [["1A+"], []],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "Y1 aktibo dagoen bitartean, 5/2 monoegonkorrak 1 → 4 bidea irekita mantentzen du.",
+      "theoryRef": "ep-oinarriak"
+    },
+    {
+      "id": "q3",
+      "type": "predict",
+      "prompt_md": "1A aurrean dago, **S1** sakatuta. Zer gertatzen da S1 askatzean?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [
+        ["press", "S1"],
+        ["wait", 1500],
+        ["release", "S1"]
+      ],
+      "options": ["1A itzultzen da (balbularen malgukia)", "1A aurrean geratzen da"],
+      "optionEvents": [["1A+", "1A-"], ["1A+"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "Y1-ek tentsioa galtzean, balbula monoegonkorraren malgukiak atsedenera itzultzen du.",
+      "theoryRef": "ep-oinarriak"
+    },
+    {
+      "id": "q4",
+      "type": "truefalse",
+      "prompt_md": "**S1** pultsadorearen kontaktua NA da: atsedenean irekita dago.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai: NA = normalean irekia (bornak 13-14). Sakatzean ixten da.",
+      "theoryRef": "ep-oinarriak"
+    },
+    {
+      "id": "q5",
+      "type": "single",
+      "prompt_md": "Zein bornetan konektatzen da bobina bat?",
+      "options": ["A1-A2", "13-14", "21-22", "X1-X2"],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Bobinak A1-A2; kontaktu NAk 13-14; NIak 21-22; argiak X1-X2.",
+      "theoryRef": "ep-oinarriak"
+    }
+  ]
+}

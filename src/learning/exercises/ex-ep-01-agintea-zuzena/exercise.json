@@ -1,0 +1,47 @@
+{
+  "id": "ex-ep-01",
+  "title": "Agintea zuzena elektrobalbularekin",
+  "domain": "electric",
+  "level": 1,
+  "tags": ["elektrobalbula", "agintea zuzena"],
+  "theoryRefs": ["ep-oinarriak"],
+  "status": "draft",
+  "hints_md": [
+    "Pultsadoreak bobina zuzenean elikatu behar du: +24 V → S1 → Y1 → 0 V.",
+    "Balbularen propietateetan, «Bobina (ezkerra, 14)» Y1 izan behar da."
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "el.plus",
+    "el.minus",
+    "el.button.no",
+    "el.solenoid",
+    "pn.valve.5-2.sol-spring",
+    "pn.cyl.double",
+    "pn.source"
+  ],
+  "checks": [
+    {
+      "title": "S1 sakatuta, 1A ateratzen da",
+      "type": "sequence",
+      "stimuli": [["press", "S1"]],
+      "expect": ["1A+"]
+    },
+    {
+      "title": "S1 askatzean, 1A itzultzen da",
+      "type": "sequence",
+      "stimuli": [
+        ["press", "S1"],
+        ["wait", 1500],
+        ["release", "S1"]
+      ],
+      "expect": ["1A+", "1A-"]
+    },
+    {
+      "title": "Ezer sakatu gabe, ez da mugitzen",
+      "type": "never",
+      "stimuli": [["wait", 100]],
+      "events": ["1A+"]
+    }
+  ]
+}

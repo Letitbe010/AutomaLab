@@ -69,7 +69,7 @@
     {
       "id": "ap",
       "type": "el.plus",
-      "x": 420,
+      "x": 540,
       "y": 0,
       "rot": 0,
       "mirror": false,
@@ -78,7 +78,7 @@
     {
       "id": "am",
       "type": "el.minus",
-      "x": 420,
+      "x": 540,
       "y": 240,
       "rot": 0,
       "mirror": false,
@@ -87,7 +87,7 @@
     {
       "id": "s0",
       "type": "el.button.nc",
-      "x": 420,
+      "x": 540,
       "y": 30,
       "rot": 0,
       "mirror": false,
@@ -98,7 +98,7 @@
     {
       "id": "s1",
       "type": "el.button.no",
-      "x": 420,
+      "x": 540,
       "y": 90,
       "rot": 0,
       "mirror": false,
@@ -109,7 +109,7 @@
     {
       "id": "k1",
       "type": "el.relay.coil",
-      "x": 420,
+      "x": 540,
       "y": 170,
       "rot": 0,
       "mirror": false,
@@ -120,7 +120,7 @@
     {
       "id": "k1a",
       "type": "el.relay.no",
-      "x": 480,
+      "x": 600,
       "y": 90,
       "rot": 0,
       "mirror": false,
@@ -131,7 +131,7 @@
     {
       "id": "bp",
       "type": "el.plus",
-      "x": 560,
+      "x": 680,
       "y": 0,
       "rot": 0,
       "mirror": false,
@@ -140,7 +140,7 @@
     {
       "id": "bm",
       "type": "el.minus",
-      "x": 560,
+      "x": 680,
       "y": 240,
       "rot": 0,
       "mirror": false,
@@ -149,7 +149,7 @@
     {
       "id": "k1b",
       "type": "el.relay.no",
-      "x": 560,
+      "x": 680,
       "y": 30,
       "rot": 0,
       "mirror": false,
@@ -160,7 +160,7 @@
     {
       "id": "b21",
       "type": "el.reed",
-      "x": 560,
+      "x": 680,
       "y": 90,
       "rot": 0,
       "mirror": false,
@@ -173,7 +173,7 @@
     {
       "id": "y1",
       "type": "el.solenoid",
-      "x": 560,
+      "x": 680,
       "y": 170,
       "rot": 0,
       "mirror": false,
@@ -184,7 +184,7 @@
     {
       "id": "cp",
       "type": "el.plus",
-      "x": 640,
+      "x": 760,
       "y": 0,
       "rot": 0,
       "mirror": false,
@@ -193,7 +193,7 @@
     {
       "id": "cm",
       "type": "el.minus",
-      "x": 640,
+      "x": 760,
       "y": 240,
       "rot": 0,
       "mirror": false,
@@ -202,7 +202,7 @@
     {
       "id": "b12",
       "type": "el.reed",
-      "x": 640,
+      "x": 760,
       "y": 30,
       "rot": 0,
       "mirror": false,
@@ -215,7 +215,7 @@
     {
       "id": "y3",
       "type": "el.solenoid",
-      "x": 640,
+      "x": 760,
       "y": 170,
       "rot": 0,
       "mirror": false,
@@ -226,7 +226,7 @@
     {
       "id": "dp",
       "type": "el.plus",
-      "x": 720,
+      "x": 840,
       "y": 0,
       "rot": 0,
       "mirror": false,
@@ -235,7 +235,7 @@
     {
       "id": "dm",
       "type": "el.minus",
-      "x": 720,
+      "x": 840,
       "y": 240,
       "rot": 0,
       "mirror": false,
@@ -244,7 +244,7 @@
     {
       "id": "b22",
       "type": "el.reed",
-      "x": 720,
+      "x": 840,
       "y": 30,
       "rot": 0,
       "mirror": false,
@@ -257,7 +257,7 @@
     {
       "id": "y2",
       "type": "el.solenoid",
-      "x": 720,
+      "x": 840,
       "y": 170,
       "rot": 0,
       "mirror": false,
@@ -268,7 +268,7 @@
     {
       "id": "ep",
       "type": "el.plus",
-      "x": 800,
+      "x": 920,
       "y": 0,
       "rot": 0,
       "mirror": false,
@@ -277,7 +277,7 @@
     {
       "id": "em",
       "type": "el.minus",
-      "x": 800,
+      "x": 920,
       "y": 240,
       "rot": 0,
       "mirror": false,
@@ -286,7 +286,7 @@
     {
       "id": "b11",
       "type": "el.reed",
-      "x": 800,
+      "x": 920,
       "y": 30,
       "rot": 0,
       "mirror": false,
@@ -299,7 +299,7 @@
     {
       "id": "y4",
       "type": "el.solenoid",
-      "x": 800,
+      "x": 920,
       "y": 170,
       "rot": 0,
       "mirror": false,

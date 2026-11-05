@@ -1,0 +1,11 @@
+{
+  "id": "tpl-ep-03",
+  "title": "Martxa eta geldialdia autoatxikimenduarekin",
+  "summary": "S1 martxa eta S0 geldialdia: K1 erreleak bere kontaktuaren bidez eusten dio bere buruari. Geldialdiak lehentasuna du.",
+  "domain": "electric",
+  "level": 1,
+  "tags": ["autoatxikimendua", "martxa-geldialdia", "errelea"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["ep-autoatxikimendua"],
+  "status": "draft"
+}

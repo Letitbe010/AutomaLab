@@ -1,0 +1,60 @@
+{
+  "id": "ex-ep-02",
+  "title": "Martxa eta geldialdia autoatxikimenduarekin",
+  "domain": "electric",
+  "level": 1,
+  "tags": ["autoatxikimendua", "errelea", "martxa-geldialdia"],
+  "theoryRefs": ["ep-autoatxikimendua"],
+  "status": "draft",
+  "hints_md": [
+    "Errele baten kontaktu NA bat martxa-pultsadorearen paraleloan jarri behar da.",
+    "Geldialdia NI da eta seriean doa, multzo paraleloaren aurretik."
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "el.plus",
+    "el.minus",
+    "el.button.no",
+    "el.button.nc",
+    "el.relay.coil",
+    "el.relay.no",
+    "el.relay.nc",
+    "el.solenoid",
+    "el.lamp",
+    "pn.valve.5-2.sol-spring",
+    "pn.cyl.double",
+    "pn.source"
+  ],
+  "checks": [
+    {
+      "title": "S1-en bulkada batekin, 1A atera eta aurrean geratzen da",
+      "type": "sequence",
+      "stimuli": [["pulse", "S1"]],
+      "expect": ["1A+"]
+    },
+    {
+      "title": "S0-k gelditzen du: 1A itzultzen da",
+      "type": "sequence",
+      "stimuli": [
+        ["pulse", "S1"],
+        ["wait", 1500],
+        ["pulse", "S0"]
+      ],
+      "expect": ["1A+", "1A-"]
+    },
+    {
+      "title": "S0 eta S1 batera: geldialdiak lehentasuna du",
+      "type": "never",
+      "stimuli": [
+        ["press", "S0"],
+        ["press", "S1"]
+      ],
+      "events": ["1A+"]
+    },
+    {
+      "title": "Errele bat erabiltzen da",
+      "type": "uses",
+      "componentTypes": ["el.relay.coil"]
+    }
+  ]
+}

@@ -17,6 +17,8 @@ import { isAutoLimitLabel, limitLabel, suggestLabel } from './labels';
 import { nearestOnPolyline, routeWire, snap, snapPoint } from './routing';
 
 export const JUNCTION_TYPE = 'fluid.junction';
+export const ELECTRIC_JUNCTION_TYPE = 'el.junction';
+const isJunction = (type: string) => type === JUNCTION_TYPE || type === ELECTRIC_JUNCTION_TYPE;
 
 export function newId(project: Project, prefix: string): string {
   let max = 0;
@@ -37,7 +39,7 @@ function labels(project: Project): string[] {
 export function addComponent(project: Project, type: string, x: number, y: number): string {
   const def = getComponentDef(type);
   if (!def) throw new Error(`Unknown component type: ${type}`);
-  const id = newId(project, type === JUNCTION_TYPE ? 'j' : 'c');
+  const id = newId(project, isJunction(type) ? 'j' : 'c');
   const params = defaultParams(def);
   if ('label' in params) params.label = suggestLabel(def.labelPrefix, labels(project));
   project.components.push({ id, type, x: snap(x), y: snap(y), rot: 0, mirror: false, params });
@@ -107,7 +109,8 @@ export function splitWire(project: Project, wireId: string, at: Point): string |
   if (!poly) return null;
   const hit = nearestOnPolyline(poly, at);
   if (!hit) return null;
-  const jid = addComponent(project, JUNCTION_TYPE, hit.point[0], hit.point[1]);
+  const type = wire.kind === 'electric' ? ELECTRIC_JUNCTION_TYPE : JUNCTION_TYPE;
+  const jid = addComponent(project, type, hit.point[0], hit.point[1]);
   const junction = project.components.find((c) => c.id === jid)!;
   // Keep the junction exactly on the line even if the line is off-grid.
   junction.x = hit.point[0];
@@ -136,7 +139,7 @@ export function deleteItems(project: Project, compIds: string[], wireIds: string
   );
   // Junctions left with nothing attached are removed too.
   const used = new Set(project.connections.flatMap((w) => [w.from[0], w.to[0]]));
-  project.components = project.components.filter((c) => c.type !== JUNCTION_TYPE || used.has(c.id));
+  project.components = project.components.filter((c) => !isJunction(c.type) || used.has(c.id));
 }
 
 /** Moves components; bend points of wires with both ends inside the set move along. */
@@ -214,7 +217,7 @@ export function pasteItems(project: Project, clip: Clipboard, dx: number, dy: nu
   const created: string[] = [];
   for (const src of clip.components) {
     const def = getComponentDef(src.type);
-    const id = newId(project, src.type === JUNCTION_TYPE ? 'j' : 'c');
+    const id = newId(project, isJunction(src.type) ? 'j' : 'c');
     idMap.set(src.id, id);
     const params = structuredClone(src.params);
     if (def && typeof params.label === 'string' && params.label !== '') {
@@ -247,6 +250,14 @@ export function setParam(project: Project, compId: string, key: string, value: P
   const isLimit = def?.params.some((p) => p.type === 'cylinderRef');
   if (!isLimit || (key !== 'cylinder' && key !== 'at')) return;
   const current = typeof comp.params.label === 'string' ? comp.params.label : '';
+  if (def?.domain === 'electric') {
+    // Electric sensors: 1B1 (retracted) / 1B2 (extended) after the cylinder number (ISO 1219-2).
+    const n = /^(\d+)A$/.exec(String(comp.params.cylinder ?? ''));
+    if (n && (current === '' || /^\d+B\d+$/.test(current))) {
+      comp.params.label = n[1] + 'B' + (comp.params.at === '-' ? 1 : 2);
+    }
+    return;
+  }
   const auto = limitLabel(String(comp.params.cylinder ?? ''), String(comp.params.at ?? '+'));
   if (auto && isAutoLimitLabel(current)) comp.params.label = auto;
 }

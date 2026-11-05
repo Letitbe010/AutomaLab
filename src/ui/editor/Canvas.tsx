@@ -3,6 +3,7 @@ import { getComponentDef } from '../../components/registry';
 import { GRID, portPosition, svgTransform, transformLocal } from '../../core/geometry';
 import type { ComponentInstance, Point, PortRef } from '../../core/types';
 import { findLimitBindings } from '../../engine/coupling/mechanical';
+import type { ElectricState } from '../../engine/scheduler';
 import type { NodeState } from '../../engine/types';
 import { t } from '../../i18n';
 import { HelpCard } from '../help/HelpCard';
@@ -105,6 +106,12 @@ const WIRE_STATE_CLASS: Record<NodeState, string> = {
   PRESSURE: styles.wirePressure!,
   EXHAUST: styles.wireExhaust!,
   BLOCKED: styles.wireBlocked!,
+};
+
+/** Live wires (SPEC §7.3): +24 V red and thicker, short circuit red and dashed. */
+const ELECTRIC_STATE_CLASS: Partial<Record<ElectricState, string>> = {
+  plus: styles.wireLive!,
+  short: styles.wireShort!,
 };
 
 const HOVER_DELAY_MS = 600;
@@ -521,8 +528,15 @@ export function Canvas() {
             const poly = polylines.get(w.id);
             if (!poly) return null;
             const pts = toPoints(poly);
-            const state = sim?.portState(w.from[0], w.from[1]);
-            const stateCls = state ? WIRE_STATE_CLASS[state] : '';
+            const electric = w.kind === 'electric';
+            const state = electric
+              ? sim?.electricState(w.from[0], w.from[1])
+              : sim?.portState(w.from[0], w.from[1]);
+            const stateCls = !state
+              ? ''
+              : electric
+                ? (ELECTRIC_STATE_CLASS[state as ElectricState] ?? '')
+                : WIRE_STATE_CLASS[state as NodeState];
             const pilotCls = pilotWires.has(w.id) ? styles.wirePilot : '';
             return (
               <g key={w.id} data-connection-id={w.id} data-state={state}>

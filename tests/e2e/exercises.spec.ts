@@ -8,7 +8,7 @@ test('calculation exercise: answers with decimal comma are checked and the solut
 }) => {
   await page.goto('/');
   await menu(page, 'Ariketak');
-  await expect(page.locator('[data-exercise-id]')).toHaveCount(14);
+  await expect(page.locator('[data-exercise-id]')).toHaveCount(18);
   await page
     .locator('[data-exercise-id="ex-pn-c03"]')
     .getByRole('button', { name: 'Ebatzi' })

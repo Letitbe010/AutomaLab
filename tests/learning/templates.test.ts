@@ -25,9 +25,20 @@ const idOf = (id: string, label: string) =>
   tpl(id).circuit.components.find((c) => c.params.label === label)!.id;
 
 describe('template catalog', () => {
-  it('has the five pneumatic templates with unique ids', () => {
+  it('has the pneumatic and electropneumatic templates with unique ids', () => {
     const ids = TEMPLATES.map((t) => t.id);
-    expect(ids).toEqual(['tpl-pn-01', 'tpl-pn-02', 'tpl-pn-03', 'tpl-pn-04', 'tpl-pn-05']);
+    expect(ids).toEqual([
+      'tpl-ep-01',
+      'tpl-ep-02',
+      'tpl-ep-03',
+      'tpl-ep-04',
+      'tpl-ep-05',
+      'tpl-pn-01',
+      'tpl-pn-02',
+      'tpl-pn-03',
+      'tpl-pn-04',
+      'tpl-pn-05',
+    ]);
     expect(new Set(TEMPLATES.map((t) => t.folder)).size).toBe(TEMPLATES.length);
   });
 
@@ -95,7 +106,8 @@ describe('template catalog', () => {
   });
 
   it('filters by domain, level and tag', () => {
-    expect(filterTemplates(TEMPLATES, {}).length).toBe(5);
+    expect(filterTemplates(TEMPLATES, {}).length).toBe(10);
+    expect(filterTemplates(TEMPLATES, { domain: 'electric' }).length).toBe(5);
     expect(filterTemplates(TEMPLATES, { domain: 'hydraulic' })).toEqual([]);
     expect(filterTemplates(TEMPLATES, { level: 1 }).every((t) => t.level === 1)).toBe(true);
     const tag = allTags(TEMPLATES)[0]!;

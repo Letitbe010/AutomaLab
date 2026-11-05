@@ -1,0 +1,11 @@
+{
+  "id": "tpl-ep-05",
+  "title": "A+ B+ A− B− erreleekin eta reed sentsoreekin",
+  "summary": "Ziklo jarraitua K1 zikloko erreleak martxan dagoen bitartean; S0-k zikloa amaitu ondoren gelditzen du.",
+  "domain": "electric",
+  "level": 2,
+  "tags": ["sekuentzia", "sentsoreak", "autoatxikimendua"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["ep-sentsoreak", "ep-autoatxikimendua"],
+  "status": "draft"
+}

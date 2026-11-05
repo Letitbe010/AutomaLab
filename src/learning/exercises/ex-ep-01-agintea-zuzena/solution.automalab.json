@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "name": "Soluzioa: Agintea zuzena elektrobalbularekin",
+  "simulation": {
+    "level": "logic",
+    "dtMs": 1,
+    "supplyPressureBar": 6
+  },
+  "components": [
+    {
+      "id": "c1",
+      "type": "pn.cyl.double",
+      "x": 60,
+      "y": 40,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1A"
+      }
+    },
+    {
+      "id": "v1",
+      "type": "pn.valve.5-2.sol-spring",
+      "x": 100,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1V1",
+        "coilLeft": "Y1"
+      }
+    },
+    {
+      "id": "z1",
+      "type": "pn.source",
+      "x": 120,
+      "y": 300,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "0Z1"
+      }
+    },
+    {
+      "id": "ap",
+      "type": "el.plus",
+      "x": 400,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "am",
+      "type": "el.minus",
+      "x": 400,
+      "y": 240,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "s1",
+      "type": "el.button.no",
+      "x": 400,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "S1"
+      }
+    },
+    {
+      "id": "y1",
+      "type": "el.solenoid",
+      "x": 400,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "Y1"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "id": "w1",
+      "kind": "fluid",
+      "from": ["c1", "A"],
+      "to": ["v1", "4"],
+      "points": []
+    },
+    {
+      "id": "w2",
+      "kind": "fluid",
+      "from": ["c1", "B"],
+      "to": ["v1", "2"],
+      "points": []
+    },
+    {
+      "id": "w3",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["v1", "1"],
+      "points": []
+    },
+    {
+      "id": "w4",
+      "kind": "electric",
+      "from": ["ap", "p"],
+      "to": ["s1", "13"],
+      "points": []
+    },
+    {
+      "id": "w5",
+      "kind": "electric",
+      "from": ["s1", "14"],
+      "to": ["y1", "A1"],
+      "points": []
+    },
+    {
+      "id": "w6",
+      "kind": "electric",
+      "from": ["y1", "A2"],
+      "to": ["am", "p"],
+      "points": []
+    }
+  ],
+  "tags": {},
+  "plc": {
+    "io": [],
+    "ladder": [],
+    "grafcet": null
+  }
+}

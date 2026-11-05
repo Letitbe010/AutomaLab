@@ -1,0 +1,58 @@
+{
+  "id": "ex-ep-03",
+  "title": "Joan-etorria sentsoreekin",
+  "domain": "electric",
+  "level": 2,
+  "tags": ["sentsoreak", "reed", "biegonkorra"],
+  "theoryRefs": ["ep-sentsoreak"],
+  "status": "draft",
+  "hints_md": [
+    "Elektrobalbula biegonkor bat erabili: Y1 ateratzeko eta Y2 itzultzeko.",
+    "Sentsorea zilindroari lotzeko, propietateetan aukeratu zilindroa (1A) eta posizioa (+).",
+    "Zikloa hasierako posiziotik bakarrik has dadin, jarri 1B1 S1-ekin seriean."
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "el.plus",
+    "el.minus",
+    "el.button.no",
+    "el.reed",
+    "el.limit.no",
+    "el.relay.coil",
+    "el.relay.no",
+    "el.relay.nc",
+    "el.solenoid",
+    "pn.valve.5-2.sol",
+    "pn.cyl.double",
+    "pn.source"
+  ],
+  "checks": [
+    {
+      "title": "S1-en bulkada batekin, 1A atera eta bere kabuz itzultzen da",
+      "type": "sequence",
+      "stimuli": [["pulse", "S1"]],
+      "expect": ["1A+", "1A-"]
+    },
+    {
+      "title": "S1 berriro sakatuta, zikloa errepikatzen da",
+      "type": "sequence",
+      "stimuli": [
+        ["pulse", "S1"],
+        ["wait", 3000],
+        ["pulse", "S1"]
+      ],
+      "expect": ["1A+", "1A-", "1A+", "1A-"]
+    },
+    {
+      "title": "Ezer sakatu gabe, ez da mugitzen",
+      "type": "never",
+      "stimuli": [["wait", 100]],
+      "events": ["1A+"]
+    },
+    {
+      "title": "Sentsore bat erabiltzen da (reed edo amaiera-etengailua)",
+      "type": "uses",
+      "componentTypes": ["el.reed", "el.limit.no", "el.limit.nc"]
+    }
+  ]
+}

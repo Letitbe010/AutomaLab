@@ -386,6 +386,18 @@
   stroke: var(--sim-blocked);
 }
 
+/* Electric wires at +24 V (current available): red. */
+.wireLive {
+  stroke: var(--c-red, #c8413c);
+  stroke-width: 2.2;
+}
+
+.wireShort {
+  stroke: var(--c-red, #c8413c);
+  stroke-width: 3;
+  stroke-dasharray: 5 3;
+}
+
 .clickable {
   cursor: pointer;
 }

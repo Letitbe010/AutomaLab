@@ -143,7 +143,7 @@ function makeValve(spec: ValveSpec): ComponentDef<ValveState> {
       vars: { letter: letters[i] ?? String(i) },
       state: { position: i },
     })),
-    symbol: ({ state }) => {
+    symbol: ({ state, params }) => {
       const pos = Math.min(n - 1, Math.max(0, state.position));
       const shift = -pos * BOX;
       const leftEdge = shift;
@@ -192,11 +192,34 @@ function makeValve(spec: ValveSpec): ComponentDef<ValveState> {
                 <OperatorSymbol kind={op} />
               </g>
             ))}
+            {spec.left[0] === 'solenoid' && typeof params.coilLeft === 'string' && (
+              <CoilName x={-14} text={params.coilLeft} anchor="end" />
+            )}
+            {spec.right[0] === 'solenoid' && typeof params.coilRight === 'string' && (
+              <CoilName x={n * BOX + 14} text={params.coilRight} anchor="start" />
+            )}
           </g>
         </SymbolGroup>
       );
     },
   };
+}
+
+/** Name of the solenoid coil (Y1...) that drives an operator (SPEC §4 tags). */
+function CoilName({ x, text, anchor }: { x: number; text: string; anchor: 'start' | 'end' }) {
+  return (
+    <text
+      x={x}
+      y={-3}
+      fill="var(--sym-stroke)"
+      stroke="none"
+      fontSize={8}
+      fontFamily="var(--mono)"
+      textAnchor={anchor}
+    >
+      {text}
+    </text>
+  );
 }
 
 export const VALVE_DEFS: ComponentDef<ValveState>[] = VALVE_SPECS.map(makeValve);

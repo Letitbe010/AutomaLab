@@ -184,3 +184,37 @@ describe('setParam on roller valves', () => {
     expect(next.components[2]!.params.label).toBe('Atea');
   });
 });
+
+describe('electric wiring in the editor', () => {
+  it('splitting an electric wire creates an electric junction that validates', () => {
+    let jid: string | null = null;
+    const p = produce(createEmptyProject('t'), (d: Project) => {
+      const plus = addComponent(d, 'el.plus', 100, 0);
+      const s = addComponent(d, 'el.button.no', 100, 60);
+      const r = connect(d, [plus, 'p'], [s, '13']);
+      if (!r.ok) throw new Error('connect');
+      jid = splitWire(d, r.id, [100, 30]);
+    });
+    const j = p.components.find((c) => c.id === jid)!;
+    expect(j.type).toBe('el.junction');
+    expect(p.connections.every((w) => w.kind === 'electric')).toBe(true);
+    const errors = validateProject(p, getComponentDef).filter((i) => i.severity === 'error');
+    expect(errors).toEqual([]);
+  });
+
+  it('electric sensors get 1B1 / 1B2 labels from their cylinder and position', () => {
+    const p = produce(createEmptyProject('t'), (d: Project) => {
+      const c = addComponent(d, 'pn.cyl.double', 0, 0);
+      d.components.find((k) => k.id === c)!.params.label = '2A';
+      const s = addComponent(d, 'el.reed', 100, 0);
+      setParam(d, s, 'cylinder', '2A');
+      setParam(d, s, 'at', '-');
+      const t = addComponent(d, 'el.limit.no', 200, 0);
+      d.components.find((k) => k.id === t)!.params.label = 'S9';
+      setParam(d, t, 'cylinder', '2A');
+    });
+    const labels = p.components.map((c) => c.params.label);
+    expect(labels).toContain('2B1');
+    expect(labels).toContain('S9'); // custom labels are kept
+  });
+});

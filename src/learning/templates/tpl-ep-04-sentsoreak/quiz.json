@@ -1,0 +1,72 @@
+{
+  "templateId": "tpl-ep-04",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "Zilindroa atzean dago. **S1**-en bulkada labur bat ematen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["pulse", "S1"]],
+      "options": [
+        "1A atera eta bere kabuz itzultzen da",
+        "1A atera eta aurrean geratzen da",
+        "Ezer ez"
+      ],
+      "optionEvents": [["1A+", "1A-"], ["1A+"], []],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "Y1-ek balbula kommutatzen du (biegonkorra, gogoratzen du). 1A aurrera iristean 1B2 ixten da eta Y2-k itzultzen du.",
+      "theoryRef": "ep-sentsoreak"
+    },
+    {
+      "id": "q2",
+      "type": "single",
+      "prompt_md": "Zein sentsorek agintzen du itzulera (**Y2**)?",
+      "options": ["1B2 (1A aurrean)", "1B1 (1A atzean)", "S1"],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "1B2 1A-ren + posizioan dago: zilindroa aurrera iristean ixten da eta Y2 elikatzen du.",
+      "theoryRef": "ep-sentsoreak"
+    },
+    {
+      "id": "q3",
+      "type": "truefalse",
+      "prompt_md": "**1B1** S1-ekin seriean dago: zilindroa atzean ez badago, S1 sakatzeak ez du ezer egiten.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai: 1B1 1A atzean dagoenean bakarrik dago itxita. Horrela, zikloa hasierako posiziotik bakarrik has daiteke.",
+      "theoryRef": "ep-sentsoreak"
+    },
+    {
+      "id": "q4",
+      "type": "truefalse",
+      "prompt_md": "Reed sentsore batek zilindroaren enboloko imana detektatzen du, kontakturik gabe.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai: zilindroaren gorputzean muntatzen da eta imanaren eremu magnetikoak ixten du kontaktua.",
+      "theoryRef": "ep-sentsoreak"
+    },
+    {
+      "id": "q5",
+      "type": "single",
+      "prompt_md": "Zergatik erabiltzen da hemen 5/2 elektrobalbula **biegonkorra** (Y1/Y2)?",
+      "options": [
+        "Bulkada laburrak nahikoa direlako: balbulak posizioa gordetzen du",
+        "Monoegonkorrak baino azkarragoa delako",
+        "Bobina bakarra behar duelako"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "S1 eta 1B2 bulkada laburrak dira; biegonkorrak gogoratzen du azken agindua.",
+      "theoryRef": "ep-oinarriak"
+    }
+  ]
+}
