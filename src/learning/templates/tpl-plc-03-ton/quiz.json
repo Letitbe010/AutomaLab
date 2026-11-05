@@ -1,0 +1,70 @@
+{
+  "templateId": "tpl-plc-03",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "**S1**-en bulkada labur bat ematen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["pulse", "S1"]],
+      "options": [
+        "1A atera, 3 s itxaron eta itzultzen da",
+        "1A atera eta aurrean geratzen da",
+        "Ezer ez"
+      ],
+      "optionEvents": [["1A+", "1A-"], ["1A+"], []],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "Aurrean, 1B2-k T1 abiarazten du; 3 s igarotzean T1.Q 1 da eta Q0.1 (Y2) aktibatzen da.",
+      "theoryRef": "plc-tenporizadoreak"
+    },
+    {
+      "id": "q2",
+      "type": "single",
+      "prompt_md": "Noiz hasten da **T1** denbora neurtzen?",
+      "options": ["1B2 aktibatzen denean (1A aurrean)", "S1 sakatzean", "PLCa piztean"],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "TON-aren IN sarrera I0.2 (1B2) kontaktutik dator.",
+      "theoryRef": "plc-tenporizadoreak"
+    },
+    {
+      "id": "q3",
+      "type": "numeric",
+      "prompt_md": "Zenbat segundo igarotzen dira **1A+** eta **1A−** gertaeren artean? (Itzulera: 1 s, maila logikoan.)",
+      "answer": {
+        "value": 4,
+        "unit": "s",
+        "tolerancePct": 5
+      },
+      "explanation_md": "3 s itxaron (PT) + 1 s itzulera = 4 s.",
+      "theoryRef": "plc-tenporizadoreak"
+    },
+    {
+      "id": "q4",
+      "type": "truefalse",
+      "prompt_md": "TON batean, IN desaktibatzen bada PT iritsi aurretik, ET zerora itzultzen da eta Q ez da aktibatzen.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai: TON-ak IN etengabe aktibo egotea behar du PT denbora osoan.",
+      "theoryRef": "plc-tenporizadoreak"
+    },
+    {
+      "id": "q5",
+      "type": "single",
+      "prompt_md": "Nola erabiltzen da **T1**-en irteera kontaktu gisa?",
+      "options": ["T1.Q", "Q0.1", "I0.2"],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Instantziaren irteera: T1.Q. AutomaLab-en TIAko instantzia-DBaren ordez izen sinple bat erabiltzen da.",
+      "theoryRef": "plc-tenporizadoreak"
+    }
+  ]
+}

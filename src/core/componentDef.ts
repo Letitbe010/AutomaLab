@@ -11,6 +11,8 @@ export interface PortDef {
   vent?: boolean;
   /** Pilot (control) port: lines attached to it are drawn dashed (ISO 1219, Creus app. 8.2). */
   pilot?: boolean;
+  /** May stay unconnected without a "free port" warning (PLC terminals). */
+  optional?: boolean;
 }
 
 interface ParamDefBase {

@@ -1,0 +1,91 @@
+{
+  "templateId": "tpl-plc-04",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "**S1**-ekin zikloa abiarazten da, eta A+ ondoren **S0** sakatzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [
+        ["pulse", "S1"],
+        ["wait", 1500],
+        ["pulse", "S0"]
+      ],
+      "options": [
+        "Zikloa amaitzen da (A+ B+ A− B−) eta gelditzen da",
+        "Berehala gelditzen da",
+        "Zikloak jarraitzen du"
+      ],
+      "optionEvents": [
+        ["1A+", "2A+", "1A-", "2A-"],
+        ["1A+"],
+        ["1A+", "2A+", "1A-", "2A-", "1A+", "2A+", "1A-", "2A-"]
+      ],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "S0-k M0.0 desaktibatzen du: A+ berriro ez da egiten, baina zikloaren gainerakoa sentsoreek agintzen dute.",
+      "theoryRef": "plc-ladder"
+    },
+    {
+      "id": "q2",
+      "type": "truefalse",
+      "prompt_md": "Ladder programa honek erreleekin egindako zirkuituaren (R7) sekuentzia bera egiten du.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai: logika bera da; erreleak eta kableak PLCaren programaz ordezkatu dira. Testek bi zirkuituak alderatzen dituzte.",
+      "theoryRef": "plc-oinarriak"
+    },
+    {
+      "id": "q3",
+      "type": "single",
+      "prompt_md": "Zer da **M0.0**?",
+      "options": [
+        "Barneko marka: zikloaren memoria (autoatxikimendua)",
+        "Irteera bat",
+        "Tenporizadore bat"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "M markak barneko bitak dira: ez daude kableatuta, programaren memoria dira.",
+      "theoryRef": "plc-ladder"
+    },
+    {
+      "id": "q4",
+      "type": "predict",
+      "prompt_md": "Ezer sakatu gabe, zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["wait", 100]],
+      "options": ["Ezer ez", "1A ateratzen da"],
+      "optionEvents": [[], ["1A+"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "M0.0 0 da, beraz 2. segmentuak (A+) ez du korronterik.",
+      "theoryRef": "plc-ladder"
+    },
+    {
+      "id": "q5",
+      "type": "single",
+      "prompt_md": "Scan bakoitzean, zein ordenatan ebaluatzen dira segmentuak?",
+      "options": [
+        "Goitik behera, 1.etik azkenera",
+        "Behetik gora",
+        "Guztiak aldi berean, erreleak bezala"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "PLCak segmentuak bata bestearen atzetik exekutatzen ditu; erreleak, aldiz, aldi berean aldatzen dira.",
+      "theoryRef": "plc-oinarriak"
+    }
+  ]
+}

@@ -8,6 +8,8 @@ import { Library } from './Library';
 import { PropertiesPanel } from './PropertiesPanel';
 import { Toolbar } from './Toolbar';
 import { useLearning } from '../learning/store';
+import { useEditorTab, type EditorTab } from '../plc/tabs';
+import plcStyles from '../plc/Plc.module.css';
 import { useEditor } from './store';
 import { useShortcuts } from './useShortcuts';
 import styles from './Editor.module.css';
@@ -20,6 +22,8 @@ const TheoryDrawer = lazy(() =>
 const ExercisePanel = lazy(() =>
   import('../exercises/ExercisePanel').then((m) => ({ default: m.ExercisePanel })),
 );
+const LadderView = lazy(() => import('../plc/LadderView').then((m) => ({ default: m.LadderView })));
+const IoTable = lazy(() => import('../plc/IoTable').then((m) => ({ default: m.IoTable })));
 const TemplatePanel = lazy(() =>
   import('../templates/TemplatePanel').then((m) => ({ default: m.TemplatePanel })),
 );
@@ -41,6 +45,8 @@ function EditorView() {
   const templateOpen = useLearning((s) => s.templatePanelOpen);
   const hasTemplate = useEditor((s) => s.project.templateId !== undefined);
   const hasExercise = useEditor((s) => s.project.exerciseId !== undefined);
+  const tab = useEditorTab((s) => s.tab);
+  const setTab = useEditorTab((s) => s.setTab);
 
   useEffect(() => {
     if (!notice) return;
@@ -51,18 +57,41 @@ function EditorView() {
   return (
     <div className={styles.editor} data-mode={mode}>
       <Toolbar />
+      <div className={plcStyles.tabs} role="tablist" aria-label={t('editor.tabs.label')}>
+        {(['schematic', 'ladder', 'io'] as EditorTab[]).map((k) => (
+          <button
+            key={k}
+            type="button"
+            role="tab"
+            aria-selected={tab === k}
+            onClick={() => setTab(k)}
+          >
+            {t(`editor.tabs.${k}`)}
+          </button>
+        ))}
+      </div>
       <div className={styles.body}>
-        <Library />
-        <div className={styles.stage}>
-          <Canvas />
-          {mode === 'sim' && <div className={styles.banner}>{t('sim.banner')}</div>}
-          {(notice || drafting) && (
-            <div className={styles.status} role="status">
-              {notice ? t(notice) : t('editor.wireHint')}
+        {tab === 'schematic' ? (
+          <>
+            <Library />
+            <div className={styles.stage}>
+              <Canvas />
+              {mode === 'sim' && <div className={styles.banner}>{t('sim.banner')}</div>}
+              {(notice || drafting) && (
+                <div className={styles.status} role="status">
+                  {notice ? t(notice) : t('editor.wireHint')}
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        <PropertiesPanel />
+            <PropertiesPanel />
+          </>
+        ) : (
+          <div className={styles.fullView}>
+            <Suspense fallback={<p className={styles.loading}>{t('storage.status.loading')}</p>}>
+              {tab === 'ladder' ? <LadderView /> : <IoTable />}
+            </Suspense>
+          </div>
+        )}
         {templateOpen && hasExercise && (
           <Suspense fallback={null}>
             <ExercisePanel />

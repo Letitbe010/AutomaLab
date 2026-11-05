@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "name": "R8 — Ladder: TON 2 s",
+  "simulation": {
+    "level": "logic",
+    "dtMs": 1,
+    "supplyPressureBar": 6
+  },
+  "components": [
+    {
+      "id": "ip",
+      "type": "el.plus",
+      "x": 420,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "s1",
+      "type": "el.button.no",
+      "x": 420,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "S1"
+      }
+    },
+    {
+      "id": "plc",
+      "type": "plc.cpu1214c",
+      "x": 400,
+      "y": 100,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "PLC1",
+        "scanMs": 10
+      }
+    },
+    {
+      "id": "h1",
+      "type": "el.lamp",
+      "x": 420,
+      "y": 190,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "H1"
+      }
+    },
+    {
+      "id": "om",
+      "type": "el.minus",
+      "x": 420,
+      "y": 260,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    }
+  ],
+  "connections": [
+    {
+      "id": "w1",
+      "kind": "electric",
+      "from": ["ip", "p"],
+      "to": ["s1", "13"],
+      "points": []
+    },
+    {
+      "id": "w2",
+      "kind": "electric",
+      "from": ["s1", "14"],
+      "to": ["plc", "I0.0"],
+      "points": []
+    },
+    {
+      "id": "w3",
+      "kind": "electric",
+      "from": ["plc", "Q0.0"],
+      "to": ["h1", "X1"],
+      "points": []
+    },
+    {
+      "id": "w4",
+      "kind": "electric",
+      "from": ["h1", "X2"],
+      "to": ["om", "p"],
+      "points": []
+    }
+  ],
+  "tags": {},
+  "plc": {
+    "io": [
+      {
+        "address": "I0.0",
+        "symbol": "Pultsadorea",
+        "comment": "S1"
+      },
+      {
+        "address": "Q0.0",
+        "symbol": "Argia",
+        "comment": "H1"
+      }
+    ],
+    "ladder": [
+      {
+        "id": "r1",
+        "comment": "S1 sakatuta 2 s → H1",
+        "elements": [
+          {
+            "id": "e1",
+            "kind": "contact",
+            "type": "no",
+            "operand": "I0.0"
+          },
+          {
+            "id": "e2",
+            "kind": "timer",
+            "type": "TON",
+            "name": "T1",
+            "ptMs": 2000
+          },
+          {
+            "id": "e3",
+            "kind": "coil",
+            "type": "out",
+            "operand": "Q0.0"
+          }
+        ]
+      }
+    ],
+    "grafcet": null
+  }
+}

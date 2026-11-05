@@ -2,6 +2,18 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [fase-5] — 2026-11-05 (PLCa eta Ladder)
+
+### Gehituta
+
+- PLC datu-eredua (S7-1200 estiloa): I/O taula eta segmentuak (serie/paralelo zuhaitzak), kargatzean balidatuta.
+- Ladder motorra: scan-zikloa (sarrera-irudia → segmentuak goitik behera → irteerak), kontaktu NA/NI/P/N, bobina eta Set/Reset, M markak, IEC TON/TOF/TP eta CTU/CTD.
+- PLC blokea (CPU 1214C: I0.0–I1.5, Q0.0–Q1.1) eskema elektrikoan kableatuta; LEDak sarrera eta irteeretan.
+- Editorean «Eskema / Ladder / I/O taula» fitxak: Ladder editorea (elementuak, adar paraleloak, segmentuak, iruzkinak, propietateak), online ikuspegia simulazioan (berdez), «Scan bat» urratsez urrats; I/O taula izen sinbolikoekin eta kableatutako gailuekin.
+- Ladder-en balidazioa (operando okerrak, sarrerei idazten dieten bobinak, PLCrik gabeko programa).
+- R8 (TON 2 s) eta R7-Ladder (erreleekin egindako R7-ren sekuentzia bera), testekin.
+- Edukia (zirriborroak): 4 PLC txantiloi galdetegiekin, 3 teoria-fitxa, 3 ariketa.
+
 ## [fase-4] — 2026-11-05 (elektropneumatika)
 
 ### Gehituta

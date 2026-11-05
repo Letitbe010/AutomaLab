@@ -1,0 +1,62 @@
+{
+  "id": "ex-plc-03",
+  "title": "A+ B+ A− B− PLCarekin",
+  "domain": "plc",
+  "level": 2,
+  "tags": ["PLC", "Ladder", "sekuentzia"],
+  "theoryRefs": ["plc-ladder"],
+  "status": "draft",
+  "hints_md": [
+    "Egin I/O taula lehenik: 2 pultsadore, 4 sentsore eta 4 bobina.",
+    "M0.0 marka bat zikloaren memoria gisa (martxa/geldialdia).",
+    "Segmentu bat mugimendu bakoitzeko: A+ ← M0.0 eta 2B1; B+ ← 1B2; A− ← 2B2; B− ← 1B1."
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "el.plus",
+    "el.minus",
+    "plc.cpu1214c",
+    "el.button.no",
+    "el.button.nc",
+    "el.reed",
+    "el.limit.no",
+    "el.limit.nc",
+    "el.solenoid",
+    "el.lamp",
+    "pn.valve.5-2.sol",
+    "pn.cyl.double",
+    "pn.source"
+  ],
+  "checks": [
+    {
+      "title": "S1-ekin, zikloa errepikatzen da: 1A+ 2A+ 1A− 2A− 1A+…",
+      "type": "sequence",
+      "stimuli": [["pulse", "S1"]],
+      "expect": ["1A+", "2A+", "1A-", "2A-", "1A+"],
+      "match": "prefix",
+      "withinMs": 6000
+    },
+    {
+      "title": "S0-k zikloa amaitu ondoren gelditzen du",
+      "type": "sequence",
+      "stimuli": [
+        ["pulse", "S1"],
+        ["wait", 1500],
+        ["pulse", "S0"]
+      ],
+      "expect": ["1A+", "2A+", "1A-", "2A-"],
+      "withinMs": 10000
+    },
+    {
+      "title": "Ezer sakatu gabe, ez da mugitzen",
+      "type": "never",
+      "stimuli": [["wait", 100]],
+      "events": ["1A+", "2A+"]
+    },
+    {
+      "title": "PLC bat erabiltzen da",
+      "type": "uses",
+      "componentTypes": ["plc.cpu1214c"]
+    }
+  ]
+}

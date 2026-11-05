@@ -1,0 +1,75 @@
+{
+  "templateId": "tpl-plc-02",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "Zilindroa atzean dago. **S1**-en bulkada labur bat ematen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["pulse", "S1"]],
+      "options": [
+        "1A atera eta bere kabuz itzultzen da",
+        "1A atera eta aurrean geratzen da",
+        "Ezer ez"
+      ],
+      "optionEvents": [["1A+", "1A-"], ["1A+"], []],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "1. segmentuak Q0.0 (Y1) aktibatzen du; aurrera iristean, 2. segmentuak Q0.1 (Y2). Balbula biegonkorrak gogoratzen du.",
+      "theoryRef": "plc-ladder"
+    },
+    {
+      "id": "q2",
+      "type": "predict",
+      "prompt_md": "Ezer sakatu gabe, zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["wait", 100]],
+      "options": ["Ezer ez", "1A ateratzen da"],
+      "optionEvents": [[], ["1A+"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "I0.0 (S1) 0 da, beraz 1. segmentuak ez du korronterik.",
+      "theoryRef": "plc-ladder"
+    },
+    {
+      "id": "q3",
+      "type": "single",
+      "prompt_md": "Zein sarreratan dago **1B2** sentsorea?",
+      "options": ["I0.2", "I0.1", "Q0.1"],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "I/O taulan: I0.0 S1, I0.1 1B1, I0.2 1B2.",
+      "theoryRef": "plc-oinarriak"
+    },
+    {
+      "id": "q4",
+      "type": "truefalse",
+      "prompt_md": "Elektrobalbula biegonkorrarekin, Q0.0 scan gutxi batzuetan aktibatzea nahikoa da zilindroa ateratzeko.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai: biegonkorrak bere posizioa gordetzen du; bobinak bulkada bat besterik ez du behar.",
+      "theoryRef": "plc-ladder"
+    },
+    {
+      "id": "q5",
+      "type": "single",
+      "prompt_md": "Zein segmentuk agintzen du itzulera?",
+      "options": ["2.: I0.2 (1B2) → Q0.1 (Y2)", "1.: I0.0 eta I0.1 → Q0.0", "Biek batera"],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "2. segmentuak 1B2 (zilindroa aurrean) Y2 bobinarekin lotzen du.",
+      "theoryRef": "plc-ladder"
+    }
+  ]
+}

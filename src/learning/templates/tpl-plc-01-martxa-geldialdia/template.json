@@ -1,0 +1,11 @@
+{
+  "id": "tpl-plc-01",
+  "title": "Martxa eta geldialdia PLCarekin",
+  "summary": "Autoatxikimendua Ladder-en, M0.0 marka batekin. Geldialdia NI kableatuta dago, eta Ladder-en NA kontaktu bat da.",
+  "domain": "plc",
+  "level": 1,
+  "tags": ["PLC", "Ladder", "autoatxikimendua", "markak"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["plc-oinarriak", "plc-ladder"],
+  "status": "draft"
+}

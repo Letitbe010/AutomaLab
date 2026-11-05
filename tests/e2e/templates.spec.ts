@@ -7,12 +7,12 @@ test('catalog: filters, open a copy, description links and reset', async ({ page
   await page.goto('/');
   await menu(page, 'Txantiloiak');
   const cards = page.locator('[data-template-id]');
-  await expect(cards).toHaveCount(10);
+  await expect(cards).toHaveCount(14);
   await expect(cards.first().locator('svg polyline').first()).toBeAttached();
 
   // Filters.
   await page.getByLabel('Maila').selectOption({ label: 'Ertaina' });
-  await expect(cards).toHaveCount(4);
+  await expect(cards).toHaveCount(6);
   await page.getByLabel('Maila').selectOption({ label: 'Guztiak' });
   await page.getByLabel('Etiketa').selectOption('kaskada');
   await expect(cards).toHaveCount(1);

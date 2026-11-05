@@ -1,0 +1,11 @@
+{
+  "id": "tpl-plc-02",
+  "title": "Joan-etorria PLCarekin eta sentsoreekin",
+  "summary": "Bi segmentu: A+ martxarekin eta zilindroa atzean, A− 1B2 sentsorearekin.",
+  "domain": "plc",
+  "level": 1,
+  "tags": ["PLC", "Ladder", "sentsoreak"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["plc-ladder"],
+  "status": "draft"
+}

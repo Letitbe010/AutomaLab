@@ -1,0 +1,11 @@
+{
+  "id": "tpl-plc-03",
+  "title": "Tenporizazioa PLCarekin (TON)",
+  "summary": "Zilindroa 3 s geratzen da aurrean: TON T1 tenporizadoreak 1B2 sentsoretik neurtzen du.",
+  "domain": "plc",
+  "level": 2,
+  "tags": ["PLC", "tenporizadorea", "TON"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["plc-tenporizadoreak"],
+  "status": "draft"
+}

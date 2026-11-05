@@ -1,0 +1,325 @@
+{
+  "schemaVersion": 1,
+  "name": "Soluzioa: Martxa eta geldialdia PLCarekin",
+  "simulation": {
+    "level": "logic",
+    "dtMs": 1,
+    "supplyPressureBar": 6
+  },
+  "components": [
+    {
+      "id": "c1",
+      "type": "pn.cyl.double",
+      "x": 60,
+      "y": 40,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1A"
+      }
+    },
+    {
+      "id": "v1",
+      "type": "pn.valve.5-2.sol-spring",
+      "x": 100,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1V1",
+        "coilLeft": "Y1"
+      }
+    },
+    {
+      "id": "z1",
+      "type": "pn.source",
+      "x": 120,
+      "y": 300,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "0Z1"
+      }
+    },
+    {
+      "id": "plc",
+      "type": "plc.cpu1214c",
+      "x": 420,
+      "y": 100,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "PLC1",
+        "scanMs": 10
+      }
+    },
+    {
+      "id": "p0",
+      "type": "el.plus",
+      "x": 440,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "s0",
+      "type": "el.button.nc",
+      "x": 440,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "S0"
+      }
+    },
+    {
+      "id": "p1",
+      "type": "el.plus",
+      "x": 500,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "s1",
+      "type": "el.button.no",
+      "x": 500,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "S1"
+      }
+    },
+    {
+      "id": "y1",
+      "type": "el.solenoid",
+      "x": 440,
+      "y": 190,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "Y1"
+      }
+    },
+    {
+      "id": "m0",
+      "type": "el.minus",
+      "x": 440,
+      "y": 260,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "h1",
+      "type": "el.lamp",
+      "x": 500,
+      "y": 190,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "H1"
+      }
+    },
+    {
+      "id": "m1",
+      "type": "el.minus",
+      "x": 500,
+      "y": 260,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    }
+  ],
+  "connections": [
+    {
+      "id": "w1",
+      "kind": "fluid",
+      "from": ["c1", "A"],
+      "to": ["v1", "4"],
+      "points": []
+    },
+    {
+      "id": "w2",
+      "kind": "fluid",
+      "from": ["c1", "B"],
+      "to": ["v1", "2"],
+      "points": []
+    },
+    {
+      "id": "w3",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["v1", "1"],
+      "points": []
+    },
+    {
+      "id": "w4",
+      "kind": "electric",
+      "from": ["p0", "p"],
+      "to": ["s0", "11"],
+      "points": []
+    },
+    {
+      "id": "w5",
+      "kind": "electric",
+      "from": ["s0", "12"],
+      "to": ["plc", "I0.0"],
+      "points": []
+    },
+    {
+      "id": "w6",
+      "kind": "electric",
+      "from": ["p1", "p"],
+      "to": ["s1", "13"],
+      "points": []
+    },
+    {
+      "id": "w7",
+      "kind": "electric",
+      "from": ["s1", "14"],
+      "to": ["plc", "I0.1"],
+      "points": []
+    },
+    {
+      "id": "w8",
+      "kind": "electric",
+      "from": ["plc", "Q0.0"],
+      "to": ["y1", "A1"],
+      "points": []
+    },
+    {
+      "id": "w9",
+      "kind": "electric",
+      "from": ["y1", "A2"],
+      "to": ["m0", "p"],
+      "points": []
+    },
+    {
+      "id": "w10",
+      "kind": "electric",
+      "from": ["plc", "Q0.1"],
+      "to": ["h1", "X1"],
+      "points": []
+    },
+    {
+      "id": "w11",
+      "kind": "electric",
+      "from": ["h1", "X2"],
+      "to": ["m1", "p"],
+      "points": []
+    }
+  ],
+  "tags": {},
+  "plc": {
+    "io": [
+      {
+        "address": "I0.0",
+        "symbol": "Geldialdia",
+        "comment": "S0 (NI kableatuta)"
+      },
+      {
+        "address": "I0.1",
+        "symbol": "Martxa",
+        "comment": "S1"
+      },
+      {
+        "address": "Q0.0",
+        "symbol": "Atera",
+        "comment": "Y1"
+      },
+      {
+        "address": "Q0.1",
+        "symbol": "Martxan",
+        "comment": "H1"
+      },
+      {
+        "address": "M0.0",
+        "symbol": "Memoria",
+        "comment": "Autoatxikimendua"
+      }
+    ],
+    "ladder": [
+      {
+        "id": "r1",
+        "comment": "Autoatxikimendua: martxa edo memoria, eta geldialdia sakatu gabe (NI kableatuta → NA kontaktua)",
+        "elements": [
+          {
+            "id": "e3",
+            "kind": "parallel",
+            "branches": [
+              [
+                {
+                  "id": "e1",
+                  "kind": "contact",
+                  "type": "no",
+                  "operand": "I0.1"
+                }
+              ],
+              [
+                {
+                  "id": "e2",
+                  "kind": "contact",
+                  "type": "no",
+                  "operand": "M0.0"
+                }
+              ]
+            ]
+          },
+          {
+            "id": "e4",
+            "kind": "contact",
+            "type": "no",
+            "operand": "I0.0"
+          },
+          {
+            "id": "e5",
+            "kind": "coil",
+            "type": "out",
+            "operand": "M0.0"
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "comment": "Zilindroa atera",
+        "elements": [
+          {
+            "id": "e6",
+            "kind": "contact",
+            "type": "no",
+            "operand": "M0.0"
+          },
+          {
+            "id": "e7",
+            "kind": "coil",
+            "type": "out",
+            "operand": "Q0.0"
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "comment": "Argia: martxan",
+        "elements": [
+          {
+            "id": "e8",
+            "kind": "contact",
+            "type": "no",
+            "operand": "M0.0"
+          },
+          {
+            "id": "e9",
+            "kind": "coil",
+            "type": "out",
+            "operand": "Q0.1"
+          }
+        ]
+      }
+    ],
+    "grafcet": null
+  }
+}

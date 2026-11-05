@@ -1,4 +1,5 @@
 import type { DefLookup, PortDef } from './componentDef';
+import { isValidAddress, parseOperand, walkElements } from './plc';
 import type { ComponentInstance, Project } from './types';
 
 export type Severity = 'error' | 'warning';
@@ -14,7 +15,10 @@ export type IssueCode =
   | 'freePort'
   | 'duplicateLabel'
   | 'limitUnbound'
-  | 'limitUnknownCylinder';
+  | 'limitUnknownCylinder'
+  | 'ladderOperand'
+  | 'ladderCoilTarget'
+  | 'ladderNoPlc';
 
 export interface Issue {
   severity: Severity;
@@ -37,6 +41,9 @@ const SEVERITY: Record<IssueCode, Severity> = {
   duplicateLabel: 'warning',
   limitUnbound: 'warning',
   limitUnknownCylinder: 'warning',
+  ladderOperand: 'warning',
+  ladderCoilTarget: 'warning',
+  ladderNoPlc: 'warning',
 };
 
 function issue(
@@ -129,7 +136,7 @@ export function validateProject(project: Project, getDef: DefLookup): Issue[] {
     const def = getDef(c.type);
     if (!def) continue;
     for (const p of def.ports) {
-      if (!p.vent && !connectedPorts.has(`${c.id}\u0000${p.id}`)) {
+      if (!p.vent && !p.optional && !connectedPorts.has(`${c.id}\u0000${p.id}`)) {
         issues.push(issue('freePort', { component: displayName(c), port: p.id }, [c.id]));
       }
     }
@@ -166,5 +173,36 @@ export function validateProject(project: Project, getDef: DefLookup): Issue[] {
     }
   }
 
+  issues.push(...validateLadder(project, getDef));
   return issues;
+}
+
+/** Ladder program checks (SPEC §6.5): operands that do not exist, coils on inputs. */
+function validateLadder(project: Project, getDef: DefLookup): Issue[] {
+  const out: Issue[] = [];
+  const rungs = project.plc.ladder;
+  if (!rungs.length) return out;
+  if (!project.components.some((c) => getDef(c.type)?.domain === 'plc')) {
+    out.push(issue('ladderNoPlc', {}));
+  }
+  rungs.forEach((rung, i) => {
+    const segment = String(i + 1);
+    for (const e of walkElements(rung.elements)) {
+      const operands =
+        e.kind === 'contact' || e.kind === 'coil'
+          ? [e.operand]
+          : e.kind === 'counter' && e.resetOperand !== ''
+            ? [e.resetOperand]
+            : [];
+      for (const text of operands) {
+        const op = parseOperand(text);
+        if (!op || !isValidAddress(op)) {
+          out.push(issue('ladderOperand', { segment, operand: text || '—' }));
+        } else if (e.kind === 'coil' && (op.area === 'I' || op.area === 'T' || op.area === 'C')) {
+          out.push(issue('ladderCoilTarget', { segment, operand: op.key }));
+        }
+      }
+    }
+  });
+  return out;
 }

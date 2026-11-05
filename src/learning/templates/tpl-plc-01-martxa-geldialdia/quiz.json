@@ -1,0 +1,79 @@
+{
+  "templateId": "tpl-plc-01",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "**S1** (martxa) bulkada labur batekin sakatzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["pulse", "S1"]],
+      "options": ["1A atera eta aurrean geratzen da", "1A atera eta itzultzen da", "Ezer ez"],
+      "optionEvents": [["1A+"], ["1A+", "1A-"], []],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "1. segmentuan, M0.0 markak bere buruari eusten dio (autoatxikimendua), eta 2. segmentuak Q0.0 (Y1) aktibatzen du.",
+      "theoryRef": "plc-ladder"
+    },
+    {
+      "id": "q2",
+      "type": "predict",
+      "prompt_md": "Makina martxan dago. **S0** sakatzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [
+        ["pulse", "S1"],
+        ["wait", 1500],
+        ["pulse", "S0"]
+      ],
+      "options": ["1A itzultzen da", "1A aurrean geratzen da"],
+      "optionEvents": [["1A+", "1A-"], ["1A+"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "S0 sakatzean I0.0 0 bihurtzen da; 1. segmentuko I0.0 kontaktua irekitzen da eta M0.0 desaktibatzen da.",
+      "theoryRef": "plc-ladder"
+    },
+    {
+      "id": "q3",
+      "type": "single",
+      "prompt_md": "**S0** NI kableatuta dago. Atsedenean, zer balio du **I0.0** sarrerak?",
+      "options": ["1 (+24 V jasotzen ditu)", "0"],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "NI kontaktua itxita dago atsedenean: sarrerak +24 V jasotzen ditu eta 1 da. Sakatzean 0 bihurtzen da.",
+      "theoryRef": "plc-oinarriak"
+    },
+    {
+      "id": "q4",
+      "type": "single",
+      "prompt_md": "Zergatik erabiltzen da Ladder-en **I0.0**-ren kontaktu **NA** bat geldialdiarentzat?",
+      "options": [
+        "I0.0 1 delako atsedenean (NI kableatuta): sakatzean 0 da eta korrontea eteten du",
+        "Ladder-en ezin delako NI kontakturik erabili",
+        "Geldialdiak lehentasunik ez izateko"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Kableatzeak eta Ladder-eko kontaktuak elkarrekin ulertu behar dira. Segurtasunagatik, geldialdia NI kableatzen da (kablea hautsiz gero, makina gelditzen da).",
+      "theoryRef": "plc-oinarriak"
+    },
+    {
+      "id": "q5",
+      "type": "truefalse",
+      "prompt_md": "PLCak sarrerak scan bakoitzaren hasieran irakurtzen ditu, eta irteerak scan-aren amaieran idazten ditu.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai: sarrera-irudia → programa (goitik behera) → irteera-irudia. Scan batean zehar, sarrerek balio bera dute.",
+      "theoryRef": "plc-oinarriak"
+    }
+  ]
+}

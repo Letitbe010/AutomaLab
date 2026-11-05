@@ -1,0 +1,11 @@
+{
+  "id": "tpl-plc-04",
+  "title": "A+ B+ A− B− PLCarekin (Ladder)",
+  "summary": "Erreleekin egindako R7 zirkuitu bera, logika PLCan: sekuentzia bera egiten du.",
+  "domain": "plc",
+  "level": 2,
+  "tags": ["PLC", "Ladder", "sekuentzia"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["plc-oinarriak", "plc-ladder"],
+  "status": "draft"
+}

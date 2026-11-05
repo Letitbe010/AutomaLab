@@ -19,6 +19,7 @@ Egoera: ☐ pendiente · ☑ eginda
 | [fase-3c.md](egiaztapena/fase-3c.md) — galdetegiak eta aurrerapena (**25 galderak egin eta zuzendu**)       | 2026-11-04 | ☐      |
 | [fase-E.md](egiaztapena/fase-E.md) — ariketak (**ariketak egin eta enuntziatuak zuzendu**)                  | 2026-11-04 | ☐      |
 | [fase-4.md](egiaztapena/fase-4.md) — elektropneumatika (**R6 zuk marraztu**; ikurrak eta 3 fitxa berrikusi) | 2026-11-05 | ☐      |
+| [fase-5.md](egiaztapena/fase-5.md) — PLCa eta Ladder (**programa bat zuk idatzi**; 3 fitxa berrikusi)       | 2026-11-05 | ☐      |
 
 `fase-0` gida baieztatuta (2026-11-04).
 

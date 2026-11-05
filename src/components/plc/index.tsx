@@ -29,8 +29,20 @@ export const plcCpu: ComponentDef<PlcState> = {
   bounds: [0, -0.4, W, H + 0.8],
   labelAt: [0, -0.6],
   ports: [
-    ...PLC_INPUTS.map((id, i) => ({ id, kind: 'electric' as const, x: 2 + 2 * i, y: 0 })),
-    ...PLC_OUTPUTS.map((id, i) => ({ id, kind: 'electric' as const, x: 2 + 2 * i, y: H })),
+    ...PLC_INPUTS.map((id, i) => ({
+      id,
+      kind: 'electric' as const,
+      x: 2 + 2 * i,
+      y: 0,
+      optional: true,
+    })),
+    ...PLC_OUTPUTS.map((id, i) => ({
+      id,
+      kind: 'electric' as const,
+      x: 2 + 2 * i,
+      y: H,
+      optional: true,
+    })),
   ],
   params: [
     { key: 'label', labelKey: 'param.label', type: 'string', default: '' },

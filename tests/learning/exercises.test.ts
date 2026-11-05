@@ -67,6 +67,29 @@ const WRONG: Record<string, () => Project> = {
   },
   // Single cylinder circuit.
   'ex-ep-04': () => clone(getTemplate('tpl-ep-04')!.circuit),
+  // Ladder without self-holding: the cylinder returns when S1 is released.
+  'ex-plc-01': () => {
+    const p = clone(design('ex-plc-01').solution);
+    p.plc.ladder = p.plc.ladder.slice(1);
+    p.plc.ladder.unshift({
+      id: 'rx',
+      comment: '',
+      elements: [
+        { id: 'x1', kind: 'contact', type: 'no', operand: 'I0.1' },
+        { id: 'x2', kind: 'coil', type: 'out', operand: 'M0.0' },
+      ],
+    });
+    return p;
+  },
+  // Timer set to 0.2 s.
+  'ex-plc-02': () => {
+    const p = clone(design('ex-plc-02').solution);
+    const t = p.plc.ladder[1]!.elements[1]!;
+    if (t.kind === 'timer') t.ptMs = 200;
+    return p;
+  },
+  // Same sequence with relays: correct behaviour but no PLC.
+  'ex-plc-03': () => clone(getTemplate('tpl-ep-05')!.circuit),
 };
 
 const designs = EXERCISES.filter(

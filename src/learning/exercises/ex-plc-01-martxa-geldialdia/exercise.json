@@ -1,0 +1,60 @@
+{
+  "id": "ex-plc-01",
+  "title": "Martxa eta geldialdia PLCarekin",
+  "domain": "plc",
+  "level": 1,
+  "tags": ["PLC", "Ladder", "autoatxikimendua"],
+  "theoryRefs": ["plc-ladder"],
+  "status": "draft",
+  "hints_md": [
+    "Kableatu S0 eta S1 PLCaren sarreretara, eta Y1 irteera batera.",
+    "Ladder-en: (martxa EDO M0.0) ETA geldialdia → M0.0. Gero M0.0 → Q0.0.",
+    "S0 NI kableatuta badago, I0.0 1 da atsedenean: Ladder-en NA kontaktua erabili."
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "el.plus",
+    "el.minus",
+    "plc.cpu1214c",
+    "el.button.no",
+    "el.button.nc",
+    "el.solenoid",
+    "el.lamp",
+    "pn.valve.5-2.sol-spring",
+    "pn.valve.5-2.sol",
+    "pn.cyl.double",
+    "pn.source"
+  ],
+  "checks": [
+    {
+      "title": "S1-en bulkada batekin, 1A atera eta aurrean geratzen da",
+      "type": "sequence",
+      "stimuli": [["pulse", "S1"]],
+      "expect": ["1A+"]
+    },
+    {
+      "title": "S0-k gelditzen du: 1A itzultzen da",
+      "type": "sequence",
+      "stimuli": [
+        ["pulse", "S1"],
+        ["wait", 1500],
+        ["pulse", "S0"]
+      ],
+      "expect": ["1A+", "1A-"]
+    },
+    {
+      "title": "S0 eta S1 batera: geldialdiak lehentasuna du",
+      "type": "never",
+      "stimuli": [
+        ["press", "S0"],
+        ["press", "S1"]
+      ],
+      "events": ["1A+"]
+    },
+    {
+      "title": "PLC bat erabiltzen da",
+      "type": "uses",
+      "componentTypes": ["plc.cpu1214c"]
+    }
+  ]
+}

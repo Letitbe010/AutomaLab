@@ -317,7 +317,13 @@
       "hasErrors": "Ezin da simulatu: konpondu lehenik «Abisuak» paneleko erroreak."
     },
     "yes": "bai",
-    "no": "ez"
+    "no": "ez",
+    "tabs": {
+      "label": "Ikuspegiak",
+      "schematic": "Eskema",
+      "ladder": "Ladder",
+      "io": "I/O taula"
+    }
   },
   "storage": {
     "defaultName": "Proiektu berria",
@@ -407,7 +413,10 @@
     "freePort": "{component}: {port} portua ez dago konektatuta.",
     "duplicateLabel": "{label} etiketa osagai bat baino gehiagotan dago.",
     "limitUnbound": "{component}: rodilloa ez dago zilindro bati lotuta (Propietateak → Zilindroa).",
-    "limitUnknownCylinder": "{component}: ez dago «{cylinder}» etiketadun zilindrorik."
+    "limitUnknownCylinder": "{component}: ez dago «{cylinder}» etiketadun zilindrorik.",
+    "ladderOperand": "Ladder, {segment}. segmentua: «{operand}» ez da helbide baliozkoa (I0.0–I1.5, Q0.0–Q1.1, M0.0…, T1.Q, C1.Q).",
+    "ladderCoilTarget": "Ladder, {segment}. segmentua: bobina batek ezin du {operand} idatzi (sarrera edo tenporizadore/kontagailu bat da).",
+    "ladderNoPlc": "Ladder programa bat dago, baina eskeman ez dago PLCrik."
   },
   "symbols": {
     "title": "Ikurren galeria",
@@ -576,5 +585,66 @@
     "actuated": "Eraginda",
     "off": "Itzalita",
     "on": "Aktibo"
+  },
+  "ladder": {
+    "palette": "Ladder elementuak",
+    "el": {
+      "no": "Kontaktu NA",
+      "nc": "Kontaktu NI",
+      "p": "Flanko positiboa (P)",
+      "n": "Flanko negatiboa (N)",
+      "out": "Bobina",
+      "set": "Bobina Set (S)",
+      "reset": "Bobina Reset (R)",
+      "TON": "TON — konexio-atzerapena",
+      "TOF": "TOF — deskonexio-atzerapena",
+      "TP": "TP — pultsua",
+      "CTU": "CTU — gorako kontagailua",
+      "CTD": "CTD — beherako kontagailua"
+    },
+    "kind": {
+      "contact": "Kontaktua",
+      "coil": "Bobina",
+      "timer": "Tenporizadorea",
+      "counter": "Kontagailua",
+      "parallel": "Adar paraleloa"
+    },
+    "parallel": "Adar paraleloa",
+    "remove": "Ezabatu",
+    "newRung": "Segmentu berria",
+    "rung": "{n}. segmentua",
+    "comment": "Iruzkina",
+    "up": "Gora",
+    "down": "Behera",
+    "removeRung": "Ezabatu segmentua",
+    "empty": "Programa hutsik dago. Sakatu «Segmentu berria» edo elementu bat gehitu.",
+    "inspector": "Elementuaren propietateak",
+    "hint": "Hautatu elementu bat bere propietateak ikusteko. Elementu berriak hautatutakoaren ondoren gehitzen dira (bestela, segmentuaren amaieran). «Adar paraleloa»-k hautatutako elementuaren paraleloan kontaktu bat gehitzen du.",
+    "simHint": "Simulazioan: korrontea igarotzen den elementuak berdez. Hautatu elementu bat bere balioa ikusteko.",
+    "noPlc": "Simulazioan dago, baina eskeman ez dago PLCrik.",
+    "scanOnce": "Scan bat",
+    "scans": "Scan-ak: {n}",
+    "scanHint": "Pausatu eta «Scan bat» sakatu, programa scan-ez scan ikusteko.",
+    "type": "Mota",
+    "operand": "Operandoa",
+    "value": "Uneko balioa: {v}",
+    "instance": "Instantzia",
+    "pt": "PT (segundoak)",
+    "pv": "PV",
+    "reset": "R (reset) operandoa",
+    "load": "LD (karga) operandoa",
+    "timerHint": "Irteera kontaktu gisa: {name}.Q",
+    "counterHint": "Irteera kontaktu gisa: {name}.Q",
+    "parallelHint": "Adar paraleloa (OR). Hautatuta dagoela «Adar paraleloa» sakatuz gero, beste adar bat gehitzen da."
+  },
+  "io": {
+    "intro": "Izen sinbolikoak eta iruzkinak (TIA Portaleko «PLC tags» bezala). «Kableatuta» zutabea eskematik ateratzen da.",
+    "noPlc": "Eskeman ez dago PLCrik: gehitu liburutegiko «PLCa» ataletik.",
+    "fill": "Bete iruzkinak kableatzetik",
+    "address": "Helbidea",
+    "symbol": "Izen sinbolikoa",
+    "comment": "Iruzkina",
+    "wired": "Kableatuta",
+    "state": "Egoera"
   }
 }
