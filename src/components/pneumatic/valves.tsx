@@ -122,6 +122,20 @@ function makeValve(spec: ValveSpec): ComponentDef<ValveState> {
     params: [
       { key: 'label', labelKey: 'param.label', type: 'string', default: '' },
       ...(spec.extraParams ?? []),
+      // Solenoid coils are linked to the electric circuit by name (Y1, Y2...), SPEC §4.
+      ...(spec.left[0] === 'solenoid'
+        ? [{ key: 'coilLeft', labelKey: 'param.coilLeft', type: 'string', default: 'Y1' } as const]
+        : []),
+      ...(spec.right[0] === 'solenoid'
+        ? [
+            {
+              key: 'coilRight',
+              labelKey: 'param.coilRight',
+              type: 'string',
+              default: 'Y2',
+            } as const,
+          ]
+        : []),
     ],
     initState: () => ({ position: spec.rest }),
     previewStates: spec.positions.map((_, i) => ({

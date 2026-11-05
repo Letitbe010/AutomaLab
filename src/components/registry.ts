@@ -1,4 +1,5 @@
 import type { ComponentDef, DefLookup } from '../core/componentDef';
+import { ELECTRIC_DEFS } from './electric';
 import { cylinderSingle } from './pneumatic/cylinderSingle';
 import { EXTRA_DEFS } from './pneumatic/extra';
 import { fluidJunction } from './pneumatic/junction';
@@ -36,6 +37,7 @@ export const COMPONENT_DEFS: readonly ComponentDef<unknown>[] = [
   erase(gauge),
   ...EXTRA_DEFS.map((d) => d as unknown as ComponentDef<unknown>),
   erase(fluidJunction),
+  ...ELECTRIC_DEFS,
 ];
 
 /** Theory sheet for each component (SPEC §7.4 "Teoria gehiago"). */

@@ -35,6 +35,8 @@ function simWarningText(w: SimWarning, project: Project): string {
           : w.componentId;
       return t('sim.warning.bothSignals', { t: formatSimTime(w.timeMs), component: label });
     }
+    case 'shortCircuit':
+      return t('sim.warning.shortCircuit', { t: formatSimTime(w.timeMs) });
     case 'unsupported': {
       const def = getComponentDef(w.type);
       return t('sim.warning.unsupported', { name: def ? componentName(def) : w.type });

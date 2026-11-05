@@ -2,6 +2,7 @@
  * Mechanical coupling (SPEC §6.1 step 6): roller valves actuated by a
  * cylinder's position. Pure functions; the scheduler applies them.
  */
+import { ELECTRIC_SENSOR_TYPES } from '../../components/electric/roles';
 import { isMechanical, VALVE_SPECS } from '../../components/pneumatic/valveSpecs';
 import type { ComponentInstance } from '../../core/types';
 
@@ -20,12 +21,13 @@ export interface LimitBinding {
   idle: boolean;
 }
 
-const MECH = new Map(
-  VALVE_SPECS.filter((s) => isMechanical(s.left[0])).map((s) => [
-    s.type,
-    s.left[0] === 'idleRoller',
-  ]),
-);
+/** Position-bound types: roller valves and electric sensors (limit switches, reed). */
+const MECH = new Map<string, boolean>([
+  ...VALVE_SPECS.filter((s) => isMechanical(s.left[0])).map(
+    (s) => [s.type, s.left[0] === 'idleRoller'] as [string, boolean],
+  ),
+  ...[...ELECTRIC_SENSOR_TYPES].map((t) => [t, false] as [string, boolean]),
+]);
 
 const isCylinder = (c: ComponentInstance) => c.type.startsWith('pn.cyl.');
 

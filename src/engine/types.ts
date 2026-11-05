@@ -65,7 +65,9 @@ export type SimWarning =
   | { code: 'supplyVented'; timeMs: number; ports: string[] }
   | { code: 'unsupported'; type: string; componentIds: string[] }
   /** Both operators of a bistable or 5/3 valve are signalled at the same time. */
-  | { code: 'bothSignals'; timeMs: number; componentId: string };
+  | { code: 'bothSignals'; timeMs: number; componentId: string }
+  /** +24 V connected to 0 V through conductors only (SPEC §6.4). */
+  | { code: 'shortCircuit'; timeMs: number };
 
 export interface SimEvent {
   timeMs: number;

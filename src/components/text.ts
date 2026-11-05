@@ -25,4 +25,9 @@ export const GROUP_ORDER = [
   'valves53',
   'logic',
   'measure',
+  'elSupply',
+  'elInputs',
+  'elSensors',
+  'elRelays',
+  'elOutputs',
 ] as const;

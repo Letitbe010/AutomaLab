@@ -36,7 +36,10 @@
     "at": "Posizioa",
     "atRetracted": "Sartuta (−)",
     "atExtended": "Aterata (+)",
-    "unbound": "— lotu gabe —"
+    "unbound": "— lotu gabe —",
+    "relay": "Errelea",
+    "coilLeft": "Bobina (ezkerra, 14)",
+    "coilRight": "Bobina (eskuina, 12)"
   },
   "group": {
     "supply": "Elikadura, prestaketa eta ihesa",
@@ -46,7 +49,12 @@
     "valves52": "5/2 balbulak",
     "valves53": "5/3 balbulak",
     "logic": "Balbula logikoak eta erregulazioa",
-    "measure": "Neurgailuak"
+    "measure": "Neurgailuak",
+    "elSupply": "Elikadura (24 V DC)",
+    "elInputs": "Aginte-elementuak",
+    "elSensors": "Sentsoreak eta amaiera-etengailuak",
+    "elRelays": "Erreleak",
+    "elOutputs": "Bobinak eta seinaleztapena"
   },
   "comp": {
     "source": {
@@ -184,6 +192,72 @@
       "retracted": "Sartuta",
       "half": "Erdian",
       "extended": "Aterata"
+    },
+    "el": {
+      "plus": {
+        "name": "+24 V (elikadura)"
+      },
+      "minus": {
+        "name": "0 V (elikadura)"
+      },
+      "supply": {
+        "help": "Elikadura-iturriaren bornea. Eskema elektrikoan +24 V goian eta 0 V behean marrazten dira; behar adina aldiz jar daitezke (potentzial bera dira)."
+      },
+      "buttonNo": {
+        "name": "Pultsadorea NA"
+      },
+      "buttonNc": {
+        "name": "Pultsadorea NI"
+      },
+      "button": {
+        "help": "Sakatu bitartean eragiten du; askatzean, malgukiak atsedenera itzultzen du. NA: sakatzean ixten da (13-14). NI: sakatzean irekitzen da (11-12)."
+      },
+      "switch": {
+        "name": "Etengailua (atxikimenduarekin) NA",
+        "help": "Klik batek ixten du eta beste batek irekitzen du: egoera gordetzen du."
+      },
+      "estop": {
+        "name": "Larrialdi-geldialdia (NI)",
+        "help": "Onddo-buruko pultsadorea, NI kontaktuarekin. Sakatzean irekitzen da eta blokeatuta geratzen da; beste klik batek askatzen du."
+      },
+      "limitNo": {
+        "name": "Amaiera-etengailua NA"
+      },
+      "limitNc": {
+        "name": "Amaiera-etengailua NI"
+      },
+      "limit": {
+        "help": "Zilindroaren zurtoinak mekanikoki eragiten dio ibilbidearen amaieran. Propietateetan aukeratu zilindroa eta posizioa (− / +)."
+      },
+      "reed": {
+        "name": "Sentsore magnetikoa (reed) NA",
+        "help": "Zilindroaren enboloko imanak eragiten dio, kontakturik gabe. Propietateetan aukeratu zilindroa eta posizioa (− / +)."
+      },
+      "relayNo": {
+        "name": "Errelearen kontaktua NA"
+      },
+      "relayNc": {
+        "name": "Errelearen kontaktua NI"
+      },
+      "relayContact": {
+        "help": "Errele baten kontaktua: «Errelea» propietatean idatzi bobinaren etiketa (adib. K1). Bobina aktibatzean, NA kontaktuak ixten dira (13-14) eta NI kontaktuak irekitzen (21-22)."
+      },
+      "relayCoil": {
+        "name": "Errelearen bobina",
+        "help": "Bobina aktibatzean (A1-A2), etiketa bera duten kontaktu guztiak aldatzen dira."
+      },
+      "solenoid": {
+        "name": "Elektrobalbularen bobina (Y)",
+        "help": "Etiketa bera duen elektrobalbularen eragingailua aktibatzen du (balbularen propietateetan: «Bobina» Y1, Y2…)."
+      },
+      "lamp": {
+        "name": "Pilotu-argia",
+        "help": "Argia pizten da bere borneen (X1-X2) artean tentsioa dagoenean."
+      },
+      "buzzer": {
+        "name": "Buzzerra",
+        "help": "Seinale akustikoa: bere borneen artean tentsioa dagoenean jotzen du."
+      }
     }
   },
   "editor": {
@@ -304,10 +378,11 @@
     },
     "warning": {
       "tag": "Simulazioa",
-      "oscillation": "t = {t}: oszilazioa — balbulak ez dira egonkortzen (pilotaje-begizta bat?).",
+      "oscillation": "t = {t}: oszilazioa — balbulak edo erreleak ez dira egonkortzen (begizta bat?).",
       "supplyVented": "t = {t}: hornidura zuzenean atmosferara irekita dago ({ports}).",
       "unsupported": "{name}: oraindik ez da simulatzen.",
-      "bothSignals": "t = {t}: {component} balbulak bi aldeetako seinaleak ditu aldi berean (seinale iraunkorra); aurreko posizioan geratzen da."
+      "bothSignals": "t = {t}: {component} balbulak bi aldeetako seinaleak ditu aldi berean (seinale iraunkorra); aurreko posizioan geratzen da.",
+      "shortCircuit": "t = {t}: zirkuitulaburra — +24 V zuzenean 0 V-ra konektatuta dago (kargarik gabe)."
     }
   },
   "help": {
@@ -487,5 +562,11 @@
       "unstable": "Zirkuitua ez da egonkortzen (oszilazioa): begiratu pilotaje-begiztak."
     },
     "someWrong": "{n} / {total} erantzun ez dira zuzenak."
+  },
+  "preview": {
+    "rest": "Atsedena",
+    "actuated": "Eraginda",
+    "off": "Itzalita",
+    "on": "Aktibo"
   }
 }
