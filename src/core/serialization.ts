@@ -1,3 +1,4 @@
+import { readIo, readLadder } from './plc';
 import {
   CURRENT_SCHEMA_VERSION,
   type ComponentInstance,
@@ -58,6 +59,10 @@ export function projectFromObject(raw: unknown): ParseResult {
       return { ok: false, error: { code: 'invalidField', path: e.path } };
     throw e;
   }
+}
+
+function fail(path: string): never {
+  throw new FieldError(path);
 }
 
 class FieldError extends Error {
@@ -173,8 +178,8 @@ function readProject(o: Record<string, unknown>): Project {
       }),
     ),
     plc: {
-      io: arr(plc.io ?? [], 'plc.io'),
-      ladder: arr(plc.ladder ?? [], 'plc.ladder'),
+      io: readIo(plc.io ?? []) ?? fail('plc.io'),
+      ladder: readLadder(plc.ladder ?? []) ?? fail('plc.ladder'),
       grafcet: plc.grafcet ?? null,
     },
     ...(o.templateId === undefined ? {} : { templateId: str(o.templateId, 'templateId') }),

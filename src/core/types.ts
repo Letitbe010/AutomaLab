@@ -3,6 +3,8 @@
  * Coordinates are in canvas pixels; component-local port positions are in grid units.
  */
 
+import type { IoEntry, Rung } from './plc';
+
 export const CURRENT_SCHEMA_VERSION = 1;
 
 export type Domain = 'pneumatic' | 'hydraulic' | 'electric' | 'plc';
@@ -53,10 +55,10 @@ export interface TagDef {
   kind: TagKind;
 }
 
-/** PLC content is filled in phases 5–6; kept opaque until then. */
+/** PLC program (SPEC §5.4): I/O table and Ladder (phase 5); GRAFCET in phase 6. */
 export interface PlcData {
-  io: unknown[];
-  ladder: unknown[];
+  io: IoEntry[];
+  ladder: Rung[];
   grafcet: unknown;
 }
 

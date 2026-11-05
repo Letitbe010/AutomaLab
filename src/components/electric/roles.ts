@@ -10,12 +10,15 @@ export type ElectricRole =
       actuator: 'manual' | 'toggle' | 'relay' | 'sensor';
     }
   | { kind: 'load'; load: 'relay' | 'solenoid' | 'lamp' | 'buzzer' }
-  | { kind: 'junction' };
+  | { kind: 'junction' }
+  /** PLC block: inputs read +24 V, outputs source +24 V (SPEC §5.4). */
+  | { kind: 'plc' };
 
 export const ELECTRIC_ROLES: Record<string, ElectricRole> = {
   'el.plus': { kind: 'terminal', potential: '+' },
   'el.minus': { kind: 'terminal', potential: '-' },
   'el.junction': { kind: 'junction' },
+  'plc.cpu1214c': { kind: 'plc' },
   'el.button.no': { kind: 'contact', normally: 'open', actuator: 'manual' },
   'el.button.nc': { kind: 'contact', normally: 'closed', actuator: 'manual' },
   'el.switch.no': { kind: 'contact', normally: 'open', actuator: 'toggle' },

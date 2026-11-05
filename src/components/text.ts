@@ -30,4 +30,5 @@ export const GROUP_ORDER = [
   'elSensors',
   'elRelays',
   'elOutputs',
+  'plcCpu',
 ] as const;

@@ -17,6 +17,7 @@ import {
   type ElectricLoad,
 } from './electric/solver';
 import { pneumaticBehavior } from './fluid/logic/behaviors';
+import { LadderRuntime } from './plc/ladder/runtime';
 import {
   Nets,
   nodeState,
@@ -105,6 +106,12 @@ export class Simulation {
   private circuit: CircuitResult | null = null;
   private elecOscillating = false;
   private shortActive = false;
+  /** PLC (SPEC §6.5): the first PLC block runs the project's Ladder program. */
+  private plc: ElecComponent | null = null;
+  readonly ladder: LadderRuntime | null = null;
+  private readonly scanMs: number = 10;
+  private nextScanMs = 0;
+  private plcInputs = new Set<string>();
   /** Changes of electric loads with a label, e.g. "K1=1", "Y1=0" (SPEC §8.1). */
   readonly signals: SimEvent[] = [];
 
@@ -139,6 +146,7 @@ export class Simulation {
         };
         this.elec.push(e);
         this.elecById.set(instance.id, e);
+        if (role.kind === 'plc' && !this.plc) this.plc = e;
         continue;
       }
       const behavior = getBehavior(instance.type, instance.id);
@@ -169,9 +177,19 @@ export class Simulation {
       (b) =>
         (this.byId.has(b.valveId) || this.elecById.has(b.valveId)) && this.byId.has(b.cylinderId),
     );
+    if (this.plc) {
+      this.ladder = new LadderRuntime(project.plc.ladder);
+      const scan = Number(this.plc.params.scanMs);
+      this.scanMs = Number.isFinite(scan) && scan >= 1 ? scan : 10;
+    }
     // Rollers already pressed at the start (e.g. a0 with the cylinder retracted).
     this.applyCoupling(new Map());
     this.solve();
+    // First PLC scan at t = 0, with the inputs as they are at power-up.
+    if (this.ladder) {
+      this.plcScan();
+      this.solve();
+    }
   }
 
   /** Step 6: rollers follow the cylinder positions. `previous` holds positions before motion. */
@@ -259,6 +277,13 @@ export class Simulation {
       }
       if (e.role.kind === 'load') loads.push({ id: e.instance.id, a: net(e, 0), b: net(e, 1) });
     }
+    if (this.plc && this.ladder) {
+      const outputs = this.ladder.outputs();
+      for (const q of outputs) {
+        if (this.plc.ports.includes(q))
+          plusNets.push(this.nets.find(portKey(this.plc.instance.id, q)));
+      }
+    }
     const actuated = (e: ElecComponent): boolean => {
       if (e.role.kind !== 'contact') return false;
       switch (e.role.actuator) {
@@ -295,6 +320,18 @@ export class Simulation {
       this.relayOn = relayOn;
     }
     this.circuit = result;
+    if (this.plc) {
+      const inputs = new Set<string>();
+      for (const port of this.plc.ports) {
+        if (
+          port.startsWith('I') &&
+          result.plus.has(this.nets.find(portKey(this.plc.instance.id, port)))
+        ) {
+          inputs.add(port);
+        }
+      }
+      this.plcInputs = inputs;
+    }
     if (!stable && !this.elecOscillating) {
       this.warnings.push({ code: 'oscillation', timeMs: this.timeMs });
     }
@@ -330,6 +367,18 @@ export class Simulation {
       this.warnings.push({ code: 'shortCircuit', timeMs: this.timeMs });
     }
     this.shortActive = short;
+  }
+
+  /** One PLC scan with the current input terminals (SPEC §6.5). */
+  private plcScan(): void {
+    this.ladder!.scan(this.plcInputs, this.ladder!.scans === 0 ? 0 : this.scanMs);
+    this.nextScanMs = this.timeMs + this.scanMs;
+  }
+
+  /** PLC state for display: input and output addresses that are on. */
+  plcState(): { inputs: string[]; outputs: string[] } | null {
+    if (!this.ladder) return null;
+    return { inputs: [...this.plcInputs].sort(), outputs: [...this.ladder.outputs()].sort() };
   }
 
   /** Reports each onset of simultaneous opposite signals on a valve (SPEC §7.3). */
@@ -379,6 +428,7 @@ export class Simulation {
       }
     }
     this.timeMs += this.dtMs;
+    if (this.ladder && this.timeMs >= this.nextScanMs - 1e-9) this.plcScan();
     this.applyCoupling(previous);
     // Re-solve so states reflect the new positions, rollers and timers at this instant.
     this.solve();
@@ -460,6 +510,7 @@ export class Simulation {
 
   componentState<S = unknown>(componentId: string): S {
     const e = this.elecById.get(componentId);
+    if (e && e.role.kind === 'plc') return (this.plcState() ?? { inputs: [], outputs: [] }) as S;
     if (e) {
       const st =
         e.role.kind === 'load'

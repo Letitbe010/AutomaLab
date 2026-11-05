@@ -39,7 +39,8 @@
     "unbound": "— lotu gabe —",
     "relay": "Errelea",
     "coilLeft": "Bobina (ezkerra, 14)",
-    "coilRight": "Bobina (eskuina, 12)"
+    "coilRight": "Bobina (eskuina, 12)",
+    "scanMs": "Scan-denbora"
   },
   "group": {
     "supply": "Elikadura, prestaketa eta ihesa",
@@ -54,7 +55,8 @@
     "elInputs": "Aginte-elementuak",
     "elSensors": "Sentsoreak eta amaiera-etengailuak",
     "elRelays": "Erreleak",
-    "elOutputs": "Bobinak eta seinaleztapena"
+    "elOutputs": "Bobinak eta seinaleztapena",
+    "plcCpu": "PLCa"
   },
   "comp": {
     "source": {
@@ -257,6 +259,12 @@
       "buzzer": {
         "name": "Buzzerra",
         "help": "Seinale akustikoa: bere borneen artean tentsioa dagoenean jotzen du."
+      }
+    },
+    "plc": {
+      "cpu": {
+        "name": "PLCa — S7-1200 CPU 1214C",
+        "help": "14 sarrera digital (I0.0–I1.5) eta 10 irteera (Q0.0–Q1.1). Sarrera bat «1» da bere bornean +24 V daudenean; irteera aktibo batek +24 V ematen ditu. Programa «Ladder» fitxan idazten da."
       }
     }
   },
