@@ -270,6 +270,13 @@ export function Canvas() {
     const world = worldPoint(e);
     const compId = closestData(target, 'data-component-id');
 
+    // An "identify" question takes the click (only while the quiz tab is showing).
+    const learning = useLearning.getState();
+    if (learning.pickMode && learning.templateTab === 'quiz' && compId && e.button === 0) {
+      learning.pick(compId);
+      return;
+    }
+
     // Simulation: clicking a manual operator actuates it (held while pressed).
     if (st.mode === 'sim' && e.button === 0 && !spaceDown && compId) {
       const comp = st.project.components.find((c) => c.id === compId);

@@ -1,6 +1,6 @@
-/** Quiz format (SPEC §8.6.2). Phase 3 types: single, truefalse, numeric, predict. */
+/** Quiz format (SPEC §8.6.2): every P1 question type. */
 
-export type QuestionType = 'single' | 'truefalse' | 'numeric' | 'predict';
+export type QuestionType = 'single' | 'multiple' | 'truefalse' | 'numeric' | 'identify' | 'predict';
 
 /** Simulation stimulus, by component label: press/release/pulse a manual operator, or wait. */
 export type Stimulus =
@@ -17,6 +17,19 @@ export interface SingleQuestion extends Base {
   type: 'single';
   options: string[];
   answer: { index: number };
+}
+
+export interface MultipleQuestion extends Base {
+  type: 'multiple';
+  options: string[];
+  /** Every correct option; all of them, and no other, must be chosen. */
+  answer: { indices: number[] };
+}
+
+/** "Click the component that…": the answer is any of these component ids. */
+export interface IdentifyQuestion extends Base {
+  type: 'identify';
+  answer: { componentIds: string[] };
 }
 
 export interface TrueFalseQuestion extends Base {
@@ -44,12 +57,18 @@ export interface PredictQuestion extends Base {
   verifyBySimulation: boolean;
 }
 
-export type Question = SingleQuestion | TrueFalseQuestion | NumericQuestion | PredictQuestion;
+export type Question =
+  | SingleQuestion
+  | MultipleQuestion
+  | TrueFalseQuestion
+  | NumericQuestion
+  | IdentifyQuestion
+  | PredictQuestion;
 
 export interface Quiz {
   templateId: string;
   questions: Question[];
 }
 
-/** What the user answered: option index, boolean or number. */
-export type Response = number | boolean;
+/** What the user answered: option index or number, boolean, option indices, component id. */
+export type Response = number | boolean | number[] | string;

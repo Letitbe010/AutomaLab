@@ -35,6 +35,17 @@ export function questionProblem(raw: unknown): string | null {
       return isStrArr(q.options) && q.options.length >= 2 && isIndex(a.index, q.options.length)
         ? null
         : 'options/answer.index';
+    case 'multiple':
+      return isStrArr(q.options) &&
+        q.options.length >= 2 &&
+        Array.isArray(a.indices) &&
+        a.indices.length > 0 &&
+        new Set(a.indices).size === a.indices.length &&
+        a.indices.every((i) => isIndex(i, (q.options as string[]).length))
+        ? null
+        : 'options/answer.indices';
+    case 'identify':
+      return isStrArr(a.componentIds) && a.componentIds.length > 0 ? null : 'answer.componentIds';
     case 'truefalse':
       return typeof a.value === 'boolean' ? null : 'answer.value';
     case 'numeric':

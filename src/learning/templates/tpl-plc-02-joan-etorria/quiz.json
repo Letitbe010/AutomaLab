@@ -41,11 +41,10 @@
     },
     {
       "id": "q3",
-      "type": "single",
-      "prompt_md": "Zein sarreratan dago **1B2** sentsorea?",
-      "options": ["I0.2", "I0.1", "Q0.1"],
+      "type": "identify",
+      "prompt_md": "Klik egin **I0.2** sarreran kableatuta dagoen sentsorean.",
       "answer": {
-        "index": 0
+        "componentIds": ["b12"]
       },
       "explanation_md": "I/O taulan: I0.0 S1, I0.1 1B1, I0.2 1B2.",
       "theoryRef": "plc-oinarriak"

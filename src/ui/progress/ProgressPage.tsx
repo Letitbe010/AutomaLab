@@ -147,6 +147,16 @@ export function ProgressPage() {
               ))}
             </ul>
           )}
+          <h2 className={styles.h2}>{t('progress.randomQuiz')}</h2>
+          <p className={styles.muted} data-testid="progress-random">
+            {progress.randomQuiz.attempts === 0
+              ? t('progress.randomNone')
+              : t('progress.randomDone', {
+                  n: progress.randomQuiz.attempts,
+                  best: pct(progress.randomQuiz.bestScore ?? 0),
+                  last: pct(progress.randomQuiz.lastScore ?? 0),
+                })}
+          </p>
         </section>
 
         <section className={styles.card}>

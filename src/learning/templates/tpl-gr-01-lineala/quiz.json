@@ -20,15 +20,16 @@
     },
     {
       "id": "q2",
-      "type": "single",
-      "prompt_md": "Zein da trantsizio bat gainditzeko baldintza?",
+      "type": "multiple",
+      "prompt_md": "Zein baldintza bete behar dira trantsizio bat gainditzeko?",
       "options": [
-        "Gaituta egotea (aurreko urrats guztiak aktibo) eta hartzailetasuna egia izatea",
-        "Hartzailetasuna egia izatea bakarrik",
-        "Aurreko urratsa aktibo egotea bakarrik"
+        "Aurreko urrats guztiak aktibo egotea",
+        "Hartzailetasuna egia izatea",
+        "Hurrengo urratsa inaktibo egotea",
+        "Beste trantsizio guztiak desgaituta egotea"
       ],
       "answer": {
-        "index": 0
+        "indices": [0, 1]
       },
       "explanation_md": "IEC 60848ko 2. araua: trantsizioa gaituta egon behar da, eta hartzailetasuna egia izan.",
       "theoryRef": "gr-oinarriak"

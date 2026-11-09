@@ -6,7 +6,14 @@ describe('App', () => {
     render(<App />);
     const nav = screen.getByRole('navigation', { name: 'Menu nagusia' });
     const labels = Array.from(nav.querySelectorAll('button')).map((b) => b.textContent);
-    expect(labels).toEqual(['Editorea', 'Txantiloiak', 'Ariketak', 'Teoria', 'Nire aurrerapena']);
+    expect(labels).toEqual([
+      'Editorea',
+      'Txantiloiak',
+      'Ariketak',
+      'Sortzailea',
+      'Teoria',
+      'Nire aurrerapena',
+    ]);
   });
 
   it('switches section when a menu item is clicked', () => {

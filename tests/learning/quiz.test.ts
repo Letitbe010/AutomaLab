@@ -6,6 +6,7 @@ import {
 } from '../../src/learning/calculators/pneumatic';
 import { renderMarkdown } from '../../src/learning/markdown';
 import { getQuiz, questionProblem, QUIZZES } from '../../src/learning/quiz';
+import { questionPool, randomQuestions } from '../../src/learning/quiz/pool';
 import { gradeQuiz, isCorrect, parseNumber, shuffled } from '../../src/learning/quiz/grade';
 import { runStimuli, simulatedOption } from '../../src/learning/quiz/simulate';
 import type { NumericQuestion, PredictQuestion, Question } from '../../src/learning/quiz/types';
@@ -146,5 +147,87 @@ describe('quiz content', () => {
 
   it('stimuli refer to existing labels', () => {
     expect(() => runStimuli(getTemplate('tpl-pn-01')!.circuit, [['press', 'nope']])).toThrow();
+  });
+});
+
+describe('multiple and identify questions', () => {
+  const multiple: Question = {
+    id: 'm',
+    type: 'multiple',
+    prompt_md: '?',
+    explanation_md: '',
+    options: ['a', 'b', 'c'],
+    answer: { indices: [0, 2] },
+  };
+  const identify: Question = {
+    id: 'i',
+    type: 'identify',
+    prompt_md: '?',
+    explanation_md: '',
+    answer: { componentIds: ['v3', 'v4'] },
+  };
+
+  it('needs every correct option and no other, in any order', () => {
+    expect(isCorrect(multiple, [2, 0])).toBe(true);
+    expect(isCorrect(multiple, [0])).toBe(false);
+    expect(isCorrect(multiple, [0, 1, 2])).toBe(false);
+    expect(isCorrect(multiple, [0, 0])).toBe(false);
+    expect(isCorrect(multiple, 0)).toBe(false);
+  });
+
+  it('accepts any of the listed components', () => {
+    expect(isCorrect(identify, 'v4')).toBe(true);
+    expect(isCorrect(identify, 'v1')).toBe(false);
+    expect(isCorrect(identify, 3)).toBe(false);
+  });
+
+  it('rejects malformed questions', () => {
+    expect(questionProblem(multiple)).toBeNull();
+    expect(questionProblem(identify)).toBeNull();
+    expect(questionProblem({ ...multiple, answer: { indices: [] } })).not.toBeNull();
+    expect(questionProblem({ ...multiple, answer: { indices: [5] } })).not.toBeNull();
+    expect(questionProblem({ ...multiple, answer: { indices: [1, 1] } })).not.toBeNull();
+    expect(questionProblem({ ...identify, answer: { componentIds: [] } })).not.toBeNull();
+  });
+
+  it('every identify answer exists in its template circuit (SPEC §11)', () => {
+    let count = 0;
+    for (const quiz of QUIZZES) {
+      const ids = getTemplate(quiz.templateId)!.circuit.components.map((c) => c.id);
+      for (const q of quiz.questions) {
+        if (q.type !== 'identify') continue;
+        count += 1;
+        for (const id of q.answer.componentIds) expect(ids).toContain(id);
+      }
+    }
+    expect(count).toBeGreaterThanOrEqual(9);
+  });
+});
+
+describe('random quiz pool', () => {
+  const all = { domain: '', level: 0, tag: '' };
+
+  it('leaves identify out and has unique ids', () => {
+    const pool = questionPool(all);
+    expect(pool.some((p) => p.question.type === 'identify')).toBe(false);
+    expect(new Set(pool.map((p) => p.question.id)).size).toBe(pool.length);
+  });
+
+  it('filters by domain, level and tag', () => {
+    const domain = questionPool({ ...all, domain: 'pneumatic' });
+    expect(domain.length).toBeGreaterThan(0);
+    expect(domain.length).toBeLessThan(questionPool(all).length);
+    for (const p of domain) expect(getTemplate(p.templateId)!.domain).toBe('pneumatic');
+    const tag = getTemplate('tpl-pn-05')!.tags[0]!;
+    for (const p of questionPool({ ...all, tag })) {
+      expect(getTemplate(p.templateId)!.tags).toContain(tag);
+    }
+    expect(questionPool({ ...all, level: 9 })).toEqual([]);
+  });
+
+  it('draws at most the requested number, without repeats', () => {
+    const r = randomQuestions(all, 7, () => 0.3);
+    expect(r).toHaveLength(7);
+    expect(new Set(r.map((p) => p.question.id)).size).toBe(7);
   });
 });

@@ -67,11 +67,10 @@
     },
     {
       "id": "q5",
-      "type": "single",
-      "prompt_md": "**1S1**-en irteera 1V1-en zein portutara dago konektatuta?",
-      "options": ["14", "12", "1", "4"],
+      "type": "identify",
+      "prompt_md": "Klik egin zilindroa **ateratzeko** agindua ematen duen pultsadorean (1V1-en 14 pilotajera konektatuta dagoena).",
       "answer": {
-        "index": 0
+        "componentIds": ["s1"]
       },
       "explanation_md": "14 pilotajeak 1 → 4 bidea aktibatzen du (zilindroa atera). 12 pilotajeak 1 → 2 bidea (itzuli).",
       "theoryRef": "pn-balbulak"

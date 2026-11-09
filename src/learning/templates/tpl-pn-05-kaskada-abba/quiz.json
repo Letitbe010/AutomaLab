@@ -49,16 +49,10 @@
     },
     {
       "id": "q3",
-      "type": "single",
-      "prompt_md": "Zein osagaik eragiten du I → II talde-aldaketa?",
-      "options": [
-        "b1, 0V1-ren 12 pilotajea aktibatuz",
-        "a1, 2V1-en 14 pilotajea aktibatuz",
-        "0S1",
-        "b0"
-      ],
+      "type": "identify",
+      "prompt_md": "Klik egin **I → II** talde-aldaketa eragiten duen osagaian.",
       "answer": {
-        "index": 0
+        "componentIds": ["b1"]
       },
       "explanation_md": "B aurrera iristean b1 sakatzen da, eta haren seinaleak memoria (0V1) II. taldera aldatzen du.",
       "theoryRef": "pn-kaskada"

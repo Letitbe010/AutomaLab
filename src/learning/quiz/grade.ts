@@ -14,6 +14,17 @@ export function isCorrect(q: Question, response: Response): boolean {
     case 'single':
     case 'predict':
       return response === q.answer.index;
+    case 'multiple': {
+      if (!Array.isArray(response)) return false;
+      const wanted = q.answer.indices;
+      return (
+        response.length === wanted.length &&
+        new Set(response).size === wanted.length &&
+        wanted.every((i) => response.includes(i))
+      );
+    }
+    case 'identify':
+      return typeof response === 'string' && q.answer.componentIds.includes(response);
     case 'truefalse':
       return response === q.answer.value;
     case 'numeric': {

@@ -24,11 +24,10 @@
     },
     {
       "id": "q2",
-      "type": "single",
-      "prompt_md": "Zein sentsorek agintzen du itzulera (**Y2**)?",
-      "options": ["1B2 (1A aurrean)", "1B1 (1A atzean)", "S1"],
+      "type": "identify",
+      "prompt_md": "Klik egin itzulera (**Y2**) agintzen duen sentsorean.",
       "answer": {
-        "index": 0
+        "componentIds": ["b12"]
       },
       "explanation_md": "1B2 1A-ren + posizioan dago: zilindroa aurrera iristean ixten da eta Y2 elikatzen du.",
       "theoryRef": "ep-sentsoreak"

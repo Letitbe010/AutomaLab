@@ -66,11 +66,11 @@
     },
     {
       "id": "q5",
-      "type": "single",
-      "prompt_md": "Zein bornetan konektatzen da bobina bat?",
-      "options": ["A1-A2", "13-14", "21-22", "X1-X2"],
+      "type": "multiple",
+      "prompt_md": "Zein borne-bikote dira **kontaktuenak** (ez bobinenak, ez argienak)?",
+      "options": ["13-14", "21-22", "A1-A2", "X1-X2"],
       "answer": {
-        "index": 0
+        "indices": [0, 1]
       },
       "explanation_md": "Bobinak A1-A2; kontaktu NAk 13-14; NIak 21-22; argiak X1-X2.",
       "theoryRef": "ep-oinarriak"

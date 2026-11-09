@@ -2,6 +2,24 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [fase-7] / [mvp-2] — 2026-11-09 (Sekuentzia-sortzailea eta galdetegi osoa)
+
+### Gehituta
+
+- «Sortzailea» atala: sekuentziaren parserra, euskarazko erroreekin; espazio-fase diagrama; seinale-gainjartzeak; kaskada-taldeak.
+- Kaskada-zirkuitu pneumatikoaren sortzailea, kokapen automatikoarekin eta OR balbulekin mugimendu errepikatuetarako.
+- Proiektu elektropneumatikoaren sortzailea: PLCa kableatuta eta GRAFCETa (Ladder-era bihur daiteke).
+- Alderatze-modua: editoreko zirkuitua sekuentziarekin simulatuz alderatzen da.
+- R12: 14 sekuentzia, kaskada, GRAFCET eta Ladder bihurtua, testekin.
+- Galdera-motak: `multiple` eta `identify` (klik zirkuituan).
+- Azterketa-modua, denbora-neurgailu aukerakoarekin.
+- Ausazko galdetegia: domeinua, maila eta etiketa, zirkuituaren miniaturarekin.
+- Aurrerapena: ausazko galdetegien laburpena.
+
+### Aldatuta
+
+- 13 galdera bihurtu dira `identify` (9) eta `multiple` (4) motetara.
+
 ## [fase-6] — 2026-11-09 (GRAFCET)
 
 ### Gehituta

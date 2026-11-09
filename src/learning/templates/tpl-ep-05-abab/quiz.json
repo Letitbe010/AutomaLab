@@ -32,11 +32,16 @@
     },
     {
       "id": "q2",
-      "type": "single",
-      "prompt_md": "Zer baldintzarekin egiten da **A+** berriro?",
-      "options": ["K1 aktibo eta 2B1 itxita (B atzean)", "1B2 itxita", "S0 sakatuta"],
+      "type": "multiple",
+      "prompt_md": "Zer bete behar da **A+** berriro egiteko?",
+      "options": [
+        "K1 aktibo egotea",
+        "2B1 itxita egotea (B atzean)",
+        "1B2 itxita egotea",
+        "S0 sakatuta egotea"
+      ],
       "answer": {
-        "index": 0
+        "indices": [0, 1]
       },
       "explanation_md": "3. bidea: K1 kontaktua eta 2B1 seriean (AND) Y1 aurretik.",
       "theoryRef": "ep-sentsoreak"

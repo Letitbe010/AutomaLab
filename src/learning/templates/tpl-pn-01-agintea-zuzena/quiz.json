@@ -3,16 +3,16 @@
   "questions": [
     {
       "id": "q1",
-      "type": "single",
-      "prompt_md": "Zein da **1S1** balbularen egoera atsedenean?",
+      "type": "multiple",
+      "prompt_md": "Zein baieztapen dira egia **1S1** balbulari buruz, atsedenean?",
       "options": [
-        "Itxia (NI): 1 blokeatuta, 2 → 3 ihesera",
-        "Irekia (NA): 1 → 2",
-        "Hiru portuak blokeatuta",
-        "1 → 3, zuzenean ihesera"
+        "1 portua blokeatuta dago",
+        "2 portua 3 ihesera konektatuta dago",
+        "1 → 2 bidea irekita dago",
+        "Hiru portuak blokeatuta daude"
       ],
       "answer": {
-        "index": 0
+        "indices": [0, 1]
       },
       "explanation_md": "3/2 NI balbula bat da: atsedenean 1 portua blokeatuta dago eta lan-portua (2) ihesera (3) konektatuta, zilindroa husteko.",
       "theoryRef": "pn-balbulak"

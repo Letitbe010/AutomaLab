@@ -42,11 +42,10 @@
     },
     {
       "id": "q3",
-      "type": "single",
-      "prompt_md": "Zein funtzio logiko betetzen du **1V2** balbulak?",
-      "options": ["AND (eta)", "OR (edo)", "NOT (ez)", "Memoria"],
+      "type": "identify",
+      "prompt_md": "Klik egin **AND** funtzio logikoa betetzen duen osagaian.",
       "answer": {
-        "index": 0
+        "componentIds": ["v2"]
       },
       "explanation_md": "Bi presioko balbula AND funtzioa da: irteera = X eta Y. Bi 3/2 balbula seriean jarrita ere lortzen da.",
       "theoryRef": "pn-funtzio-logikoak"

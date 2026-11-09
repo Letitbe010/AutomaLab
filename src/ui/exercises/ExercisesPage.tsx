@@ -11,6 +11,7 @@ import { useNav } from '../navigation';
 import { MarkdownBody } from '../theory/MarkdownBody';
 import { DraftBadge } from '../theory/TheorySheetView';
 import { SOLUTION_AFTER } from './constants';
+import { RandomQuiz } from '../quiz/RandomQuiz';
 import { checkCurrentProject, startExerciseInEditor } from './open';
 import styles from './Exercises.module.css';
 
@@ -24,7 +25,10 @@ export function ExercisesPage() {
   const progress = useProgress((s) => s.progress.exercises);
   const projectName = useEditor((s) => s.project.name);
 
+  const [random, setRandom] = useState(false);
+
   const open = calcId ? getExercise(calcId) : undefined;
+  if (random) return <RandomQuiz onBack={() => setRandom(false)} />;
   if (open?.kind === 'calc') return <CalcView exercise={open} onBack={() => setCalcId(null)} />;
 
   const list = EXERCISES.filter((e) => (!kind || e.kind === kind) && (!level || e.level === level));
@@ -53,6 +57,9 @@ export function ExercisesPage() {
             ))}
           </select>
         </label>
+        <button type="button" className={styles.secondary} onClick={() => setRandom(true)}>
+          {t('quiz.random.open')}
+        </button>
         <span className={styles.count}>
           {t('exercises.passedCount', { n: passed, total: EXERCISES.length })}
         </span>

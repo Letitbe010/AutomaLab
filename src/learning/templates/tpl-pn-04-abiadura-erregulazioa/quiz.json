@@ -3,16 +3,10 @@
   "questions": [
     {
       "id": "q1",
-      "type": "single",
-      "prompt_md": "Zilindroa **ateratzean**, zein erregulagailuk mugatzen du abiadura?",
-      "options": [
-        "1V3, B ganberako ihesa itotzen duelako",
-        "1V2, A ganberara sartzen den airea itotzen duelako",
-        "Biek berdin",
-        "Bat ere ez"
-      ],
+      "type": "identify",
+      "prompt_md": "Zilindroa **ateratzean**, zein erregulagailuk mugatzen du abiadura? Klik egin hartan.",
       "answer": {
-        "index": 0
+        "componentIds": ["f2"]
       },
       "explanation_md": "Meter-out muntaian, sartzen den airea atzera-ezineko balbulatik libre igarotzen da; irteten dena itotzen da. Ateratzean B ganbera husten da, 1V3-tik.",
       "theoryRef": "pn-balbulak"

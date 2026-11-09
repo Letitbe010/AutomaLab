@@ -6,21 +6,22 @@ Egoera: ☐ pendiente · ☑ eginda
 
 ## Eskuzko egiaztatze-gidak
 
-| Gida                                                                                                        | Data       | Egoera |
-| ----------------------------------------------------------------------------------------------------------- | ---------- | ------ |
-| [fase-1a.md](egiaztapena/fase-1a.md) — datu-eredua eta ikurrak                                              | 2026-11-04 | ☐      |
-| [fase-1b.md](egiaztapena/fase-1b.md) — SVG editorea                                                         | 2026-11-04 | ☐      |
-| [fase-1c.md](egiaztapena/fase-1c.md) — gordetzea eta babeskopia                                             | 2026-11-04 | ☐      |
-| [fase-2a.md](egiaztapena/fase-2a.md) — simulazio-motorra (logikoa)                                          | 2026-11-04 | ☐      |
-| [fase-2c.md](egiaztapena/fase-2c.md) — simulazioa pantailan                                                 | 2026-11-04 | ☐      |
-| [fase-2b.md](egiaztapena/fase-2b.md) — rodilloak, R4, R5 (**zuk R5 marraztu**)                              | 2026-11-04 | ☐      |
-| [fase-3a.md](egiaztapena/fase-3a.md) — teoria-atala (**5 fitxak irakurri eta zuzendu**)                     | 2026-11-04 | ☐      |
-| [fase-3b.md](egiaztapena/fase-3b.md) — txantiloiak (**5 azalpenak irakurri eta zuzendu**)                   | 2026-11-04 | ☐      |
-| [fase-3c.md](egiaztapena/fase-3c.md) — galdetegiak eta aurrerapena (**25 galderak egin eta zuzendu**)       | 2026-11-04 | ☐      |
-| [fase-E.md](egiaztapena/fase-E.md) — ariketak (**ariketak egin eta enuntziatuak zuzendu**)                  | 2026-11-04 | ☐      |
-| [fase-4.md](egiaztapena/fase-4.md) — elektropneumatika (**R6 zuk marraztu**; ikurrak eta 3 fitxa berrikusi) | 2026-11-05 | ☐      |
-| [fase-5.md](egiaztapena/fase-5.md) — PLCa eta Ladder (**programa bat zuk idatzi**; 3 fitxa berrikusi)       | 2026-11-05 | ☐      |
-| [fase-6.md](egiaztapena/fase-6.md) — GRAFCET (**GRAFCET bat zuk marraztu**; idazkera eta 3 fitxa berrikusi) | 2026-11-09 | ☐      |
+| Gida                                                                                                                                | Data       | Egoera |
+| ----------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------ |
+| [fase-1a.md](egiaztapena/fase-1a.md) — datu-eredua eta ikurrak                                                                      | 2026-11-04 | ☐      |
+| [fase-1b.md](egiaztapena/fase-1b.md) — SVG editorea                                                                                 | 2026-11-04 | ☐      |
+| [fase-1c.md](egiaztapena/fase-1c.md) — gordetzea eta babeskopia                                                                     | 2026-11-04 | ☐      |
+| [fase-2a.md](egiaztapena/fase-2a.md) — simulazio-motorra (logikoa)                                                                  | 2026-11-04 | ☐      |
+| [fase-2c.md](egiaztapena/fase-2c.md) — simulazioa pantailan                                                                         | 2026-11-04 | ☐      |
+| [fase-2b.md](egiaztapena/fase-2b.md) — rodilloak, R4, R5 (**zuk R5 marraztu**)                                                      | 2026-11-04 | ☐      |
+| [fase-3a.md](egiaztapena/fase-3a.md) — teoria-atala (**5 fitxak irakurri eta zuzendu**)                                             | 2026-11-04 | ☐      |
+| [fase-3b.md](egiaztapena/fase-3b.md) — txantiloiak (**5 azalpenak irakurri eta zuzendu**)                                           | 2026-11-04 | ☐      |
+| [fase-3c.md](egiaztapena/fase-3c.md) — galdetegiak eta aurrerapena (**25 galderak egin eta zuzendu**)                               | 2026-11-04 | ☐      |
+| [fase-E.md](egiaztapena/fase-E.md) — ariketak (**ariketak egin eta enuntziatuak zuzendu**)                                          | 2026-11-04 | ☐      |
+| [fase-4.md](egiaztapena/fase-4.md) — elektropneumatika (**R6 zuk marraztu**; ikurrak eta 3 fitxa berrikusi)                         | 2026-11-05 | ☐      |
+| [fase-5.md](egiaztapena/fase-5.md) — PLCa eta Ladder (**programa bat zuk idatzi**; 3 fitxa berrikusi)                               | 2026-11-05 | ☐      |
+| [fase-6.md](egiaztapena/fase-6.md) — GRAFCET (**GRAFCET bat zuk marraztu**; idazkera eta 3 fitxa berrikusi)                         | 2026-11-09 | ☐      |
+| [fase-7.md](egiaztapena/fase-7.md) — Sortzailea eta galdetegi osoa (**zure zirkuitu bat alderatu**; 13 galdera bihurtuak berrikusi) | 2026-11-09 | ☐      |
 
 `fase-0` gida baieztatuta (2026-11-04).
 
@@ -49,6 +50,7 @@ Egoera: ☐ pendiente · ☑ eginda
 | 19  | Erreleen kommutazio-denbora 0 (SPEC: aukerako 10 ms); sentsoreak muturrean bakarrik aktibo; Creus-ek a0/a1 erabiltzen du, guk 1B1/1B2                                                                              | `src/engine/electric/`, `coupling/mechanical.ts`            | ☐                                              |
 | 20  | PLCa: L+/M eta 1M ez dira marrazten; scan 10 ms; T1/C1 instantziak (TIAko DBen ordez); scan-zikloaren eta S7-1200aren datuak liburuetan ez daude (fabrikatzailearen dokumentazioarekin egiaztatu)                  | `src/components/plc/`, `src/learning/theory/plc/`           | ☐                                              |
 | 21  | GRAFCET: hartzailetasunen idazkera klasekoa den (`*`, `+`, `/`, `^x`, `_x`); bihurtutako Ladder-ak ez du bilaketa egonkorrik                                                                                       | `src/core/grafcet.ts`, `src/engine/plc/grafcet/toLadder.ts` | ☐                                              |
+| 22  | Sortzailea: azken eta lehen taldeak batzea klaseko ohitura den; memorien konexioa kate gisa (nire diseinua, simulazioan probatua, ez liburuko eskema batekin alderatua)                                            | `src/generator/sequence.ts`, `src/generator/cascade.ts`     | ☐                                              |
 
 ## SPEC §14ko informazioa (oraindik jaso gabe)
 

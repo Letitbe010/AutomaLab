@@ -19,6 +19,15 @@ export interface Progress {
   questionTypes: Record<string, { correct: number; total: number }>;
   /** Exercise id -> attempts and first time passed. */
   exercises: Record<string, ExerciseProgress>;
+  /** Random quizzes, over several templates. */
+  randomQuiz: RandomQuizProgress;
+}
+
+export interface RandomQuizProgress {
+  attempts: number;
+  bestScore?: number;
+  lastScore?: number;
+  lastAt?: string;
 }
 
 export interface ExerciseProgress {
@@ -32,6 +41,7 @@ export const emptyProgress = (): Progress => ({
   theoryRead: {},
   questionTypes: {},
   exercises: {},
+  randomQuiz: { attempts: 0 },
 });
 
 /** One check of a design exercise or of a calculation exercise. */
@@ -62,6 +72,29 @@ export function recordTemplateOpened(p: Progress, id: string, now = new Date()):
   };
 }
 
+function tallyTypes(p: Progress, result: QuizResult): Progress['questionTypes'] {
+  const out = { ...p.questionTypes };
+  for (const [type, [correct, total]] of Object.entries(result.byType)) {
+    const t = out[type] ?? { correct: 0, total: 0 };
+    out[type] = { correct: t.correct + correct, total: t.total + total };
+  }
+  return out;
+}
+
+/** A finished random quiz: counts for the question types, not for any template. */
+export function recordRandomQuiz(p: Progress, result: QuizResult, now = new Date()): Progress {
+  return {
+    ...p,
+    questionTypes: tallyTypes(p, result),
+    randomQuiz: {
+      attempts: p.randomQuiz.attempts + 1,
+      bestScore: Math.max(p.randomQuiz.bestScore ?? 0, result.score),
+      lastScore: result.score,
+      lastAt: now.toISOString(),
+    },
+  };
+}
+
 export function recordQuizResult(
   p: Progress,
   id: string,
@@ -69,14 +102,9 @@ export function recordQuizResult(
   now = new Date(),
 ): Progress {
   const prev = tpl(p, id);
-  const questionTypes = { ...p.questionTypes };
-  for (const [type, [correct, total]] of Object.entries(result.byType)) {
-    const t = questionTypes[type] ?? { correct: 0, total: 0 };
-    questionTypes[type] = { correct: t.correct + correct, total: t.total + total };
-  }
   return {
     ...p,
-    questionTypes,
+    questionTypes: tallyTypes(p, result),
     templates: {
       ...p.templates,
       [id]: {
@@ -159,7 +187,18 @@ export function mergeProgress(a: Progress, b: Progress): Progress {
       ...(passedAt ? { passedAt } : {}),
     };
   }
-  return { version: 1, templates, theoryRead, questionTypes, exercises };
+  const [older, newest] =
+    (a.randomQuiz.lastAt ?? '') > (b.randomQuiz.lastAt ?? '')
+      ? [b.randomQuiz, a.randomQuiz]
+      : [a.randomQuiz, b.randomQuiz];
+  const bestRandom = Math.max(older.bestScore ?? -1, newest.bestScore ?? -1);
+  const randomQuiz: RandomQuizProgress = {
+    attempts: Math.max(a.randomQuiz.attempts, b.randomQuiz.attempts),
+    ...opt('bestScore', bestRandom < 0 ? undefined : bestRandom),
+    ...opt('lastScore', newest.lastScore ?? older.lastScore),
+    ...opt('lastAt', newest.lastAt ?? older.lastAt),
+  };
+  return { version: 1, templates, theoryRead, questionTypes, exercises, randomQuiz };
 }
 
 /** Reads progress from unknown data (backup file); invalid parts are dropped. */
@@ -196,5 +235,12 @@ export function progressFromObject(raw: unknown): Progress {
     const passedAt = str(e.passedAt);
     p.exercises[id] = { attempts: num(e.attempts) ?? 0, ...(passedAt ? { passedAt } : {}) };
   }
+  const r = obj(o.randomQuiz);
+  p.randomQuiz = {
+    attempts: num(r.attempts) ?? 0,
+    ...opt('bestScore', num(r.bestScore)),
+    ...opt('lastScore', num(r.lastScore)),
+    ...opt('lastAt', str(r.lastAt)),
+  };
   return p;
 }

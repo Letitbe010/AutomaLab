@@ -216,6 +216,15 @@ export async function openTemplate(id: string): Promise<boolean> {
   return true;
 }
 
+/** Opens a circuit made by the sequence generator as a new project. */
+export async function openGeneratedProject(project: Project): Promise<void> {
+  await flush();
+  const projectId = db.newProjectId();
+  await db.saveProject(projectId, project);
+  show(projectId, project);
+  await refresh();
+}
+
 /** Starts a design exercise in a new project (empty: the user draws the system). */
 export async function startExercise(id: string, fromSolution = false): Promise<boolean> {
   const ex = getExercise(id);

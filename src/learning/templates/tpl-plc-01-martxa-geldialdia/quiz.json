@@ -41,11 +41,10 @@
     },
     {
       "id": "q3",
-      "type": "single",
-      "prompt_md": "**S0** NI kableatuta dago. Atsedenean, zer balio du **I0.0** sarrerak?",
-      "options": ["1 (+24 V jasotzen ditu)", "0"],
+      "type": "identify",
+      "prompt_md": "Klik egin **NI** kableatuta dagoen pultsadorean: bere sarrerak 1 balio du atsedenean.",
       "answer": {
-        "index": 0
+        "componentIds": ["s0"]
       },
       "explanation_md": "NI kontaktua itxita dago atsedenean: sarrerak +24 V jasotzen ditu eta 1 da. Sakatzean 0 bihurtzen da.",
       "theoryRef": "plc-oinarriak"

@@ -5,6 +5,7 @@ import {
   mergeProgress,
   progressFromObject,
   recordQuizResult,
+  recordRandomQuiz,
   recordTemplateOpened,
 } from '../../src/learning/progress';
 import type { QuizResult } from '../../src/learning/quiz/grade';
@@ -72,5 +73,41 @@ describe('progress', () => {
       templates: { x: { attempts: 0 } },
     });
     expect(progressFromObject(null)).toEqual(emptyProgress());
+  });
+});
+
+describe('random quizzes', () => {
+  const result = (score: number) => ({
+    score,
+    correct: Math.round(score * 10),
+    total: 10,
+    wrong: [],
+    byType: { single: [Math.round(score * 10), 10] as [number, number] },
+  });
+
+  it('counts question types but no template', () => {
+    const p = recordRandomQuiz(emptyProgress(), result(0.5), new Date('2026-11-09T10:00:00Z'));
+    expect(p.templates).toEqual({});
+    expect(p.questionTypes.single).toEqual({ correct: 5, total: 10 });
+    expect(p.randomQuiz).toEqual({
+      attempts: 1,
+      bestScore: 0.5,
+      lastScore: 0.5,
+      lastAt: '2026-11-09T10:00:00.000Z',
+    });
+  });
+
+  it('keeps the best score, merges and survives a round trip', () => {
+    const a = recordRandomQuiz(emptyProgress(), result(0.8), new Date('2026-11-09T10:00:00Z'));
+    const b = recordRandomQuiz(a, result(0.4), new Date('2026-11-09T11:00:00Z'));
+    expect(b.randomQuiz.bestScore).toBe(0.8);
+    expect(b.randomQuiz.lastScore).toBe(0.4);
+    expect(progressFromObject(JSON.parse(JSON.stringify(b)))).toEqual(b);
+    expect(mergeProgress(a, b).randomQuiz).toEqual(b.randomQuiz);
+    expect(mergeProgress(b, a).randomQuiz).toEqual(b.randomQuiz);
+  });
+
+  it('reads older progress without the field', () => {
+    expect(progressFromObject({ templates: {} }).randomQuiz).toEqual({ attempts: 0 });
   });
 });

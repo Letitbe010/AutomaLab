@@ -8,6 +8,7 @@
     "editor": "Editorea",
     "templates": "Txantiloiak",
     "exercises": "Ariketak",
+    "generator": "Sortzailea",
     "theory": "Teoria",
     "progress": "Nire aurrerapena"
   },
@@ -505,7 +506,9 @@
       "single": "Aukera bakarra",
       "truefalse": "Egia / gezurra",
       "numeric": "Zenbakizkoa",
-      "predict": "Iragarri"
+      "predict": "Iragarri",
+      "multiple": "Aukera anitza",
+      "identify": "Identifikatu"
     },
     "predictHint": "Erantzun ondoren, simulazioak erakusten du zer gertatzen den benetan.",
     "true": "Egia",
@@ -517,7 +520,36 @@
     "simulated": "Simulazioaren emaitza",
     "check": "Egiaztatu",
     "next": "Hurrengoa",
-    "finish": "Amaitu"
+    "finish": "Amaitu",
+    "multipleHint": "Aukeratu zuzenak diren guztiak: bat edo gehiago.",
+    "identifyHint": "Klik egin zirkuituan, oihalean, osagai batean.",
+    "identifyPicked": "Hautatua: {label}",
+    "identifyNone": "Oraindik ez duzu osagairik hautatu.",
+    "exam": "Azterketa-modua: zuzenketa amaieran bakarrik",
+    "timer": "Denbora",
+    "noTimer": "Mugarik gabe",
+    "minutes": "{n} min",
+    "previous": "Aurrekoa",
+    "finishExam": "Amaitu azterketa",
+    "remaining": "Geratzen da: {time}",
+    "timeUp": "Denbora amaitu da.",
+    "unanswered": "Erantzun gabe: {n}",
+    "correctAnswer": "Erantzun zuzena: {answer}",
+    "fromTemplate": "Txantiloia: {title}",
+    "showCircuit": "Ikusi zirkuitua",
+    "random": {
+      "open": "Ausazko galdetegia",
+      "back": "Ariketetara itzuli",
+      "intro": "Txantiloi desberdinetako galderak nahastuta. «Identifikatu» galderak ez dira sartzen, zirkuitua irekita behar baitute. Emaitza «Nire aurrerapena»-n gordetzen da.",
+      "domain": "Domeinua",
+      "level": "Maila",
+      "tag": "Etiketa",
+      "count": "Galderak",
+      "available": "{n} galdera erabilgarri",
+      "none": "Ez dago galderarik iragazki horiekin.",
+      "start": "Hasi",
+      "again": "Beste galdetegi bat"
+    }
   },
   "progress": {
     "domains": "Domeinuak",
@@ -535,7 +567,10 @@
     "storage": "Aurrerapena nabigatzaile honetan gordetzen da eta «Esportatu dena» babeskopian sartzen da.",
     "export": "Esportatu aurrerapena (JSON)",
     "exercises": "Ariketak",
-    "noExercises": "Oraindik ez duzu ariketarik egin."
+    "noExercises": "Oraindik ez duzu ariketarik egin.",
+    "randomQuiz": "Ausazko galdetegiak",
+    "randomDone": "{n} eginda · onena {best} · azkena {last}",
+    "randomNone": "Oraindik ez duzu ausazko galdetegirik egin."
   },
   "exercises": {
     "intro": "Bi ariketa-mota: diseinu-ariketetan enuntziatu batetik zuk marrazten duzu sistema, eta aplikazioak simulatuz egiaztatzen du (edozein zirkuitu zuzenek gainditzen du); kalkulu-ariketetan zenbakizko emaitzak egiaztatzen dira, tolerantzia batekin.",
@@ -698,6 +733,46 @@
       "empty": "Idatzi adierazpen bat (beti egia: 1).",
       "unexpected": "Sintaxi-errorea {pos}. karakterean.",
       "end": "Adierazpena osatu gabe dago."
+    }
+  },
+  "generator": {
+    "intro": "Idatzi mugimendu-sekuentzia bat (A–F letrak, + edo − ikurrarekin). Aplikazioak espazio-fase diagrama, seinale-gainjartzeak eta kaskada-taldeak kalkulatzen ditu, eta zirkuitua sortzen du.",
+    "sequence": "Sekuentzia",
+    "diagram": "Espazio-fase diagrama",
+    "overlaps": "Seinale-gainjartzeak",
+    "noOverlaps": "Ez dago gainjartzerik: zuzeneko zirkuitu batek balio luke, amaiera-balbula bakoitzak hurrengo mugimendua aginduta.",
+    "overlap": "{step}. urratsa ({move}): {valve} balbulak {other} seinalea du oraindik, {limit} sakatuta baitago.",
+    "groups": "Kaskada-taldeak",
+    "counts": "Memoria-balbulak: {memories} · Amaiera-balbulak: {limits} · Balbula nagusiak: {valves}",
+    "restNote": "Atsedenean {group} taldeak du presioa; abiarazte-botoia talde horren azken amaiera-balbularekin seriean doa.",
+    "wrapNote": "Zikloaren azken mugimendua eta lehena talde berean doaz ({group}): horrela memoria bat aurrezten da. Atsedenean talde horrek du presioa.",
+    "generate": "Sortu zirkuitua",
+    "openCascade": "Ireki kaskada editorean",
+    "openGrafcet": "Ireki PLC + GRAFCET editorean",
+    "generateNote": "Proiektu berri bat sortzen da; irekita duzuna ez da aldatzen. PLCaren bertsioak S1 sakatze bakoitzean ziklo bat egiten du.",
+    "plcLimit": "PLC bertsioak gehienez {max} zilindro onartzen ditu: CPU 1214C-k 10 irteera ditu, eta zilindro bakoitzak 2 behar ditu.",
+    "compare": "Alderatu zure zirkuitua",
+    "compareIntro": "Editorean irekita duzun zirkuitua («{name}») simulatu eta sekuentzia honekin alderatzen da. Zilindroek 1A, 2A… edo A, B… etiketak behar dituzte.",
+    "startWith": "Abiarazi honekin",
+    "runCompare": "Alderatu",
+    "error": {
+      "empty": "Idatzi sekuentzia bat, adibidez A+ B+ B− A−.",
+      "unsupported": "«{token}»: mugimendu aldiberekoak eta tenporizazioak ez daude oraindik erabilgarri.",
+      "badToken": "{step}. urratsa: «{token}» ez da mugimendu bat. Erabili A–F letrak + edo − ikurrarekin.",
+      "tooLong": "Gehienez {max} urrats onartzen dira.",
+      "startsRetracting": "{step}. urratsa: {move} ezin da izan, zilindroak atzean hasten baitira.",
+      "repeated": "{step}. urratsa: {move} bi aldiz jarraian; {opposite} falta da.",
+      "notReturned": "{letter} zilindroa aurrean geratzen da: {opposite} falta da zikloa ixteko."
+    },
+    "result": {
+      "same": "Bat dator: zure zirkuituak {sequence} egiten du.",
+      "invalid": "Zirkuituak {n} errore ditu: konpondu editorean lehenik.",
+      "missingCylinder": "Ez dago {letter} zilindrorik: {label} edo {letter} etiketa behar du.",
+      "noStart": "Aukeratu zikloa abiarazten duen osagaia.",
+      "unstable": "Zirkuitua ez da egonkortzen (oszilazioa).",
+      "different": "{step}. urratsean zure zirkuituak {got} egiten du, {expected} egin beharrean.",
+      "stopped": "Zure zirkuitua {step}. urratsean gelditu da: {expected} falta da.",
+      "events": "Zure zirkuituak egindakoa: {events}"
     }
   }
 }

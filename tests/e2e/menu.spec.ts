@@ -7,6 +7,7 @@ test('app opens with the Basque main menu and navigates between sections', async
     'Editorea',
     'Txantiloiak',
     'Ariketak',
+    'Sortzailea',
     'Teoria',
     'Nire aurrerapena',
   ]);

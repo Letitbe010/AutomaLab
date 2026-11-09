@@ -24,11 +24,10 @@
     },
     {
       "id": "q2",
-      "type": "single",
-      "prompt_md": "Noiz hasten da **T1** denbora neurtzen?",
-      "options": ["1B2 aktibatzen denean (1A aurrean)", "S1 sakatzean", "PLCa piztean"],
+      "type": "identify",
+      "prompt_md": "Klik egin **T1**-en denbora neurtzen hasten duen sentsorean.",
       "answer": {
-        "index": 0
+        "componentIds": ["b12"]
       },
       "explanation_md": "TON-aren IN sarrera I0.2 (1B2) kontaktutik dator.",
       "theoryRef": "plc-tenporizadoreak"

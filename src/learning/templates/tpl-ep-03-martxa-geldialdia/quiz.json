@@ -65,11 +65,10 @@
     },
     {
       "id": "q4",
-      "type": "single",
-      "prompt_md": "Nola deitzen zaio S1-en paraleloan dagoen **K1** kontaktuari?",
-      "options": ["Autoatxikimendua (realimentación)", "Interblokeoa", "Tenporizazioa"],
+      "type": "identify",
+      "prompt_md": "Klik egin **autoatxikimendua** egiten duen kontaktuan (S1-en paraleloan dagoena).",
       "answer": {
-        "index": 0
+        "componentIds": ["k1a"]
       },
       "explanation_md": "Errelearen kontaktu NA bat martxa-pultsadorearen paraleloan: errelea bere buruari eusten dio.",
       "theoryRef": "ep-autoatxikimendua"

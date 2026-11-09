@@ -7,6 +7,7 @@ import {
   progressFromObject,
   recordExerciseAttempt,
   recordQuizResult,
+  recordRandomQuiz,
   recordTemplateOpened,
   type Progress,
 } from '../learning/progress';
@@ -38,6 +39,7 @@ function update(fn: (p: Progress) => Progress): Promise<void> {
 export const noteTemplateOpened = (id: string) => update((p) => recordTemplateOpened(p, id));
 export const noteQuizResult = (id: string, r: QuizResult) =>
   update((p) => recordQuizResult(p, id, r));
+export const noteRandomQuiz = (r: QuizResult) => update((p) => recordRandomQuiz(p, r));
 export const noteExerciseAttempt = (id: string, passed: boolean) =>
   update((p) => recordExerciseAttempt(p, id, passed));
 export const noteTheoryRead = (id: string) => update((p) => markTheoryRead(p, id));
