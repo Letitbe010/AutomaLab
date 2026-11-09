@@ -28,6 +28,8 @@ test('GRAFCET template: active steps in simulation and conversion to Ladder', as
   await page.getByRole('button', { name: 'Simulatu', exact: true }).click();
   const canvas = page.getByTestId('canvas');
   await holdClick(page, canvas.locator('[data-component-id="s1"]'));
+  // Step 2 lasts about 1 s: pause so that a slow machine still sees it.
+  await page.getByRole('button', { name: 'Pausatu' }).click();
   await tab(page, 'GRAFCET');
   await expect(view.locator('[data-step-id="x2"][data-active="true"]')).toBeVisible();
   await expect(view.getByTestId('scan-info')).toContainText('Scan-ak:');
