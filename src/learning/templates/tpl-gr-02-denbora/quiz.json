@@ -1,0 +1,74 @@
+{
+  "templateId": "tpl-gr-02",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "**S1**-en bulkada batekin, zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["pulse", "S1"]],
+      "options": ["1A atera, 3 s itxaron eta itzultzen da", "1A atera eta aurrean geratzen da"],
+      "optionEvents": [["1A+", "1A-"], ["1A+"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "3. urratsa aktibo dagoenetik 3 s igarotzean, t/X3/3s egia da eta 4. urratsa aktibatzen da.",
+      "theoryRef": "gr-dibergentziak"
+    },
+    {
+      "id": "q2",
+      "type": "single",
+      "prompt_md": "Zer esan nahi du **t/X3/3s** hartzailetasunak?",
+      "options": [
+        "Egia da X3 urratsa aktibatu zenetik 3 s igaro direnean",
+        "X3 urratsak 3 aldiz aktibatu behar du",
+        "X3 urratsa 3 s-ko pultsu bat da"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Denbora-hartzailetasuna: urratsaren aktibaziotik neurtzen da, eta urratsa uzten denean berrabiarazten da.",
+      "theoryRef": "gr-dibergentziak"
+    },
+    {
+      "id": "q3",
+      "type": "numeric",
+      "prompt_md": "Zenbat segundo igarotzen dira **1A+** eta **1A−** gertaeren artean? (Itzulera: 1 s.)",
+      "answer": {
+        "value": 4,
+        "unit": "s",
+        "tolerancePct": 5
+      },
+      "explanation_md": "3 s itxaron + 1 s itzulera = 4 s.",
+      "theoryRef": "gr-dibergentziak"
+    },
+    {
+      "id": "q4",
+      "type": "truefalse",
+      "prompt_md": "GRAFCET honek PLCaren TON tenporizadore bat erabiltzea eskatzen du.",
+      "answer": {
+        "value": false
+      },
+      "explanation_md": "Ez: GRAFCETak denbora bere hartzailetasunean du. Ladder-era bihurtzean, TON bat sortzen da.",
+      "theoryRef": "gr-ladder"
+    },
+    {
+      "id": "q5",
+      "type": "single",
+      "prompt_md": "3. urratsak ez du ekintzarik. Zein da bere zeregina?",
+      "options": [
+        "Itxarotea: ez da ezer aktibatzen denbora igaro arte",
+        "Akats bat da: urrats guztiek ekintza bat behar dute",
+        "Zilindroa itzultzea"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Ekintzarik gabeko urratsak baliozkoak dira: itxaron-egoerak dira.",
+      "theoryRef": "gr-oinarriak"
+    }
+  ]
+}

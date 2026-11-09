@@ -7,7 +7,7 @@ test('theory section: search, open a sheet with formulas, symbols and links', as
     .getByRole('button', { name: 'Teoria' })
     .click();
   const list = page.getByRole('navigation', { name: 'Teoria-fitxak' });
-  await expect(list.getByRole('listitem')).toHaveCount(11);
+  await expect(list.getByRole('listitem')).toHaveCount(14);
 
   await page.getByRole('searchbox', { name: 'Bilatu teorian…' }).fill('indarra');
   await list.getByRole('button', { name: /Zilindroaren indarra/ }).click();

@@ -1,0 +1,79 @@
+{
+  "id": "ex-gr-03",
+  "title": "Bi zilindro batera (AND dibergentzia)",
+  "domain": "plc",
+  "level": 2,
+  "tags": ["GRAFCET", "AND", "dibergentzia"],
+  "theoryRefs": ["gr-dibergentziak"],
+  "status": "draft",
+  "hints_md": [
+    "Lehen trantsizioa hautatu eta sakatu «AND adarra».",
+    "Adar bakoitzaren amaieran, itxaron-urrats bat.",
+    "Konbergentziarako: «Gehitu aurreko urratsa»."
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "el.plus",
+    "el.minus",
+    "plc.cpu1214c",
+    "el.button.no",
+    "el.button.nc",
+    "el.reed",
+    "el.limit.no",
+    "el.solenoid",
+    "el.lamp",
+    "pn.valve.5-2.sol",
+    "pn.valve.5-2.sol-spring",
+    "pn.cyl.double",
+    "pn.source"
+  ],
+  "checks": [
+    {
+      "title": "S1-en bulkada batekin, 1A batera ateratzen da",
+      "type": "duration",
+      "stimuli": [["pulse", "S1"]],
+      "from": "start",
+      "to": "1A+",
+      "maxMs": 1400,
+      "withinMs": 8000
+    },
+    {
+      "title": "S1-en bulkada batekin, 2A batera ateratzen da",
+      "type": "duration",
+      "stimuli": [["pulse", "S1"]],
+      "from": "start",
+      "to": "2A+",
+      "maxMs": 1400,
+      "withinMs": 8000
+    },
+    {
+      "title": "Biak aurrean daudenean, 1A itzultzen da",
+      "type": "duration",
+      "stimuli": [["pulse", "S1"]],
+      "from": "1A+",
+      "to": "1A-",
+      "maxMs": 1400,
+      "withinMs": 8000
+    },
+    {
+      "title": "Biak aurrean daudenean, 2A itzultzen da",
+      "type": "duration",
+      "stimuli": [["pulse", "S1"]],
+      "from": "2A+",
+      "to": "2A-",
+      "maxMs": 1400,
+      "withinMs": 8000
+    },
+    {
+      "title": "Ezer sakatu gabe, ez da mugitzen",
+      "type": "never",
+      "stimuli": [["wait", 100]],
+      "events": ["1A+", "2A+"]
+    },
+    {
+      "title": "PLCak GRAFCETa exekutatzen du",
+      "type": "plcLanguage",
+      "language": "grafcet"
+    }
+  ]
+}

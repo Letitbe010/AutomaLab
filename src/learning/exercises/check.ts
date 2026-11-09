@@ -23,7 +23,8 @@ export type Reason =
   | { code: 'tooFast'; ms: number; minMs: number }
   | { code: 'tooSlow'; ms: number; maxMs: number }
   | { code: 'missingType'; types: string[] }
-  | { code: 'unstable' };
+  | { code: 'unstable' }
+  | { code: 'wrongLanguage'; language: 'ladder' | 'grafcet' };
 
 export interface CheckResult {
   title: string;
@@ -46,7 +47,7 @@ function labelsOf(project: Project): Set<string> {
 
 /** Labels a check needs: stimulus targets and the cylinders named in events. */
 function neededLabels(check: Check): string[] {
-  if (check.type === 'uses') return [];
+  if (check.type === 'uses' || check.type === 'plcLanguage') return [];
   const out = check.stimuli.filter((s) => s[0] !== 'wait').map((s) => s[1] as string);
   const events =
     check.type === 'sequence'
@@ -87,6 +88,12 @@ export function runCheck(project: Project, check: Check): CheckResult {
     return ok
       ? { ...base, ok }
       : { ...base, ok, reason: { code: 'missingType', types: check.componentTypes } };
+  }
+  if (check.type === 'plcLanguage') {
+    const ok = (project.plc.language ?? 'ladder') === check.language;
+    return ok
+      ? { ...base, ok }
+      : { ...base, ok, reason: { code: 'wrongLanguage', language: check.language } };
   }
   const labels = labelsOf(project);
   const missing = neededLabels(check).find((l) => !labels.has(l));

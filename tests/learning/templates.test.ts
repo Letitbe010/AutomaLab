@@ -33,6 +33,11 @@ describe('template catalog', () => {
       'tpl-ep-03',
       'tpl-ep-04',
       'tpl-ep-05',
+      'tpl-gr-01',
+      'tpl-gr-02',
+      'tpl-gr-03',
+      'tpl-gr-04',
+      'tpl-gr-05',
       'tpl-plc-01',
       'tpl-plc-02',
       'tpl-plc-03',
@@ -110,7 +115,7 @@ describe('template catalog', () => {
   });
 
   it('filters by domain, level and tag', () => {
-    expect(filterTemplates(TEMPLATES, {}).length).toBe(14);
+    expect(filterTemplates(TEMPLATES, {}).length).toBe(19);
     expect(filterTemplates(TEMPLATES, { domain: 'electric' }).length).toBe(5);
     expect(filterTemplates(TEMPLATES, { domain: 'hydraulic' })).toEqual([]);
     expect(filterTemplates(TEMPLATES, { level: 1 }).every((t) => t.level === 1)).toBe(true);

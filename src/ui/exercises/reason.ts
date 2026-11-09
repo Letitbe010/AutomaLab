@@ -32,6 +32,8 @@ export function reasonText(r: Reason): string {
       return t('exercises.reason.tooSlow', { s: sec(r.ms), max: sec(r.maxMs) });
     case 'missingType':
       return t('exercises.reason.missingType', { types: r.types.map(typeName).join(' / ') });
+    case 'wrongLanguage':
+      return t('exercises.reason.wrongLanguage', { language: t(`grafcet.lang.${r.language}`) });
     case 'unstable':
       return t('exercises.reason.unstable');
   }

@@ -3,6 +3,7 @@
  * Coordinates are in canvas pixels; component-local port positions are in grid units.
  */
 
+import type { Grafcet } from './grafcet';
 import type { IoEntry, Rung } from './plc';
 
 export const CURRENT_SCHEMA_VERSION = 1;
@@ -55,11 +56,13 @@ export interface TagDef {
   kind: TagKind;
 }
 
-/** PLC program (SPEC §5.4): I/O table and Ladder (phase 5); GRAFCET in phase 6. */
+/** PLC program (SPEC §5.4): I/O table, Ladder and GRAFCET; only one of them runs. */
 export interface PlcData {
   io: IoEntry[];
   ladder: Rung[];
-  grafcet: unknown;
+  grafcet: Grafcet | null;
+  /** Program the PLC runs (absent = Ladder). */
+  language?: 'ladder' | 'grafcet';
 }
 
 export interface Project {

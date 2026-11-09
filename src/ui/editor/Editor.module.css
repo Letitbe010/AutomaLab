@@ -12,6 +12,11 @@
   overflow: hidden;
 }
 
+/* The template / exercise panel overlays the right side: leave it room. */
+.fullViewBeside {
+  margin-right: min(400px, 100%);
+}
+
 .loading {
   margin: 0;
   padding: 40px;

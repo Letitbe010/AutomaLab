@@ -426,3 +426,197 @@
   border-bottom-color: var(--accent);
   color: var(--accent);
 }
+
+/* GRAFCET */
+.seg {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.seg button {
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.seg button[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn[aria-pressed='true'] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.banner {
+  margin: 0;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--line);
+  background: rgb(216 146 10 / 0.1);
+  color: var(--ink);
+  font-size: 12.5px;
+}
+
+.grafcetArea {
+  position: relative;
+  overflow: auto;
+  background: var(--panel);
+}
+
+.grafcetSvg {
+  display: block;
+  touch-action: none;
+}
+
+.grafcetEmpty {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  margin: 0;
+  color: var(--ink-dim);
+  font-size: 13px;
+}
+
+.grafcetLinks polyline,
+.grafcetLinks line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.grafcetArrow {
+  fill: var(--ink);
+  stroke: none;
+}
+
+.gStep {
+  cursor: pointer;
+}
+
+.gStep rect {
+  fill: #fff;
+  stroke: var(--ink);
+  stroke-width: 1.6;
+}
+
+.gStep line {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.gStep rect.gInner {
+  fill: none;
+  stroke-width: 1.2;
+}
+
+.gStep rect.gActive {
+  fill: rgb(47 158 91 / 0.12);
+  stroke: var(--c-green, #2f9e5b);
+  stroke-width: 2.4;
+}
+
+.gStep rect.gAction {
+  fill: #fff;
+}
+
+.gNumber {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--ink);
+}
+
+.gToken {
+  fill: var(--c-green, #2f9e5b);
+}
+
+.gActionText,
+.gReceptivity,
+.gComment {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  fill: var(--ink);
+}
+
+.gComment {
+  fill: var(--ink-dim);
+}
+
+.gTransition {
+  cursor: pointer;
+}
+
+.gHit {
+  fill: transparent;
+}
+
+.gBar {
+  stroke: var(--ink);
+  stroke-width: 3;
+}
+
+.gEnabled .gBar {
+  stroke: var(--c-amber, #d8920a);
+  stroke-width: 4;
+}
+
+.gSelected rect:first-of-type,
+.gSelected .gHit {
+  stroke: var(--accent);
+  stroke-width: 2.4;
+}
+
+.gSelected .gHit {
+  stroke-dasharray: 4 3;
+}
+
+.checkField {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.actionRow select,
+.actionRow input {
+  min-width: 0;
+  padding: 4px 6px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.actionRow input {
+  flex: 1;
+}
+
+.exprError {
+  display: block;
+  margin: 2px 0 8px;
+  color: var(--c-red, #c8413c);
+  font-size: 12px;
+}
+
+.inspectorBody h3 + .field {
+  margin-top: 0;
+}

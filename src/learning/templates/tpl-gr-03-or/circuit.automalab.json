@@ -1,0 +1,509 @@
+{
+  "schemaVersion": 1,
+  "name": "OR dibergentzia: ziklo bat edo bi",
+  "simulation": {
+    "level": "logic",
+    "dtMs": 1,
+    "supplyPressureBar": 6
+  },
+  "components": [
+    {
+      "id": "c1",
+      "type": "pn.cyl.double",
+      "x": 60,
+      "y": 40,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1A"
+      }
+    },
+    {
+      "id": "v1",
+      "type": "pn.valve.5-2.sol",
+      "x": 90,
+      "y": 170,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1V1",
+        "coilLeft": "Y1",
+        "coilRight": "Y2"
+      }
+    },
+    {
+      "id": "z1",
+      "type": "pn.source",
+      "x": 110,
+      "y": 300,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "0Z1"
+      }
+    },
+    {
+      "id": "plc",
+      "type": "plc.cpu1214c",
+      "x": 420,
+      "y": 100,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "PLC1",
+        "scanMs": 10
+      }
+    },
+    {
+      "id": "p0",
+      "type": "el.plus",
+      "x": 440,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "s1",
+      "type": "el.button.no",
+      "x": 440,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "S1"
+      }
+    },
+    {
+      "id": "p1",
+      "type": "el.plus",
+      "x": 500,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "s2",
+      "type": "el.button.no",
+      "x": 500,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "S2"
+      }
+    },
+    {
+      "id": "p2",
+      "type": "el.plus",
+      "x": 560,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "b11",
+      "type": "el.reed",
+      "x": 560,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1B1",
+        "cylinder": "1A",
+        "at": "-"
+      }
+    },
+    {
+      "id": "p3",
+      "type": "el.plus",
+      "x": 620,
+      "y": 0,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "b12",
+      "type": "el.reed",
+      "x": 620,
+      "y": 30,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "1B2",
+        "cylinder": "1A",
+        "at": "+"
+      }
+    },
+    {
+      "id": "y1",
+      "type": "el.solenoid",
+      "x": 440,
+      "y": 190,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "Y1"
+      }
+    },
+    {
+      "id": "m0",
+      "type": "el.minus",
+      "x": 440,
+      "y": 260,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    },
+    {
+      "id": "y2",
+      "type": "el.solenoid",
+      "x": 500,
+      "y": 190,
+      "rot": 0,
+      "mirror": false,
+      "params": {
+        "label": "Y2"
+      }
+    },
+    {
+      "id": "m1",
+      "type": "el.minus",
+      "x": 500,
+      "y": 260,
+      "rot": 0,
+      "mirror": false,
+      "params": {}
+    }
+  ],
+  "connections": [
+    {
+      "id": "w1",
+      "kind": "fluid",
+      "from": ["c1", "A"],
+      "to": ["v1", "4"],
+      "points": []
+    },
+    {
+      "id": "w2",
+      "kind": "fluid",
+      "from": ["c1", "B"],
+      "to": ["v1", "2"],
+      "points": []
+    },
+    {
+      "id": "w3",
+      "kind": "fluid",
+      "from": ["z1", "1"],
+      "to": ["v1", "1"],
+      "points": []
+    },
+    {
+      "id": "w4",
+      "kind": "electric",
+      "from": ["p0", "p"],
+      "to": ["s1", "13"],
+      "points": []
+    },
+    {
+      "id": "w5",
+      "kind": "electric",
+      "from": ["s1", "14"],
+      "to": ["plc", "I0.0"],
+      "points": []
+    },
+    {
+      "id": "w6",
+      "kind": "electric",
+      "from": ["p1", "p"],
+      "to": ["s2", "13"],
+      "points": []
+    },
+    {
+      "id": "w7",
+      "kind": "electric",
+      "from": ["s2", "14"],
+      "to": ["plc", "I0.1"],
+      "points": []
+    },
+    {
+      "id": "w8",
+      "kind": "electric",
+      "from": ["p2", "p"],
+      "to": ["b11", "13"],
+      "points": []
+    },
+    {
+      "id": "w9",
+      "kind": "electric",
+      "from": ["b11", "14"],
+      "to": ["plc", "I0.2"],
+      "points": []
+    },
+    {
+      "id": "w10",
+      "kind": "electric",
+      "from": ["p3", "p"],
+      "to": ["b12", "13"],
+      "points": []
+    },
+    {
+      "id": "w11",
+      "kind": "electric",
+      "from": ["b12", "14"],
+      "to": ["plc", "I0.3"],
+      "points": []
+    },
+    {
+      "id": "w12",
+      "kind": "electric",
+      "from": ["plc", "Q0.0"],
+      "to": ["y1", "A1"],
+      "points": []
+    },
+    {
+      "id": "w13",
+      "kind": "electric",
+      "from": ["y1", "A2"],
+      "to": ["m0", "p"],
+      "points": []
+    },
+    {
+      "id": "w14",
+      "kind": "electric",
+      "from": ["plc", "Q0.1"],
+      "to": ["y2", "A1"],
+      "points": []
+    },
+    {
+      "id": "w15",
+      "kind": "electric",
+      "from": ["y2", "A2"],
+      "to": ["m1", "p"],
+      "points": []
+    }
+  ],
+  "tags": {},
+  "plc": {
+    "io": [
+      {
+        "address": "I0.0",
+        "symbol": "Bat",
+        "comment": "S1: ziklo bat"
+      },
+      {
+        "address": "I0.1",
+        "symbol": "Bi",
+        "comment": "S2: bi ziklo"
+      },
+      {
+        "address": "I0.2",
+        "symbol": "A_atzean",
+        "comment": "1B1"
+      },
+      {
+        "address": "I0.3",
+        "symbol": "A_aurrean",
+        "comment": "1B2"
+      },
+      {
+        "address": "Q0.0",
+        "symbol": "A_atera",
+        "comment": "Y1"
+      },
+      {
+        "address": "Q0.1",
+        "symbol": "A_itzuli",
+        "comment": "Y2"
+      }
+    ],
+    "ladder": [],
+    "language": "grafcet",
+    "grafcet": {
+      "steps": [
+        {
+          "id": "x1",
+          "number": 1,
+          "initial": true,
+          "x": 300,
+          "y": 60,
+          "comment": "Zain",
+          "actions": []
+        },
+        {
+          "id": "x2",
+          "number": 2,
+          "initial": false,
+          "x": 160,
+          "y": 240,
+          "comment": "",
+          "actions": [
+            {
+              "id": "a1",
+              "kind": "N",
+              "operand": "A_atera",
+              "condition": ""
+            }
+          ]
+        },
+        {
+          "id": "x3",
+          "number": 3,
+          "initial": false,
+          "x": 160,
+          "y": 420,
+          "comment": "",
+          "actions": [
+            {
+              "id": "a2",
+              "kind": "N",
+              "operand": "A_itzuli",
+              "condition": ""
+            }
+          ]
+        },
+        {
+          "id": "x4",
+          "number": 4,
+          "initial": false,
+          "x": 440,
+          "y": 240,
+          "comment": "",
+          "actions": [
+            {
+              "id": "a3",
+              "kind": "N",
+              "operand": "A_atera",
+              "condition": ""
+            }
+          ]
+        },
+        {
+          "id": "x5",
+          "number": 5,
+          "initial": false,
+          "x": 440,
+          "y": 420,
+          "comment": "",
+          "actions": [
+            {
+              "id": "a4",
+              "kind": "N",
+              "operand": "A_itzuli",
+              "condition": ""
+            }
+          ]
+        },
+        {
+          "id": "x6",
+          "number": 6,
+          "initial": false,
+          "x": 440,
+          "y": 600,
+          "comment": "",
+          "actions": [
+            {
+              "id": "a5",
+              "kind": "N",
+              "operand": "A_atera",
+              "condition": ""
+            }
+          ]
+        },
+        {
+          "id": "x7",
+          "number": 7,
+          "initial": false,
+          "x": 440,
+          "y": 780,
+          "comment": "",
+          "actions": [
+            {
+              "id": "a6",
+              "kind": "N",
+              "operand": "A_itzuli",
+              "condition": ""
+            }
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "id": "t1",
+          "receptivity": "Bat * A_atzean",
+          "x": 160,
+          "y": 150,
+          "comment": "",
+          "from": ["x1"],
+          "to": ["x2"]
+        },
+        {
+          "id": "t2",
+          "receptivity": "Bi * /Bat * A_atzean",
+          "x": 440,
+          "y": 150,
+          "comment": "",
+          "from": ["x1"],
+          "to": ["x4"]
+        },
+        {
+          "id": "t3",
+          "receptivity": "A_aurrean",
+          "x": 160,
+          "y": 330,
+          "comment": "",
+          "from": ["x2"],
+          "to": ["x3"]
+        },
+        {
+          "id": "t4",
+          "receptivity": "A_atzean",
+          "x": 160,
+          "y": 510,
+          "comment": "",
+          "from": ["x3"],
+          "to": ["x1"]
+        },
+        {
+          "id": "t5",
+          "receptivity": "A_aurrean",
+          "x": 440,
+          "y": 330,
+          "comment": "",
+          "from": ["x4"],
+          "to": ["x5"]
+        },
+        {
+          "id": "t6",
+          "receptivity": "A_atzean",
+          "x": 440,
+          "y": 510,
+          "comment": "",
+          "from": ["x5"],
+          "to": ["x6"]
+        },
+        {
+          "id": "t7",
+          "receptivity": "A_aurrean",
+          "x": 440,
+          "y": 690,
+          "comment": "",
+          "from": ["x6"],
+          "to": ["x7"]
+        },
+        {
+          "id": "t8",
+          "receptivity": "A_atzean",
+          "x": 440,
+          "y": 870,
+          "comment": "",
+          "from": ["x7"],
+          "to": ["x1"]
+        }
+      ]
+    }
+  }
+}

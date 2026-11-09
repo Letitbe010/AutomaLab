@@ -23,6 +23,9 @@ const ExercisePanel = lazy(() =>
   import('../exercises/ExercisePanel').then((m) => ({ default: m.ExercisePanel })),
 );
 const LadderView = lazy(() => import('../plc/LadderView').then((m) => ({ default: m.LadderView })));
+const GrafcetView = lazy(() =>
+  import('../plc/GrafcetView').then((m) => ({ default: m.GrafcetView })),
+);
 const IoTable = lazy(() => import('../plc/IoTable').then((m) => ({ default: m.IoTable })));
 const TemplatePanel = lazy(() =>
   import('../templates/TemplatePanel').then((m) => ({ default: m.TemplatePanel })),
@@ -58,7 +61,7 @@ function EditorView() {
     <div className={styles.editor} data-mode={mode}>
       <Toolbar />
       <div className={plcStyles.tabs} role="tablist" aria-label={t('editor.tabs.label')}>
-        {(['schematic', 'ladder', 'io'] as EditorTab[]).map((k) => (
+        {(['schematic', 'grafcet', 'ladder', 'io'] as EditorTab[]).map((k) => (
           <button
             key={k}
             type="button"
@@ -86,9 +89,17 @@ function EditorView() {
             <PropertiesPanel />
           </>
         ) : (
-          <div className={styles.fullView}>
+          <div
+            className={`${styles.fullView} ${templateOpen && (hasTemplate || hasExercise) ? styles.fullViewBeside : ''}`}
+          >
             <Suspense fallback={<p className={styles.loading}>{t('storage.status.loading')}</p>}>
-              {tab === 'ladder' ? <LadderView /> : <IoTable />}
+              {tab === 'ladder' ? (
+                <LadderView />
+              ) : tab === 'grafcet' ? (
+                <GrafcetView />
+              ) : (
+                <IoTable />
+              )}
             </Suspense>
           </div>
         )}

@@ -1,4 +1,5 @@
 import type { DefLookup, PortDef } from './componentDef';
+import { exprNames, exprTimeSteps, parseExpression, resolveName } from './grafcet';
 import { isValidAddress, parseOperand, walkElements } from './plc';
 import type { ComponentInstance, Project } from './types';
 
@@ -18,7 +19,14 @@ export type IssueCode =
   | 'limitUnknownCylinder'
   | 'ladderOperand'
   | 'ladderCoilTarget'
-  | 'ladderNoPlc';
+  | 'ladderNoPlc'
+  | 'grafcetNoInitial'
+  | 'grafcetDuplicateStep'
+  | 'grafcetOpenTransition'
+  | 'grafcetExpression'
+  | 'grafcetName'
+  | 'grafcetAction'
+  | 'grafcetMixedAction';
 
 export interface Issue {
   severity: Severity;
@@ -44,6 +52,13 @@ const SEVERITY: Record<IssueCode, Severity> = {
   ladderOperand: 'warning',
   ladderCoilTarget: 'warning',
   ladderNoPlc: 'warning',
+  grafcetNoInitial: 'warning',
+  grafcetDuplicateStep: 'warning',
+  grafcetOpenTransition: 'warning',
+  grafcetExpression: 'warning',
+  grafcetName: 'warning',
+  grafcetAction: 'warning',
+  grafcetMixedAction: 'warning',
 };
 
 function issue(
@@ -174,7 +189,70 @@ export function validateProject(project: Project, getDef: DefLookup): Issue[] {
   }
 
   issues.push(...validateLadder(project, getDef));
+  issues.push(...validateGrafcet(project, getDef));
   return issues;
+}
+
+/** GRAFCET checks (SPEC §6.6). Only when it is the running program or has content. */
+function validateGrafcet(project: Project, getDef: DefLookup): Issue[] {
+  const out: Issue[] = [];
+  const g = project.plc.grafcet;
+  if (!g || (g.steps.length === 0 && g.transitions.length === 0)) return out;
+  const io = project.plc.io;
+  if (
+    project.plc.language === 'grafcet' &&
+    !project.components.some((c) => getDef(c.type)?.domain === 'plc')
+  ) {
+    out.push(issue('ladderNoPlc', {}));
+  }
+  if (!g.steps.some((s) => s.initial)) out.push(issue('grafcetNoInitial', {}));
+  const numbers = new Set<number>();
+  const known = new Set<number>();
+  for (const s of g.steps) {
+    known.add(s.number);
+    if (numbers.has(s.number)) out.push(issue('grafcetDuplicateStep', { step: String(s.number) }));
+    numbers.add(s.number);
+  }
+  const checkExpr = (text: string, where: string) => {
+    const r = parseExpression(text);
+    if (!r.ok) {
+      out.push(issue('grafcetExpression', { where, text: text || '—' }));
+      return;
+    }
+    for (const name of exprNames(r.expr)) {
+      const res = resolveName(name, io);
+      if (!res || (res.kind === 'step' && !known.has(res.number))) {
+        out.push(issue('grafcetName', { where, name }));
+      }
+    }
+    for (const n of exprTimeSteps(r.expr)) {
+      if (!known.has(n)) out.push(issue('grafcetName', { where, name: `X${n}` }));
+    }
+  };
+  const continuous = new Set<string>();
+  const stored = new Set<string>();
+  for (const s of g.steps) {
+    const where = `X${s.number}`;
+    for (const a of s.actions) {
+      const r = resolveName(a.operand, io);
+      if (r?.kind !== 'bit' || r.key.startsWith('I')) {
+        out.push(issue('grafcetAction', { where, operand: a.operand || '—' }));
+        continue;
+      }
+      (a.kind === 'S' || a.kind === 'R' ? stored : continuous).add(r.key);
+      if (a.kind === 'C') checkExpr(a.condition, where);
+    }
+  }
+  for (const key of continuous) {
+    if (stored.has(key)) out.push(issue('grafcetMixedAction', { operand: key }));
+  }
+  g.transitions.forEach((t, i) => {
+    const where = `T${i + 1}`;
+    if (t.from.length === 0 || t.to.length === 0)
+      out.push(issue('grafcetOpenTransition', { where }));
+    checkExpr(t.receptivity, where);
+  });
+  return out;
 }
 
 /** Ladder program checks (SPEC §6.5): operands that do not exist, coils on inputs. */

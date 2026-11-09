@@ -17,6 +17,7 @@ import {
   type ElectricLoad,
 } from './electric/solver';
 import { pneumaticBehavior } from './fluid/logic/behaviors';
+import { GrafcetRuntime } from './plc/grafcet/runtime';
 import { LadderRuntime } from './plc/ladder/runtime';
 import {
   Nets,
@@ -109,6 +110,8 @@ export class Simulation {
   /** PLC (SPEC §6.5): the first PLC block runs the project's Ladder program. */
   private plc: ElecComponent | null = null;
   readonly ladder: LadderRuntime | null = null;
+  readonly grafcet: GrafcetRuntime | null = null;
+  private plcUnstable = false;
   private readonly scanMs: number = 10;
   private nextScanMs = 0;
   private plcInputs = new Set<string>();
@@ -178,7 +181,11 @@ export class Simulation {
         (this.byId.has(b.valveId) || this.elecById.has(b.valveId)) && this.byId.has(b.cylinderId),
     );
     if (this.plc) {
-      this.ladder = new LadderRuntime(project.plc.ladder);
+      if (project.plc.language === 'grafcet' && project.plc.grafcet) {
+        this.grafcet = new GrafcetRuntime(project.plc.grafcet, project.plc.io);
+      } else {
+        this.ladder = new LadderRuntime(project.plc.ladder);
+      }
       const scan = Number(this.plc.params.scanMs);
       this.scanMs = Number.isFinite(scan) && scan >= 1 ? scan : 10;
     }
@@ -186,7 +193,7 @@ export class Simulation {
     this.applyCoupling(new Map());
     this.solve();
     // First PLC scan at t = 0, with the inputs as they are at power-up.
-    if (this.ladder) {
+    if (this.program) {
       this.plcScan();
       this.solve();
     }
@@ -277,8 +284,8 @@ export class Simulation {
       }
       if (e.role.kind === 'load') loads.push({ id: e.instance.id, a: net(e, 0), b: net(e, 1) });
     }
-    if (this.plc && this.ladder) {
-      const outputs = this.ladder.outputs();
+    if (this.plc && this.program) {
+      const outputs = this.program.outputs();
       for (const q of outputs) {
         if (this.plc.ports.includes(q))
           plusNets.push(this.nets.find(portKey(this.plc.instance.id, q)));
@@ -369,16 +376,26 @@ export class Simulation {
     this.shortActive = short;
   }
 
+  /** The program the PLC runs: Ladder or GRAFCET (only one at a time). */
+  private get program(): LadderRuntime | GrafcetRuntime | null {
+    return this.ladder ?? this.grafcet;
+  }
+
   /** One PLC scan with the current input terminals (SPEC §6.5). */
   private plcScan(): void {
-    this.ladder!.scan(this.plcInputs, this.ladder!.scans === 0 ? 0 : this.scanMs);
+    const program = this.program!;
+    program.scan(this.plcInputs, program.scans === 0 ? 0 : this.scanMs);
+    const unstable = this.grafcet?.unstable === true;
+    if (unstable && !this.plcUnstable)
+      this.warnings.push({ code: 'oscillation', timeMs: this.timeMs });
+    this.plcUnstable = unstable;
     this.nextScanMs = this.timeMs + this.scanMs;
   }
 
   /** PLC state for display: input and output addresses that are on. */
   plcState(): { inputs: string[]; outputs: string[] } | null {
-    if (!this.ladder) return null;
-    return { inputs: [...this.plcInputs].sort(), outputs: [...this.ladder.outputs()].sort() };
+    if (!this.program) return null;
+    return { inputs: [...this.plcInputs].sort(), outputs: [...this.program.outputs()].sort() };
   }
 
   /** Reports each onset of simultaneous opposite signals on a valve (SPEC §7.3). */
@@ -428,7 +445,7 @@ export class Simulation {
       }
     }
     this.timeMs += this.dtMs;
-    if (this.ladder && this.timeMs >= this.nextScanMs - 1e-9) this.plcScan();
+    if (this.program && this.timeMs >= this.nextScanMs - 1e-9) this.plcScan();
     this.applyCoupling(previous);
     // Re-solve so states reflect the new positions, rollers and timers at this instant.
     this.solve();

@@ -1,0 +1,11 @@
+{
+  "id": "tpl-gr-02",
+  "title": "Denbora-hartzailetasuna GRAFCETen",
+  "summary": "Zilindroa 3 s geratzen da aurrean: t/X3/3s trantsizioak ordezkatzen du tenporizadorea.",
+  "domain": "plc",
+  "level": 2,
+  "tags": ["GRAFCET", "denbora", "hartzailetasuna"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["gr-dibergentziak"],
+  "status": "draft"
+}

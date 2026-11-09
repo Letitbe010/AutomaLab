@@ -90,6 +90,27 @@ const WRONG: Record<string, () => Project> = {
   },
   // Same sequence with relays: correct behaviour but no PLC.
   'ex-plc-03': () => clone(getTemplate('tpl-ep-05')!.circuit),
+  // The return transition can never fire.
+  'ex-gr-01': () => {
+    const p = clone(design('ex-gr-01').solution);
+    p.plc.grafcet!.transitions[1]!.receptivity = '0';
+    return p;
+  },
+  // Waits 0.2 s instead of 2 s.
+  'ex-gr-02': () => {
+    const p = clone(design('ex-gr-02').solution);
+    for (const t of p.plc.grafcet!.transitions) {
+      t.receptivity = t.receptivity.replace('/2s', '/0,2s');
+    }
+    return p;
+  },
+  // No AND divergence: only cylinder A moves.
+  'ex-gr-03': () => {
+    const p = clone(design('ex-gr-03').solution);
+    const t = p.plc.grafcet!.transitions[0]!;
+    t.to = t.to.slice(0, 1);
+    return p;
+  },
 };
 
 const designs = EXERCISES.filter(
@@ -140,7 +161,7 @@ describe.each(designs.map((e) => [e.id, e] as const))('design exercise %s', (id,
 
   it('the statement names every required label and uses only known components', () => {
     for (const c of e.checks) {
-      if (c.type === 'uses') continue;
+      if (c.type === 'uses' || c.type === 'plcLanguage') continue;
       for (const s of c.stimuli) if (s[0] !== 'wait') expect(e.statement).toContain(`**${s[1]}**`);
     }
     for (const t of e.allowedComponents) expect(getComponentDef(t), t).toBeDefined();

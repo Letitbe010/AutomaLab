@@ -1,0 +1,79 @@
+{
+  "templateId": "tpl-gr-04",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "**S1**-en bulkada batekin, zein da gertaeren ordena?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["pulse", "S1"]],
+      "options": ["1A+ 2A+ 1A− 2A− (bi zilindroak batera)", "1A+ 1A− 2A+ 2A−", "Ezer ez"],
+      "optionEvents": [["1A+", "2A+", "1A-", "2A-"], ["1A+", "1A-", "2A+", "2A-"], []],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "AND dibergentziak bi urratsak aldi berean aktibatzen ditu, eta bi zilindroak batera mugitzen dira.",
+      "theoryRef": "gr-dibergentziak"
+    },
+    {
+      "id": "q2",
+      "type": "single",
+      "prompt_md": "Noiz gainditzen da **T4** trantsizioa (AND konbergentzia)?",
+      "options": [
+        "4. eta 5. urratsak biak aktibo daudenean",
+        "4. edo 5. urratsa aktibo dagoenean",
+        "S1 berriro sakatzean"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Konbergentzia AND: aurreko urrats guztiak aktibo egon behar dira. Hartzailetasuna 1 da.",
+      "theoryRef": "gr-dibergentziak"
+    },
+    {
+      "id": "q3",
+      "type": "truefalse",
+      "prompt_md": "AND dibergentzia batean, adar guztiek aldi berean amaitu behar dute.",
+      "answer": {
+        "value": false
+      },
+      "explanation_md": "Ez: adar bakoitzak bere erritmoan aurrera egiten du; konbergentziak azkena itxaroten du. Horregatik daude 4. eta 5. itxaron-urratsak.",
+      "theoryRef": "gr-dibergentziak"
+    },
+    {
+      "id": "q4",
+      "type": "single",
+      "prompt_md": "Zer esan nahi du **1** hartzailetasunak?",
+      "options": [
+        "Beti egia dela: trantsizioa gaitu bezain laster gainditzen da",
+        "Lehen sarrera dela",
+        "Urrats 1a aktibo dagoela"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Konstante bat da. Urrats-aktibitatea X1 idazten da.",
+      "theoryRef": "gr-oinarriak"
+    },
+    {
+      "id": "q5",
+      "type": "predict",
+      "prompt_md": "Ezer sakatu gabe, zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["wait", 100]],
+      "options": ["Ezer ez", "Bi zilindroak ateratzen dira"],
+      "optionEvents": [[], ["1A+", "2A+"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "T1-ek Martxa behar du.",
+      "theoryRef": "gr-oinarriak"
+    }
+  ]
+}

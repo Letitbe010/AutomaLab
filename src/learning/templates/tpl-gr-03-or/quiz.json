@@ -1,0 +1,90 @@
+{
+  "templateId": "tpl-gr-03",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "**S1** sakatzen da behin. Zenbat joan-etorri egiten ditu?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["pulse", "S1"]],
+      "options": ["Bat", "Bi", "Bat ere ez"],
+      "optionEvents": [["1A+", "1A-"], ["1A+", "1A-", "1A+", "1A-"], []],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "T1-ek ezkerreko bidea hautatzen du: joan-etorri bat.",
+      "theoryRef": "gr-dibergentziak"
+    },
+    {
+      "id": "q2",
+      "type": "predict",
+      "prompt_md": "**S2** sakatzen da behin. Zenbat joan-etorri egiten ditu?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["pulse", "S2"]],
+      "options": ["Bi", "Bat", "Bat ere ez"],
+      "optionEvents": [["1A+", "1A-", "1A+", "1A-"], ["1A+", "1A-"], []],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "T2-k eskuineko bidea hautatzen du: lau urrats, bi joan-etorri.",
+      "theoryRef": "gr-dibergentziak"
+    },
+    {
+      "id": "q3",
+      "type": "predict",
+      "prompt_md": "**S1** eta **S2** batera sakatzen dira. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [
+        ["press", "S1"],
+        ["press", "S2"],
+        ["wait", 100],
+        ["release", "S1"],
+        ["release", "S2"]
+      ],
+      "options": ["Joan-etorri bat (S1-ek lehentasuna du)", "Bi joan-etorri"],
+      "optionEvents": [
+        ["1A+", "1A-"],
+        ["1A+", "1A-", "1A+", "1A-"]
+      ],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "T2-k /Bat du: hartzailetasunak elkar baztertzen dira, S1-i lehentasuna emanez.",
+      "theoryRef": "gr-dibergentziak"
+    },
+    {
+      "id": "q4",
+      "type": "single",
+      "prompt_md": "Zergatik du **T2**-k /Bat baldintza?",
+      "options": [
+        "Bi hartzailetasunak aldi berean egia ez izateko: bestela bi bideak batera aktibatuko lirateke",
+        "Zilindroa azkarrago mugitzeko",
+        "Sintaxiak hala eskatzen duelako"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "IEC 60848-ren 4. arauaren arabera, aldi berean gaindi daitezkeen trantsizio guztiak gainditzen dira.",
+      "theoryRef": "gr-dibergentziak"
+    },
+    {
+      "id": "q5",
+      "type": "truefalse",
+      "prompt_md": "OR dibergentzia batean, trantsizio bat baino gehiago daude urrats beraren ondoren.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai, eta barra sinplez marrazten da. AND dibergentzian, trantsizio bakarra eta barra bikoitza.",
+      "theoryRef": "gr-dibergentziak"
+    }
+  ]
+}

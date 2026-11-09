@@ -59,7 +59,7 @@ export function IoTable() {
         <tbody>
           {rows.map(({ address, group }, i) => {
             const e = ioEntry(io, address);
-            const value = sim?.ladder?.read(address);
+            const value = (sim?.ladder ?? sim?.grafcet)?.read(address);
             const first = i === 0 || rows[i - 1]!.group !== group;
             return (
               <tr key={address} data-address={address} className={first ? styles.groupStart : ''}>

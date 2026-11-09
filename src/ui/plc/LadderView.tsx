@@ -239,7 +239,13 @@ function coilStart(list: LadderElement[]): number {
 
 function ScanControls({ rt }: { rt: LadderRuntime | null }) {
   const { sim } = useSim.getState();
-  if (!rt || !sim) return <span className={styles.muted}>{t('ladder.noPlc')}</span>;
+  if (!rt || !sim) {
+    return (
+      <span className={styles.muted}>
+        {t(sim?.grafcet ? 'ladder.grafcetRunning' : 'ladder.noPlc')}
+      </span>
+    );
+  }
   function scanOnce() {
     const s = useSim.getState();
     if (!s.sim?.ladder) return;

@@ -1,0 +1,11 @@
+{
+  "id": "tpl-gr-05",
+  "title": "A+ B+ A− B− GRAFCETekin",
+  "summary": "Sekuentzia nagusia eta martxa/geldialdiaren GRAFCET txikia, batera exekutatuta. Ladder-era bihur daiteke.",
+  "domain": "plc",
+  "level": 2,
+  "tags": ["GRAFCET", "sekuentzia", "Ladder bihurketa"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["gr-oinarriak", "gr-ladder"],
+  "status": "draft"
+}

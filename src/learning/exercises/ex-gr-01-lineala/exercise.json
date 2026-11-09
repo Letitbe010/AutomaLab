@@ -1,0 +1,59 @@
+{
+  "id": "ex-gr-01",
+  "title": "Joan-etorria GRAFCETekin",
+  "domain": "plc",
+  "level": 1,
+  "tags": ["GRAFCET", "sekuentzia"],
+  "theoryRefs": ["gr-oinarriak"],
+  "status": "draft",
+  "hints_md": [
+    "Hiru urrats: zain, A+ eta A−.",
+    "Ekintza jarraituak (N): urrats bakoitzean irteera bat.",
+    "Azken trantsizioak 1. urratsera itzuli behar du: «Lotu hurrengo urratsa»."
+  ],
+  "kind": "design",
+  "allowedComponents": [
+    "el.plus",
+    "el.minus",
+    "plc.cpu1214c",
+    "el.button.no",
+    "el.button.nc",
+    "el.reed",
+    "el.limit.no",
+    "el.solenoid",
+    "el.lamp",
+    "pn.valve.5-2.sol",
+    "pn.valve.5-2.sol-spring",
+    "pn.cyl.double",
+    "pn.source"
+  ],
+  "checks": [
+    {
+      "title": "S1-en bulkada batekin, 1A atera eta itzultzen da",
+      "type": "sequence",
+      "stimuli": [["pulse", "S1"]],
+      "expect": ["1A+", "1A-"]
+    },
+    {
+      "title": "S1 berriro sakatuta, zikloa errepikatzen da",
+      "type": "sequence",
+      "stimuli": [
+        ["pulse", "S1"],
+        ["wait", 3000],
+        ["pulse", "S1"]
+      ],
+      "expect": ["1A+", "1A-", "1A+", "1A-"]
+    },
+    {
+      "title": "Ezer sakatu gabe, ez da mugitzen",
+      "type": "never",
+      "stimuli": [["wait", 100]],
+      "events": ["1A+"]
+    },
+    {
+      "title": "PLCak GRAFCETa exekutatzen du",
+      "type": "plcLanguage",
+      "language": "grafcet"
+    }
+  ]
+}

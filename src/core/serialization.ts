@@ -1,3 +1,4 @@
+import { readGrafcet } from './grafcet';
 import { readIo, readLadder } from './plc';
 import {
   CURRENT_SCHEMA_VERSION,
@@ -180,7 +181,13 @@ function readProject(o: Record<string, unknown>): Project {
     plc: {
       io: readIo(plc.io ?? []) ?? fail('plc.io'),
       ladder: readLadder(plc.ladder ?? []) ?? fail('plc.ladder'),
-      grafcet: plc.grafcet ?? null,
+      grafcet:
+        readGrafcet(plc.grafcet) === undefined
+          ? fail('plc.grafcet')
+          : (readGrafcet(plc.grafcet) ?? null),
+      ...(plc.language === 'grafcet' || plc.language === 'ladder'
+        ? { language: plc.language }
+        : {}),
     },
     ...(o.templateId === undefined ? {} : { templateId: str(o.templateId, 'templateId') }),
     ...(o.exerciseId === undefined ? {} : { exerciseId: str(o.exerciseId, 'exerciseId') }),

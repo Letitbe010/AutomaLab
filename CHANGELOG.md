@@ -2,6 +2,23 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [fase-6] — 2026-11-09 (GRAFCET)
+
+### Gehituta
+
+- GRAFCET datu-eredua eta hartzailetasunen adierazpenak (`*`, `+`, `/`, `^x`, `_x`, `X3`, `t/X3/2s`), helbideekin edo I/O taulako izenekin.
+- Interpretatzailea (IEC 60848): 5 bilakaera-arauak, bilaketa egonkorra, ekintza jarraituak, baldintzatuak eta memorizatuak, flankoak eta denbora.
+- «GRAFCET» fitxa: urratsak eta trantsizioak saretan, komando azkarrak (behean, OR adarra, AND adarra, jauzia, konbergentzia), arrastatzea, propietateak, sintaxi-erroreak bertan.
+- Simulazioan urrats aktiboak puntu berdez eta gaitutako trantsizioak laranjaz, «Scan bat» barne.
+- PLCak exekutatzen duen programa hautatzea (Ladder / GRAFCET).
+- GRAFCET → Ladder bihurtzailea (Set/Reset metodoa).
+- R9 eta A+ B+ A− B− (erreleak, GRAFCET eta Ladder bihurtua), testekin.
+- Edukia (zirriborroak): 5 GRAFCET txantiloi galdetegiekin, 3 teoria-fitxa, 3 ariketa.
+
+### Zuzenduta
+
+- Txantiloi edo ariketa baten panelak Ladder eta I/O taula fitxak estaltzen zituen.
+
 ## [fase-5] — 2026-11-05 (PLCa eta Ladder)
 
 ### Gehituta

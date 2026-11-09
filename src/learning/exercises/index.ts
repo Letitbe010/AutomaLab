@@ -21,6 +21,8 @@ function checkProblem(raw: unknown): string | null {
   const c = raw as Partial<Check> & Record<string, unknown>;
   if (!c || !isStr(c.title)) return 'title';
   if (c.type === 'uses') return isStrArr(c.componentTypes) ? null : 'componentTypes';
+  if (c.type === 'plcLanguage')
+    return c.language === 'grafcet' || c.language === 'ladder' ? null : 'language';
   if (!Array.isArray(c.stimuli)) return 'stimuli';
   if (c.type === 'sequence') return isStrArr(c.expect) ? null : 'expect';
   if (c.type === 'never') return isStrArr(c.events) ? null : 'events';

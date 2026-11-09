@@ -48,7 +48,13 @@ export interface UsesCheck extends CheckBase {
   componentTypes: string[];
 }
 
-export type Check = SequenceCheck | NeverCheck | DurationCheck | UsesCheck;
+/** The PLC must run this kind of program. */
+export interface PlcLanguageCheck extends CheckBase {
+  type: 'plcLanguage';
+  language: 'ladder' | 'grafcet';
+}
+
+export type Check = SequenceCheck | NeverCheck | DurationCheck | UsesCheck | PlcLanguageCheck;
 
 interface ExerciseBase {
   id: string;

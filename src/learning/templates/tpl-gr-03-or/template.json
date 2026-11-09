@@ -1,0 +1,11 @@
+{
+  "id": "tpl-gr-03",
+  "title": "OR dibergentzia: ziklo bat edo bi",
+  "summary": "Bi pultsadorek bide bat edo bestea aukeratzen dute. Hartzailetasunak elkar baztertzen dira.",
+  "domain": "plc",
+  "level": 2,
+  "tags": ["GRAFCET", "OR", "dibergentzia"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["gr-dibergentziak"],
+  "status": "draft"
+}

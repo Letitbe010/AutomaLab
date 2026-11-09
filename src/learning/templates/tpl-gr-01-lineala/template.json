@@ -1,0 +1,11 @@
+{
+  "id": "tpl-gr-01",
+  "title": "Sekuentzia lineala GRAFCETekin",
+  "summary": "Hiru urrats eta hiru trantsizio: zilindroa atera eta itzuli, martxa sakatzean.",
+  "domain": "plc",
+  "level": 1,
+  "tags": ["GRAFCET", "sekuentzia", "urratsak"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["gr-oinarriak"],
+  "status": "draft"
+}

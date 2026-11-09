@@ -322,7 +322,8 @@
       "label": "Ikuspegiak",
       "schematic": "Eskema",
       "ladder": "Ladder",
-      "io": "I/O taula"
+      "io": "I/O taula",
+      "grafcet": "GRAFCET"
     }
   },
   "storage": {
@@ -416,7 +417,14 @@
     "limitUnknownCylinder": "{component}: ez dago «{cylinder}» etiketadun zilindrorik.",
     "ladderOperand": "Ladder, {segment}. segmentua: «{operand}» ez da helbide baliozkoa (I0.0–I1.5, Q0.0–Q1.1, M0.0…, T1.Q, C1.Q).",
     "ladderCoilTarget": "Ladder, {segment}. segmentua: bobina batek ezin du {operand} idatzi (sarrera edo tenporizadore/kontagailu bat da).",
-    "ladderNoPlc": "Ladder programa bat dago, baina eskeman ez dago PLCrik."
+    "ladderNoPlc": "Ladder programa bat dago, baina eskeman ez dago PLCrik.",
+    "grafcetNoInitial": "GRAFCET: ez dago hasierako urratsik.",
+    "grafcetDuplicateStep": "GRAFCET: {step} urrats-zenbakia errepikatuta dago.",
+    "grafcetOpenTransition": "GRAFCET, {where}: trantsizioak aurreko eta hurrengo urratsak behar ditu.",
+    "grafcetExpression": "GRAFCET, {where}: «{text}» adierazpenak sintaxi-errore bat du.",
+    "grafcetName": "GRAFCET, {where}: «{name}» ez da ezagutzen (helbidea, I/O taulako izena edo existitzen den urratsa).",
+    "grafcetAction": "GRAFCET, {where}: «{operand}» ekintzak Q edo M helbide bat behar du.",
+    "grafcetMixedAction": "GRAFCET: {operand} ekintza jarraitu eta memorizatuekin erabiltzen da aldi berean."
   },
   "symbols": {
     "title": "Ikurren galeria",
@@ -576,7 +584,8 @@
       "tooFast": "{s} s iraun du; gutxienez {min} s behar dira.",
       "tooSlow": "{s} s iraun du; gehienez {max} s onartzen dira.",
       "missingType": "Osagai hau falta da: {types}.",
-      "unstable": "Zirkuitua ez da egonkortzen (oszilazioa): begiratu pilotaje-begiztak."
+      "unstable": "Zirkuitua ez da egonkortzen (oszilazioa): begiratu pilotaje-begiztak.",
+      "wrongLanguage": "PLCak {language} exekutatu behar du (GRAFCET fitxan aukeratzen da)."
     },
     "someWrong": "{n} / {total} erantzun ez dira zuzenak."
   },
@@ -635,7 +644,8 @@
     "load": "LD (karga) operandoa",
     "timerHint": "Irteera kontaktu gisa: {name}.Q",
     "counterHint": "Irteera kontaktu gisa: {name}.Q",
-    "parallelHint": "Adar paraleloa (OR). Hautatuta dagoela «Adar paraleloa» sakatuz gero, beste adar bat gehitzen da."
+    "parallelHint": "Adar paraleloa (OR). Hautatuta dagoela «Adar paraleloa» sakatuz gero, beste adar bat gehitzen da.",
+    "grafcetRunning": "PLCak GRAFCETa exekutatzen du: ikusi «GRAFCET» fitxa."
   },
   "io": {
     "intro": "Izen sinbolikoak eta iruzkinak (TIA Portaleko «PLC tags» bezala). «Kableatuta» zutabea eskematik ateratzen da.",
@@ -646,5 +656,48 @@
     "comment": "Iruzkina",
     "wired": "Kableatuta",
     "state": "Egoera"
+  },
+  "grafcet": {
+    "toolbar": "GRAFCET komandoak",
+    "language": "PLCak exekutatzen du:",
+    "lang": {
+      "ladder": "Ladder",
+      "grafcet": "GRAFCET"
+    },
+    "addStep": "Urrats berria",
+    "addBelow": "Gehitu behean",
+    "orBranch": "OR adarra",
+    "andBranch": "AND adarra",
+    "linkNext": "Lotu hurrengo urratsa",
+    "addPrevious": "Gehitu aurreko urratsa",
+    "convert": "Bihurtu Ladder-era",
+    "convertConfirm": "Lehendik dagoen Ladder programa ordezkatuko da, eta PLCak Ladder exekutatuko du. Jarraitu?",
+    "convertFailed": "Ezin da bihurtu: {n} akats daude GRAFCETean (ikusi «Abisuak»). Flanko ukatuak (/^x) ez dira onartzen bihurketan.",
+    "pickHint": "Egin klik urrats batean.",
+    "notRunning": "PLCak ez du GRAFCETa exekutatzen: hautatu «GRAFCET» editatze-moduan.",
+    "empty": "GRAFCETa hutsik dago. Sakatu «Urrats berria» hasierako urratsa sortzeko.",
+    "hint": "Hautatu urrats bat «Gehitu behean» edo «OR adarra» erabiltzeko, edo trantsizio bat «AND adarra», «Lotu hurrengo urratsa» (atzera-jauzia, OR konbergentzia) edo «Gehitu aurreko urratsa» (AND konbergentzia) erabiltzeko. Elementuak arrastatu daitezke.",
+    "simHint": "Simulazioan: urrats aktiboek puntu berde bat dute, eta gaitutako trantsizioak laranjaz ageri dira.",
+    "step": "Urratsa",
+    "number": "Zenbakia",
+    "initial": "Hasierako urratsa",
+    "actions": "Ekintzak",
+    "addAction": "Gehitu ekintza",
+    "condition": "Baldintza",
+    "kind": {
+      "N": "N — jarraitua",
+      "C": "C — baldintzatua",
+      "S": "S — memorizatu",
+      "R": "R — ezabatu"
+    },
+    "transition": "Trantsizioa",
+    "receptivity": "Hartzailetasuna",
+    "receptivityValue": "Uneko balioa: {v}",
+    "syntaxHelp": "* ETA · + EDO · /x EZ · ^x gorako flankoa · _x beherako flankoa · X3 urratsa · t/X3/2s denbora · 1 beti",
+    "syntax": {
+      "empty": "Idatzi adierazpen bat (beti egia: 1).",
+      "unexpected": "Sintaxi-errorea {pos}. karakterean.",
+      "end": "Adierazpena osatu gabe dago."
+    }
   }
 }

@@ -1,0 +1,11 @@
+{
+  "id": "tpl-gr-04",
+  "title": "AND dibergentzia: bi zilindro batera",
+  "summary": "Bi sekuentzia paraleloan, eta konbergentziak biak amaitu arte itxaroten du.",
+  "domain": "plc",
+  "level": 2,
+  "tags": ["GRAFCET", "AND", "dibergentzia", "konbergentzia"],
+  "simulationLevel": "logic",
+  "theoryRefs": ["gr-dibergentziak", "gr-oinarriak"],
+  "status": "draft"
+}

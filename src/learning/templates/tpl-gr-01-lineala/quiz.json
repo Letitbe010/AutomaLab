@@ -1,0 +1,75 @@
+{
+  "templateId": "tpl-gr-01",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "**S1** bulkada labur batekin sakatzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["pulse", "S1"]],
+      "options": ["1A atera eta itzultzen da", "1A atera eta aurrean geratzen da", "Ezer ez"],
+      "optionEvents": [["1A+", "1A-"], ["1A+"], []],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "2. urratsak A_atera aktibatzen du; 1B2-k 3. urratsera pasatzen du (A_itzuli), eta 1B1-ek 1. urratsera.",
+      "theoryRef": "gr-oinarriak"
+    },
+    {
+      "id": "q2",
+      "type": "single",
+      "prompt_md": "Zein da trantsizio bat gainditzeko baldintza?",
+      "options": [
+        "Gaituta egotea (aurreko urrats guztiak aktibo) eta hartzailetasuna egia izatea",
+        "Hartzailetasuna egia izatea bakarrik",
+        "Aurreko urratsa aktibo egotea bakarrik"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "IEC 60848ko 2. araua: trantsizioa gaituta egon behar da, eta hartzailetasuna egia izan.",
+      "theoryRef": "gr-oinarriak"
+    },
+    {
+      "id": "q3",
+      "type": "truefalse",
+      "prompt_md": "Ekintza jarraitu bat (N) urratsa aktibo dagoen bitartean bakarrik dago aktibo.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai: urratsa desaktibatzean, irteera itzaltzen da (beste urrats batek eskatzen ez badu).",
+      "theoryRef": "gr-oinarriak"
+    },
+    {
+      "id": "q4",
+      "type": "single",
+      "prompt_md": "Zer adierazten du urrats baten karratu bikoitzak?",
+      "options": ["Hasierako urratsa dela", "Urrats memorizatua dela", "Urrats iragankorra dela"],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Hasierako urratsak aktibo daude PLCa abiaraztean (1. araua).",
+      "theoryRef": "gr-oinarriak"
+    },
+    {
+      "id": "q5",
+      "type": "predict",
+      "prompt_md": "Ezer sakatu gabe, zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["wait", 100]],
+      "options": ["Ezer ez", "1A ateratzen da"],
+      "optionEvents": [[], ["1A+"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "T1-ek Martxa behar du: 1. urratsa aktibo dago, baina hartzailetasuna gezurra da.",
+      "theoryRef": "gr-oinarriak"
+    }
+  ]
+}

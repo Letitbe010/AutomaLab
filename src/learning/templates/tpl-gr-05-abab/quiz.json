@@ -1,0 +1,87 @@
+{
+  "templateId": "tpl-gr-05",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "predict",
+      "prompt_md": "**S1**-ekin zikloa abiarazten da, eta A+ ondoren **S0** sakatzen da. Zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [
+        ["pulse", "S1"],
+        ["wait", 1500],
+        ["pulse", "S0"]
+      ],
+      "options": [
+        "Zikloa amaitzen da (A+ B+ A− B−) eta gelditzen da",
+        "Berehala gelditzen da",
+        "Zikloak jarraitzen du"
+      ],
+      "optionEvents": [
+        ["1A+", "2A+", "1A-", "2A-"],
+        ["1A+"],
+        ["1A+", "2A+", "1A-", "2A-", "1A+", "2A+", "1A-", "2A-"]
+      ],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "S0-k bigarren GRAFCETa 10. urratsera eramaten du (M0.0 = 0), eta A+ ez da berriro egiten.",
+      "theoryRef": "gr-oinarriak"
+    },
+    {
+      "id": "q2",
+      "type": "truefalse",
+      "prompt_md": "GRAFCET batek hainbat hasierako urrats izan ditzake, eta sekuentzia independenteak batera exekutatu.",
+      "answer": {
+        "value": true
+      },
+      "explanation_md": "Bai: hemen, sekuentzia nagusia (1. urratsa) eta martxa/geldialdia (10. urratsa).",
+      "theoryRef": "gr-oinarriak"
+    },
+    {
+      "id": "q3",
+      "type": "single",
+      "prompt_md": "Ladder-era bihurtzean, zer bihurtzen da urrats bakoitza?",
+      "options": ["M marka bat, Set/Reset bidez", "Irteera bat (Q)", "Tenporizadore bat"],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Urrats bakoitza marka bat da; trantsizioek aurreko marka Reset eta hurrengoa Set egiten dituzte.",
+      "theoryRef": "gr-ladder"
+    },
+    {
+      "id": "q4",
+      "type": "single",
+      "prompt_md": "Bihurketan, zergatik egiten dira Reset guztiak Set guztien aurretik?",
+      "options": [
+        "Aldi berean aktibatu eta desaktibatu behar den urratsa aktibo gera dadin (5. araua)",
+        "Azkarrago exekutatzeko",
+        "S7-1200ak hala eskatzen duelako"
+      ],
+      "answer": {
+        "index": 0
+      },
+      "explanation_md": "Azken idazketak irabazten du Ladder-en: Set-a azkena bada, urratsa aktibo geratzen da.",
+      "theoryRef": "gr-ladder"
+    },
+    {
+      "id": "q5",
+      "type": "predict",
+      "prompt_md": "Ezer sakatu gabe, zer gertatzen da?",
+      "setup": {
+        "state": "initial"
+      },
+      "stimuli": [["wait", 100]],
+      "options": ["Ezer ez", "1A ateratzen da"],
+      "optionEvents": [[], ["1A+"]],
+      "answer": {
+        "index": 0
+      },
+      "verifyBySimulation": true,
+      "explanation_md": "Zikloa (M0.0) ez dago aktibo.",
+      "theoryRef": "gr-oinarriak"
+    }
+  ]
+}
