@@ -63,7 +63,6 @@ export function QuizRunner({
   const [responses, setResponses] = useState<Record<string, Response>>({});
   const [checked, setChecked] = useState(false);
   const [result, setResult] = useState<QuizResult | null>(null);
-  const [timedOut, setTimedOut] = useState(false);
   const [left, setLeft] = useState(minutes * 60);
   const openDrawer = useLearning((s) => s.openDrawer);
 
@@ -75,25 +74,25 @@ export function QuizRunner({
     setResult(r);
     onFinish(r);
   };
+  const timed = exam && minutes > 0 && !result;
+  useEffect(() => {
+    if (!timed) return;
+    const id = setInterval(() => setLeft((v) => Math.max(0, v - 1)), 1000);
+    return () => clearInterval(id);
+  }, [timed]);
+
+  // Time up: the same finish as the button, outside any state updater.
   const finishRef = useRef(finish);
   useEffect(() => {
     finishRef.current = finish;
   });
-
-  const timed = exam && minutes > 0 && !result;
   useEffect(() => {
-    if (!timed) return;
-    const id = setInterval(() => {
-      setLeft((s) => {
-        if (s > 1) return s - 1;
-        clearInterval(id);
-        setTimedOut(true);
-        finishRef.current();
-        return 0;
-      });
-    }, 1000);
-    return () => clearInterval(id);
-  }, [timed]);
+    if (timed && left === 0) {
+      finishRef.current();
+    }
+  }, [timed, left]);
+
+  const timedOut = exam && minutes > 0 && left === 0;
 
   const theoryLink = (id?: string) => {
     const sheet = id ? getSheet(id) : undefined;

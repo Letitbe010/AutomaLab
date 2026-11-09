@@ -5,8 +5,8 @@ import { grafcetToLadder } from '../../src/engine/plc/grafcet/toLadder';
 import { Simulation } from '../../src/engine/scheduler';
 import { generateCascade } from '../../src/generator/cascade';
 import { compareWithSequence, startCandidates } from '../../src/generator/compare';
-import { generatePlcProject } from '../../src/generator/grafcet';
-import { eventName, parseSequence, type Move } from '../../src/generator/sequence';
+import { generatePlcProject, MAX_PLC_CYLINDERS } from '../../src/generator/grafcet';
+import { eventName, lettersOf, parseSequence, type Move } from '../../src/generator/sequence';
 import { loadFixture } from '../engine/helpers';
 
 const SEQUENCES = [
@@ -24,6 +24,7 @@ const SEQUENCES = [
   'A+ B+ C+ C- D+ D- B- A-',
   'A+ B+ B- B+ B- A-',
   'A+ A- B+ B- A+ A-',
+  'A+ B+ C+ D+ E+ F+ F- E- D- C- B- A-',
 ];
 
 function moves(text: string): Move[] {
@@ -58,28 +59,34 @@ describe.each(SEQUENCES)('R12 %s', (text) => {
     expect(sim.warnings).toEqual([]);
   });
 
-  it('GRAFCET with PLC: valid, runs the sequence twice', () => {
-    const project = generatePlcProject(m);
-    expect(validateProject(project, getComponentDef)).toEqual([]);
-    const sim = new Simulation(project, { getDef: getComponentDef });
-    sim.run(500);
-    expect(sim.events).toEqual([]);
-    runOnce(sim, 's1', cycleMs(m));
-    expect(sim.eventNames()).toEqual(expected);
-    runOnce(sim, 's1', cycleMs(m));
-    expect(sim.eventNames()).toEqual([...expected, ...expected]);
-  });
+  it.runIf(lettersOf(m).length <= MAX_PLC_CYLINDERS)(
+    'GRAFCET with PLC: valid, runs the sequence twice',
+    () => {
+      const project = generatePlcProject(m);
+      expect(validateProject(project, getComponentDef)).toEqual([]);
+      const sim = new Simulation(project, { getDef: getComponentDef });
+      sim.run(500);
+      expect(sim.events).toEqual([]);
+      runOnce(sim, 's1', cycleMs(m));
+      expect(sim.eventNames()).toEqual(expected);
+      runOnce(sim, 's1', cycleMs(m));
+      expect(sim.eventNames()).toEqual([...expected, ...expected]);
+    },
+  );
 
-  it('the GRAFCET converted to Ladder runs the same sequence', () => {
-    const project = generatePlcProject(m);
-    const converted = grafcetToLadder(project.plc.grafcet!, project.plc.io);
-    if (!converted.ok) throw new Error(JSON.stringify(converted.problems));
-    project.plc = { ...project.plc, ...converted, language: 'ladder' };
-    const sim = new Simulation(project, { getDef: getComponentDef });
-    sim.run(100);
-    runOnce(sim, 's1', cycleMs(m));
-    expect(sim.eventNames()).toEqual(expected);
-  });
+  it.runIf(lettersOf(m).length <= MAX_PLC_CYLINDERS)(
+    'the GRAFCET converted to Ladder runs the same sequence',
+    () => {
+      const project = generatePlcProject(m);
+      const converted = grafcetToLadder(project.plc.grafcet!, project.plc.io);
+      if (!converted.ok) throw new Error(JSON.stringify(converted.problems));
+      project.plc = { ...project.plc, ...converted, language: 'ladder' };
+      const sim = new Simulation(project, { getDef: getComponentDef });
+      sim.run(100);
+      runOnce(sim, 's1', cycleMs(m));
+      expect(sim.eventNames()).toEqual(expected);
+    },
+  );
 });
 
 describe('compare mode', () => {

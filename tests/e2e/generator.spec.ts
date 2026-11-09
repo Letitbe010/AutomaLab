@@ -32,11 +32,18 @@ test('A+ B+ B- A-: analysis, generated cascade runs, and compare says OK', async
   await page.getByRole('button', { name: 'Ireki kaskada editorean' }).click();
   await page.getByRole('button', { name: 'Simulatu', exact: true }).click();
   await pressOn(page, 'st');
-  // Full cycle: 4 moves of about 1 s; every cylinder back and the rest group active.
-  await page.waitForTimeout(5000);
+  // Signature of A+ B+ B- A-: each power valve switches in this order, then rests.
   const canvas = page.getByTestId('canvas');
-  await expect(canvas.locator('[data-component-id="vA"]')).toHaveAttribute('data-position', '1');
-  await expect(canvas.locator('[data-component-id="vB"]')).toHaveAttribute('data-position', '1');
+  const valve = (id: string, position: string) =>
+    expect(canvas.locator(`[data-component-id="${id}"]`)).toHaveAttribute(
+      'data-position',
+      position,
+      { timeout: 3000 },
+    );
+  await valve('vA', '0');
+  await valve('vB', '0');
+  await valve('vB', '1');
+  await valve('vA', '1');
   await page.getByRole('button', { name: 'Editatu', exact: true }).click();
 
   await menu(page, 'Sortzailea');

@@ -33,7 +33,7 @@ Zure erabakiak (2026-11-09):
 
 ## Erreferentzia-probak (testak)
 
-**R12:** 14 sekuentzia, 1–4 zilindro. Bakoitzean: kaskada baliozkoa da, geldirik dago abiarazi arte, eta sekuentzia zuzena egiten du bi aldiz jarraian; GRAFCET + PLC bertsioak eta Ladder-era bihurtutakoak ere bai.
+**R12:** 15 sekuentzia, 1–6 zilindro (6 zilindrokoa kaskadan bakarrik). Bakoitzean: kaskada baliozkoa da, geldirik dago abiarazi arte, eta sekuentzia zuzena egiten du bi aldiz jarraian; GRAFCET + PLC bertsioak eta Ladder-era bihurtutakoak ere bai.
 
 ## Egiaztatua eta suposizioak
 

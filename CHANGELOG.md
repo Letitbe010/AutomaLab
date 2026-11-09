@@ -10,7 +10,7 @@ Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitz
 - Kaskada-zirkuitu pneumatikoaren sortzailea, kokapen automatikoarekin eta OR balbulekin mugimendu errepikatuetarako.
 - Proiektu elektropneumatikoaren sortzailea: PLCa kableatuta eta GRAFCETa (Ladder-era bihur daiteke).
 - Alderatze-modua: editoreko zirkuitua sekuentziarekin simulatuz alderatzen da.
-- R12: 14 sekuentzia, kaskada, GRAFCET eta Ladder bihurtua, testekin.
+- R12: 15 sekuentzia, kaskada, GRAFCET eta Ladder bihurtua, testekin.
 - Galdera-motak: `multiple` eta `identify` (klik zirkuituan).
 - Azterketa-modua, denbora-neurgailu aukerakoarekin.
 - Ausazko galdetegia: domeinua, maila eta etiketa, zirkuituaren miniaturarekin.

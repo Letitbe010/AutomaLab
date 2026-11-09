@@ -125,3 +125,25 @@ test('random quiz: filters, runs, and is saved in progress', async ({ page }) =>
   await menu(page, 'Nire aurrerapena');
   await expect(page.getByTestId('progress-random')).toContainText('1 eginda');
 });
+
+test('exam timer: time up finishes the quiz and records exactly one attempt', async ({ page }) => {
+  await page.clock.install();
+  await page.goto('/');
+  await menu(page, 'Txantiloiak');
+  await page
+    .locator('[data-template-id="tpl-pn-01"]')
+    .getByRole('button', { name: 'Ireki', exact: true })
+    .click();
+  const panel = page.getByTestId('template-panel');
+  await panel.getByRole('tab', { name: 'Galdetegia' }).click();
+  await panel.getByRole('checkbox', { name: /Azterketa-modua/ }).check();
+  await panel.getByRole('combobox').selectOption('5');
+  await panel.getByRole('button', { name: 'Hasi galdetegia' }).click();
+  await expect(panel.getByTestId('quiz-timer')).toContainText('5:00');
+  await page.clock.runFor('05:01');
+  await expect(panel.getByTestId('quiz-result')).toContainText('Denbora amaitu da.');
+
+  await menu(page, 'Nire aurrerapena');
+  const row = page.getByTestId('progress-page').locator('tr[data-template-id="tpl-pn-01"]');
+  await expect(row.locator('td').nth(4)).toHaveText('1');
+});
