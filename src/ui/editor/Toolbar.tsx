@@ -2,6 +2,17 @@ import { t } from '../../i18n';
 import { ProjectBar } from '../storage/ProjectBar';
 import { SimControls } from '../sim/SimControls';
 import {
+  IconDelete,
+  IconFit,
+  IconMirror,
+  IconRedo,
+  IconRotate,
+  IconSidePanel,
+  IconUndo,
+  IconZoomIn,
+  IconZoomOut,
+} from '../icons';
+import {
   deleteSelection,
   enterSim,
   exitSim,
@@ -11,6 +22,7 @@ import {
   zoomBy,
 } from './actions';
 import { useLearning } from '../learning/store';
+import { IconButton } from './IconButton';
 import { useEditor } from './store';
 import styles from './Editor.module.css';
 
@@ -23,25 +35,54 @@ function EditTools() {
   const hasSel = useEditor(
     (s) => s.selection.components.length + s.selection.connections.length > 0,
   );
-  const tool = (label: string, onClick: () => void, enabled: boolean, title: string) => (
-    <button
-      type="button"
-      className={styles.btn}
-      disabled={!enabled}
-      onClick={onClick}
-      title={title}
-    >
-      {label}
-    </button>
-  );
   return (
     <>
-      {tool(t('editor.tool.undo'), undo, canUndo, 'Ctrl+Z')}
-      {tool(t('editor.tool.redo'), redo, canRedo, 'Ctrl+Y')}
+      <div className={styles.group}>
+        <IconButton
+          label={t('editor.tool.undo')}
+          shortcut="Ctrl+Z"
+          onClick={undo}
+          disabled={!canUndo}
+        >
+          <IconUndo />
+        </IconButton>
+        <IconButton
+          label={t('editor.tool.redo')}
+          shortcut="Ctrl+Y"
+          onClick={redo}
+          disabled={!canRedo}
+        >
+          <IconRedo />
+        </IconButton>
+      </div>
       <span className={styles.sep} />
-      {tool(t('editor.tool.rotate'), rotateSelection, hasComps, 'R')}
-      {tool(t('editor.tool.mirror'), mirrorSelection, hasComps, 'M')}
-      {tool(t('editor.tool.delete'), deleteSelection, hasSel, 'Supr')}
+      <div className={styles.group}>
+        <IconButton
+          label={t('editor.tool.rotate')}
+          shortcut="R"
+          onClick={rotateSelection}
+          disabled={!hasComps}
+        >
+          <IconRotate />
+        </IconButton>
+        <IconButton
+          label={t('editor.tool.mirror')}
+          shortcut="M"
+          onClick={mirrorSelection}
+          disabled={!hasComps}
+        >
+          <IconMirror />
+        </IconButton>
+        <IconButton
+          label={t('editor.tool.delete')}
+          shortcut="Supr"
+          onClick={deleteSelection}
+          disabled={!hasSel}
+          className={styles.dangerIcon}
+        >
+          <IconDelete />
+        </IconButton>
+      </div>
     </>
   );
 }
@@ -71,36 +112,32 @@ export function Toolbar() {
       {edit ? <EditTools /> : <SimControls />}
       <span className={styles.spacer} />
       {(hasTemplate || hasExercise) && (
-        <button
-          type="button"
-          className={styles.btn}
-          aria-pressed={templateOpen}
-          onClick={() => setTemplatePanel(!templateOpen)}
-          title={t('templates.panelToggleHint')}
-        >
-          {hasExercise ? t('exercises.panelToggle') : t('templates.panelToggle')}
-        </button>
+        <>
+          <button
+            type="button"
+            className={styles.btn}
+            aria-pressed={templateOpen}
+            onClick={() => setTemplatePanel(!templateOpen)}
+            title={t('templates.panelToggleHint')}
+          >
+            <IconSidePanel />
+            {hasExercise ? t('exercises.panelToggle') : t('templates.panelToggle')}
+          </button>
+          <span className={styles.sep} />
+        </>
       )}
-      <button
-        type="button"
-        className={styles.btn}
-        onClick={() => zoomBy(1 / 1.25)}
-        aria-label={t('editor.tool.zoomOut')}
-      >
-        −
-      </button>
-      <span className={styles.zoom}>{Math.round(zoom * 100)} %</span>
-      <button
-        type="button"
-        className={styles.btn}
-        onClick={() => zoomBy(1.25)}
-        aria-label={t('editor.tool.zoomIn')}
-      >
-        +
-      </button>
-      <button type="button" className={styles.btn} onClick={fitView}>
-        {t('editor.tool.fit')}
-      </button>
+      <div className={styles.group}>
+        <IconButton label={t('editor.tool.zoomOut')} onClick={() => zoomBy(1 / 1.25)}>
+          <IconZoomOut />
+        </IconButton>
+        <span className={styles.zoom}>{Math.round(zoom * 100)} %</span>
+        <IconButton label={t('editor.tool.zoomIn')} onClick={() => zoomBy(1.25)}>
+          <IconZoomIn />
+        </IconButton>
+        <IconButton label={t('editor.tool.fit')} onClick={fitView}>
+          <IconFit />
+        </IconButton>
+      </div>
     </div>
   );
 }

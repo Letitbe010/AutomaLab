@@ -305,7 +305,9 @@
       "warnings": "{n} abisu",
       "none": "Ez dago arazorik.",
       "error": "Errorea",
-      "warning": "Abisua"
+      "warning": "Abisua",
+      "show": "Erakutsi beheko panela",
+      "hide": "Ezkutatu beheko panela"
     },
     "connect": {
       "missing": "Ezin da lotu: portua ez da aurkitu.",
@@ -325,6 +327,11 @@
       "ladder": "Ladder",
       "io": "I/O taula",
       "grafcet": "GRAFCET"
+    },
+    "status": {
+      "label": "Egoera-barra",
+      "grid": "Sareta {n} px",
+      "cursor": "Kurtsorearen posizioa (sareta-unitateak)"
     }
   },
   "storage": {

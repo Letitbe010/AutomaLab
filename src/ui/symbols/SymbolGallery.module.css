@@ -12,7 +12,7 @@
   margin: 0;
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 2.4px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   color: var(--ink-2);
 }
@@ -43,12 +43,10 @@
 
 .card {
   padding: 16px 18px 18px;
-  background: linear-gradient(180deg, var(--panel), var(--panel-2));
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  box-shadow:
-    0 1px 2px rgb(22 32 46 / 0.04),
-    0 6px 18px rgb(22 32 46 / 0.05);
+  box-shadow: var(--shadow-1);
 }
 
 .cardHead {
@@ -67,11 +65,11 @@
 .cardHead code,
 .ports code {
   font-family: var(--mono);
-  font-size: 10.5px;
+  font-size: 11px;
   color: var(--ink-2);
   background: var(--panel-2);
   border: 1px solid var(--line-soft);
-  border-radius: 5px;
+  border-radius: var(--radius);
   padding: 1px 6px;
 }
 
@@ -84,8 +82,8 @@
 .subTitle {
   margin: 14px 0 6px;
   font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 1.6px;
+  font-size: 11px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   color: var(--ink-dim);
 }
@@ -103,7 +101,7 @@
   padding: 8px;
   background: var(--panel);
   border: 1px solid var(--line-soft);
-  border-radius: 10px;
+  border-radius: var(--radius);
   text-align: center;
 }
 
@@ -124,7 +122,7 @@
 .figure figcaption,
 .figureSmall figcaption {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--ink-dim);
 }
 
@@ -142,6 +140,6 @@
   align-items: center;
   margin-top: 12px;
   font-family: var(--mono);
-  font-size: 10.5px;
+  font-size: 11px;
   color: var(--ink-dim);
 }

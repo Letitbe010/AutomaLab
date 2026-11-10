@@ -14,7 +14,7 @@
   gap: 6px;
   padding: 8px 12px;
   border-bottom: 1px solid var(--line);
-  background: rgb(255 255 255 / 0.8);
+  background: var(--panel);
 }
 
 .tool {
@@ -24,7 +24,7 @@
   height: 30px;
   padding: 0 4px;
   border: 1px solid var(--line);
-  border-radius: 7px;
+  border-radius: var(--radius);
   background: var(--panel);
   cursor: pointer;
 }
@@ -35,7 +35,7 @@
 
 .paletteText {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--ink);
 }
@@ -43,7 +43,7 @@
 .btn {
   padding: 5px 10px;
   border: 1px solid var(--line);
-  border-radius: 7px;
+  border-radius: var(--radius);
   background: var(--panel);
   color: var(--ink);
   font-family: var(--sans);
@@ -90,12 +90,12 @@
   margin-bottom: 12px;
   padding: 8px 10px 12px;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--panel);
 }
 
 .rungCurrent {
-  border-color: rgb(12 149 176 / 0.5);
+  border-color: color-mix(in srgb, var(--accent) 50%, transparent);
 }
 
 .rungHead {
@@ -109,7 +109,7 @@
   font-family: var(--mono);
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   color: var(--ink-2);
   white-space: nowrap;
@@ -120,7 +120,7 @@
   min-width: 0;
   padding: 3px 8px;
   border: 1px solid transparent;
-  border-radius: 6px;
+  border-radius: var(--radius);
   background: transparent;
   color: var(--ink-2);
   font-family: var(--sans);
@@ -130,7 +130,7 @@
 .comment:hover:not(:disabled),
 .comment:focus {
   border-color: var(--line);
-  background: #fff;
+  background: var(--panel);
 }
 
 .rungTools {
@@ -142,7 +142,7 @@
   width: 24px;
   height: 22px;
   border: 1px solid var(--line);
-  border-radius: 5px;
+  border-radius: var(--radius);
   background: var(--panel);
   cursor: pointer;
 }
@@ -180,7 +180,7 @@
   width: 84px;
   padding: 0;
   border: 1px solid transparent;
-  border-radius: 6px;
+  border-radius: var(--radius);
   background: none;
   color: var(--ink);
   cursor: pointer;
@@ -192,7 +192,7 @@
 
 .selected {
   border-color: var(--accent) !important;
-  background: rgb(12 149 176 / 0.06);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
 }
 
 .operand {
@@ -200,13 +200,13 @@
   flex-direction: column;
   align-items: center;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.25;
 }
 
 .symbolName {
   color: var(--ink-2);
-  font-size: 9.5px;
+  font-size: 11px;
   max-width: 82px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -247,7 +247,7 @@
   width: 132px;
   margin: 0 4px;
   border: 1.5px solid var(--ink);
-  background: #fff;
+  background: var(--panel);
 }
 
 .box.powered {
@@ -262,7 +262,7 @@
   width: 100%;
   padding: 3px 6px;
   font-family: var(--mono);
-  font-size: 9.5px;
+  font-size: 11px;
 }
 
 .boxName {
@@ -300,13 +300,13 @@
   overflow-y: auto;
   padding: 12px;
   border-left: 1px solid var(--line);
-  background: rgb(255 255 255 / 0.75);
+  background: var(--panel);
 }
 
 .inspectorBody h3 {
   margin: 0 0 10px;
   font-size: 12px;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   color: var(--ink-2);
 }
@@ -324,7 +324,7 @@
 .field select {
   padding: 5px 8px;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: var(--radius);
   font-family: var(--mono);
   font-size: 13px;
 }
@@ -341,8 +341,8 @@
   padding: 6px 8px;
   border-bottom: 1px solid var(--line);
   font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 1px;
+  font-size: 11px;
+  letter-spacing: 0.4px;
   text-align: left;
   text-transform: uppercase;
   color: var(--ink-dim);
@@ -357,7 +357,7 @@
   width: 100%;
   padding: 4px 6px;
   border: 1px solid transparent;
-  border-radius: 5px;
+  border-radius: var(--radius);
   background: transparent;
   font-size: 13px;
 }
@@ -365,7 +365,7 @@
 .table input:hover:not(:disabled),
 .table input:focus {
   border-color: var(--line);
-  background: #fff;
+  background: var(--panel);
 }
 
 .groupStart td {
@@ -386,7 +386,7 @@
   display: inline-block;
   min-width: 22px;
   padding: 1px 6px;
-  border-radius: 5px;
+  border-radius: var(--radius);
   font-family: var(--mono);
   font-size: 11px;
   text-align: center;
@@ -394,7 +394,7 @@
 
 .ledOn {
   background: var(--c-green, #2f9e5b);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .ledOff {
@@ -407,7 +407,7 @@
   gap: 2px;
   padding: 0 12px;
   border-bottom: 1px solid var(--line);
-  background: rgb(255 255 255 / 0.7);
+  background: var(--panel);
 }
 
 .tabs button {
@@ -437,7 +437,7 @@
 .seg button {
   padding: 4px 9px;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: var(--radius);
   background: var(--panel);
   color: var(--ink-2);
   font-family: var(--sans);
@@ -449,7 +449,7 @@
 .seg button[aria-pressed='true'] {
   border-color: var(--accent);
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .btn[aria-pressed='true'] {
@@ -461,7 +461,7 @@
   margin: 0;
   padding: 6px 12px;
   border-bottom: 1px solid var(--line);
-  background: rgb(216 146 10 / 0.1);
+  background: color-mix(in srgb, var(--c-amber) 10%, transparent);
   color: var(--ink);
   font-size: 12.5px;
 }
@@ -601,7 +601,7 @@
   min-width: 0;
   padding: 4px 6px;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: var(--radius);
   font-family: var(--mono);
   font-size: 12px;
 }

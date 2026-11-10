@@ -1,46 +1,50 @@
+/* Workspace: toolbar / view tabs / body / bottom panel + status bar. */
 .editor {
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr) auto;
   height: 100%;
   min-height: 420px;
+  background: var(--bg);
 }
 
-/* Ladder / I/O table views take the whole body width. */
+/* Ladder / GRAFCET / I/O views take the three main columns. */
 .fullView {
-  grid-column: 1 / -1;
+  grid-column: 1 / 4;
   min-height: 0;
   overflow: hidden;
-}
-
-/* The template / exercise panel overlays the right side: leave it room. */
-.fullViewBeside {
-  margin-right: min(400px, 100%);
 }
 
 .loading {
   margin: 0;
   padding: 40px;
-  font-family: var(--mono);
   font-size: 12px;
   color: var(--ink-dim);
   text-align: center;
 }
 
-/* Toolbar */
+/* ---------- Toolbar ---------- */
 .toolbar {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 6px;
-  padding: 8px 14px;
-  background: rgb(255 255 255 / 0.7);
+  gap: 4px;
+  min-height: 40px;
+  padding: 5px 10px;
+  background: var(--chrome);
   border-bottom: 1px solid var(--line);
 }
 
+.group {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
 .sep {
+  flex: 0 0 auto;
   width: 1px;
-  height: 22px;
-  margin: 0 4px;
+  height: 20px;
+  margin: 0 6px;
   background: var(--line);
 }
 
@@ -51,69 +55,126 @@
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: 6px 11px;
+  height: var(--control-h);
+  padding: 0 10px;
   border: 1px solid var(--line);
-  border-radius: 9px;
+  border-radius: var(--radius);
   background: var(--panel);
-  color: var(--ink-2);
-  font-family: var(--mono);
-  font-size: 11px;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 12.5px;
   font-weight: 600;
+  white-space: nowrap;
   cursor: pointer;
   transition:
-    border-color 0.15s,
-    color 0.15s;
+    background 0.12s,
+    border-color 0.12s;
 }
 
 .btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--ink-dim);
+  background: var(--panel-2);
 }
 
-.btn:disabled {
-  opacity: 0.38;
+.btn[aria-pressed='true'] {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--accent-2);
+}
+
+.btn:disabled,
+.iconBtn:disabled {
+  opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
 }
 
+/* Square, borderless tool button holding one icon. */
+.iconBtn {
+  display: inline-grid;
+  place-items: center;
+  width: var(--control-h);
+  height: var(--control-h);
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: none;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition:
+    background 0.12s,
+    color 0.12s;
+}
+
+.iconBtn:hover {
+  background: var(--bg-2);
+  color: var(--ink);
+}
+
+.iconBtn:active {
+  background: var(--line);
+}
+
+.iconBtn[aria-pressed='true'] {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--accent-2);
+}
+
 .danger {
-  border-color: rgb(226 59 88 / 0.3);
+  border-color: color-mix(in srgb, var(--c-red) 45%, transparent);
   color: var(--c-red);
-  background: rgb(226 59 88 / 0.06);
 }
 
 .danger:hover {
   border-color: var(--c-red);
+  background: color-mix(in srgb, var(--c-red) 7%, var(--panel));
+}
+
+.iconBtn.dangerIcon:hover {
+  background: color-mix(in srgb, var(--c-red) 12%, transparent);
   color: var(--c-red);
 }
 
+/* Segmented control (edit / simulate, logic / physics). */
 .seg {
   display: inline-flex;
+  height: var(--control-h);
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 999px;
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 700;
+  border-radius: var(--radius);
+  font-size: 12.5px;
+  font-weight: 600;
 }
 
 .seg button {
-  padding: 6px 13px;
+  padding: 0 12px;
   border: 0;
-  background: var(--panel-2);
+  background: var(--panel);
   color: var(--ink-2);
   font: inherit;
   cursor: pointer;
 }
 
+.seg button + button {
+  border-left: 1px solid var(--line);
+}
+
+.seg button:hover:not(:disabled):not([aria-pressed='true']) {
+  background: var(--panel-2);
+  color: var(--ink);
+}
+
 .seg button[aria-pressed='true'] {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .seg button:disabled {
-  opacity: 0.45;
+  background: var(--panel-2);
+  color: var(--ink-dim);
   cursor: not-allowed;
 }
 
@@ -121,50 +182,115 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: var(--mono);
-  font-size: 11px;
+  margin-left: 6px;
+  font-size: 12px;
   color: var(--ink-2);
 }
 
 .inlineField select {
-  padding: 5px 6px;
+  height: var(--control-h);
+  padding: 0 4px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--panel);
-  font: inherit;
-}
-
-.simTime {
-  min-width: 92px;
+  color: var(--ink);
   font-family: var(--mono);
   font-size: 12px;
-  font-weight: 700;
+}
+
+/* Numeric read-outs: recessed, monospaced, tabular. */
+.simTime,
+.zoom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--control-h);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  background: var(--panel);
   color: var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
   font-variant-numeric: tabular-nums;
 }
 
-.zoom {
-  min-width: 48px;
-  text-align: center;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-2);
+.simTime {
+  min-width: 104px;
+  margin-left: 6px;
+  padding: 0 8px;
+  font-weight: 600;
 }
 
-/* Body: library | stage | properties */
+.zoom {
+  min-width: 52px;
+  padding: 0 4px;
+}
+
+/* ---------- View tabs (schematic / GRAFCET / Ladder / I/O) ---------- */
+.viewTabs {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 4px 10px 0;
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.viewTabs button {
+  position: relative;
+  top: 1px;
+  height: 27px;
+  padding: 0 14px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: none;
+  color: var(--ink-2);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.viewTabs button:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--panel) 55%, transparent);
+}
+
+.viewTabs button[aria-selected='true'] {
+  border-color: var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  box-shadow: inset 0 2px 0 var(--accent);
+}
+
+/* ---------- Body: library | stage | properties | (docked panel) ---------- */
 .body {
   position: relative;
   display: grid;
-  grid-template-columns: 250px minmax(0, 1fr) 250px;
+  grid-template-columns: 236px minmax(0, 1fr) 252px;
   min-height: 0;
+}
+
+.body[data-dock='true'] {
+  grid-template-columns: 236px minmax(0, 1fr) 252px 384px;
+}
+
+/* Template description / exercise statement, docked beside the properties. */
+.dock {
+  grid-column: 4;
+  grid-row: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--panel-2);
+  border-left: 1px solid var(--line);
 }
 
 .library,
 .props {
+  min-height: 0;
   overflow-y: auto;
-  padding: 12px;
-  background: rgb(255 255 255 / 0.72);
-  backdrop-filter: blur(12px);
+  background: var(--panel);
 }
 
 .library {
@@ -175,49 +301,80 @@
   border-left: 1px solid var(--line);
 }
 
+/* Panel caption: a slim header strip, as in a docked tool window. */
 .panelTitle {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 2px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 7px 10px 6px;
+  background: var(--chrome);
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  color: var(--ink-dim);
+  color: var(--ink-2);
 }
 
 .search,
-.field input[type='text'] {
+.field input[type='text'],
+.field select {
   width: 100%;
-  padding: 8px 10px;
-  border: 1.5px solid var(--line-soft);
-  border-radius: 9px;
-  background: #fff;
+  height: var(--control-h);
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 13px;
+  font-size: 12.5px;
   outline: none;
-  transition: border-color 0.15s;
+}
+
+.field select {
+  padding: 0 4px;
 }
 
 .search {
-  margin: 8px 0 4px;
+  display: block;
+  width: calc(100% - 16px);
+  margin: 8px;
 }
 
 .search:focus,
-.field input[type='text']:focus {
+.field input[type='text']:focus,
+.field select:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
 }
 
+.field input:disabled,
+.field select:disabled {
+  background: var(--panel-2);
+  color: var(--ink-dim);
+}
+
+/* Domain heading inside the library. */
 .groupTitle {
-  padding: 10px 4px 4px;
-  font-family: var(--mono);
-  font-size: 9.5px;
-  letter-spacing: 2px;
+  margin-top: 4px;
+  padding: 5px 10px;
+  background: var(--panel-2);
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   color: var(--ink-dim);
+}
+
+.libGroup {
+  padding: 0 6px;
 }
 
 .libGroup summary {
   padding: 6px 4px 4px;
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--ink-2);
   cursor: pointer;
@@ -225,14 +382,14 @@
 }
 
 .libGroup summary:hover {
-  color: var(--accent);
+  color: var(--ink);
 }
 
 .libList {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin: 0;
+  gap: 1px;
+  margin: 0 0 4px;
   padding: 0;
   list-style: none;
 }
@@ -240,27 +397,25 @@
 .libItem {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
-  padding: 6px 8px;
+  min-height: 34px;
+  padding: 3px 6px 3px 3px;
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: none;
-  color: var(--ink-2);
+  color: var(--ink);
   font-family: var(--sans);
-  font-size: 12.5px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.25;
   text-align: left;
   cursor: grab;
-  transition:
-    background 0.13s,
-    border-color 0.13s;
 }
 
 .libItem:hover {
-  background: var(--panel);
-  border-color: var(--line-soft);
-  color: var(--ink);
+  background: var(--accent-soft);
+  border-color: var(--accent-line);
 }
 
 .libItem:disabled {
@@ -270,22 +425,21 @@
 
 .thumb {
   flex: 0 0 auto;
-  width: 54px;
-  height: 32px;
+  width: 48px;
+  height: 28px;
   padding: 2px;
-  background: var(--panel);
+  background: var(--canvas);
   border: 1px solid var(--line-soft);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
 }
 
 .muted {
-  margin: 8px 0;
-  font-family: var(--mono);
-  font-size: 11px;
+  margin: 8px 10px;
+  font-size: 12px;
   color: var(--ink-dim);
 }
 
-/* Stage and canvas */
+/* ---------- Stage and canvas ---------- */
 .stage {
   position: relative;
   min-width: 0;
@@ -296,7 +450,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  background: #fbfcfe;
+  background: var(--canvas);
   touch-action: none;
   user-select: none;
 }
@@ -314,7 +468,7 @@
 }
 
 .gridDot {
-  fill: #c9d4e2;
+  fill: #b7c2cf;
 }
 
 .gridLine {
@@ -333,7 +487,7 @@
 }
 
 .selectBox {
-  fill: rgb(12 149 176 / 0.06);
+  fill: color-mix(in srgb, var(--accent) 6%, transparent);
   stroke: var(--accent);
   stroke-width: 1;
   stroke-dasharray: 4 3;
@@ -341,7 +495,7 @@
 
 /* Component highlighted from a template description. */
 .highlight {
-  fill: rgb(12 149 176 / 0.1);
+  fill: color-mix(in srgb, var(--accent) 10%, transparent);
   stroke: var(--accent);
   stroke-width: 2.5;
   pointer-events: none;
@@ -351,7 +505,7 @@
 @keyframes highlight-pulse {
   50% {
     stroke-width: 5;
-    fill: rgb(12 149 176 / 0.2);
+    fill: color-mix(in srgb, var(--accent) 20%, transparent);
   }
 }
 
@@ -377,7 +531,7 @@
   pointer-events: none;
 }
 
-/* Simulation states (SPEC §7.3): colour plus dash pattern, not colour alone. */
+/* Simulation states (SPEC §7.3): colour plus line weight, not colour alone. */
 .wirePressure {
   stroke: var(--sim-pressure);
   stroke-width: 2.2;
@@ -400,12 +554,12 @@
 
 /* Electric wires at +24 V (current available): red. */
 .wireLive {
-  stroke: var(--c-red, #c8413c);
+  stroke: var(--c-red);
   stroke-width: 2.2;
 }
 
 .wireShort {
-  stroke: var(--c-red, #c8413c);
+  stroke: var(--c-red);
   stroke-width: 3;
   stroke-dasharray: 5 3;
 }
@@ -443,7 +597,7 @@
 }
 
 .port {
-  fill: var(--panel);
+  fill: var(--canvas);
   stroke: var(--port);
   stroke-width: 1.4;
   cursor: crosshair;
@@ -461,93 +615,97 @@
 }
 
 .bendHandle {
-  fill: #fff;
+  fill: var(--canvas);
   stroke: var(--accent);
   stroke-width: 1.4;
   cursor: move;
 }
 
 .marquee {
-  fill: rgb(12 149 176 / 0.07);
+  fill: color-mix(in srgb, var(--accent) 7%, transparent);
   stroke: var(--accent);
   stroke-width: 0.8;
   stroke-dasharray: 4 3;
 }
 
+/* Messages floating over the canvas. */
 .banner,
 .status {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 8px 14px;
-  border-radius: 10px;
-  font-family: var(--mono);
-  font-size: 11px;
+  padding: 7px 12px;
+  border-radius: var(--radius);
+  font-size: 12px;
+  line-height: 1.4;
   pointer-events: none;
 }
 
+/* Simulation mode reminder: bottom-left, marked with a coloured edge. */
 .banner {
-  top: auto;
-  bottom: 12px;
-  left: 12px;
-  max-width: 340px;
-  transform: none;
-  background: rgb(139 92 246 / 0.1);
-  border: 1px solid rgb(139 92 246 / 0.3);
-  color: var(--c-purple);
+  bottom: 10px;
+  left: 10px;
+  max-width: 360px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--c-purple);
+  color: var(--ink-2);
+  box-shadow: var(--shadow-1);
 }
 
 .status {
-  bottom: 12px;
+  bottom: 10px;
+  left: 50%;
+  max-width: min(560px, calc(100% - 20px));
+  transform: translateX(-50%);
   background: var(--ink);
   color: #fff;
-  box-shadow: 0 10px 30px rgb(22 32 46 / 0.25);
+  box-shadow: var(--shadow-2);
 }
 
-/* Properties */
+/* ---------- Properties ---------- */
+.propBody {
+  padding: 10px;
+}
+
 .propName {
-  margin-top: 10px;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
+  line-height: 1.3;
   color: var(--ink);
 }
 
 .propType {
   display: inline-block;
   margin: 4px 0 12px;
+  padding: 1px 6px;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--ink-2);
   background: var(--panel-2);
   border: 1px solid var(--line-soft);
-  border-radius: 5px;
-  padding: 1px 6px;
+  border-radius: var(--radius-sm);
 }
 
+/* Property grid: caption on the left, editor on the right. */
 .field {
-  display: block;
-  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
 }
 
 .field > span:first-child {
-  display: block;
-  margin-bottom: 4px;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--ink-dim);
+  font-size: 12px;
+  line-height: 1.25;
+  color: var(--ink-2);
 }
 
-.field select {
-  width: 100%;
-  padding: 7px 8px;
-  border: 1.5px solid var(--line-soft);
-  border-radius: 9px;
-  background: #fff;
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: 13px;
+.field input[type='checkbox'] {
+  justify-self: start;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: var(--accent);
 }
 
 .limitMark {
@@ -577,29 +735,33 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  min-width: 0;
 }
 
 .unit {
+  flex: 0 0 auto;
+  min-width: 22px;
   font-family: var(--mono);
   font-size: 11px;
   color: var(--ink-dim);
 }
 
 .propMeta {
+  margin-top: 10px;
   font-family: var(--mono);
-  font-size: 10.5px;
+  font-size: 11px;
   color: var(--ink-dim);
 }
 
 .helpText {
   margin: 12px 0 0;
-  padding: 10px 12px;
+  padding: 8px 10px;
   font-size: 12.5px;
   line-height: 1.5;
   color: var(--ink-2);
   background: var(--panel-2);
   border: 1px solid var(--line-soft);
-  border-radius: 9px;
+  border-radius: var(--radius);
 }
 
 .theoryLink {
@@ -608,10 +770,13 @@
   border: 0;
   background: none;
   color: var(--accent);
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 12.5px;
+  font-weight: 600;
   cursor: pointer;
+}
+
+.theoryLink:hover {
+  text-decoration: underline;
 }
 
 .propActions {
@@ -619,83 +784,118 @@
   flex-wrap: wrap;
   gap: 6px;
   margin-top: 14px;
-  padding-top: 12px;
+  padding-top: 10px;
   border-top: 1px solid var(--line-soft);
 }
 
-/* Issues */
-.issues {
-  max-height: 220px;
-  overflow-y: auto;
-  padding: 8px 14px 10px;
-  background: rgb(255 255 255 / 0.82);
+/* ---------- Bottom panel and status bar ---------- */
+.bottom {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--panel);
   border-top: 1px solid var(--line);
+}
+
+.bottomBody {
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 6px 10px 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.bottomBody .muted {
+  margin: 2px 0;
+}
+
+.statusBar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 26px;
+  padding: 0 6px;
+  background: var(--chrome);
+  font-size: 12px;
+  color: var(--ink-2);
 }
 
 .tabs {
   display: flex;
-  gap: 4px;
-  margin-bottom: 6px;
+  align-self: stretch;
 }
 
-.tabs button {
-  padding: 3px 10px;
-  border: 1px solid transparent;
-  border-radius: 7px;
+.tabs button,
+.statusBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 26px;
+  padding: 0 9px;
+  border: 0;
   background: none;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-  color: var(--ink-dim);
+  color: var(--ink-2);
+  font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
 }
 
+.tabs button:hover:not(:disabled),
+.statusBtn:hover {
+  background: var(--bg-2);
+  color: var(--ink);
+}
+
 .tabs button[aria-selected='true'] {
-  border-color: rgb(12 149 176 / 0.3);
-  background: var(--panel);
-  color: var(--accent);
+  color: var(--ink);
+  box-shadow: inset 0 2px 0 var(--accent);
 }
 
 .tabs button:disabled {
-  opacity: 0.4;
+  opacity: 0.45;
   cursor: default;
 }
 
-.issuesHead {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
+/* Issue counters: icon shape plus colour plus number. */
 .badge {
-  padding: 2px 8px;
-  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
   font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
   color: var(--ink-dim);
-  background: var(--panel-2);
-  border: 1px solid var(--line-soft);
 }
 
 .badgeError {
   color: var(--c-red);
-  background: rgb(226 59 88 / 0.1);
-  border-color: rgb(226 59 88 / 0.25);
+  font-weight: 700;
 }
 
 .badgeWarning {
   color: var(--c-amber);
-  background: rgb(216 146 10 / 0.1);
-  border-color: rgb(216 146 10 / 0.25);
+  font-weight: 700;
+}
+
+.statusField {
+  padding: 0 8px;
+  border-left: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--ink-2);
+}
+
+.coords {
+  min-width: 118px;
 }
 
 .issueList {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  margin: 6px 0 0;
+  gap: 1px;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -705,27 +905,29 @@
   align-items: baseline;
   gap: 8px;
   width: 100%;
-  padding: 4px 8px;
+  padding: 3px 6px;
   border: 0;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   background: none;
-  color: var(--ink-2);
+  color: var(--ink);
   font-family: var(--sans);
   font-size: 12.5px;
   text-align: left;
+}
+
+button.issue {
   cursor: pointer;
 }
 
-.issue:hover {
-  background: var(--panel-2);
+button.issue:hover {
+  background: var(--accent-soft);
 }
 
 .issueTag {
-  flex: 0 0 auto;
-  font-family: var(--mono);
-  font-size: 9.5px;
+  flex: 0 0 76px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
   text-transform: uppercase;
 }
 
@@ -737,12 +939,39 @@
   color: var(--c-amber);
 }
 
+/* ---------- Narrow windows ---------- */
+@media (max-width: 1180px) {
+  /* Not enough room to dock: the panel floats over the right side instead. */
+  .body[data-dock='true'] {
+    grid-template-columns: 236px minmax(0, 1fr) 252px;
+  }
+
+  .dock {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 35;
+    width: min(384px, 100%);
+    box-shadow: var(--shadow-2);
+  }
+}
+
 @media (max-width: 900px) {
-  .body {
-    grid-template-columns: 150px minmax(0, 1fr);
+  .body,
+  .body[data-dock='true'] {
+    grid-template-columns: 160px minmax(0, 1fr);
+  }
+
+  .fullView {
+    grid-column: 1 / -1;
   }
 
   .props {
+    display: none;
+  }
+
+  .coords {
     display: none;
   }
 }
