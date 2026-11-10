@@ -11,6 +11,7 @@ import { useSim } from '../sim/simStore';
 import { SpacePhaseView } from '../sim/SpacePhaseView';
 import { GRID } from '../../core/geometry';
 import { IconChevronDown, IconChevronUp, IconError, IconWarning } from '../icons';
+import { useEditorTab } from '../plc/tabs';
 import { useCursor } from './cursor';
 import { useEditor } from './store';
 import styles from './Editor.module.css';
@@ -113,6 +114,7 @@ type Tab = 'issues' | 'diagram';
 export function IssuesPanel() {
   const mode = useEditor((s) => s.mode);
   const project = useEditor((s) => s.project);
+  const schematic = useEditorTab((s) => s.tab === 'schematic');
   useSim((s) => s.version);
   const sim = useSim.getState().sim;
   const [tab, setTab] = useState<Tab>('issues');
@@ -173,8 +175,12 @@ export function IssuesPanel() {
           {t('editor.issues.warnings', { n: warnings })}
         </span>
         <span className={styles.spacer} />
-        <CursorReadout />
-        <span className={styles.statusField}>{t('editor.status.grid', { n: GRID })}</span>
+        {schematic && (
+          <>
+            <CursorReadout />
+            <span className={styles.statusField}>{t('editor.status.grid', { n: GRID })}</span>
+          </>
+        )}
         <button
           type="button"
           className={styles.statusBtn}

@@ -22,11 +22,12 @@ import {
   zoomBy,
 } from './actions';
 import { useLearning } from '../learning/store';
+import { useEditorTab } from '../plc/tabs';
 import { IconButton } from './IconButton';
 import { useEditor } from './store';
 import styles from './Editor.module.css';
 
-function EditTools() {
+function EditTools({ schematic }: { schematic: boolean }) {
   const canUndo = useEditor((s) => s.past.length > 0);
   const canRedo = useEditor((s) => s.future.length > 0);
   const undo = useEditor((s) => s.undo);
@@ -55,8 +56,8 @@ function EditTools() {
           <IconRedo />
         </IconButton>
       </div>
-      <span className={styles.sep} />
-      <div className={styles.group}>
+      {schematic && <span className={styles.sep} />}
+      <div className={styles.group} hidden={!schematic}>
         <IconButton
           label={t('editor.tool.rotate')}
           shortcut="R"
@@ -91,6 +92,8 @@ export function Toolbar() {
   const mode = useEditor((s) => s.mode);
   const zoom = useEditor((s) => s.view.zoom);
   const edit = mode === 'edit';
+  // Zoom and symbol tools only act on the schematic canvas.
+  const schematic = useEditorTab((s) => s.tab === 'schematic');
   const hasTemplate = useEditor((s) => s.project.templateId !== undefined);
   const hasExercise = useEditor((s) => s.project.exerciseId !== undefined);
   const templateOpen = useLearning((s) => s.templatePanelOpen);
@@ -109,7 +112,7 @@ export function Toolbar() {
         </button>
       </div>
       <span className={styles.sep} />
-      {edit ? <EditTools /> : <SimControls />}
+      {edit ? <EditTools schematic={schematic} /> : <SimControls />}
       <span className={styles.spacer} />
       {(hasTemplate || hasExercise) && (
         <>
@@ -123,10 +126,10 @@ export function Toolbar() {
             <IconSidePanel />
             {hasExercise ? t('exercises.panelToggle') : t('templates.panelToggle')}
           </button>
-          <span className={styles.sep} />
+          {schematic && <span className={styles.sep} />}
         </>
       )}
-      <div className={styles.group}>
+      <div className={styles.group} hidden={!schematic}>
         <IconButton label={t('editor.tool.zoomOut')} onClick={() => zoomBy(1 / 1.25)}>
           <IconZoomOut />
         </IconButton>

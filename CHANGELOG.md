@@ -2,6 +2,27 @@
 
 Formatua: [Keep a Changelog](https://keepachangelog.com/) estiloan, fase bakoitzeko sarrera batekin.
 
+## [ui-redesign] — 2026-11-10 (UIaren berdiseinua, `ui-redesign` adarrean)
+
+### Aldatuta
+
+- Ikus-estilo berria, ingeniaritza-software baten itxurakoa: gainazal lauak, 4 px-ko erradioak, dentsitate handiagoa eta AA kontrastea duten testu-koloreak. Hondoko gradienteak eta lausotzeak kenduta.
+- Goiko barra iluna eta trinkoa (44 px), atalak fitxa lau gisa.
+- Editorearen tresna-barra ikonoekin (SVG propioak); izena eta lasterbidea tooltip-ean.
+- Propietateak propietate-taula gisa; liburutegi trinkoagoa.
+- Txantiloi/ariketa-panela atrakatuta dago (zutabe propioa), oihala eta propietateak estali gabe; 1180 px-tik behera gainjarrita.
+- Zoom-kontrolak eta ikurren tresnak «Eskema» fitxan bakarrik agertzen dira.
+- CSS modulu guztiak token komunetara normalizatuta; kolore solteak kenduta.
+
+### Gehituta
+
+- Egoera-barra editorearen behealdean: errore/abisu kopurua, kurtsorearen posizioa (sareta-unitateak) eta saretaren neurria.
+- Abisuen panela tolesgarria: arazorik ez badago, itxita.
+
+### Oharrak
+
+- Simulazio-motorra eta datu-egiturak ez dira ukitu. `fitView` / `focusComponent`-etik panelaren 400 px-ko konpentsazioa kendu da (oihala bera estutzen da orain).
+
 ## [fase-7] / [mvp-2] — 2026-11-09 (Sekuentzia-sortzailea eta galdetegi osoa)
 
 ### Gehituta

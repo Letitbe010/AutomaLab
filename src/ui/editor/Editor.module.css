@@ -34,6 +34,10 @@
   border-bottom: 1px solid var(--line);
 }
 
+.group[hidden] {
+  display: none;
+}
+
 .group {
   display: inline-flex;
   align-items: center;

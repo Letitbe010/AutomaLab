@@ -15,7 +15,7 @@ export interface PlcState {
 
 const W = 30;
 const H = 6;
-const LED_ON = 'var(--c-green, #2f9e5b)';
+const LED_ON = 'var(--c-green)';
 
 export const PLC_TYPE = 'plc.cpu1214c';
 

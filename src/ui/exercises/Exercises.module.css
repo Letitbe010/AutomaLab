@@ -21,7 +21,8 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-family: var(--mono);
+  font-family: var(--sans);
+  font-weight: 700;
   font-size: 11px;
   letter-spacing: 0.4px;
   text-transform: uppercase;
@@ -71,7 +72,8 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 6px;
-  font-family: var(--mono);
+  font-family: var(--sans);
+  font-weight: 700;
   font-size: 11px;
   letter-spacing: 0.4px;
   text-transform: uppercase;
@@ -96,7 +98,7 @@
   border-radius: var(--radius);
   background: var(--panel);
   color: var(--ink-2);
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 11px;
 }
 
@@ -153,7 +155,7 @@
   padding: 1px 8px;
   border: 1px solid rgb(47 158 91 / 0.45);
   border-radius: var(--radius);
-  color: #2f7d4f;
+  color: var(--c-green);
   background: rgb(47 158 91 / 0.08);
   font-family: var(--mono);
   font-size: 11px;
@@ -245,19 +247,19 @@
 }
 
 .ok {
-  border-left: 4px solid #2f9e5b !important;
+  border-left: 4px solid var(--c-green) !important;
 }
 
 .ok .mark {
-  color: #2f7d4f;
+  color: var(--c-green);
 }
 
 .bad {
-  border-left: 4px dashed #c8413c !important;
+  border-left: 4px dashed var(--c-red) !important;
 }
 
 .bad .mark {
-  color: #c8413c;
+  color: var(--c-red);
 }
 
 .pending {
@@ -282,11 +284,11 @@
 }
 
 .summaryOk {
-  border-left: 4px solid #2f9e5b;
+  border-left: 4px solid var(--c-green);
 }
 
 .summaryBad {
-  border-left: 4px dashed #c8413c;
+  border-left: 4px dashed var(--c-red);
 }
 
 .footer {
@@ -365,11 +367,11 @@
 }
 
 .okMark {
-  color: #2f7d4f;
+  color: var(--c-green);
 }
 
 .badMark {
-  color: #c8413c;
+  color: var(--c-red);
 }
 
 .theory {
