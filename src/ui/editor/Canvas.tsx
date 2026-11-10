@@ -22,6 +22,7 @@ import {
   wirePolyline,
 } from './model/ops';
 import { routeWire, snap, snapPoint } from './model/routing';
+import { useCursor } from './cursor';
 import { useEditor } from './store';
 import styles from './Editor.module.css';
 
@@ -362,6 +363,7 @@ export function Canvas() {
 
   function onPointerMove(e: PointerEvent<SVGSVGElement>) {
     const st = useEditor.getState();
+    useCursor.getState().set(snapPoint(worldPoint(e)));
     if (st.wireDraft) {
       st.setWireDraft({ ...st.wireDraft, cursor: snapPoint(worldPoint(e)) });
     }
@@ -502,7 +504,10 @@ export function Canvas() {
     <>
       <svg
         ref={svgRef}
-        onPointerLeave={() => setHover(null)}
+        onPointerLeave={() => {
+          setHover(null);
+          useCursor.getState().set(null);
+        }}
         className={`${styles.canvas} ${cursorClass}`}
         data-testid="canvas"
         data-mode={mode}

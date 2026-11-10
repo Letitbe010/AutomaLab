@@ -43,7 +43,7 @@
 
 .muted {
   margin: 8px 0;
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 11px;
   color: var(--ink-dim);
 }

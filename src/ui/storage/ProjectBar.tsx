@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { t } from '../../i18n';
 import { useStorage } from '../../storage/persistence';
 import { useEditor } from '../editor/store';
+import { IconFolder } from '../icons';
 import { ProjectsDialog } from './ProjectsDialog';
 import styles from './Storage.module.css';
 
@@ -40,6 +41,7 @@ export function ProjectBar() {
         {t(`storage.status.${status}`)}
       </span>
       <button type="button" className={styles.btn} onClick={() => setOpen(true)}>
+        <IconFolder />
         {t('storage.projects')}
       </button>
       {open && <ProjectsDialog onClose={() => setOpen(false)} />}

@@ -21,9 +21,10 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 1px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   color: var(--ink-dim);
 }
@@ -32,7 +33,7 @@
   min-width: 150px;
   padding: 6px 8px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--panel);
   color: var(--ink);
   font-family: var(--sans);
@@ -60,12 +61,10 @@
   flex-direction: column;
   gap: 8px;
   padding: 14px 16px;
-  background: linear-gradient(180deg, var(--panel), var(--panel-2));
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  box-shadow:
-    0 1px 2px rgb(22 32 46 / 0.04),
-    0 6px 18px rgb(22 32 46 / 0.05);
+  box-shadow: var(--shadow-1);
 }
 
 .meta {
@@ -73,9 +72,10 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 6px;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.8px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   color: var(--ink-dim);
 }
@@ -95,11 +95,11 @@
 .tag {
   padding: 2px 8px;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--radius);
   background: var(--panel);
   color: var(--ink-2);
-  font-family: var(--mono);
-  font-size: 10.5px;
+  font-family: var(--sans);
+  font-size: 11px;
 }
 
 .actions {
@@ -113,7 +113,7 @@
 .secondary {
   padding: 7px 14px;
   border: 1px solid var(--accent);
-  border-radius: 9px;
+  border-radius: var(--radius);
   font-family: var(--sans);
   font-size: 13px;
   font-weight: 700;
@@ -122,7 +122,7 @@
 
 .primary {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .primary:disabled {
@@ -154,11 +154,11 @@
 .passed {
   padding: 1px 8px;
   border: 1px solid rgb(47 158 91 / 0.45);
-  border-radius: 999px;
-  color: #2f7d4f;
+  border-radius: var(--radius);
+  color: var(--c-green);
   background: rgb(47 158 91 / 0.08);
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -175,7 +175,7 @@
 .h3 {
   margin: 14px 0 6px;
   font-size: 11.5px;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   color: var(--ink-2);
 }
@@ -206,7 +206,7 @@
   margin-bottom: 6px;
   padding: 6px 10px;
   border-left: 3px solid var(--c-amber, #d8920a);
-  background: rgb(216 146 10 / 0.06);
+  background: color-mix(in srgb, var(--c-amber) 6%, transparent);
   font-size: 13px;
 }
 
@@ -236,7 +236,7 @@
   gap: 8px;
   padding: 7px 10px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--panel);
 }
 
@@ -247,19 +247,19 @@
 }
 
 .ok {
-  border-left: 4px solid #2f9e5b !important;
+  border-left: 4px solid var(--c-green) !important;
 }
 
 .ok .mark {
-  color: #2f7d4f;
+  color: var(--c-green);
 }
 
 .bad {
-  border-left: 4px dashed #c8413c !important;
+  border-left: 4px dashed var(--c-red) !important;
 }
 
 .bad .mark {
-  color: #c8413c;
+  color: var(--c-red);
 }
 
 .pending {
@@ -277,18 +277,18 @@
 .summaryBad {
   margin: 0;
   padding: 10px 12px;
-  border-radius: 9px;
+  border-radius: var(--radius);
   border: 1px solid var(--line);
   background: var(--panel);
   font-size: 13.5px;
 }
 
 .summaryOk {
-  border-left: 4px solid #2f9e5b;
+  border-left: 4px solid var(--c-green);
 }
 
 .summaryBad {
-  border-left: 4px dashed #c8413c;
+  border-left: 4px dashed var(--c-red);
 }
 
 .footer {
@@ -330,7 +330,7 @@
   gap: 8px 16px;
   padding: 8px 12px;
   border: 1px solid var(--line);
-  border-radius: 9px;
+  border-radius: var(--radius);
   background: var(--panel);
 }
 
@@ -356,7 +356,7 @@
   width: 130px;
   padding: 6px 9px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius);
   font-family: var(--mono);
   font-size: 14px;
 }
@@ -367,11 +367,11 @@
 }
 
 .okMark {
-  color: #2f7d4f;
+  color: var(--c-green);
 }
 
 .badMark {
-  color: #c8413c;
+  color: var(--c-red);
 }
 
 .theory {

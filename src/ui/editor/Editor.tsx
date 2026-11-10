@@ -9,7 +9,6 @@ import { PropertiesPanel } from './PropertiesPanel';
 import { Toolbar } from './Toolbar';
 import { useLearning } from '../learning/store';
 import { useEditorTab, type EditorTab } from '../plc/tabs';
-import plcStyles from '../plc/Plc.module.css';
 import { useEditor } from './store';
 import { useShortcuts } from './useShortcuts';
 import styles from './Editor.module.css';
@@ -48,6 +47,7 @@ function EditorView() {
   const templateOpen = useLearning((s) => s.templatePanelOpen);
   const hasTemplate = useEditor((s) => s.project.templateId !== undefined);
   const hasExercise = useEditor((s) => s.project.exerciseId !== undefined);
+  const docked = templateOpen && (hasTemplate || hasExercise);
   const tab = useEditorTab((s) => s.tab);
   const setTab = useEditorTab((s) => s.setTab);
 
@@ -60,7 +60,7 @@ function EditorView() {
   return (
     <div className={styles.editor} data-mode={mode}>
       <Toolbar />
-      <div className={plcStyles.tabs} role="tablist" aria-label={t('editor.tabs.label')}>
+      <div className={styles.viewTabs} role="tablist" aria-label={t('editor.tabs.label')}>
         {(['schematic', 'grafcet', 'ladder', 'io'] as EditorTab[]).map((k) => (
           <button
             key={k}
@@ -73,7 +73,7 @@ function EditorView() {
           </button>
         ))}
       </div>
-      <div className={styles.body}>
+      <div className={styles.body} data-dock={docked}>
         {tab === 'schematic' ? (
           <>
             <Library />
@@ -89,9 +89,7 @@ function EditorView() {
             <PropertiesPanel />
           </>
         ) : (
-          <div
-            className={`${styles.fullView} ${templateOpen && (hasTemplate || hasExercise) ? styles.fullViewBeside : ''}`}
-          >
+          <div className={styles.fullView}>
             <Suspense fallback={<p className={styles.loading}>{t('storage.status.loading')}</p>}>
               {tab === 'ladder' ? (
                 <LadderView />
@@ -103,15 +101,14 @@ function EditorView() {
             </Suspense>
           </div>
         )}
-        {templateOpen && hasExercise && (
-          <Suspense fallback={null}>
-            <ExercisePanel />
-          </Suspense>
-        )}
-        {templateOpen && hasTemplate && !hasExercise && (
-          <Suspense fallback={null}>
-            <TemplatePanel />
-          </Suspense>
+        {/* The column is reserved before the lazy panel loads, so the canvas
+            is measured at its final width. */}
+        {docked && (
+          <div className={styles.dock}>
+            <Suspense fallback={null}>
+              {hasExercise ? <ExercisePanel /> : <TemplatePanel />}
+            </Suspense>
+          </div>
         )}
         {drawerOpen && (
           <Suspense fallback={null}>

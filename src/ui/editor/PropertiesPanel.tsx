@@ -174,28 +174,31 @@ export function PropertiesPanel() {
   return (
     <aside className={styles.props} aria-label={t('editor.props.title')}>
       <div className={styles.panelTitle}>{t('editor.props.title')}</div>
-      {body ?? <p className={styles.muted}>{t('editor.props.none')}</p>}
-      {hasSelection && !disabled && (
-        <div className={styles.propActions}>
-          {comps.length > 0 && (
-            <>
-              <button type="button" className={styles.btn} onClick={rotateSelection}>
-                {t('editor.tool.rotate')}
-              </button>
-              <button type="button" className={styles.btn} onClick={mirrorSelection}>
-                {t('editor.tool.mirror')}
-              </button>
-            </>
-          )}
-          <button
-            type="button"
-            className={`${styles.btn} ${styles.danger}`}
-            onClick={deleteSelection}
-          >
-            {t('editor.tool.delete')}
-          </button>
-        </div>
-      )}
+      {!body && <p className={styles.muted}>{t('editor.props.none')}</p>}
+      <div className={styles.propBody} hidden={!hasSelection}>
+        {body}
+        {hasSelection && !disabled && (
+          <div className={styles.propActions}>
+            {comps.length > 0 && (
+              <>
+                <button type="button" className={styles.btn} onClick={rotateSelection}>
+                  {t('editor.tool.rotate')}
+                </button>
+                <button type="button" className={styles.btn} onClick={mirrorSelection}>
+                  {t('editor.tool.mirror')}
+                </button>
+              </>
+            )}
+            <button
+              type="button"
+              className={`${styles.btn} ${styles.danger}`}
+              onClick={deleteSelection}
+            >
+              {t('editor.tool.delete')}
+            </button>
+          </div>
+        )}
+      </div>
     </aside>
   );
 }

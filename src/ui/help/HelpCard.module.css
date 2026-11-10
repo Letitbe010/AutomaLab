@@ -5,8 +5,8 @@
   padding: 12px 14px;
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 12px;
-  box-shadow: 0 16px 40px rgb(22 32 46 / 0.18);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-2);
   pointer-events: auto;
 }
 
@@ -23,7 +23,7 @@
   padding: 3px;
   background: var(--panel-2);
   border: 1px solid var(--line-soft);
-  border-radius: 8px;
+  border-radius: var(--radius);
 }
 
 .name {
@@ -57,7 +57,7 @@
   gap: 4px;
   margin-top: 8px;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--ink-dim);
 }
 
@@ -76,7 +76,7 @@
   border: 0;
   background: none;
   color: var(--accent);
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;

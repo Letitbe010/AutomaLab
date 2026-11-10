@@ -74,12 +74,11 @@ function MainLayout() {
           <div className={styles.logo}>
             <Logo />
           </div>
-          <div>
-            <div className={styles.brandName}>{t('app.name')}</div>
-            <div className={styles.brandSub}>{t('app.tagline')}</div>
+          <div className={styles.brandName} title={t('app.tagline')}>
+            {t('app.name')}
           </div>
         </div>
-        <nav aria-label={t('menu.label')}>
+        <nav className={styles.nav} aria-label={t('menu.label')}>
           <ul className={styles.menu}>
             {SECTIONS.map((id) => (
               <li key={id}>
@@ -113,7 +112,6 @@ function MainLayout() {
         <main className={styles.main}>
           <div className={styles.sectionTitle}>
             <h1>{t('menu.progress')}</h1>
-            <span className={styles.rule} />
           </div>
           <Suspense fallback={<p className={styles.loading}>{t('storage.status.loading')}</p>}>
             <ProgressPage />
@@ -123,7 +121,6 @@ function MainLayout() {
         <main className={styles.main}>
           <div className={styles.sectionTitle}>
             <h1>{t('menu.exercises')}</h1>
-            <span className={styles.rule} />
           </div>
           <Suspense fallback={<p className={styles.loading}>{t('storage.status.loading')}</p>}>
             <ExercisesPage />
@@ -133,7 +130,6 @@ function MainLayout() {
         <main className={styles.main}>
           <div className={styles.sectionTitle}>
             <h1>{t('menu.generator')}</h1>
-            <span className={styles.rule} />
           </div>
           <Suspense fallback={<p className={styles.loading}>{t('storage.status.loading')}</p>}>
             <GeneratorPage />
@@ -143,7 +139,6 @@ function MainLayout() {
         <main className={styles.main}>
           <div className={styles.sectionTitle}>
             <h1>{t('menu.templates')}</h1>
-            <span className={styles.rule} />
           </div>
           <Suspense fallback={<p className={styles.loading}>{t('storage.status.loading')}</p>}>
             <TemplatesPage />
@@ -161,7 +156,6 @@ function SectionPlaceholder({ active }: { active: SectionId }) {
     <main className={styles.main}>
       <div className={styles.sectionTitle}>
         <h1>{t(`menu.${active}`)}</h1>
-        <span className={styles.rule} />
       </div>
       <div className={styles.card}>
         <div className={styles.empty}>
